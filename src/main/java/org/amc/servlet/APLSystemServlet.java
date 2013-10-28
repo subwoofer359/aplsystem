@@ -1,6 +1,8 @@
 package org.amc.servlet;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -53,5 +55,29 @@ public class APLSystemServlet extends HttpServlet
 	{
 		String referal=request.getRequestURI();
 		System.out.println(referal);
+		
+		
+		//Handle JobTemplate Page
+		if(referal.endsWith("JobTemplate_save"))
+		{
+			saveJobTemplate(request, response);
+		}
+		else if(referal.endsWith("JobTemplate_display"))
+		{
+			displayJobTemplate(request, response);
+		}
+		
 	}
+	
+	private void saveJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		
+	}
+	
+	private void displayJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		RequestDispatcher rd=request.getRequestDispatcher("/JSP/JobTemplate.jsp");
+	}
+	
+	
 }
