@@ -34,7 +34,7 @@ public class APLSystemServlet extends HttpServlet
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
+		process(request, response);
 	}
 
 	/**
@@ -42,7 +42,16 @@ public class APLSystemServlet extends HttpServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
-		
+		process(request, response);
 	}
-
+	
+	/**
+	 * Handles incoming requests
+	 */
+	
+	private void process (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		String referal=request.getRequestURI();
+		System.out.println(referal);
+	}
 }
