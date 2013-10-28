@@ -1,6 +1,7 @@
 package org.amc.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -66,6 +67,19 @@ public class APLSystemServlet extends HttpServlet
 		{
 			displayJobTemplate(request, response);
 		}
+		else if(referal.endsWith("APLSystemServlet"))
+		{
+			PrintWriter writer=response.getWriter();
+			response.setContentType("text/html");
+			
+			writer.println("<!doctype html>"
+					+ "<HTML>"
+					+ "<BODY>"
+					+ "<a href='JobTemplate_display.jsp'>JobTemplate</a>"
+					+ "</BODY>"
+					+ "</HTML>");
+			writer.flush();
+		}
 		
 	}
 	
@@ -77,6 +91,7 @@ public class APLSystemServlet extends HttpServlet
 	private void displayJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		RequestDispatcher rd=request.getRequestDispatcher("/JSP/JobTemplate.jsp");
+		rd.forward(request, response);
 	}
 	
 	
