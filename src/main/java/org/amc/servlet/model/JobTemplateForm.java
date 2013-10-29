@@ -2,9 +2,11 @@ package org.amc.servlet.model;
 
 public class JobTemplateForm 
 {
+	String id;
+	
 	String colour;
 	String company;
-	String external;
+	boolean external;
 	String name;
 	String part_id;
 	String qss_no;
@@ -23,10 +25,10 @@ public class JobTemplateForm
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public String getExternal() {
+	public boolean getExternal() {
 		return external;
 	}
-	public void setExternal(String external) {
+	public void setExternal(boolean external) {
 		this.external = external;
 	}
 	public String getName() {
@@ -58,6 +60,12 @@ public class JobTemplateForm
 	}
 	public void setVersion(String version) {
 		this.version = version;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 }
 

@@ -3,6 +3,7 @@ package org.amc.servlet.model;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import static org.amc.servlet.model.Fields.*;
 /**
  * <p>
@@ -22,19 +23,17 @@ import static org.amc.servlet.model.Fields.*;
 
 public class JobTemplate
 {
-
-	Map<Fields,String> properties; 
-	public static final Fields[] fields={
-		ID, 		/** Identifier 								*/
-		COMPANY,	/** company for whom the part was created 	*/
-		NAME,	 	/** Product name 							*/
-		PRODUCT_ID,
-		VERSION, 
-		REVISION,
-		COLOUR, 	/** colour of part 							*/
-		EXTERNAL, 	/** Is it an external part					*/
-		QSS_NO
-	};
+	private int id;
+	private String colour;
+	private String company;
+	private boolean external;
+	private String name;
+	private String part_id;
+	private String qss_no;
+	private String revision;
+	private String version;
+	 
+	
 	
 	/**
 	 * 
@@ -42,15 +41,15 @@ public class JobTemplate
 	 */
 	public JobTemplate()
 	{
-		super();
-		properties=new HashMap<Fields,String>();
+		
+	
 	}
 	
 	/**
 	 * 
 	 * Constructor for JobTemplate.java
 	 * @param name
-	 * @param part_no
+	 * @param part_id
 	 * @param company
 	 * @param version
 	 * @param revision
@@ -58,136 +57,93 @@ public class JobTemplate
 	 * @param external
 	 */
 	public JobTemplate(String name,
-						String part_no,
+						String part_id,
 						String company,
 						String version,
 						String revision,
 						String colour,
-						String external,
+						boolean external,
 						String qss_no
 					)
 	{
-			this();
-			properties.put(NAME,name);
-			properties.put(PART_ID,part_no);
-			properties.put(COMPANY,company);
-			properties.put(VERSION,version);
-			if(revision!=null)
-			{
-				properties.put(REVISION,revision);
-			}
-			properties.put(COLOUR,colour);
-			properties.put(EXTERNAL,String.valueOf(external));
-			if(qss_no!=null)
-			{
-				properties.put(QSS_NO,qss_no);
-			}
+			
+			this.name=name;
+			this.part_id=part_id;
+			this.company=company;
+			this.version=version;
+			this.revision=revision;
+			this.colour=colour;
+			this.external=external;
+			this.qss_no=qss_no;
+			
 			
 	}
 
 	@Override
 	public String toString()
 	{
-		String value= String.valueOf(properties.get(NAME))+" ";
-		value=value+String.valueOf(properties.get(VERSION))+" ";
-		value=value+String.valueOf(properties.get(REVISION))+" ";
-		value=value+String.valueOf(properties.get(COLOUR));
+		String value= String.valueOf(getName())+" ";
+		value=value+String.valueOf(getVersion())+" ";
+		value=value+String.valueOf(getRevision())+" ";
+		value=value+String.valueOf(getColour());
 		return value;
 	}
 
-	/**
-	 * Getters and Setters
-	 * 
-	 */
-	
-	public String getName()
-	{
-		return properties.get(NAME);
+	public String getColour() {
+		return colour;
 	}
-	
-	public String getPart_No()
-	{
-		return properties.get(PART_ID);
+	public void setColour(String colour) {
+		this.colour = colour;
 	}
-	public String getCompany()
-	{
-		return properties.get(COMPANY);
+	public String getCompany() {
+		return company;
 	}
-	public String getVersion()
-	{
-		return properties.get(VERSION);
+	public void setCompany(String company) {
+		this.company = company;
 	}
-	public String getRevision()
-	{
-		return properties.get(REVISION);
+	public boolean getExternal() {
+		return external;
 	}
-	public String getColour()
-	{
-		return properties.get(COLOUR);
+	public void setExternal(boolean external) {
+		this.external = external;
 	}
-	
-	public String getExternal()
-	{
-		return properties.get(EXTERNAL);
+	public String getName() {
+		return name;
 	}
-	public String getQSS_No()
-	{
-		return properties.get(QSS_NO);
+	public void setName(String name) {
+		this.name = name;
 	}
-	
-	public Fields[] getFields()
-	{
-		return fields;
+	public String getPart_id() {
+		return part_id;
 	}
-	
-	
-	
-	public void setName(String name)
-	{
-		properties.put(NAME,name);
+	public void setPart_id(String part_id) {
+		this.part_id = part_id;
 	}
-	
-	public void setPart_No(String part_no)
-	{
-		properties.put(PART_ID,part_no);
+	public String getQss_no() {
+		return qss_no;
 	}
-	public void setCompany(String company)
-	{
-		properties.put(COMPANY,company);
+	public void setQss_no(String qss_no) {
+		this.qss_no = qss_no;
 	}
-	public void setVersion(String version)
-	{
-		properties.put(VERSION,version);
+	public String getRevision() {
+		return revision;
 	}
-	public void setRevision(String revision)
-	{
-		properties.put(REVISION,revision);
+	public void setRevision(String revision) {
+		this.revision = revision;
 	}
-	public void setColour(String colour)
-	{
-		properties.put(COLOUR,colour);
+	public String getVersion() {
+		return version;
 	}
-	
-	public void setExternal(String external)
-	{
-		properties.put(EXTERNAL,external);
+	public void setVersion(String version) {
+		this.version = version;
 	}
-	public void setQSS_No(String qss_no)
-	{
-		properties.put(QSS_NO,qss_no);
+
+	public int getId() {
+		return id;
 	}
-	
-	public static void main(String[] args)
-	{
-		JobTemplate job=new JobTemplate();
-		
-		job.setName("15g jar");
-		job.setColour("grey");
-		job.setCompany("tosara");
-		job.setExternal("true");
-		job.setQSS_No("1234D");
-		System.out.println(job);
-		JobTemplate job2=new JobTemplate("lid","12334232ds","Tosara","15/25g","1.0","grey","true","123D");
-		System.out.println(job2);		
+
+	public void setId(int id) {
+		this.id = id;
 	}
+
 }
