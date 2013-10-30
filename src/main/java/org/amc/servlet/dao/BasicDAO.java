@@ -13,6 +13,7 @@ public class BasicDAO implements DAO
 {
 	public Connection getConnection() throws SQLException
 	{
+		Connection connection=null;
 		//DataSource dataSource=DataSourceCache.getInstance().getDataSource();
 		Properties prop=new Properties();
 		prop.put("user","adminYTspVIn");
@@ -22,12 +23,17 @@ public class BasicDAO implements DAO
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
+			connection=DriverManager.getConnection("jdbc:mysql://127.12.78.130:3306/myservlet",prop);
 		}
 		catch(ClassNotFoundException ce)
 		{
 			ce.printStackTrace();
 		}
-		Connection connection=DriverManager.getConnection("jdbc:mysql://127.12.78.130:3306/myservlet",prop);
+		catch(SQLException se)
+		{
+			se.printStackTrace();
+			throw new SQLException(se.getMessage());
+		}
 		//Connection connection=DriverManager.getConnection("jdbc:mysql://192.168.1.105/aplsystem",prop);
 		//return dataSource.getConnection();
 		return connection;
