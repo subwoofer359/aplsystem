@@ -1,6 +1,7 @@
 package org.amc.servlet.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,8 +12,10 @@ public class BasicDAO implements DAO
 {
 	public Connection getConnection() throws SQLException
 	{
-		DataSource dataSource=DataSourceCache.getInstance().getDataSource();
-		return dataSource.getConnection();
+		//DataSource dataSource=DataSourceCache.getInstance().getDataSource();
+		Connection connection=DriverManager.getConnection("mysql://adminYTspVIn:iDwuSCz7GaUK@127.12.78.130:3306");
+		//return dataSource.getConnection();
+		return connection;
 		
 	}
 	
