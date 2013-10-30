@@ -15,9 +15,20 @@ public class BasicDAO implements DAO
 	{
 		//DataSource dataSource=DataSourceCache.getInstance().getDataSource();
 		Properties prop=new Properties();
-		prop.put("username","adminYTspVIn");
+		prop.put("user","adminYTspVIn");
 		prop.put("password", "iDwuSCz7GaUK");
+		//prop.put("user","adrian");
+		//prop.put("password", "cr2032ux");
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch(ClassNotFoundException ce)
+		{
+			ce.printStackTrace();
+		}
 		Connection connection=DriverManager.getConnection("jdbc:mysql://127.12.78.130:3306/myservlet",prop);
+		//Connection connection=DriverManager.getConnection("jdbc:mysql://192.168.1.105/aplsystem",prop);
 		//return dataSource.getConnection();
 		return connection;
 		
