@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import javax.sql.DataSource;
+//import javax.sql.DataSource;
 
 public class BasicDAO implements DAO 
 {

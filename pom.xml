@@ -54,9 +54,8 @@
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
-                        <artifactId>mysql-connector-java</artifactId>
-                        <version>5.1.6</version>
-                        <scope>provided</scope>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.26</version>
 		</dependency>
 	</dependencies>
 	<profiles>
