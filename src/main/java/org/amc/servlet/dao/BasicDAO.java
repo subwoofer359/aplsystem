@@ -7,23 +7,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-//import javax.sql.DataSource;
+import javax.sql.DataSource;
 
 public class BasicDAO implements DAO 
 {
 	public Connection getConnection() throws SQLException
 	{
 		Connection connection=null;
-		//DataSource dataSource=DataSourceCache.getInstance().getDataSource();
+		//DataSource dataSource=DataSourceCache.getInstance().getDataSource(); connection=dataSource.getConnection();
 		Properties prop=new Properties();
 		prop.put("user","adminYTspVIn");
 		prop.put("password", "iDwuSCz7GaUK");
-		//prop.put("user","adrian");
-		//prop.put("password", "cr2032ux");
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			connection=DriverManager.getConnection("jdbc:mysql://127.12.78.130:3306/myservlet",prop);
+			
 		}
 		catch(ClassNotFoundException ce)
 		{
