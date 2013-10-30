@@ -84,12 +84,17 @@ function isChecked(id)
 	}
 	if(!checked)
 	{
-		id.disabled="disabled";
+		id.value="add";
 	}
+	else
+	{
+		id.value="edit";
+	}	
+}
 
-
-	
-    
+function enable(id)
+{
+	id.value="edit";	
 }
 </SCRIPT>
 <body>
@@ -110,7 +115,7 @@ function isChecked(id)
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
 </DIV>
-<SPAN><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onclick="isChecked(this)"/></SPAN>
+<SPAN><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
 </FORM>
 
 </DIV>

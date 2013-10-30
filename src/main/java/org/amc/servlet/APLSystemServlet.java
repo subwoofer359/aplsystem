@@ -240,6 +240,8 @@ public class APLSystemServlet extends HttpServlet
 		//Debug
 		System.out.printf("mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue);
 		
+		
+		
 		//create an action
 		SearchJobTemplateAction sjt=new SearchJobTemplateAction();
 		String dispatchURL=null;
@@ -267,19 +269,35 @@ public class APLSystemServlet extends HttpServlet
 				dispatchURL="/JSP/PartsSearchPage.jsp";
 				
 			}
-			else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
+//			else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
+//			{
+//				//open the JobTemplate JSPage in edit mode
+//				JobTemplate job=sjt.getJobTemplate(idValue);
+//				dispatchURL="/JSP/JobTemplate.jsp";
+//				request.setAttribute("form", job);
+//				request.setAttribute("mode","edit");
+//				
+//			}
+//			else if(mode!=null && mode.equals("add"))
+//			{
+//				//open the JobTemplate JSPage in add mode
+//				dispatchURL="/JSP/JobTemplate.jsp";
+//			}
+			else if(mode!=null)
 			{
-				//open the JobTemplate JSPage in edit mode
-				JobTemplate job=sjt.getJobTemplate(idValue);
-				dispatchURL="/JSP/JobTemplate.jsp";
-				request.setAttribute("form", job);
-				request.setAttribute("mode","edit");
-				
-			}
-			else if(mode!=null && mode.equals("add"))
-			{
-				//open the JobTemplate JSPage in add mode
-				dispatchURL="/JSP/JobTemplate.jsp";
+				if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
+				{
+					//open the JobTemplate JSPage in add mode
+					dispatchURL="/JSP/JobTemplate.jsp";
+				}
+				else if(mode.equals("edit")&&idValue!=null)
+				{
+					//open the JobTemplate JSPage in edit mode
+					JobTemplate job=sjt.getJobTemplate(idValue);
+					dispatchURL="/JSP/JobTemplate.jsp";
+					request.setAttribute("form", job);
+					request.setAttribute("mode","edit");
+				}
 			}
 			RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 			rd.forward(request, response);
