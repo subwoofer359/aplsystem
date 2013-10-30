@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -13,7 +14,10 @@ public class BasicDAO implements DAO
 	public Connection getConnection() throws SQLException
 	{
 		//DataSource dataSource=DataSourceCache.getInstance().getDataSource();
-		Connection connection=DriverManager.getConnection("mysql://adminYTspVIn:iDwuSCz7GaUK@127.12.78.130:3306");
+		Properties prop=new Properties();
+		prop.put("username","adminYTspVIn");
+		prop.put("password", "iDwuSCz7GaUK");
+		Connection connection=DriverManager.getConnection("jdbc:mysql://127.12.78.130:3306/myservlet",prop);
 		//return dataSource.getConnection();
 		return connection;
 		
