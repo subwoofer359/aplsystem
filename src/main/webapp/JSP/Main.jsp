@@ -7,7 +7,18 @@
 <STYLE>
 BODY
 {
-	background-color: yellow;
+	background-color: #7287d4;
+}
+.title 
+{
+	text-align: center;
+	border-style: solid;
+	border-radius: 25px;
+	background-color: white;
+	width:50%;
+	margin-left: auto;
+	margin-right: auto;
+
 }
 
 DIV.icon 
@@ -16,27 +27,68 @@ DIV.icon
 	border-color:black;
 	border-width:1px;
 	border-radius:25px;
-	width:100px;
-	height:100px;
+	width:110px;
+	height:110px;
 	background-color: white;
+	
 }
 
 
 DIV#partsearch
 {
 	position:fixed;
-	top:100px;
-	left:20px;
+	top:200px;
+	left:40px;
 }
+
+DIV#problemdb
+{
+	position:fixed;
+	top:200px;
+	left:340px;
+}
+
+DIV#spc
+{
+	position:fixed;
+	top:200px;
+	left:640px;
+}
+
+.item
+{
+	position: relative;
+	top: 30%;
+	padding: 4px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	
+}
+
 </STYLE>
 </head>
 <body>
 
-
+<DIV class="title">
+<H1>Automatic Plastics Ltd. System</H1>
+</DIV>
 
 <DIV id="partsearch" class="icon">
 
-<P class='item'> <a href="JobTemplate_search">Part Search</a></P>
+<DIV class='item'> <a href="JobTemplate_search">Part Search</a></DIV>
+
+</DIV>
+
+<DIV id="problemdb" class="icon">
+
+<DIV class="item">Problem Database</DIV>
+
+</DIV>
+
+<DIV id="spc" class="icon">
+
+<DIV class="item">SPC Data</DIV>
 
 </DIV>
 

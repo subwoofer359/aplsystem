@@ -98,6 +98,9 @@ function enable(id)
 }
 </SCRIPT>
 <body>
+<DIV class="title">
+<H1> Part Inventory</H1>
+</DIV>
 <DIV  class="entrybox">
 
 <FORM action="JobTemplate_search" method="get">
