@@ -9,6 +9,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <security-role><role-name>manager</role-name></security-role>
+  <security-role><role-name>qc</role-name></security-role>
+  
   <security-constraint>
   	<web-resource-collection>
   		<web-resource-name>
