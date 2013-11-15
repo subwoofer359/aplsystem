@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/mytags.tld" prefix="easy"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>APL Systems' Main Page</title>
+<link rel="stylesheet" type="text/css" href="../theme.css">
 <STYLE>
 BODY
 {
@@ -73,6 +75,7 @@ DIV#spc
 <DIV class="title">
 <H1>Automatic Plastics Ltd. System</H1>
 </DIV>
+
 
 <DIV id="partsearch" class="icon">
 

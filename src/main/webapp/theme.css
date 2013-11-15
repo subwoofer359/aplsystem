@@ -1,0 +1,119 @@
+@CHARSET "UTF-8";
+body
+{
+	background-color: #7287d4;
+}
+
+.error
+{
+	border-style: solid;
+	border-color: red;
+}
+
+.title 
+{
+	text-align: center;
+	border-style: solid;
+	border-radius: 25px;
+	background-color: white;
+	width:50%;
+	margin-left: auto;
+	margin-right: auto;
+
+}
+.entrybox
+{
+	border-style: solid;
+	border-radius: 25px;
+	background-color: white;
+	
+	position:fixed;
+	top:100px;
+	width:60%;
+	left:10%;
+	padding: 20px;
+	
+	
+}
+.entrybox DIV
+{
+	border-style:solid;
+	padding: 10px;
+	width:90%;
+	height:400px;
+	overflow:auto;	
+}
+TABLE
+{
+	width:100%;
+}
+TD 
+{ 
+	text-align: left;
+}
+TH
+{
+	border-bottom-style: solid;
+	
+}
+.error_message
+{
+	border-style: solid;
+	border-radius: 25px;
+	background-color: red;
+	
+	position:fixed;
+	top:100px;
+	width:60%;
+	left:10%;
+	padding: 20px;
+
+	font-size: 20px;
+	
+	text-align: center;		
+}
+
+DIV.icon 
+{
+	border-style:solid;
+	border-color:black;
+	border-width:1px;
+	border-radius:25px;
+	width:110px;
+	height:110px;
+	background-color: white;
+	
+}
+
+
+DIV#partsearch
+{
+	position:fixed;
+	top:200px;
+	left:40px;
+}
+
+DIV#problemdb
+{
+	position:fixed;
+	top:200px;
+	left:340px;
+}
+
+DIV#spc
+{
+	position:fixed;
+	top:200px;
+	left:640px;
+}
+
+.item
+{
+	position: relative;
+	top: 30%;
+	padding: 4px;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	
+}

@@ -2,8 +2,6 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.BasicDAO;
-import org.amc.servlet.dao.DAO;
 import org.amc.servlet.dao.DAOFactory;
 import org.amc.servlet.dao.JobTemplateDAO;
 import org.amc.servlet.model.JobTemplate;

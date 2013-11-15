@@ -6,13 +6,10 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.HttpConstraint;
-import javax.servlet.annotation.ServletSecurity;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.BindingType;
 
 import org.amc.servlet.action.SaveJobTemplateAction;
 import org.amc.servlet.action.SearchJobTemplateAction;
@@ -65,6 +62,7 @@ public class APLSystemServlet extends HttpServlet
 	
 	private void process (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
+		
 		String referal=request.getRequestURI();
 		System.out.println(referal);
 		
@@ -189,7 +187,7 @@ public class APLSystemServlet extends HttpServlet
 				
 				rd.forward(request, response);
 			}
-			catch(SQLException se)
+			catch(SQLException |NumberFormatException se)
 			{
 				
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
@@ -310,6 +308,7 @@ public class APLSystemServlet extends HttpServlet
 			RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
 			request.setAttribute("exception",se);
 			rd.forward(request, response);
+			se.printStackTrace();
 		}
 	}
 	

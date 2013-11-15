@@ -13,11 +13,9 @@
   <security-role><role-name>manager</role-name></security-role>
   <security-role><role-name>qc</role-name></security-role>
   
-  <security-constraint>
+   <security-constraint>
   	<web-resource-collection>
-  		<web-resource-name>
-  			JSP Pages
-  		</web-resource-name>
+  		<web-resource-name>JSP Pages</web-resource-name>
   		<url-pattern>*.jsp</url-pattern>
   	</web-resource-collection>
   	<auth-constraint>
@@ -37,8 +35,18 @@
   </security-constraint>
   
   <login-config>
-  	<auth-method>BASIC</auth-method>
-  	<realm-name>Users</realm-name>
+  	<auth-method>FORM</auth-method>
+  	<form-login-config>
+  		<form-login-page>/Login.html</form-login-page>
+  		<form-error-page>/Error.html</form-error-page>
+  	</form-login-config>
   </login-config>
  
+  <resource-ref>
+  <description>My Database located on virtual machine Fedora19</description>
+  <res-ref-name>jdbc/APLSystem</res-ref-name>
+  <res-type>javax.sql.DataSource</res-type>
+  <res-auth>Container</res-auth>
+  </resource-ref>
+  
 </web-app>
