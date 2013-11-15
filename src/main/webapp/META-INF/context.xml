@@ -14,7 +14,7 @@
 				username="adminYTspVIn"
 				password="iDwuSCz7GaUK"
 				driverClassName="com.mysql.jdbc.Driver"
-				url="jdbc:mysql://192.168.1.105/myservlet"
+				url="jdbc:mysql://127.0.0.1/myservlet"
 				maxActive="20"
 				maxIdle="10"
 				removeAbandoned="true"
