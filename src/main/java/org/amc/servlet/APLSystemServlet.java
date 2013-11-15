@@ -187,7 +187,13 @@ public class APLSystemServlet extends HttpServlet
 				
 				rd.forward(request, response);
 			}
-			catch(SQLException |NumberFormatException se)
+			catch(NumberFormatException se)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
+				request.setAttribute("exception",se);
+				rd.forward(request, response);
+			}
+			catch(SQLException se)
 			{
 				
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
