@@ -9,44 +9,40 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <security-role><role-name>manager</role-name></security-role>
-  <security-role><role-name>qc</role-name></security-role>
-  
-   <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>JSP Pages</web-resource-name>
-  		<url-pattern>*.jsp</url-pattern>
-  	</web-resource-collection>
-  	<auth-constraint>
-  	
-  	</auth-constraint>
-  </security-constraint>
-  
+  <security-role>
+    <role-name>manager</role-name>
+  </security-role>
+  <security-role>
+    <role-name>qc</role-name>
+  </security-role>
   <security-constraint>
-  	<web-resource-collection>
-  		<web-resource-name>APLSystemServlet</web-resource-name>
-  		<url-pattern>/APLSystemServlet</url-pattern>
-  	</web-resource-collection>
-  	<auth-constraint>
-  		<role-name>qc</role-name>
-  		<role-name>manager</role-name>
-  	</auth-constraint>
+    <web-resource-collection>
+      <web-resource-name>JSP Pages</web-resource-name>
+      <url-pattern>*.jsp</url-pattern>
+    </web-resource-collection>
+    <auth-constraint/>
   </security-constraint>
-  
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>APLSystemServlet</web-resource-name>
+      <url-pattern>/APLSystemServlet</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>qc</role-name>
+      <role-name>manager</role-name>
+    </auth-constraint>
+  </security-constraint>
   <login-config>
-  	<auth-method>FORM</auth-method>
-  	<form-login-config>
-  		<form-login-page>/Login.html</form-login-page>
-  		<form-error-page>/Error.html</form-error-page>
-  	</form-login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/Login.html</form-login-page>
+      <form-error-page>/Error.html</form-error-page>
+    </form-login-config>
   </login-config>
- 
   <resource-ref>
-  <description>My Database located on virtual machine Fedora19</description>
-  <res-ref-name>jdbc/APLSystem</res-ref-name>
-  <res-type>javax.sql.DataSource</res-type>
-  <res-auth>Container</res-auth>
+    <description>My Database located on virtual machine Fedora19</description>
+    <res-ref-name>jdbc/APLSystem</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
   </resource-ref>
-  
 </web-app>
