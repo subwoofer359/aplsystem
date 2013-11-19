@@ -1,5 +1,5 @@
 package org.amc.servlet.model;
 
-public class ProcessForm {
+public class MouldingProcessForm {
 
 }
