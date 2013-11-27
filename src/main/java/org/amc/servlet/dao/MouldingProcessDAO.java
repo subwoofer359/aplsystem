@@ -4,19 +4,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.amc.servlet.model.JobTemplate;
+import org.amc.servlet.model.MouldingProcess;
 
-public interface ProcessDAO 
+public interface MouldingProcessDAO 
 {
 
-	public abstract void addProcess(Process process) throws SQLException;
+	public abstract void addProcessSheet(MouldingProcess process) throws SQLException;
 
-	public abstract void updateProcess(Process process) throws SQLException;
+	public abstract void updateProcessSheet(MouldingProcess process) throws SQLException;
 
-	public abstract void deleteProcess(Process process) throws SQLException;
+	public abstract void deleteProcessSheet(MouldingProcess process) throws SQLException;
 
-	public abstract JobTemplate getProcess(Process processId) throws SQLException;
+	public abstract MouldingProcess getProcessSheet(String processId) throws SQLException;
 
-	public abstract List<Process> findProcesses(String col, String value) throws SQLException;
+	public abstract List<MouldingProcess> findProcessSheets(String col, String value) throws SQLException;
 	
-	public abstract List<Process> findProcesses() throws SQLException;
+	public abstract List<MouldingProcess> findProcessSheets() throws SQLException;
 }

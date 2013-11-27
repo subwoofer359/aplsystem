@@ -49,7 +49,7 @@ DIV#problemdb
 	left:340px;
 }
 
-DIV#spc
+DIV#process
 {
 	position:fixed;
 	top:200px;
@@ -88,9 +88,9 @@ DIV#spc
 
 </DIV>
 
-<DIV id="spc" class="icon">
+<DIV id="process" class="icon">
 
-<DIV class="item">SPC Data</DIV>
+<DIV class="item"><a href="ProcessSheet_search">Process Sheets</a></DIV>
 
 </DIV>
 

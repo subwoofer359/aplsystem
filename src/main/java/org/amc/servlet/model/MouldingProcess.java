@@ -1,11 +1,11 @@
 package org.amc.servlet.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.sql.Date;
+
 
 public class MouldingProcess 
 {
-	private Map<String,Object> store;
 	public static String[] fields={
 			 "id",	
 			 "partId",
@@ -112,800 +112,901 @@ public class MouldingProcess
 			 "waterTempMovingHalf",
 			 "waterTempNotes",
 	};
-//	private int id;//Database ID
-//	//Top Header
-//	private String partId;
-//	private int machineSize;
-//	private String machineNo;
-//	private String material;
-//	private String masterbatchNo;
-//	private Date dateOfIssue;
-//	private String signOffBy;
-//	private String processNotes;
-//	
-//	//Injection section
-//	private float injectionSpeed_1;
-//	private float injectionSpeed_2;
-//	private float injectionSpeed_3;
-//	private float injectionSpeed_4;
-//	private float injectionSpeed_5;
-//	private float injectionSpeed_6;
-//	
-//	private float injSpeedPosition_1;
-//	private float injSpeedPosition_2;
-//	private float injSpeedPosition_3;
-//	private float injSpeedPosition_4;
-//	private float injSpeedPosition_5;
-//	private float injSpeedPosition_6;
-//	
-//	//Holding pressure
-//	
-//	private float holdingPressure_1;
-//	private float holdingPressure_2;
-//	private float holdingPressure_3;
-//	private float holdingPressure_4;
-//	private float holdingPressure_5;
-//	private float holdingPressure_6;
-//	
-//	//Holding Time
-//	private float holdingTime_1;
-//	private float holdingTime_2;
-//	private float holdingTime_3;
-//	private float holdingTime_4;
-//	private float holdingTime_5;
-//	private float holdingTime_6;
-//	
-//	//Injection and Holding variables
-//	private float maxPackVel;
-//	private float posTran;
-//	private float maxInjPre;
-//	private float maxInjTime;
-//	private float shotSize;
-//	private float decompressionVel;
-//	private float coolTime;
-//	
-//	//Extruding
-//	
-//	private float backPressure_1;
-//	private float backPressure_2;
-//	private float backPressure_3;
-//	private float backPressure_4;
-//	private float backPressure_5;
-//	private float backPressure_6;
-//	
-//	private float screwExtSpeed_1;
-//	private float screwExtSpeed_2;
-//	private float screwExtSpeed_3;
-//	private float screwExtSpeed_4;
-//	private float screwExtSpeed_5;
-//	private float screwExtSpeed_6;
-//	
-//	private float extProfilePos_1;
-//	private float extProfilePos_2;
-//	private float extProfilePos_3;
-//	private float extProfilePos_4;
-//	private float extProfilePos_5;
-//	private float extProfilePos_6;
-//	
-//	
-//	//Barrel Temperature
-//	
-//	private float nozzelTemperature;
-//	private float barrelTemperature_1;
-//	private float barrelTemperature_2;
-//	private float barrelTemperature_3;
-//	private float barrelTemperature_4;
-//	private float throatTemperature;
-//	
-//	//mouldClosing
-//	private float mouldClosingOpenLimitPos;
-//	private float mouldClosingOpenLimitSpeed;
-//	
-//	private float mouldClosedLimitPos;
-//	private float mouldClosedLimitSpeed;
-//	
-//	private float clsSlowPos;
-//	private float clsSlowSpeed;
-//	
-//	private float clsSPPos;
-//	private float clsSPSpeed;
-//	//mould opening
-//	
-//	private float mouldOpenBreakAwaySpeed;
-//	private float mouldOpenStepPos_1;
-//	private float mouldOpenStepSpeed_1;
-//	private float mouldOpenStepPos_2;
-//	private float mouldOpenStepSpeed_2;
-//	private float mouldOpenStepPos_3;
-//	private float mouldOpenStepSpeed_3;
-//	
-//	private float mouldOpenTime;
-//	private String ejectStart;
-//	
-//	
-//	//Ejectors
-//	private String ejectMode;
-//	private float ejectPulse;
-//	private float ejectDelay;
-//	
-//	private float ejectorsFwdPos;
-//	private float ejectorsFwdSpeed;
-//	private float ejectorsFwdTime;
-//	
-//	private float ejectorsStopPos;
-//	private float ejectorsStopSpeed;
-//	private float ejectorsStopTime;
-//	
-//	private float ejectorsRevPos;
-//	private float ejectorsRevSpeed;
-//	private float ejectorsRevTime;
-//	
-//	// DMEs
-//	
-//	private float dme_1;
-//	private float dme_2;
-//	private float dme_3;
-//	private float dme_4;
-//	private float dme_5;
-//	private float dme_6;
-//	private float dme_7;
-//	private float dme_8;
-//	
-//	//Water
-//	private float waterTempFixedHalf;
-//	private float waterTempMovingHalf;
-//	private String waterTempNotes;
+	private int id;//Database ID
+	//Top Header
+	private String partId;
+	private int machineSize;
+	private String machineNo;
+	private String material;
+	private String masterbatchNo;
+	private Date dateOfIssue;
+	private String signOffBy;
+	private String processNotes;
+	
+	//Injection section
+	private float injectionSpeed_1;
+	private float injectionSpeed_2;
+	private float injectionSpeed_3;
+	private float injectionSpeed_4;
+	private float injectionSpeed_5;
+	private float injectionSpeed_6;
+	
+	private float injSpeedPosition_1;
+	private float injSpeedPosition_2;
+	private float injSpeedPosition_3;
+	private float injSpeedPosition_4;
+	private float injSpeedPosition_5;
+	private float injSpeedPosition_6;
+	
+	//Holding pressure
+	
+	private float holdingPressure_1;
+	private float holdingPressure_2;
+	private float holdingPressure_3;
+	private float holdingPressure_4;
+	private float holdingPressure_5;
+	private float holdingPressure_6;
+	
+	//Holding Time
+	private float holdingTime_1;
+	private float holdingTime_2;
+	private float holdingTime_3;
+	private float holdingTime_4;
+	private float holdingTime_5;
+	private float holdingTime_6;
+	
+	//Injection and Holding variables
+	private float maxPackVel;
+	private float posTran;
+	private float maxInjPre;
+	private float maxInjTime;
+	private float shotSize;
+	private float decompressionVel;
+	private float coolTime;
+	
+	//Extruding
+	
+	private float backPressure_1;
+	private float backPressure_2;
+	private float backPressure_3;
+	private float backPressure_4;
+	private float backPressure_5;
+	private float backPressure_6;
+	
+	private float screwExtSpeed_1;
+	private float screwExtSpeed_2;
+	private float screwExtSpeed_3;
+	private float screwExtSpeed_4;
+	private float screwExtSpeed_5;
+	private float screwExtSpeed_6;
+	
+	private float extProfilePos_1;
+	private float extProfilePos_2;
+	private float extProfilePos_3;
+	private float extProfilePos_4;
+	private float extProfilePos_5;
+	private float extProfilePos_6;
+	
+	
+	//Barrel Temperature
+	
+	private float nozzelTemperature;
+	private float barrelTemperature_1;
+	private float barrelTemperature_2;
+	private float barrelTemperature_3;
+	private float barrelTemperature_4;
+	private float throatTemperature;
+	
+	//mouldClosing
+	private float mouldClosingOpenLimitPos;
+	private float mouldClosingOpenLimitSpeed;
+	
+	private float mouldClosedLimitPos;
+	private float mouldClosedLimitSpeed;
+	
+	private float clsSlowPos;
+	private float clsSlowSpeed;
+	
+	private float clsSPPos;
+	private float clsSPSpeed;
+	//mould opening
+	
+	private float mouldOpenBreakAwaySpeed;
+	private float mouldOpenStepPos_1;
+	private float mouldOpenStepSpeed_1;
+	private float mouldOpenStepPos_2;
+	private float mouldOpenStepSpeed_2;
+	private float mouldOpenStepPos_3;
+	private float mouldOpenStepSpeed_3;
+	
+	private float mouldOpenTime;
+	private String ejectStart;
+	
+	
+	//Ejectors
+	private String ejectMode;
+	private float ejectPulse;
+	private float ejectDelay;
+	
+	private float ejectorsFwdPos;
+	private float ejectorsFwdSpeed;
+	private float ejectorsFwdTime;
+	
+	private float ejectorsStopPos;
+	private float ejectorsStopSpeed;
+	private float ejectorsStopTime;
+	
+	private float ejectorsRevPos;
+	private float ejectorsRevSpeed;
+	private float ejectorsRevTime;
+	
+	// DMEs
+	
+	private float dme_1;
+	private float dme_2;
+	private float dme_3;
+	private float dme_4;
+	private float dme_5;
+	private float dme_6;
+	private float dme_7;
+	private float dme_8;
+	
+	//Water
+	private float waterTempFixedHalf;
+	private float waterTempMovingHalf;
+	private String waterTempNotes;
 	
 	
 	public MouldingProcess()
 	{
-		store=new HashMap<String,Object>();
-		for(int i=9;i<MouldingProcess.fields.length;i++)
-		{
-			setField(fields[i], new Float(0f));
-		}
+
 	}
 	
 	//Getters/Setters
 	
-	public void setField(String field,Object value)
+	
+	public void setField(String field,Float f)
 	{
-		store.put(field, value);
+		try {
+			Field refField=this.getClass().getDeclaredField(field);
+			refField.setFloat(this, f);
+		} catch (NoSuchFieldException e) {
+	
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+
+			e.printStackTrace();
+		} 
+		
+	}
+	public void setField(String field,java.sql.Date s)
+	{
+		try {
+			Field refField=this.getClass().getDeclaredField(field);
+			refField.set(this, s);
+		} catch (NoSuchFieldException e) {
+	
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+		
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+		
+			e.printStackTrace();
+		} 
+		
+	}
+	public void setField(String field,String s)
+	{
+		try {
+			Field refField=this.getClass().getDeclaredField(field);
+			refField.set(this, s);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
+	public void setField(String field,Integer s)
+	{
+		try {
+			Field refField=this.getClass().getDeclaredField(field);
+			refField.setInt(this, s);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+	}
+	
+	public void setField(String field,Object obj)
+	{
+		try {
+			Field refField=this.getClass().getDeclaredField(field);
+			refField.set(this, obj);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
 	}
 	
 	public Object getField(String field)
 	{
-		return store.get(field);
+		try {
+			Field refField=this.getClass().getDeclaredField(field);
+			return refField.get(this);
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
+	
+	
+
+	
+	
+	
 	public String getPartId() {
-		return (String)store.get("partId");
+		return this.partId;
 	}
 	public int getMachineSize() {
-		return (Integer)store.get("machineSize");
+		return this.machineSize;
 	}
 	public String getMachineNo() {
-		return (String)store.get("machineNo");
+		return this.machineNo;
 	}
 	public String getMaterial() {
-		return (String)store.get("material");
+		return this.material;
 	}
 	public String getMasterbatchNo() {
-		return (String)store.get("masterbatchNo");
+		return this.masterbatchNo;
 	}
 	public java.sql.Date getDateOfIssue() {
-		return (java.sql.Date)store.get("dateOfIssue");
+		return (java.sql.Date)this.dateOfIssue;
 	}
 	public String getSignOffBy() {
-		return (String)store.get("signOffBy");
+		return this.signOffBy;
 	}
 	public String getProcessNotes() {
-		return (String)store.get("processNotes");
+		return this.processNotes;
 	}
 	public float getInjectionSpeed_1() {
-		return (Float)store.get("injectionSpeed_1");
+		return this.injectionSpeed_1;
 	}
 	public float getInjectionSpeed_2() {
-		return (Float)store.get("injectionSpeed_2");
+		return this.injectionSpeed_2;
 	}
 	public float getInjectionSpeed_3() {
-		return (Float)store.get("injectionSpeed_3");
+		return this.injectionSpeed_3;
 	}
 	public float getInjectionSpeed_4() {
-		return (Float)store.get("injectionSpeed_4");
+		return this.injectionSpeed_4;
 	}
 	public float getInjectionSpeed_5() {
-		return (Float)store.get("injectionSpeed_5");
+		return this.injectionSpeed_5;
 	}
 	public float getInjectionSpeed_6() {
-		return (Float)store.get("injectionSpeed_6");
+		return this.injectionSpeed_6;
 	}
 	public float getInjSpeedPosition_1() {
-		return (Float)store.get("injSpeedPosition_1");
+		return this.injSpeedPosition_1;
 	}
 	public float getInjSpeedPosition_2() {
-		return (Float)store.get("injSpeedPosition_2");
+		return this.injSpeedPosition_2;
 	}
 	public float getInjSpeedPosition_3() {
-		return (Float)store.get("injSpeedPosition_3");
+		return this.injSpeedPosition_3;
 	}
 	public float getInjSpeedPosition_4() {
-		return (Float)store.get("injSpeedPosition_4");
+		return this.injSpeedPosition_4;
 	}
 	public float getInjSpeedPosition_5() {
-		return (Float)store.get("injSpeedPosition_5");
+		return this.injSpeedPosition_5;
 	}
 	public float getInjSpeedPosition_6() {
-		return (Float)store.get("injSpeedPosition_6");
+		return this.injSpeedPosition_6;
 	}
 	public float getHoldingPressure_1() {
-		return (Float)store.get("holdingPressure_1");
+		return this.holdingPressure_1;
 	}
 	public float getHoldingPressure_2() {
-		return (Float)store.get("holdingPressure_2");
+		return this.holdingPressure_2;
 	}
 	public float getHoldingPressure_3() {
-		return (Float)store.get("holdingPressure_3");
+		return this.holdingPressure_3;
 	}
 	public float getHoldingPressure_4() {
-		return (Float)store.get("holdingPressure_4");
+		return this.holdingPressure_4;
 	}
 	public float getHoldingPressure_5() {
-		return (Float)store.get("holdingPressure_5");
+		return this.holdingPressure_5;
 	}
 	public float getHoldingPressure_6() {
-		return (Float)store.get("holdingPressure_6");
+		return this.holdingPressure_6;
 	}
 	public float getHoldingTime_1() {
-		return (Float)store.get("holdingTime_1");
+		return this.holdingTime_1;
 	}
 	public float getHoldingTime_2() {
-		return (Float)store.get("holdingTime_2");
+		return this.holdingTime_2;
 	}
 	public float getHoldingTime_3() {
-		return (Float)store.get("holdingTime_3");
+		return this.holdingTime_3;
 	}
 	public float getHoldingTime_4() {
-		return (Float)store.get("holdingTime_4");
+		return this.holdingTime_4;
 	}
 	public float getHoldingTime_5() {
-		return (Float)store.get("holdingTime_5");
+		return this.holdingTime_5;
 	}
 	public float getHoldingTime_6() {
-		return (Float)store.get("holdingTime_6");
+		return this.holdingTime_6;
 	}
 	public float getMaxPackVel() {
-		return (Float)store.get("maxPackVel");
+		return this.maxPackVel;
 	}
 	public float getPosTran() {
-		return (Float)store.get("posTran");
+		return this.posTran;
 	}
 	public float getMaxInjPre() {
-		return (Float)store.get("maxInjPre");
+		return this.maxInjPre;
 	}
 	public float getMaxInjTime() {
-		return (Float)store.get("maxInjTime");
+		return this.maxInjTime;
 	}
 	public float getShotSize() {
-		return (Float)store.get("shotSize");
+		return this.shotSize;
 	}
 	public float getDecompressionVel() {
-		return (Float)store.get("decompressionVel");
+		return this.decompressionVel;
 	}
 	public float getCoolTime() {
-		return (Float)store.get("coolTime");
+		return this.coolTime;
 	}
 	public float getBackPressure_1() {
-		return (Float)store.get("backPressure_1");
+		return this.backPressure_1;
 	}
 	public float getBackPressure_2() {
-		return (Float)store.get("backPressure_2");
+		return this.backPressure_2;
 	}
 	public float getBackPressure_3() {
-		return (Float)store.get("backPressure_3");
+		return this.backPressure_3;
 	}
 	public float getBackPressure_4() {
-		return (Float)store.get("backPressure_4");
+		return this.backPressure_4;
 	}
 	public float getBackPressure_5() {
-		return (Float)store.get("backPressure_5");
+		return this.backPressure_5;
 	}
 	public float getBackPressure_6() {
-		return (Float)store.get("backPressure_6");
+		return this.backPressure_6;
 	}
 	public float getScrewExtSpeed_1() {
-		return (Float)store.get("screwExtSpeed_1");
+		return this.screwExtSpeed_1;
 	}
 	public float getScrewExtSpeed_2() {
-		return (Float)store.get("screwExtSpeed_2");
+		return this.screwExtSpeed_2;
 	}
 	public float getScrewExtSpeed_3() {
-		return (Float)store.get("screwExtSpeed_3");
+		return this.screwExtSpeed_3;
 	}
 	public float getScrewExtSpeed_4() {
-		return (Float)store.get("screwExtSpeed_4");
+		return this.screwExtSpeed_4;
 	}
 	public float getScrewExtSpeed_5() {
-		return (Float)store.get("screwExtSpeed_5");
+		return this.screwExtSpeed_5;
 	}
 	public float getScrewExtSpeed_6() {
-		return (Float)store.get("screwExtSpeed_6");
+		return this.screwExtSpeed_6;
 	}
 	public float getExtProfilePos_1() {
-		return (Float)store.get("extProfilePos_1");
+		return this.extProfilePos_1;
 	}
 	public float getExtProfilePos_2() {
-		return (Float)store.get("extProfilePos_2");
+		return this.extProfilePos_2;
 	}
 	public float getExtProfilePos_3() {
-		return (Float)store.get("extProfilePos_3");
+		return this.extProfilePos_3;
 	}
 	public float getExtProfilePos_4() {
-		return (Float)store.get("extProfilePos_4");
+		return this.extProfilePos_4;
 	}
 	public float getExtProfilePos_5() {
-		return (Float)store.get("extProfilePos_5");
+		return this.extProfilePos_5;
 	}
 	public float getExtProfilePos_6() {
-		return (Float)store.get("extProfilePos_6");
+		return this.extProfilePos_6;
 	}
 	public float getNozzelTemperature() {
-		return (Float)store.get("nozzelTemperature");
+		return this.nozzelTemperature;
 	}
 	public float getBarrelTemperature_1() {
-		return (Float)store.get("barrelTemperature_1");
+		return this.barrelTemperature_1;
 	}
 	public float getBarrelTemperature_2() {
-		return (Float)store.get("barrelTemperature_2");
+		return this.barrelTemperature_2;
 	}
 	public float getBarrelTemperature_3() {
-		return (Float)store.get("barrelTemperature_3");
+		return this.barrelTemperature_3;
 	}
 	public float getBarrelTemperature_4() {
-		return (Float)store.get("barrelTemperature_4");
+		return this.barrelTemperature_4;
 	}
 	public float getThroatTemperature() {
-		return (Float)store.get("throatTemperature");
+		return this.throatTemperature;
 	}
 	public float getMouldClosingOpenLimitPos() {
-		return (Float)store.get("mouldClosingOpenLimitPos");
+		return this.mouldClosingOpenLimitPos;
 	}
 	public float getMouldClosingOpenLimitSpeed() {
-		return (Float)store.get("mouldClosingOpenLimitSpeed");
+		return this.mouldClosingOpenLimitSpeed;
 	}
 	public float getMouldClosedLimitPos() {
-		return (Float)store.get("mouldClosedLimitPos");
+		return this.mouldClosedLimitPos;
 	}
 	public float getMouldClosedLimitSpeed() {
-		return (Float)store.get("mouldClosedLimitSpeed");
+		return this.mouldClosedLimitSpeed;
 	}
 	public float getClsSlowPos() {
-		return (Float)store.get("clsSlowPos");
+		return this.clsSlowPos;
 	}
 	public float getClsSlowSpeed() {
-		return (Float)store.get("clsSlowSpeed");
+		return this.clsSlowSpeed;
 	}
 	public float getMouldOpenBreakAwaySpeed() {
-		return (Float)store.get("mouldOpenBreakAwaySpeed");
+		return this.mouldOpenBreakAwaySpeed;
 	}
 	public float getMouldOpenStepPos_1() {
-		return (Float)store.get("mouldOpenStepPos_1");
+		return this.mouldOpenStepPos_1;
 	}
 	public float getMouldOpenStepSpeed_1() {
-		return (Float)store.get("mouldOpenStepSpeed_1");
+		return this.mouldOpenStepSpeed_1;
 	}
 	public float getMouldOpenStepPos_2() {
-		return (Float)store.get("mouldOpenStepPos_2");
+		return this.mouldOpenStepPos_2;
 	}
 	public float getMouldOpenStepSpeed_2() {
-		return (Float)store.get("mouldOpenStepSpeed_2");
+		return this.mouldOpenStepSpeed_2;
 	}
 	public float getMouldOpenStepPos_3() {
-		return (Float)store.get("mouldOpenStepPos_3");
+		return this.mouldOpenStepPos_3;
 	}
 	public float getMouldOpenStepSpeed_3() {
-		return (Float)store.get("mouldOpenStepSpeed_3");
+		return this.mouldOpenStepSpeed_3;
 	}
 	public float getMouldOpenTime() {
-		return (Float)store.get("mouldOpenTime");
+		return this.mouldOpenTime;
 	}
 	public String getEjectStart() {
-		return (String)store.get("ejectStart");
+		return this.ejectStart;
 	}
 	public String getEjectMode() {
-		return (String)store.get("ejectMode");
+		return this.ejectMode;
 	}
 	public float getEjectPulse() {
-		return (Float)store.get("ejectPulse");
+		return this.ejectPulse;
 	}
 	public float getEjectDelay() {
-		return (Float)store.get("ejectDelay");
+		return this.ejectDelay;
 	}
 	public float getEjectorsFwdPos() {
-		return (Float)store.get("ejectorsFwdPos");
+		return this.ejectorsFwdPos;
 	}
 	public float getEjectorsFwdSpeed() {
-		return (Float)store.get("ejectorsFwdSpeed");
+		return this.ejectorsFwdSpeed;
 	}
 	public float getEjectorsFwdTime() {
-		return (Float)store.get("ejectorsFwdTime");
+		return this.ejectorsFwdTime;
 	}
 	public float getEjectorsStopPos() {
-		return (Float)store.get("ejectorsStopPos");
+		return this.ejectorsStopPos;
 	}
 	public float getEjectorsStopSpeed() {
-		return (Float)store.get("ejectorsStopSpeed");
+		return this.ejectorsStopSpeed;
 	}
 	public float getEjectorsStopTime() {
-		return (Float)store.get("ejectorsStopTime");
+		return this.ejectorsStopTime;
 	}
 	public float getEjectorsRevPos() {
-		return (Float)store.get("ejectorsRevPos");
+		return this.ejectorsRevPos;
 	}
 	public float getEjectorsRevSpeed() {
-		return (Float)store.get("ejectorsRevSpeed");
+		return this.ejectorsRevSpeed;
 	}
 	public float getEjectorsRevTime() {
-		return (Float)store.get("ejectorsRevTime");
+		return this.ejectorsRevTime;
 	}
 	public float getDme_1() {
-		return (Float)store.get("dme_1");
+		return this.dme_1;
 	}
 	public float getDme_2() {
-		return (Float)store.get("dme_2");
+		return this.dme_2;
 	}
 	public float getDme_3() {
-		return (Float)store.get("dme_3");
+		return this.dme_3;
 	}
 	public float getDme_4() {
-		return (Float)store.get("dme_4");
+		return this.dme_4;
 	}
 	public float getDme_5() {
-		return (Float)store.get("dme_5");
+		return this.dme_5;
 	}
 	public float getDme_6() {
-		return (Float)store.get("dme_6");
+		return this.dme_6;
 	}
 	public float getDme_7() {
-		return (Float)store.get("dme_7");
+		return this.dme_7;
 	}
 	public float getDme_8() {
-		return (Float)store.get("dme_8");
+		return this.dme_8;
 	}
 	public float getWaterTempFixedHalf() {
-		return (Float)store.get("waterTempFixedHalf");
+		return this.waterTempFixedHalf;
 	}
 	public float getWaterTempMovingHalf() {
-		return (Float)store.get("waterTempMovingHalf");
+		return this.waterTempMovingHalf;
 	}
 	public String getWaterTempNotes() {
-		return (String)store.get("waterTempNotes");
+		return this.waterTempNotes;
 	}
 	public void setPartId(String partId) {
-		setField("partId",partId);
+		this.partId=partId;
 	}
 	public void setMachineSize(int machineSize) {
-		setField("machineSize",machineSize);
+		this.machineSize=machineSize;
 	}
 	public void setMachineNo(String machineNo) {
-		setField("machineNo",machineNo);
+		this.machineNo=machineNo;
 	}
 	public void setMaterial(String material) {
-		setField("material",material);
+		this.material=material;
 	}
-	public void setMasterbatch(String masterbatchNo) {
-		setField("masterbatchNo",masterbatchNo);
+	public void setMasterbatchNo(String masterbatchNo) {
+		this.masterbatchNo=masterbatchNo;
 	}
-	public void setDateOfIssue(java.util.Date dateOfIssue) {
-		setField("dateOfIssue",dateOfIssue);
+	public void setDateOfIssue(String dateOfIssue) {
+		this.dateOfIssue=java.sql.Date.valueOf(dateOfIssue);
 	}
 	public void setSignOffBy(String signOffBy) {
-		setField("signOffBy",signOffBy);
+		this.signOffBy=signOffBy;
 	}
 	public void setProcessNotes(String processNotes) {
-		setField("processNotes",processNotes);
+		this.processNotes=processNotes;
 	}
 	public void setInjectionSpeed_1(float injectionSpeed_1) {
-		setField("injectionSpeed_1",injectionSpeed_1);;
+		this.injectionSpeed_1=injectionSpeed_1;;
 	}
 	public void setInjectionSpeed_2(float injectionSpeed_2) {
-		setField("injectionSpeed_2",injectionSpeed_2);
+		this.injectionSpeed_2=injectionSpeed_2;
 	}
 	public void setInjectionSpeed_3(float injectionSpeed_3) {
-		setField("injectionSpeed_3",injectionSpeed_3);
+		this.injectionSpeed_3=injectionSpeed_3;
 	}
 	public void setInjectionSpeed_4(float injectionSpeed_4) {
-		setField("injectionSpeed_4",injectionSpeed_4);
+		this.injectionSpeed_4=injectionSpeed_4;
 	}
 	public void setInjectionSpeed_5(float injectionSpeed_5) {
-		setField("injectionSpeed_5",injectionSpeed_5);
+		this.injectionSpeed_5=injectionSpeed_5;
 	}
 	public void setInjectionSpeed_6(float injectionSpeed_6) {
-		setField("injectionSpeed_6",injectionSpeed_6);
+		this.injectionSpeed_6=injectionSpeed_6;
 	}
 	public void setInjSpeedPosition_1(float injSpeedPosition_1) {
-		setField("injSpeedPosition_1",injSpeedPosition_1);
+		this.injSpeedPosition_1=injSpeedPosition_1;
 	}
 	public void setInjSpeedPosition_2(float injSpeedPosition_2) {
-		setField("injSpeedPosition_2",injSpeedPosition_2);
+		this.injSpeedPosition_2=injSpeedPosition_2;
 	}
 	public void setInjSpeedPosition_3(float injSpeedPosition_3) {
-		setField("injSpeedPosition_3",injSpeedPosition_3);
+		this.injSpeedPosition_3=injSpeedPosition_3;
 	}
 	public void setInjSpeedPosition_4(float injSpeedPosition_4) {
-		setField("injSpeedPosition_4",injSpeedPosition_4);
+		this.injSpeedPosition_4=injSpeedPosition_4;
 	}
 	public void setInjSpeedPosition_5(float injSpeedPosition_5) {
-		setField("injSpeedPosition_5",injSpeedPosition_5);
+		this.injSpeedPosition_5=injSpeedPosition_5;
 	}
 	public void setInjSpeedPosition_6(float injSpeedPosition_6) {
-		setField("injSpeedPosition_6",injSpeedPosition_6);
+		this.injSpeedPosition_6=injSpeedPosition_6;
 	}
 	public void setHoldingPressure_1(float holdingPressure_1) {
-		setField("holdingPressure_1",holdingPressure_1);
+		this.holdingPressure_1=holdingPressure_1;
 	}
 	public void setHoldingPressure_2(float holdingPressure_2) {
-		setField("holdingPressure_2",holdingPressure_2);
+		this.holdingPressure_2=holdingPressure_2;
 	}
 	public void setHoldingPressure_3(float holdingPressure_3) {
-		setField("holdingPressure_3",holdingPressure_3);
+		this.holdingPressure_3=holdingPressure_3;
 	}
 	public void setHoldingPressure_4(float holdingPressure_4) {
-		setField("holdingPressure_4",holdingPressure_4);
+		this.holdingPressure_4=holdingPressure_4;
 	}
 	public void setHoldingPressure_5(float holdingPressure_5) {
-		setField("holdingPressure_5",holdingPressure_5);
+		this.holdingPressure_5=holdingPressure_5;
 	}
 	public void setHoldingPressure_6(float holdingPressure_6) {
-		setField("holdingPressure_6",holdingPressure_6);
+		this.holdingPressure_6=holdingPressure_6;
 	}
 	public void setHoldingTime_1(float holdingTime_1) {
-		setField("holdingTime_1",holdingTime_1);
+		this.holdingTime_1=holdingTime_1;
 	}
 	public void setHoldingTime_2(float holdingTime_2) {
-		setField("holdingTime_2",holdingTime_2);
+		this.holdingTime_2=holdingTime_2;
 	}
 	public void setHoldingTime_3(float holdingTime_3) {
-		setField("holdingTime_3",holdingTime_3);
+		this.holdingTime_3=holdingTime_3;
 	}
 	public void setHoldingTime_4(float holdingTime_4) {
-		setField("holdingTime_4",holdingTime_4);
+		this.holdingTime_4=holdingTime_4;
 	}
 	public void setHoldingTime_5(float holdingTime_5) {
-		setField("holdingTime_5",holdingTime_5);
+		this.holdingTime_5=holdingTime_5;
 	}
 	public void setHoldingTime_6(float holdingTime_6) {
-		setField("holdingTime_6",holdingTime_6);
+		this.holdingTime_6=holdingTime_6;
 	}
 	public void setMaxPackVel(float maxPackVel) {
-		setField("maxPackVel",maxPackVel);
+		this.maxPackVel=maxPackVel;
 	}
 	public void setPosTran(float posTran) {
-		setField("posTran",posTran);
+		this.posTran=posTran;
 	}
 	public void setMaxInjPre(float maxInjPre) {
-		setField("maxInjPre",maxInjPre);
+		this.maxInjPre=maxInjPre;
 	}
 	public void setMaxInjTime(float maxInjTime) {
-		setField("maxInjTime",maxInjTime);
+		this.maxInjTime=maxInjTime;
 	}
 	public void setShotSize(float shotSize) {
-		setField("shotSize",shotSize);
+		this.shotSize=shotSize;
 	}
 	public void setDecompressionVel(float decompressionVel) {
-		setField("decompressionVel",decompressionVel);
+		this.decompressionVel=decompressionVel;
 	}
 	public void setCoolTime(float coolTime) {
-		setField("coolTime",coolTime);
+		this.coolTime=coolTime;
 	}
 	public void setBackPressure_1(float backPressure_1) {
-		setField("backPressure_1",backPressure_1);
+		this.backPressure_1=backPressure_1;
 	}
 	public void setBackPressure_2(float backPressure_2) {
-		setField("backPressure_2",backPressure_2);
+		this.backPressure_2=backPressure_2;
 	}
 	public void setBackPressure_3(float backPressure_3) {
-		setField("backPressure_3",backPressure_3);
+		this.backPressure_3=backPressure_3;
 	}
 	public void setBackPressure_4(float backPressure_4) {
-		setField("backPressure_4",backPressure_4);
+		this.backPressure_4=backPressure_4;
 	}
 	public void setBackPressure_5(float backPressure_5) {
-		setField("backPressure_5",backPressure_5);;
+		this.backPressure_5=backPressure_5;;
 	}
 	public void setBackPressure_6(float backPressure_6) {
-		setField("backPressure_6",backPressure_6);;
+		this.backPressure_6=backPressure_6;;
 	}
 	public void setScrewExtSpeed_1(float screwExtSpeed_1) {
-		setField("screwExtSpeed_1",screwExtSpeed_1);;
+		this.screwExtSpeed_1=screwExtSpeed_1;;
 	}
 	public void setScrewExtSpeed_2(float screwExtSpeed_2) {
-		setField("screwExtSpeed_2",screwExtSpeed_2);;
+		this.screwExtSpeed_2=screwExtSpeed_2;;
 	}
 	public void setScrewExtSpeed_3(float screwExtSpeed_3) {
-		setField("screwExtSpeed_3",screwExtSpeed_3);;
+		this.screwExtSpeed_3=screwExtSpeed_3;;
 	}
 	public void setScrewExtSpeed_4(float screwExtSpeed_4) {
-		setField("screwExtSpeed_4",screwExtSpeed_4);;
+		this.screwExtSpeed_4=screwExtSpeed_4;;
 	}
 	public void setScrewExtSpeed_5(float screwExtSpeed_5) {
-		setField("screwExtSpeed_5",screwExtSpeed_5);;
+		this.screwExtSpeed_5=screwExtSpeed_5;;
 	}
 	public void setScrewExtSpeed_6(float screwExtSpeed_6) {
-		setField("screwExtSpeed_6",screwExtSpeed_6);;
+		this.screwExtSpeed_6=screwExtSpeed_6;;
 	}
 	public void setExtProfilePos_1(float extProfilePos_1) {
-		setField("extProfilePos_1",extProfilePos_1);;
+		this.extProfilePos_1=extProfilePos_1;;
 	}
 	public void setExtProfilePos_2(float extProfilePos_2) {
-		setField("extProfilePos_2",extProfilePos_2);;
+		this.extProfilePos_2=extProfilePos_2;;
 	}
 	public void setExtProfilePos_3(float extProfilePos_3) {
-		setField("extProfilePos_3",extProfilePos_3);;
+		this.extProfilePos_3=extProfilePos_3;;
 	}
 	public void setExtProfilePos_4(float extProfilePos_4) {
-		setField("extProfilePos_4",extProfilePos_4);;
+		this.extProfilePos_4=extProfilePos_4;;
 	}
 	public void setExtProfilePos_5(float extProfilePos_5) {
-		setField("extProfilePos_5",extProfilePos_5);;
+		this.extProfilePos_5=extProfilePos_5;;
 	}
 	public void setExtProfilePos_6(float extProfilePos_6) {
-		setField("extProfilePos_6",extProfilePos_6);;
+		this.extProfilePos_6=extProfilePos_6;;
 	}
 	public void setNozzelTemperature(float nozzelTemperature) {
-		setField("nozzelTemperature",nozzelTemperature);;
+		this.nozzelTemperature=nozzelTemperature;;
 	}
 	public void setBarrelTemperature_1(float barrelTemperature_1) {
-		setField("barrelTemperature_1",barrelTemperature_1);;
+		this.barrelTemperature_1=barrelTemperature_1;;
 	}
 	public void setBarrelTemperature_2(float barrelTemperature_2) {
-		setField("barrelTemperature_2",barrelTemperature_2);;
+		this.barrelTemperature_2=barrelTemperature_2;;
 	}
 	public void setBarrelTemperature_3(float barrelTemperature_3) {
-		setField("barrelTemperature_3",barrelTemperature_3);;
+		this.barrelTemperature_3=barrelTemperature_3;;
 	}
 	public void setBarrelTemperature_4(float barrelTemperature_4) {
-		setField("barrelTemperature_4",barrelTemperature_4);;
+		this.barrelTemperature_4=barrelTemperature_4;;
 	}
 	public void setThroatTemperature(float throatTemperature) {
-		setField("throatTemperature",throatTemperature);;
+		this.throatTemperature=throatTemperature;;
 	}
 	public void setMouldClosingOpenLimitPos(float mouldClosingOpenLimitPos) {
-		setField("mouldClosingOpenLimitPos",mouldClosingOpenLimitPos);;
+		this.mouldClosingOpenLimitPos=mouldClosingOpenLimitPos;;
 	}
 	public void setMouldClosingOpenLimitSpeed(float mouldClosingOpenLimitSpeed) {
-		setField("mouldClosingOpenLimitSpeed",mouldClosingOpenLimitSpeed);;
+		this.mouldClosingOpenLimitSpeed=mouldClosingOpenLimitSpeed;;
 	}
 	public void setMouldClosedLimitPos(float mouldClosedLimitPos) {
-		setField("mouldClosedLimitPos",mouldClosedLimitPos);;
+		this.mouldClosedLimitPos=mouldClosedLimitPos;;
 	}
 	public void setMouldClosedLimitSpeed(float mouldClosedLimitSpeed) {
-		setField("mouldClosedLimitSpeed",mouldClosedLimitSpeed);;
+		this.mouldClosedLimitSpeed=mouldClosedLimitSpeed;;
 	}
 	public void setClsSlowPos(float cLSSlowPos) {
-		setField("clsSlowPos",cLSSlowPos);;
+		this.clsSlowPos=clsSlowPos;;
 	}
 	public void setClsSlowSpeed(float cLSSlowSpeed) {
-		setField("clsSlowSpeed",cLSSlowSpeed);;
+		this.clsSlowSpeed=clsSlowSpeed;;
 	}
 	public void setMouldOpenBreakAwaySpeed(float mouldOpenBreakAwaySpeed) {
-		setField("mouldOpenBreakAwaySpeed",mouldOpenBreakAwaySpeed);;
+		this.mouldOpenBreakAwaySpeed=mouldOpenBreakAwaySpeed;;
 	}
 	public void setMouldOpenStepPos_1(float mouldOpenStepPos_1) {
-		setField("mouldOpenStepPos_1",mouldOpenStepPos_1);;
+		this.mouldOpenStepPos_1=mouldOpenStepPos_1;;
 	}
 	public void setMouldOpenStepSpeed_1(float mouldOpenStepSpeed_1) {
-		setField("mouldOpenStepSpeed_1",mouldOpenStepSpeed_1);;
+		this.mouldOpenStepSpeed_1=mouldOpenStepSpeed_1;;
 	}
 	public void setMouldOpenStepPos_2(float mouldOpenStepPos_2) {
-		setField("mouldOpenStepPos_2",mouldOpenStepPos_2);;
+		this.mouldOpenStepPos_2=mouldOpenStepPos_2;;
 	}
 	public void setMouldOpenStepSpeed_2(float mouldOpenStepSpeed_2) {
-		setField("mouldOpenStepSpeed_2",mouldOpenStepSpeed_2);;
+		this.mouldOpenStepSpeed_2=mouldOpenStepSpeed_2;;
 	}
 	public void setMouldOpenStepPos_3(float mouldOpenStepPos_3) {
-		setField("mouldOpenStepPos_3",mouldOpenStepPos_3);;
+		this.mouldOpenStepPos_3=mouldOpenStepPos_3;;
 	}
 	public void setMouldOpenStepSpeed_3(float mouldOpenStepSpeed_3) {
-		setField("mouldOpenStepSpeed_3",mouldOpenStepSpeed_3);;
+		this.mouldOpenStepSpeed_3=mouldOpenStepSpeed_3;;
 	}
 	public void setMouldOpenTime(float mouldOpenTime) {
-		setField("mouldOpenTime",mouldOpenTime);;
+		this.mouldOpenTime=mouldOpenTime;;
 	}
 	public void setEjectStart(String ejectStart) {
-		setField("ejectStart",ejectStart);;
+		this.ejectStart=ejectStart;;
 	}
 	public void setEjectMode(String ejectMode) {
-		setField("ejectMode",ejectMode);;
+		this.ejectMode=ejectMode;;
 	}
 	public void setEjectPulse(float ejectPulse) {
-		setField("ejectPulse",ejectPulse);;
+		this.ejectPulse=ejectPulse;;
 	}
 	public void setEjectDelay(float ejectDelay) {
-		setField("ejectDelay",ejectDelay);;
+		this.ejectDelay=ejectDelay;;
 	}
 	public void setEjectorsFwdPos(float ejectorsFwdPos) {
-		setField("ejectorsFwdPos",ejectorsFwdPos);;
+		this.ejectorsFwdPos=ejectorsFwdPos;;
 	}
 	public void setEjectorsFwdSpeed(float ejectorsFwdSpeed) {
-		setField("ejectorsFwdSpeed",ejectorsFwdSpeed);;
+		this.ejectorsFwdSpeed=ejectorsFwdSpeed;;
 	}
 	public void setEjectorsFwdTime(float ejectorsFwdTime) {
-		setField("ejectorsFwdTime",ejectorsFwdTime);;
+		this.ejectorsFwdTime=ejectorsFwdTime;;
 	}
 	public void setEjectorsStopPos(float ejectorsStopPos) {
-		setField("ejectorsStopPos",ejectorsStopPos);;
+		this.ejectorsStopPos=ejectorsStopPos;;
 	}
 	public void setEjectorsStopSpeed(float ejectorsStopSpeed) {
-		setField("ejectorsStopSpeed",ejectorsStopSpeed);;
+		this.ejectorsStopSpeed=ejectorsStopSpeed;;
 	}
 	public void setEjectorsStopTime(float ejectorsStopTime) {
-		setField("ejectorsStopTime",ejectorsStopTime);;
+		this.ejectorsStopTime=ejectorsStopTime;;
 	}
 	public void setEjectorsRevPos(float ejectorsRevPos) {
-		setField("ejectorsRevPos",ejectorsRevPos);;
+		this.ejectorsRevPos=ejectorsRevPos;;
 	}
 	public void setEjectorsRevSpeed(float ejectorsRevSpeed) {
-		setField("ejectorsRevSpeed",ejectorsRevSpeed);;
+		this.ejectorsRevSpeed=ejectorsRevSpeed;;
 	}
 	public void setEjectorsRevTime(float ejectorsRevTime) {
-		setField("ejectorsRevTime",ejectorsRevTime);;
+		this.ejectorsRevTime=ejectorsRevTime;;
 	}
 	public void setDme_1(float dme_1) {
-		setField("dme_1",dme_1);;
+		this.dme_1=dme_1;;
 	}
 	public void setDme_2(float dme_2) {
-		setField("dme_2",dme_2);;
+		this.dme_2=dme_2;;
 	}
 	public void setDme_3(float dme_3) {
-		setField("dme_3",dme_3);;
+		this.dme_3=dme_3;;
 	}
 	public void setDme_4(float dme_4) {
-		setField("dme_4",dme_4);;
+		this.dme_4=dme_4;;
 	}
 	public void setDme_5(float dme_5) {
-		setField("dme_5",dme_5);;
+		this.dme_5=dme_5;;
 	}
 	public void setDme_6(float dme_6) {
-		setField("dme_6",dme_6);;
+		this.dme_6=dme_6;;
 	}
 	public void setDme_7(float dme_7) {
-		setField("dme_7",dme_7);;
+		this.dme_7=dme_7;;
 	}
 	public void setDme_8(float dme_8) {
-		setField("dme_8",dme_8);;
+		this.dme_8=dme_8;;
 	}
 	public void setWaterTempFixedHalf(float waterTempFixedHalf) {
-		setField("waterTempFixedHalf",waterTempFixedHalf);;
+		this.waterTempFixedHalf=waterTempFixedHalf;;
 	}
 	public void setWaterTempMovingHalf(float waterTempMovingHalf) {
-		setField("waterTempMovingHalf",waterTempMovingHalf);;
+		this.waterTempMovingHalf=waterTempMovingHalf;;
 	}
 	public void setWaterTempNotes(String waterTempNotes) {
-		setField("waterTempNotes",waterTempNotes);;
+		this.waterTempNotes=waterTempNotes;;
 	}
 
 	public float getClsSPPos() {
-		return (Float)store.get("clsSPPos");
+		return this.clsSPPos;
 	}
 
 	public float getClsSPSpeed() {
-		return (Float)store.get("clsSPSpeed");
+		return this.clsSPSpeed;
 	}
 
-	public void setClsSPPos(float cLSSPPos) {
-		setField("clsSPPos",cLSSPPos);;
+	public void setClsSPPos(float clsSPPos) {
+		this.clsSPPos=clsSPPos;;
 	}
 
-	public void setClsSPSpeed(float cLSSPSpeed) {
-		setField("clsSPSpeed",cLSSPSpeed);;
+	public void setClsSPSpeed(float clsSPSpeed) {
+		this.clsSPSpeed=clsSPSpeed;;
 	}
 	public int getId() {
-		return (Integer)store.get("id");
+		return this.id;
 	}
 
 	public void setId(int id) {
-		setField("id",id);
+		this.id=id;
 	}
 	
 	@Override
@@ -914,7 +1015,7 @@ public class MouldingProcess
 		String result="ProcessSheet:(";
 		for(String field:fields)
 		{
-			result+=","+field+":"+getField(field);
+			result+=",("+field+":"+getField(field)+")\n";
 		}
 		result+=")";
 		return result;
@@ -923,7 +1024,14 @@ public class MouldingProcess
 	public static void main(String[] args)
 	{
 		MouldingProcess m=new MouldingProcess();
-		System.out.println(m.getWaterTempNotes());
+		for(int i=9;i<MouldingProcess.fields.length-10;i++)
+		{
+			m.setField(fields[i], new Float(2));
+		}
 		System.out.println(m);
+		
+		m.setField("dateOfIssue", java.sql.Date.valueOf("2013-2-2"));
+		m.setDateOfIssue("2013-2-2");
+		System.out.println("Date:"+m.getDateOfIssue());
 	}
 }

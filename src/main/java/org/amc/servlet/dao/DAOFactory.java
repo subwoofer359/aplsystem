@@ -7,4 +7,10 @@ public class DAOFactory
 	{
 		return new JobTemplateDAOImpl();
 	}
+	
+	public static MouldingProcessDAO getMouldingProcessDAO()
+	{
+		return new MouldingProcessDAOImpl();
+	}
+	
 }
