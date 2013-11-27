@@ -1033,5 +1033,8 @@ public class MouldingProcess
 		m.setField("dateOfIssue", java.sql.Date.valueOf("2013-2-2"));
 		m.setDateOfIssue("2013-2-2");
 		System.out.println("Date:"+m.getDateOfIssue());
-	}
+		
+		System.out.println("Fields:"+fields[9]+":"+fields[79]);
+		System.out.println("Fields:"+fields[82]+":"+fields[102]);
+	}		
 }

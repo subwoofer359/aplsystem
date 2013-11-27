@@ -163,7 +163,7 @@ public class APLProcessServlet extends HttpServlet
 					System.out.println("SaveProcessSheet:Editing entry into database");
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
-					processSheet.setId(jForm.getId());
+					processSheet.setId(Integer.parseInt(jForm.getId()));
 					action.edit(processSheet);
 					dispatcherURL="ProcessSheet_search";
 					response.sendRedirect("../ProcessSheet_search"); // Goto the Search Window
