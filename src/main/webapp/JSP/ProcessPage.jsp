@@ -6,12 +6,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Process Setup Sheet</title>
-<link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="/myservlet/theme.css">
+
 </head>
 <H1 class="title">Process Setup Sheet</H1>
 <body>
+<%-- Display errors if there any --%>
+<c:if test="${errors ne null }">
+<DIV class="error">
+<c:forEach items="${errors}" var="error"> 
+${error}<br/>
+</c:forEach>
+</DIV>
+</c:if>
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
-<FORM method="post" action="JSP/ProcessSheetBean.jsp"> 
+<FORM method="post" action="/myservlet/JSP/ProcessSheetBean.jsp"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
@@ -117,8 +126,8 @@
 <TR><TD>Open 2 Step:</TD><TD><input type="text" name="mouldOpenStepPos_2" value='${form.mouldOpenStepPos_2}'/></TD><TD><input type="text" name="mouldOpenStepSpeed_2" value='${form.mouldOpenStepSpeed_2}'/></TD></TR>
 <TR><TD>Open 3 Step:</TD><TD><input type="text" name="mouldOpenStepPos_3" value='${form.mouldOpenStepPos_3}'/></TD><TD><input type="text" name="mouldOpenStepSpeed_3" value='${form.mouldOpenStepSpeed_3}'/></TD></TR>
 <TR></TR>
-<TR><TD>Mould Open Time</TD><TD><input type="text" name="mouldOpenTime"/></TD><TD></TD></TR>
-<TR><TD>Eject Start</TD><TD><input type="text" name="ejectStart"/></TD><TD></TD></TR>
+<TR><TD>Mould Open Time</TD><TD><input type="text" name="mouldOpenTime" value='${form.mouldOpenTime}'/></TD><TD></TD></TR>
+<TR><TD>Eject Start</TD><TD><input type="text" name="ejectStart" value='${form.ejectStart}'/></TD><TD></TD></TR>
 </TABLE>
 </DIV>
 
@@ -165,5 +174,6 @@
 	<input type='submit'  name="mode" value='Edit'/>
 </c:if>
 </FORM>
+
 </body>
 </html>

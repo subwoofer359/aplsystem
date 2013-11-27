@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>APL System:Part Description Page</title>
-<link rel="stylesheet" type="text/css" href="../theme.css">
+<link rel="stylesheet" type="text/css" href="/myservlet/theme.css">
 <STYLE>
 
 body
@@ -61,9 +61,9 @@ ${error}<br/>
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 <DIV class="entrybox">
 <FORM method='get' action='./JobTemplate_save'>
+<input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 <TABLE>
 <%-- To be used in edit mode to store the id of the object being edited --%>
-<input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 <TR><TD>Name</TD><TD>
 	<input type='text' name='name' <c:if test='${form ne null}'>value='${form.name}'</c:if> />
 </TD></TR>
