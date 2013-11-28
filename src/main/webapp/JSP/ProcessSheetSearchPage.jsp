@@ -48,6 +48,10 @@ function enable(id)
 <DIV class="title">
 <H1> Process Sheets</H1>
 </DIV>
+<DIV class="loginbox">
+	<span><c:out value='${pageContext.request.remoteUser}'/></span>
+     
+</DIV>
 <DIV  class="entrybox">
 
 <FORM action="ProcessSheet_search" method="get">

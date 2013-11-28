@@ -2,6 +2,7 @@
 body
 {
 	background-color: #7287d4;
+	font-family: fantasy;
 }
 
 .error
@@ -51,11 +52,7 @@ TD
 { 
 	text-align: left;
 }
-TH
-{
-	border-bottom-style: solid;
-	
-}
+
 .error_message
 {
 	border-style: solid;
@@ -71,6 +68,7 @@ TH
 	font-size: 20px;
 	
 	text-align: center;		
+	overflow: auto;
 }
 
 DIV.icon 
@@ -116,4 +114,17 @@ DIV#spc
 	margin-right: auto;
 	margin-left: auto;
 	
+}
+<!-- Use by a div to display the logged in user -->
+.loginbox
+{
+	position:fixed;
+	top:50px;
+	right:0%;
+	background-color: white;
+	width: 10%;
+	heigth: 40px;
+	border-style: solid;
+	border-radius: 25px;
+	text-align: center;
 }

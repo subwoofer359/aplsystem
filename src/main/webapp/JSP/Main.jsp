@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,6 +68,7 @@ DIV#process
 	
 }
 
+
 </STYLE>
 </head>
 <body>
@@ -75,6 +77,10 @@ DIV#process
 <H1>Automatic Plastics Ltd. System</H1>
 </DIV>
 
+<DIV class="loginbox">
+	<span><c:out value='${pageContext.request.remoteUser}'/></span>
+     
+</DIV>
 
 <DIV id="partsearch" class="icon">
 
