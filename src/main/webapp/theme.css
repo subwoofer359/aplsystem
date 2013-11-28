@@ -115,11 +115,11 @@ DIV#spc
 	margin-left: auto;
 	
 }
-<!-- Use by a div to display the logged in user -->
+
 .loginbox
 {
 	position:fixed;
-	top:50px;
+	top:20px;
 	right:0%;
 	background-color: white;
 	width: 10%;
