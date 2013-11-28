@@ -55,6 +55,7 @@ public class StartupShutdownListener implements ServletContextListener
 			prop.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
 			prop.put("mail.smtp.auth","true");
 			prop.put("mail.smtp.starttls.enable","true");
+			prop.put("mail.smtp.ssl.enable","true");
 			prop.put("mail.smtp.user",smtpUsername);
 			         
 			
@@ -82,9 +83,9 @@ public class StartupShutdownListener implements ServletContextListener
 			msg.setSubject(message);
 			msg.setContent(message,"text/plain");
 			
-			Transport transport=session.getTransport("smtp");
-			
-			transport.connect(smtpHost,smtpPort,smtpUsername,smtpPassword);
+//			Transport transport=session.getTransport("smtp");
+//			
+//			transport.connect(smtpHost,smtpPort,smtpUsername,smtpPassword);
 		
 			Transport.send(msg);
 			
