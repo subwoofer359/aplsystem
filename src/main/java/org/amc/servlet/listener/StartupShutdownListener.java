@@ -57,6 +57,9 @@ public class StartupShutdownListener implements ServletContextListener
 			
 			Message msg=new MimeMessage(session);
 			
+			InternetAddress addressFrom =new InternetAddress(from);
+			msg.setFrom(addressFrom);
+			
 			InternetAddress[] address=new InternetAddress[1];
 			address[0]=new InternetAddress(to);
 			msg.setRecipients(Message.RecipientType.TO, address);
