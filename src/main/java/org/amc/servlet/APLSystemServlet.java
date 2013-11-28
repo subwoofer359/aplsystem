@@ -110,7 +110,7 @@ public class APLSystemServlet extends HttpServlet
 		
 		//check if page is in create or edit mode
 		String mode=request.getParameter("mode");
-		System.out.printf("mode:[%s]", mode);//debuh
+		System.out.printf("mode:[%s]", mode);//debug
 		//create form
 		JobTemplateForm jForm=new JobTemplateForm();
 		

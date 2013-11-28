@@ -1,10 +1,6 @@
 package org.amc.servlet.model;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.amc.servlet.model.Fields.*;
 /**
  * <p>
  * Project: APL_Problem_Database
