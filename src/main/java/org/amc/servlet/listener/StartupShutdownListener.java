@@ -38,13 +38,13 @@ public class StartupShutdownListener implements ServletContextListener
 	{
 		boolean result=false;
 		String smtpHost="smtp.gmail.com";
-		String smtpUsername="subwoofer359@gmail.com";
-		String smtpPassword="edomoisac1";
+		final String smtpUsername="subwoofer359@gmail.com";
+		final String smtpPassword="edomoisac1";
 		
 		String from="subwoofer359@gmail.com";
 		String to="adrianjmclaughlin@gmail.com";
 		
-		int smtpPort=465;
+		int smtpPort=587;
 		System.out.println("Sending email...");
 		try
 		{
@@ -53,7 +53,14 @@ public class StartupShutdownListener implements ServletContextListener
 			prop.put("mail.smtp.auth",true);
 			prop.put("mail.smtp.starttls.enable",true);
 			
-			Session session=Session.getInstance(prop);
+			Session session=Session.getInstance(prop,new Authenticator() {
+
+	            @Override
+	            protected PasswordAuthentication getPasswordAuthentication() {
+	                return new PasswordAuthentication(smtpUsername, smtpPassword);
+	            }
+
+	        });
 			
 			Message msg=new MimeMessage(session);
 			
