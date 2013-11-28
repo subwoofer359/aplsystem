@@ -54,8 +54,8 @@ public class StartupShutdownListener implements ServletContextListener
 			prop.put("mail.smtp.socketFactory.port", 465);
 			prop.put("mail.smtp.auth","true");
 			prop.put("mail.smtp.starttls.enable","true");
-			prop.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-			prop.put("mail.smtp.socketFactory.fallback", "false");
+//			prop.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+//			prop.put("mail.smtp.socketFactory.fallback", "false");
 			prop.put("mail.smtp.user",smtpUsername);
 			         
 			
