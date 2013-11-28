@@ -51,18 +51,20 @@ public class StartupShutdownListener implements ServletContextListener
 			Properties prop=new Properties();
 			prop.put("mail.smtp.host",smtpHost);
 			prop.put("mail.smtp.port", smtpPort);
-			prop.put("mail.smtp.auth",true);
+			prop.put("mail.smtp.auth","true");
 			prop.put("mail.smtp.starttls.enable","true");
 			         
 			
-			Session session=Session.getDefaultInstance(prop,new Authenticator() {
-
-	            @Override
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(smtpUsername, smtpPassword);
-	            }
-
-	        });
+			
+			Session session=Session.getInstance(prop);
+//			Session session=Session.getDefaultInstance(prop,new Authenticator() {
+//
+//	            @Override
+//	            protected PasswordAuthentication getPasswordAuthentication() {
+//	                return new PasswordAuthentication(smtpUsername, smtpPassword);
+//	            }
+//
+//	        });
 			
 			Message msg=new MimeMessage(session);
 			
@@ -76,9 +78,10 @@ public class StartupShutdownListener implements ServletContextListener
 			msg.setSubject(message);
 			msg.setContent(message,"text/plain");
 			
-//			Transport transport=session.getTransport("smtp");
-//			
-//			transport.connect(smtpHost,smtpPort,smtpUsername,smtpPassword);
+			Transport transport=session.getTransport("smtp");
+			
+			transport.connect(smtpHost,smtpPort,smtpUsername,smtpPassword);
+		
 			Transport.send(msg);
 			
 			
