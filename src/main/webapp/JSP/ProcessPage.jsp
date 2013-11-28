@@ -20,7 +20,7 @@ ${error}<br/>
 </DIV>
 </c:if>
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
-<FORM method="post" action="JSP/ProcessSheetBean.jsp"> 
+<FORM method="post" action="/JSP/ProcessSheetBean.jsp"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
