@@ -1,13 +1,8 @@
 package org.amc.servlet.model;
 
-import java.lang.reflect.Field;
-import java.sql.Date;
-
-
 
 public class MouldingProcessForm 
 {
-	public String name;
 	public String id;//Database ID
 	//Top Header
 	public String partId;
@@ -57,6 +52,7 @@ public class MouldingProcessForm
 	public String maxInjPre;
 	public String maxInjTime;
 	public String shotSize;
+	public String decompressionDist;
 	public String decompressionVel;
 	public String coolTime;
 	
@@ -154,123 +150,9 @@ public class MouldingProcessForm
 	
 
 	
-	//Getters/Setters
-	
-	
-	public void setField(String field,Float f)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.setFloat(this, f);
-		} catch (NoSuchFieldException e) {
-	
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("Object:"+f+" is invalid assign to field:"+field);
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+	//Getters/Setters (JavaBean)
 
-			e.printStackTrace();
-		} 
-		
-	}
-	public void setField(String field,java.sql.Date s)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.set(this, s);
-		} catch (NoSuchFieldException e) {
-	
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("Object:"+s+" is invalid assign to field:"+field);
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-		
-			e.printStackTrace();
-		} 
-		
-	}
-	public void setField(String field,String s)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.set(this, s);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("Object:"+s+" is invalid assign to field:"+field);
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-	}
-	public void setField(String field,Integer s)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.setInt(this, s);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("Object:"+s+" is invalid assign to field:"+field);
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-	}
-	
-	public void setField(String field,Object obj)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.set(this, obj);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			System.err.println("Object:"+obj+" is invalid assign to field:"+field);
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-	}
-	
-	public Object getField(String field)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			return refField.get(this);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
-	
-	
 
-	
-	
-	
 	public String getPartId() {
 		return this.partId;
 	}
@@ -903,22 +785,147 @@ public class MouldingProcessForm
 	public void setId(String id) {
 		this.id=id;
 	}
-	
+	public String getDecompressionDist() {
+		return decompressionDist;
+	}
+	public void setDecompressionDist(String decompressionDist) {
+		this.decompressionDist = decompressionDist;
+	}
 	@Override
 	public String toString()
 	{
-		String result="ProcessSheet:(";
-		for(String field:MouldingProcess.fields)
-		{
-			result+=","+field+":"+getField(field);
-		}
-		result+=")";
+		String result="ProcessSheet:()"; //TODO implement a better string representation of a MouldingForm
+		
 		return result;
 	}
-	public String getName() {
-		return name;
+
+	
+	
+	/**
+	 * 
+	 * @param jForm 
+	 * @return a MouldingProces object containing the values in jForm but cast to the correct object
+	 * @throws Exception if parsing/casting of the jForm variables fails 
+	 */
+	public static MouldingProcess getMouldingProcess(MouldingProcessForm jForm)throws Exception
+	{
+		MouldingProcess processSheet=new MouldingProcess();
+		try {
+			processSheet.setId(Integer.parseInt(jForm.getId())) ;
+			
+			processSheet.setPartId(jForm.getPartId()); 
+			processSheet.setMachineSize(Integer.parseInt(jForm.getMachineSize())); 
+			processSheet.setMachineNo(jForm.getMachineNo());
+			processSheet.setMaterial(jForm.getMaterial()); 
+			processSheet.setMasterbatchNo(jForm.getMasterbatchNo());
+			processSheet.setDateOfIssue(java.sql.Date.valueOf(jForm.getDateOfIssue()));
+			processSheet.setSignOffBy(jForm.getSignOffBy()) ;
+			processSheet.setProcessNotes(jForm.getProcessNotes());
+			
+			processSheet.setInjectionSpeed_1(Float.parseFloat(jForm.getInjectionSpeed_1()));
+
+			processSheet.setInjectionSpeed_2(Float.parseFloat(jForm.getInjectionSpeed_2()));
+			processSheet.setInjectionSpeed_3(Float.parseFloat(jForm.getInjectionSpeed_3()));
+			processSheet.setInjectionSpeed_4(Float.parseFloat(jForm.getInjectionSpeed_4()));
+			processSheet.setInjectionSpeed_5(Float.parseFloat(jForm.getInjectionSpeed_5()));
+			processSheet.setInjectionSpeed_6(Float.parseFloat(jForm.getInjectionSpeed_6()));
+			processSheet.setInjSpeedPosition_1(Float.parseFloat(jForm.getInjSpeedPosition_1()));
+			processSheet.setInjSpeedPosition_2(Float.parseFloat(jForm.getInjSpeedPosition_2()));
+			processSheet.setInjSpeedPosition_3(Float.parseFloat(jForm.getInjSpeedPosition_3()));
+			processSheet.setInjSpeedPosition_4(Float.parseFloat(jForm.getInjSpeedPosition_4()));
+			processSheet.setInjSpeedPosition_5(Float.parseFloat(jForm.getInjSpeedPosition_5()));
+			processSheet.setInjSpeedPosition_6(Float.parseFloat(jForm.getInjSpeedPosition_6()));
+			processSheet.setHoldingPressure_1(Float.parseFloat(jForm.getHoldingPressure_1()));
+			processSheet.setHoldingPressure_2(Float.parseFloat(jForm.getHoldingPressure_2()));
+			processSheet.setHoldingPressure_3(Float.parseFloat(jForm.getHoldingPressure_3()));
+			processSheet.setHoldingPressure_4(Float.parseFloat(jForm.getHoldingPressure_4()));
+			processSheet.setHoldingPressure_5(Float.parseFloat(jForm.getHoldingPressure_5()));
+			processSheet.setHoldingPressure_6(Float.parseFloat(jForm.getHoldingPressure_6()));
+			processSheet.setHoldingTime_1(Float.parseFloat(jForm.getHoldingTime_1()));
+			processSheet.setHoldingTime_2(Float.parseFloat(jForm.getHoldingTime_2()));
+			processSheet.setHoldingTime_3(Float.parseFloat(jForm.getHoldingTime_3()));
+			processSheet.setHoldingTime_4(Float.parseFloat(jForm.getHoldingTime_4()));
+			processSheet.setHoldingTime_5(Float.parseFloat(jForm.getHoldingTime_5()));
+			processSheet.setHoldingTime_6(Float.parseFloat(jForm.getHoldingTime_6()));
+			processSheet.setMaxPackVel(Float.parseFloat(jForm.getMaxPackVel()));
+			processSheet.setPosTran(Float.parseFloat(jForm.getPosTran()));
+			processSheet.setMaxInjPre(Float.parseFloat(jForm.getMaxInjPre()));
+			processSheet.setMaxInjTime(Float.parseFloat(jForm.getMaxInjTime()));
+			processSheet.setShotSize(Float.parseFloat(jForm.getShotSize()));
+			processSheet.setDecompressionVel(Float.parseFloat(jForm.getDecompressionVel()));
+			processSheet.setCoolTime(Float.parseFloat(jForm.getCoolTime()));
+			processSheet.setBackPressure_1(Float.parseFloat(jForm.getBackPressure_1()));
+			processSheet.setBackPressure_2(Float.parseFloat(jForm.getBackPressure_2()));
+			processSheet.setBackPressure_3(Float.parseFloat(jForm.getBackPressure_3()));
+			processSheet.setBackPressure_4(Float.parseFloat(jForm.getBackPressure_4()));
+			processSheet.setBackPressure_5(Float.parseFloat(jForm.getBackPressure_5()));
+			processSheet.setBackPressure_6(Float.parseFloat(jForm.getBackPressure_6()));
+			processSheet.setScrewExtSpeed_1(Float.parseFloat(jForm.getScrewExtSpeed_1()));
+			processSheet.setScrewExtSpeed_2(Float.parseFloat(jForm.getScrewExtSpeed_2()));
+			processSheet.setScrewExtSpeed_3(Float.parseFloat(jForm.getScrewExtSpeed_3()));
+			processSheet.setScrewExtSpeed_4(Float.parseFloat(jForm.getScrewExtSpeed_4()));
+			processSheet.setScrewExtSpeed_5(Float.parseFloat(jForm.getScrewExtSpeed_5()));
+			processSheet.setScrewExtSpeed_6(Float.parseFloat(jForm.getScrewExtSpeed_6()));
+			processSheet.setExtProfilePos_1(Float.parseFloat(jForm.getExtProfilePos_1()));
+			processSheet.setExtProfilePos_2(Float.parseFloat(jForm.getExtProfilePos_2()));
+			processSheet.setExtProfilePos_3(Float.parseFloat(jForm.getExtProfilePos_3()));
+			processSheet.setExtProfilePos_4(Float.parseFloat(jForm.getExtProfilePos_4()));
+			processSheet.setExtProfilePos_5(Float.parseFloat(jForm.getExtProfilePos_5()));
+			processSheet.setExtProfilePos_6(Float.parseFloat(jForm.getExtProfilePos_6()));
+			processSheet.setNozzelTemperature(Float.parseFloat(jForm.getNozzelTemperature()));
+			processSheet.setBarrelTemperature_1(Float.parseFloat(jForm.getBarrelTemperature_1()));
+			processSheet.setBarrelTemperature_2(Float.parseFloat(jForm.getBarrelTemperature_2()));
+			processSheet.setBarrelTemperature_3(Float.parseFloat(jForm.getBarrelTemperature_3()));
+			processSheet.setBarrelTemperature_4(Float.parseFloat(jForm.getBarrelTemperature_4()));
+			processSheet.setThroatTemperature(Float.parseFloat(jForm.getThroatTemperature()));
+			processSheet.setMouldClosingOpenLimitPos(Float.parseFloat(jForm.getMouldClosingOpenLimitPos()));
+			processSheet.setMouldClosingOpenLimitSpeed(Float.parseFloat(jForm.getMouldClosingOpenLimitSpeed()));
+			processSheet.setMouldClosedLimitPos(Float.parseFloat(jForm.getMouldClosedLimitPos()));
+			processSheet.setMouldClosedLimitSpeed(Float.parseFloat(jForm.getMouldClosedLimitSpeed()));
+			processSheet.setClsSlowPos(Float.parseFloat(jForm.getClsSlowPos()));
+			processSheet.setClsSlowSpeed(Float.parseFloat(jForm.getClsSlowSpeed()));
+			processSheet.setMouldOpenBreakAwaySpeed(Float.parseFloat(jForm.getMouldOpenBreakAwaySpeed()));
+			processSheet.setMouldOpenStepPos_1(Float.parseFloat(jForm.getMouldOpenStepPos_1()));
+			processSheet.setMouldOpenStepSpeed_1(Float.parseFloat(jForm.getMouldOpenStepSpeed_1()));
+			processSheet.setMouldOpenStepPos_2(Float.parseFloat(jForm.getMouldOpenStepPos_2()));
+			processSheet.setMouldOpenStepSpeed_2(Float.parseFloat(jForm.getMouldOpenStepSpeed_2()));
+			processSheet.setMouldOpenStepPos_3(Float.parseFloat(jForm.getMouldOpenStepPos_3()));
+			processSheet.setMouldOpenStepSpeed_3(Float.parseFloat(jForm.getMouldOpenStepSpeed_3()));
+			processSheet.setMouldOpenTime(Float.parseFloat(jForm.getMouldOpenTime()));
+			processSheet.setEjectStart(jForm.getEjectStart());
+			processSheet.setEjectMode(jForm.getEjectMode());
+			processSheet.setEjectPulse(Float.parseFloat(jForm.getEjectPulse()));
+			processSheet.setEjectDelay(Float.parseFloat(jForm.getEjectDelay()));
+			processSheet.setEjectorsFwdPos(Float.parseFloat(jForm.getEjectorsFwdPos()));
+			processSheet.setEjectorsFwdSpeed(Float.parseFloat(jForm.getEjectorsFwdSpeed()));
+			processSheet.setEjectorsFwdTime(Float.parseFloat(jForm.getEjectorsFwdTime()));
+			processSheet.setEjectorsStopPos(Float.parseFloat(jForm.getEjectorsStopPos()));
+			processSheet.setEjectorsStopSpeed(Float.parseFloat(jForm.getEjectorsStopSpeed()));
+			processSheet.setEjectorsStopTime(Float.parseFloat(jForm.getEjectorsStopTime()));
+			processSheet.setEjectorsRevPos(Float.parseFloat(jForm.getEjectorsRevPos()));
+			processSheet.setEjectorsRevSpeed(Float.parseFloat(jForm.getEjectorsRevSpeed()));
+			processSheet.setEjectorsRevTime(Float.parseFloat(jForm.getEjectorsRevTime()));
+			processSheet.setDme_1(Float.parseFloat(jForm.getDme_1()));
+			processSheet.setDme_2(Float.parseFloat(jForm.getDme_2()));
+			processSheet.setDme_3(Float.parseFloat(jForm.getDme_3()));
+			processSheet.setDme_4(Float.parseFloat(jForm.getDme_4()));
+			processSheet.setDme_5(Float.parseFloat(jForm.getDme_5()));
+			processSheet.setDme_6(Float.parseFloat(jForm.getDme_6()));
+			processSheet.setDme_7(Float.parseFloat(jForm.getDme_7()));
+			processSheet.setDme_8(Float.parseFloat(jForm.getDme_8()));
+			processSheet.setWaterTempFixedHalf(Float.parseFloat(jForm.getWaterTempFixedHalf()));
+			processSheet.setWaterTempMovingHalf(Float.parseFloat(jForm.getWaterTempMovingHalf()));
+			processSheet.setWaterTempNotes(jForm.getWaterTempNotes());
+			processSheet.setClsSPPos(Float.parseFloat(jForm.getClsSPPos()));
+			processSheet.setClsSPSpeed(Float.parseFloat(jForm.getClsSPSpeed()));
+			processSheet.setDecompressionDist(Float.parseFloat(jForm.getDecompressionDist()));
+		} catch (NumberFormatException e) 
+		{
+			Exception exception=new Exception("Couldn't parse MouldingProcessForm into MouldingProcess object");
+			exception.addSuppressed(e);
+			throw exception;
+		}
+		return processSheet;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 }

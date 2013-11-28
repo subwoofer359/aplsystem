@@ -129,26 +129,14 @@ public class APLProcessServlet extends HttpServlet
 		{
 		
 			//create model
-			MouldingProcess processSheet=new MouldingProcess();
-			for(String field:MouldingProcess.fields)
-			{
-				if(!field.equals("dateOfIssue"))
-				{
-					processSheet.setField(field, jForm.getField(field));
-				}
-				else
-				{
-					String temp=(String)jForm.getField(field);
-					processSheet.setField(field,java.sql.Date.valueOf(temp) );
-				}
-			}
-			
+			MouldingProcess processSheet;
 			
 			String dispatcherURL="";
 			
 			SaveProcessSheetAction action=new SaveProcessSheetAction();
 			try
 			{
+				processSheet=MouldingProcessForm.getMouldingProcess(jForm);
 				// New JobTemplate to Database
 				if(mode==null||mode.equals("Enter"))
 				{
@@ -187,6 +175,12 @@ public class APLProcessServlet extends HttpServlet
 				
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
 				request.setAttribute("exception",se);
+				rd.forward(request, response);
+			}
+			catch(Exception e)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
+				request.setAttribute("exception",e);
 				rd.forward(request, response);
 			}
 			

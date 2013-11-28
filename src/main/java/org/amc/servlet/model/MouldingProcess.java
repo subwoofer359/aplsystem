@@ -1,5 +1,4 @@
 package org.amc.servlet.model;
-
 import java.lang.reflect.Field;
 import java.sql.Date;
 
@@ -45,6 +44,7 @@ public class MouldingProcess
 			 "maxInjPre",
 			 "maxInjTime",
 			 "shotSize",
+			 "decompressionDist",
 			 "decompressionVel",
 			 "coolTime",
 			 "backPressure_1",
@@ -161,6 +161,7 @@ public class MouldingProcess
 	private float maxInjPre;
 	private float maxInjTime;
 	private float shotSize;
+	private float decompressionDist;
 	private float decompressionVel;
 	private float coolTime;
 	
@@ -697,8 +698,8 @@ public class MouldingProcess
 	public void setMasterbatchNo(String masterbatchNo) {
 		this.masterbatchNo=masterbatchNo;
 	}
-	public void setDateOfIssue(String dateOfIssue) {
-		this.dateOfIssue=java.sql.Date.valueOf(dateOfIssue);
+	public void setDateOfIssue(java.sql.Date dateOfIssue) {
+		this.dateOfIssue=dateOfIssue;
 	}
 	public void setSignOffBy(String signOffBy) {
 		this.signOffBy=signOffBy;
@@ -883,10 +884,10 @@ public class MouldingProcess
 	public void setMouldClosedLimitSpeed(float mouldClosedLimitSpeed) {
 		this.mouldClosedLimitSpeed=mouldClosedLimitSpeed;;
 	}
-	public void setClsSlowPos(float cLSSlowPos) {
+	public void setClsSlowPos(float clsSlowPos) {
 		this.clsSlowPos=clsSlowPos;;
 	}
-	public void setClsSlowSpeed(float cLSSlowSpeed) {
+	public void setClsSlowSpeed(float clsSlowSpeed) {
 		this.clsSlowSpeed=clsSlowSpeed;;
 	}
 	public void setMouldOpenBreakAwaySpeed(float mouldOpenBreakAwaySpeed) {
@@ -1008,6 +1009,13 @@ public class MouldingProcess
 	public void setId(int id) {
 		this.id=id;
 	}
+	public float getDecompressionDist() {
+		return decompressionDist;
+	}
+
+	public void setDecompressionDist(float decompressionDist) {
+		this.decompressionDist = decompressionDist;
+	}	
 	
 	@Override
 	public String toString()
@@ -1031,10 +1039,12 @@ public class MouldingProcess
 		System.out.println(m);
 		
 		m.setField("dateOfIssue", java.sql.Date.valueOf("2013-2-2"));
-		m.setDateOfIssue("2013-2-2");
+		//m.setDateOfIssue("2013-2-2");
 		System.out.println("Date:"+m.getDateOfIssue());
 		
 		System.out.println("Fields:"+fields[9]+":"+fields[79]);
 		System.out.println("Fields:"+fields[82]+":"+fields[102]);
-	}		
+	}
+
+		
 }

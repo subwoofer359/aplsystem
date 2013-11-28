@@ -2,8 +2,6 @@ package org.amc.servlet.dao;
 
 import java.sql.SQLException;
 import java.util.List;
-
-import org.amc.servlet.model.JobTemplate;
 import org.amc.servlet.model.MouldingProcess;
 
 public interface MouldingProcessDAO 

@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.amc.servlet.model.JobTemplate;
 import org.amc.servlet.model.MouldingProcess;
 
 public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessDAO 
@@ -30,7 +28,7 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,"
-				+ "?,?,?)");
+				+ "?,?,?,?)");
 
 		statement.setString(1, process.getPartId());
 		statement.setInt(2, process.getMachineSize());
@@ -72,80 +70,81 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 		statement.setFloat(35, process.getMaxInjPre());
 		statement.setFloat(36, process.getMaxInjTime());
 		statement.setFloat(37, process.getShotSize());
-		statement.setFloat(38, process.getDecompressionVel());
-		statement.setFloat(39, process.getCoolTime());
+		statement.setFloat(38, process.getDecompressionDist());
+		statement.setFloat(39, process.getDecompressionVel());
 		
-		statement.setFloat(40, process.getBackPressure_1());
-		statement.setFloat(41, process.getBackPressure_2());
-		statement.setFloat(42, process.getBackPressure_3());
-		statement.setFloat(43, process.getBackPressure_4());
-		statement.setFloat(44, process.getBackPressure_5());
-		statement.setFloat(45, process.getBackPressure_6());
-		statement.setFloat(46, process.getScrewExtSpeed_1());
-		statement.setFloat(47, process.getScrewExtSpeed_2());
-		statement.setFloat(48, process.getScrewExtSpeed_3());
-		statement.setFloat(49, process.getScrewExtSpeed_4());
-		statement.setFloat(50, process.getScrewExtSpeed_5());
+		statement.setFloat(40, process.getCoolTime());
+		statement.setFloat(41, process.getBackPressure_1());
+		statement.setFloat(42, process.getBackPressure_2());
+		statement.setFloat(43, process.getBackPressure_3());
+		statement.setFloat(44, process.getBackPressure_4());
+		statement.setFloat(45, process.getBackPressure_5());
+		statement.setFloat(46, process.getBackPressure_6());
+		statement.setFloat(47, process.getScrewExtSpeed_1());
+		statement.setFloat(48, process.getScrewExtSpeed_2());
+		statement.setFloat(49, process.getScrewExtSpeed_3());
 		
-		statement.setFloat(51, process.getScrewExtSpeed_6());
-		statement.setFloat(52, process.getExtProfilePos_1());
-		statement.setFloat(53, process.getExtProfilePos_2());
-		statement.setFloat(54, process.getExtProfilePos_3());
-		statement.setFloat(55, process.getExtProfilePos_4());
-		statement.setFloat(56, process.getExtProfilePos_5());
-		statement.setFloat(57, process.getExtProfilePos_6());
-		statement.setFloat(58, process.getNozzelTemperature());
-		statement.setFloat(59, process.getBarrelTemperature_1());
+		statement.setFloat(50, process.getScrewExtSpeed_4());
+		statement.setFloat(51, process.getScrewExtSpeed_5());
+		statement.setFloat(52, process.getScrewExtSpeed_6());
+		statement.setFloat(53, process.getExtProfilePos_1());
+		statement.setFloat(54, process.getExtProfilePos_2());
+		statement.setFloat(55, process.getExtProfilePos_3());
+		statement.setFloat(56, process.getExtProfilePos_4());
+		statement.setFloat(57, process.getExtProfilePos_5());
+		statement.setFloat(58, process.getExtProfilePos_6());
+		statement.setFloat(59, process.getNozzelTemperature());
 		
-		statement.setFloat(60, process.getBarrelTemperature_2());
-		statement.setFloat(61, process.getBarrelTemperature_3());
-		statement.setFloat(62, process.getBarrelTemperature_4());
-		statement.setFloat(63, process.getThroatTemperature());
-		statement.setFloat(64, process.getMouldClosingOpenLimitPos());
-		statement.setFloat(65, process.getMouldClosingOpenLimitSpeed());
-		statement.setFloat(66, process.getMouldClosedLimitPos());
-		statement.setFloat(67, process.getMouldClosedLimitSpeed());
-		statement.setFloat(68, process.getClsSlowPos());
-		statement.setFloat(69, process.getClsSlowSpeed());
+		statement.setFloat(60, process.getBarrelTemperature_1());
+		statement.setFloat(61, process.getBarrelTemperature_2());
+		statement.setFloat(62, process.getBarrelTemperature_3());
+		statement.setFloat(63, process.getBarrelTemperature_4());
+		statement.setFloat(64, process.getThroatTemperature());
+		statement.setFloat(65, process.getMouldClosingOpenLimitPos());
+		statement.setFloat(66, process.getMouldClosingOpenLimitSpeed());
+		statement.setFloat(67, process.getMouldClosedLimitPos());
+		statement.setFloat(68, process.getMouldClosedLimitSpeed());
+		statement.setFloat(69, process.getClsSlowPos());
 		
-		statement.setFloat(70, process.getClsSPPos());
-		statement.setFloat(71, process.getClsSPSpeed());
-		statement.setFloat(72, process.getMouldOpenBreakAwaySpeed());
-		statement.setFloat(73, process.getMouldOpenStepPos_1());
-		statement.setFloat(74, process.getMouldOpenStepSpeed_1());
-		statement.setFloat(75, process.getMouldOpenStepPos_2());
-		statement.setFloat(76, process.getMouldOpenStepSpeed_2());
-		statement.setFloat(77, process.getMouldOpenStepPos_3());
-		statement.setFloat(78, process.getMouldOpenStepSpeed_3());
-		statement.setFloat(79, process.getMouldOpenTime());
+		statement.setFloat(70, process.getClsSlowSpeed());
+		statement.setFloat(71, process.getClsSPPos());
+		statement.setFloat(72, process.getClsSPSpeed());
+		statement.setFloat(73, process.getMouldOpenBreakAwaySpeed());
+		statement.setFloat(74, process.getMouldOpenStepPos_1());
+		statement.setFloat(75, process.getMouldOpenStepSpeed_1());
+		statement.setFloat(76, process.getMouldOpenStepPos_2());
+		statement.setFloat(77, process.getMouldOpenStepSpeed_2());
+		statement.setFloat(78, process.getMouldOpenStepPos_3());
+		statement.setFloat(79, process.getMouldOpenStepSpeed_3());
 		
-		statement.setString(80, process.getEjectStart());
-		statement.setString(81, process.getEjectMode());
-		statement.setFloat(82, process.getEjectPulse());
-		statement.setFloat(83, process.getEjectDelay());
-		statement.setFloat(84, process.getEjectorsFwdPos());
-		statement.setFloat(85, process.getEjectorsFwdSpeed());
-		statement.setFloat(86, process.getEjectorsFwdTime());
-		statement.setFloat(87, process.getEjectorsStopPos());
-		statement.setFloat(88, process.getEjectorsStopSpeed());
-		statement.setFloat(89, process.getEjectorsStopTime());
+		statement.setFloat(80, process.getMouldOpenTime());
+		statement.setString(81, process.getEjectStart());
+		statement.setString(82, process.getEjectMode());
+		statement.setFloat(83, process.getEjectPulse());
+		statement.setFloat(84, process.getEjectDelay());
+		statement.setFloat(85, process.getEjectorsFwdPos());
+		statement.setFloat(86, process.getEjectorsFwdSpeed());
+		statement.setFloat(87, process.getEjectorsFwdTime());
+		statement.setFloat(88, process.getEjectorsStopPos());
+		statement.setFloat(89, process.getEjectorsStopSpeed());
 		
-		statement.setFloat(90, process.getEjectorsRevPos());
-		statement.setFloat(91, process.getEjectorsRevSpeed());
-		statement.setFloat(92, process.getEjectorsRevTime());
-		statement.setFloat(93, process.getDme_1());
-		statement.setFloat(94, process.getDme_2());
-		statement.setFloat(95, process.getDme_3());
-		statement.setFloat(96, process.getDme_4());
-		statement.setFloat(97, process.getDme_5());
-		statement.setFloat(98, process.getDme_6());
-		statement.setFloat(99, process.getDme_7());
+		statement.setFloat(90, process.getEjectorsStopTime());
+		statement.setFloat(91, process.getEjectorsRevPos());
+		statement.setFloat(92, process.getEjectorsRevSpeed());
+		statement.setFloat(93, process.getEjectorsRevTime());
+		statement.setFloat(94, process.getDme_1());
+		statement.setFloat(95, process.getDme_2());
+		statement.setFloat(96, process.getDme_3());
+		statement.setFloat(97, process.getDme_4());
+		statement.setFloat(98, process.getDme_5());
+		statement.setFloat(99, process.getDme_6());
 		
-		statement.setFloat(100, process.getDme_8());
-		statement.setFloat(101, process.getWaterTempFixedHalf());
-		statement.setFloat(102, process.getWaterTempMovingHalf());
-		statement.setString(103, process.getWaterTempNotes());
-		
+		statement.setFloat(100, process.getDme_7());
+		statement.setFloat(101, process.getDme_8());
+		statement.setFloat(102, process.getWaterTempFixedHalf());
+		statement.setFloat(103, process.getWaterTempMovingHalf());
+		statement.setString(104, process.getWaterTempNotes());
+	
 		System.out.println("Create:"+statement.toString());
 		
 		statement.executeUpdate();
@@ -197,6 +196,7 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 				+"maxInjPre =?,"
 				+"maxInjTime =?,"
 				+"shotSize =?,"
+				+ "decompressionDist =?,"
 				+"decompressionVel =?,"
 				+"coolTime =?,"
 				+"backPressure_1 =?,"
@@ -306,84 +306,85 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 		statement.setFloat(35, process.getMaxInjPre());
 		statement.setFloat(36, process.getMaxInjTime());
 		statement.setFloat(37, process.getShotSize());
-		statement.setFloat(38, process.getDecompressionVel());
-		statement.setFloat(39, process.getCoolTime());
+		statement.setFloat(38, process.getDecompressionDist());
+		statement.setFloat(39, process.getDecompressionVel());
 		
-		statement.setFloat(40, process.getBackPressure_1());
-		statement.setFloat(41, process.getBackPressure_2());
-		statement.setFloat(42, process.getBackPressure_3());
-		statement.setFloat(43, process.getBackPressure_4());
-		statement.setFloat(44, process.getBackPressure_5());
-		statement.setFloat(45, process.getBackPressure_6());
-		statement.setFloat(46, process.getScrewExtSpeed_1());
-		statement.setFloat(47, process.getScrewExtSpeed_2());
-		statement.setFloat(48, process.getScrewExtSpeed_3());
-		statement.setFloat(49, process.getScrewExtSpeed_4());
-		statement.setFloat(50, process.getScrewExtSpeed_5());
+		statement.setFloat(40, process.getCoolTime());
+		statement.setFloat(41, process.getBackPressure_1());
+		statement.setFloat(42, process.getBackPressure_2());
+		statement.setFloat(43, process.getBackPressure_3());
+		statement.setFloat(44, process.getBackPressure_4());
+		statement.setFloat(45, process.getBackPressure_5());
+		statement.setFloat(46, process.getBackPressure_6());
+		statement.setFloat(47, process.getScrewExtSpeed_1());
+		statement.setFloat(48, process.getScrewExtSpeed_2());
+		statement.setFloat(49, process.getScrewExtSpeed_3());
 		
-		statement.setFloat(51, process.getScrewExtSpeed_6());
-		statement.setFloat(52, process.getExtProfilePos_1());
-		statement.setFloat(53, process.getExtProfilePos_2());
-		statement.setFloat(54, process.getExtProfilePos_3());
-		statement.setFloat(55, process.getExtProfilePos_4());
-		statement.setFloat(56, process.getExtProfilePos_5());
-		statement.setFloat(57, process.getExtProfilePos_6());
-		statement.setFloat(58, process.getNozzelTemperature());
-		statement.setFloat(59, process.getBarrelTemperature_1());
+		statement.setFloat(50, process.getScrewExtSpeed_4());
+		statement.setFloat(51, process.getScrewExtSpeed_5());
+		statement.setFloat(52, process.getScrewExtSpeed_6());
+		statement.setFloat(53, process.getExtProfilePos_1());
+		statement.setFloat(54, process.getExtProfilePos_2());
+		statement.setFloat(55, process.getExtProfilePos_3());
+		statement.setFloat(56, process.getExtProfilePos_4());
+		statement.setFloat(57, process.getExtProfilePos_5());
+		statement.setFloat(58, process.getExtProfilePos_6());
+		statement.setFloat(59, process.getNozzelTemperature());
 		
-		statement.setFloat(60, process.getBarrelTemperature_2());
-		statement.setFloat(61, process.getBarrelTemperature_3());
-		statement.setFloat(62, process.getBarrelTemperature_4());
-		statement.setFloat(63, process.getThroatTemperature());
-		statement.setFloat(64, process.getMouldClosingOpenLimitPos());
-		statement.setFloat(65, process.getMouldClosingOpenLimitSpeed());
-		statement.setFloat(66, process.getMouldClosedLimitPos());
-		statement.setFloat(67, process.getMouldClosedLimitSpeed());
-		statement.setFloat(68, process.getClsSlowPos());
-		statement.setFloat(69, process.getClsSlowSpeed());
+		statement.setFloat(60, process.getBarrelTemperature_1());
+		statement.setFloat(61, process.getBarrelTemperature_2());
+		statement.setFloat(62, process.getBarrelTemperature_3());
+		statement.setFloat(63, process.getBarrelTemperature_4());
+		statement.setFloat(64, process.getThroatTemperature());
+		statement.setFloat(65, process.getMouldClosingOpenLimitPos());
+		statement.setFloat(66, process.getMouldClosingOpenLimitSpeed());
+		statement.setFloat(67, process.getMouldClosedLimitPos());
+		statement.setFloat(68, process.getMouldClosedLimitSpeed());
+		statement.setFloat(69, process.getClsSlowPos());
 		
-		statement.setFloat(70, process.getClsSPPos());
-		statement.setFloat(71, process.getClsSPSpeed());
-		statement.setFloat(72, process.getMouldOpenBreakAwaySpeed());
-		statement.setFloat(73, process.getMouldOpenStepPos_1());
-		statement.setFloat(74, process.getMouldOpenStepSpeed_1());
-		statement.setFloat(75, process.getMouldOpenStepPos_2());
-		statement.setFloat(76, process.getMouldOpenStepSpeed_2());
-		statement.setFloat(77, process.getMouldOpenStepPos_3());
-		statement.setFloat(78, process.getMouldOpenStepSpeed_3());
-		statement.setFloat(79, process.getMouldOpenTime());
+		statement.setFloat(70, process.getClsSlowSpeed());
+		statement.setFloat(71, process.getClsSPPos());
+		statement.setFloat(72, process.getClsSPSpeed());
+		statement.setFloat(73, process.getMouldOpenBreakAwaySpeed());
+		statement.setFloat(74, process.getMouldOpenStepPos_1());
+		statement.setFloat(75, process.getMouldOpenStepSpeed_1());
+		statement.setFloat(76, process.getMouldOpenStepPos_2());
+		statement.setFloat(77, process.getMouldOpenStepSpeed_2());
+		statement.setFloat(78, process.getMouldOpenStepPos_3());
+		statement.setFloat(79, process.getMouldOpenStepSpeed_3());
 		
-		statement.setString(80, process.getEjectStart());
-		statement.setString(81, process.getEjectMode());
-		statement.setFloat(82, process.getEjectPulse());
-		statement.setFloat(83, process.getEjectDelay());
-		statement.setFloat(84, process.getEjectorsFwdPos());
-		statement.setFloat(85, process.getEjectorsFwdSpeed());
-		statement.setFloat(86, process.getEjectorsFwdTime());
-		statement.setFloat(87, process.getEjectorsStopPos());
-		statement.setFloat(88, process.getEjectorsStopSpeed());
-		statement.setFloat(89, process.getEjectorsStopTime());
+		statement.setFloat(80, process.getMouldOpenTime());
+		statement.setString(81, process.getEjectStart());
+		statement.setString(82, process.getEjectMode());
+		statement.setFloat(83, process.getEjectPulse());
+		statement.setFloat(84, process.getEjectDelay());
+		statement.setFloat(85, process.getEjectorsFwdPos());
+		statement.setFloat(86, process.getEjectorsFwdSpeed());
+		statement.setFloat(87, process.getEjectorsFwdTime());
+		statement.setFloat(88, process.getEjectorsStopPos());
+		statement.setFloat(89, process.getEjectorsStopSpeed());
 		
-		statement.setFloat(90, process.getEjectorsRevPos());
-		statement.setFloat(91, process.getEjectorsRevSpeed());
-		statement.setFloat(92, process.getEjectorsRevTime());
-		statement.setFloat(93, process.getDme_1());
-		statement.setFloat(94, process.getDme_2());
-		statement.setFloat(95, process.getDme_3());
-		statement.setFloat(96, process.getDme_4());
-		statement.setFloat(97, process.getDme_5());
-		statement.setFloat(98, process.getDme_6());
-		statement.setFloat(99, process.getDme_7());
+		statement.setFloat(90, process.getEjectorsStopTime());
+		statement.setFloat(91, process.getEjectorsRevPos());
+		statement.setFloat(92, process.getEjectorsRevSpeed());
+		statement.setFloat(93, process.getEjectorsRevTime());
+		statement.setFloat(94, process.getDme_1());
+		statement.setFloat(95, process.getDme_2());
+		statement.setFloat(96, process.getDme_3());
+		statement.setFloat(97, process.getDme_4());
+		statement.setFloat(98, process.getDme_5());
+		statement.setFloat(99, process.getDme_6());
 		
-		statement.setFloat(100, process.getDme_8());
-		statement.setFloat(101, process.getWaterTempFixedHalf());
-		statement.setFloat(102, process.getWaterTempMovingHalf());
-		statement.setString(103, process.getWaterTempNotes());
+		statement.setFloat(100, process.getDme_7());
+		statement.setFloat(101, process.getDme_8());
+		statement.setFloat(102, process.getWaterTempFixedHalf());
+		statement.setFloat(103, process.getWaterTempMovingHalf());
+		statement.setString(104, process.getWaterTempNotes());
 		
 		
 		//the ID of the entry in database
 		
-		statement.setString(104, String.valueOf(process.getId()));
+		statement.setString(105, String.valueOf(process.getId()));
 		
 		System.out.println("Update:"+statement.toString());
 		
@@ -456,6 +457,7 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 	}
 	
 	//Don't call next or close the ResultSet
+	//TODO Replace with a better implementation than using Reflection
 		private MouldingProcess getMouldingProcess(ResultSet rs) throws SQLException
 		{
 			MouldingProcess tempProcess=new MouldingProcess();

@@ -41,7 +41,7 @@ public class ProcessForm_Validator
 			errors.add("Machine Size is not an integer");
 		}
 		
-		for(int i=9;i<80;i++)
+		for(int i=9;i<81;i++)
 		{
 			String field=null;
 			try
@@ -68,7 +68,7 @@ public class ProcessForm_Validator
 				errors.add(field+" must be a number(null)");
 			}
 		}
-		for(int i=82;i<102;i++)
+		for(int i=83;i<103;i++)
 		{
 			String field=null;
 			try

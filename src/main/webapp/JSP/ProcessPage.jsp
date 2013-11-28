@@ -68,6 +68,7 @@ ${error}<br/>
 	 <TR><TD>Max Injection Pre:</TD><TD><input type="text" name="maxInjPre" value='${form.maxInjPre}'/></TD></TR>
 	 <TR><TD>Max Injection Time:</TD><TD><input type="text" name="maxInjTime" value='${form.maxInjTime}' /></TD></TR>
 	 <TR><TD>Shot Size(CC):</TD><TD><input type="text" name="shotSize" value='${form.shotSize}'/></TD></TR>
+	 <TR><TD>Decompression Distance:</TD><TD><input type="text" name="decompressionDist" value='${form.decompressionDist}'/></TD></TR>
 	 <TR><TD>Decompression Velocity:</TD><TD><input type="text" name="decompressionVel" value='${form.decompressionVel}'/></TD></TR>
 	 <TR><TD>Cooling Time:</TD><TD><input type="text" name="coolTime" value='${form.coolTime}'/></TD></TR>
 	 
