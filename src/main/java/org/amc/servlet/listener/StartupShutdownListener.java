@@ -51,7 +51,7 @@ public class StartupShutdownListener implements ServletContextListener
 			Properties prop=new Properties();
 			prop.put("mail.smtp.host",smtpHost);
 			prop.put("mail.smtp.port", smtpPort);
-			prop.put("mail.smtp.auth","true");
+			prop.put("mail.smtp.auth",true);
 			prop.put("mail.smtp.starttls.enable","true");
 			         
 			
