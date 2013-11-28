@@ -67,6 +67,7 @@ public class StartupShutdownListener implements ServletContextListener
 	            }
 
 	        });
+			session.setDebug(true);
 			
 			Message msg=new MimeMessage(session);
 			
