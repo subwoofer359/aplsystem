@@ -44,7 +44,7 @@ public class StartupShutdownListener implements ServletContextListener
 		String from="subwoofer359@gmail.com";
 		String to="adrianjmclaughlin@gmail.com";
 		
-		int smtpPort=587;
+		int smtpPort=465;
 		System.out.println("Sending email...");
 		try
 		{
