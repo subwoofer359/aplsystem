@@ -38,6 +38,7 @@
 	  maxInjPre float,
 	  maxInjTime float,
 	  shotSize float,
+	  decompressionDist float,
 	  decompressionVel float,
 	  coolTime float,
 	  backPressure_1 float,
