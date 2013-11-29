@@ -6,13 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>User Information</title>
-<link rel="stylesheet" type="text/css" href="theme.css">
-<link rel="stylesheet" type="text/css" href="../theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 </head>
 <SCRIPT>
 function goHome(button)
 {
-	window.location="../APLSystemServlet";
+	window.location="${pageContext.request.contextPath}/APLSystemServlet";
 }
 </SCRIPT>
 <body>
@@ -30,7 +29,7 @@ Logged in form: ${pageContext.request.remoteHost} on port ${pageContext.request.
 <input type="button" value="Go Home"/> 
 </form>-->
 <button onclick="goHome(this)">Go Home</button>
-<form action="../logout" method="get">
+<form action="${pageContext.request.contextPath}/logout" method="get">
 <button type="submit">Log Out</button>
 </form>
 </body>

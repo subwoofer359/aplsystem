@@ -66,7 +66,7 @@ public class APLSystemServlet extends HttpServlet
 		
 		String referal=request.getRequestURI();
 		System.out.println(referal);
-		
+	
 		
 		//Handle JobTemplate Page
 		if(referal.endsWith("JobTemplate_save"))
@@ -182,7 +182,7 @@ public class APLSystemServlet extends HttpServlet
 					job.setId(Integer.parseInt(jForm.getId()));
 					action.edit(job);
 					//dispatcherURL="JobTemplate_search";
-					response.sendRedirect("JobTemplate_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/JobTemplate_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 
@@ -325,6 +325,7 @@ public class APLSystemServlet extends HttpServlet
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		request.getSession().invalidate();
 		request.logout();
 		request.authenticate(response);
 	}

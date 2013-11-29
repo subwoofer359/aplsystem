@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>APL System:Parts Search Page</title>
-<link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 <STYLE>
 
 body
@@ -107,7 +107,7 @@ function enable(id)
 </DIV>
 <DIV  class="entrybox">
 
-<FORM action="JobTemplate_search" method="get">
+<FORM action="${pageContext.request.contextPath}/JobTemplate_search" method="get">
 
 <SPAN>
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>

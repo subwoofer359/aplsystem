@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>APL Systems' Main Page</title>
-<link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 <STYLE>
 BODY
 {
@@ -78,13 +78,13 @@ DIV#process
 </DIV>
 
 <DIV class="loginbox">
-	<span><c:out value='${pageContext.request.remoteUser}'/></span>
+	<span><a href="JSP/UserInfo.jsp"><c:out value='${pageContext.request.remoteUser}'/></a></span>
      
 </DIV>
 
 <DIV id="partsearch" class="icon">
 
-<DIV class='item'> <a href="JobTemplate_search">Part Search</a></DIV>
+<DIV class='item'> <a href="${pageContext.request.contextPath}/JobTemplate_search">Part Search</a></DIV>
 
 </DIV>
 
@@ -96,7 +96,7 @@ DIV#process
 
 <DIV id="process" class="icon">
 
-<DIV class="item"><a href="ProcessSheet_search">Process Sheets</a></DIV>
+<DIV class="item"><a href="${pageContext.request.contextPath}/ProcessSheet_search">Process Sheets</a></DIV>
 
 </DIV>
 

@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>APL System:Part Description Page</title>
-<link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 <STYLE>
 
 body

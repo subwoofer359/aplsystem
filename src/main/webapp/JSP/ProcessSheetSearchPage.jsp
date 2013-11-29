@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>APL System:Process Sheets Search Page</title>
-<link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 <STYLE>
 TH
 {
@@ -54,7 +54,7 @@ function enable(id)
 </DIV>
 <DIV  class="entrybox">
 
-<FORM action="ProcessSheet_search" method="get">
+<FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="get">
 
 <SPAN>
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>

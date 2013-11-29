@@ -104,6 +104,7 @@ public class APLProcessServlet extends HttpServlet
 
 	private void saveProcessSheet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		System.out.println("Context Path:"+request.getContextPath());
 		//check if page is in create or edit mode
 		String mode=request.getParameter("mode");
 		System.out.printf("SaveProcessSheet:mode:[%s]%n", mode);//debug
@@ -143,7 +144,7 @@ public class APLProcessServlet extends HttpServlet
 					System.out.println("SaveProcessSheet:Entering entry into database");
 					action.save(processSheet);
 					dispatcherURL="ProcessSheet_search";
-					response.sendRedirect("../ProcessSheet_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else if(mode.equals("Edit"))
@@ -154,7 +155,7 @@ public class APLProcessServlet extends HttpServlet
 					processSheet.setId(Integer.parseInt(jForm.getId()));
 					action.edit(processSheet);
 					dispatcherURL="ProcessSheet_search";
-					response.sendRedirect("../ProcessSheet_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 
