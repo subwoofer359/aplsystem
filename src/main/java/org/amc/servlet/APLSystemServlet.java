@@ -31,7 +31,8 @@ import org.amc.servlet.validator.JobTemplate_Validator;
 				"/Problem_display", 
 				"/ProblemDescription_save", 
 				"/ProblemDescription_display", 
-				"/SearchProblemDatabase"
+				"/SearchProblemDatabase",
+				"/logout"
 		})
 
 public class APLSystemServlet extends HttpServlet 
@@ -79,6 +80,10 @@ public class APLSystemServlet extends HttpServlet
 		else if(referal.endsWith("JobTemplate_search"))
 		{
 			searchJobTemplate(request, response);
+		}// To log out the current user
+		else if(referal.endsWith("logout"))
+		{
+			logout(request,response);
 		}
 		else if(referal.endsWith("APLSystemServlet"))
 		{
@@ -318,5 +323,10 @@ public class APLSystemServlet extends HttpServlet
 		}
 	}
 	
+	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		request.logout();
+		request.authenticate(response);
+	}
 	
 }
