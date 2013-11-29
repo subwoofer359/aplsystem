@@ -35,6 +35,10 @@ table
 </head>
 <H1 class="title">Process Setup Sheet</H1>
 <body>
+<DIV class="navbox">
+<a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
+
+</DIV>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <DIV class="error">

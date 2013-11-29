@@ -52,6 +52,10 @@ function enable(id)
 	<span><c:out value='${pageContext.request.remoteUser}'/></span>
      
 </DIV>
+<DIV class="navbox">
+<a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
+
+</DIV>
 <DIV  class="entrybox">
 
 <FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="get">

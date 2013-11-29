@@ -50,6 +50,11 @@ body
 <DIV class="title">
 <H1> Part Description</H1>
 </DIV>
+
+<DIV class="navbox">
+<a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
+
+</DIV>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <DIV class="error">
