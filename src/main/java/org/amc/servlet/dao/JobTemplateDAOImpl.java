@@ -103,7 +103,7 @@ public class JobTemplateDAOImpl extends BasicDAO implements JobTemplateDAO
 	public List<JobTemplate> findJobTemplates(String col,String value) throws SQLException
 	{
 		Connection connection=getConnection();
-		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+"=?;");
+		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+" REGEXP ?;");
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
