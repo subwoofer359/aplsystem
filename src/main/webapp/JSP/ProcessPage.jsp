@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Process Setup Sheet</title>
 <link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="../theme.css">
 <style type="text/css">
 .float input
 {
@@ -16,7 +17,19 @@ table
 {
 	width:auto;
 }
-
+.info,
+.injection,
+.holding,
+.injExtOptions,
+.extrusion,
+.barrelTemperatures,
+.mouldOpening,
+.mouldClosing,
+.dme,
+.ejectors
+{
+	width:40%;
+}
 </style>
 
 </head>
@@ -78,7 +91,7 @@ ${error}<br/>
 </TABLE>
 </fieldset>
 </DIV>
-<DIV class="InjExtOptions">
+<DIV class="injExtOptions">
 <fieldset>
 <legend>Injection Options</legend>
 <TABLE class="float">
