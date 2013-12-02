@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import org.amc.servlet.action.SearchJobTemplateAction;
 import org.amc.servlet.model.JobTemplate;
 import org.amc.servlet.model.JobTemplateForm;
 import org.amc.servlet.validator.JobTemplate_Validator;
+import org.mockito.Mock;
 
 /**
  * Servlet implementation class APLSystemServlet
@@ -44,7 +46,7 @@ public class APLSystemServlet extends HttpServlet
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{
 		process(request, response);
 	}
@@ -164,7 +166,6 @@ public class APLSystemServlet extends HttpServlet
 			job.setPart_id(jForm.getPart_id());
 			
 			String dispatcherURL="";
-			
 			SaveJobTemplateAction action=new SaveJobTemplateAction();
 			try
 			{
