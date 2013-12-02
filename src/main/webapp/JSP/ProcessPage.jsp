@@ -33,12 +33,10 @@ table
 </style>
 
 </head>
-<H1 class="title">Process Setup Sheet</H1>
-<body>
-<DIV class="navbox">
-<a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
 
-</DIV>
+<body>
+<H1 class="title">Process Setup Sheet</H1>
+<%@ include file="NavigationDiv.jspf" %>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <DIV class="error">
@@ -57,7 +55,7 @@ ${error}<br/>
 <legend>Basic Information</legend>
 <TABLE>
 
-<TR><TD>Part ID:</TD><TD><input type="text" name="partId" value='${form.partId}'/></TD></TR>
+<TR><TD>Part ID:</TD><TD><input type="text" name="partId" value='${form.partId}' autofocus="autofocus"/></TD></TR>
 <TR><TD>Machine Size:</TD><TD><input type="text" name="machineSize"  value='${form.machineSize}'/></TD></TR>
 <TR><TD>Machine No:</TD><TD><input type="text" name="machineNo" value='${form.machineNo}'/></TD></TR>
 <TR><TD>Material:</TD><TD><input type="text" name="material"  value='${form.material}'/></TD></TR>
@@ -224,6 +222,7 @@ ${error}<br/>
 <c:if test="${mode eq 'edit' }">
 	<input type='submit'  name="mode" value='Edit'/>
 </c:if>
+
 </FORM>
 
 </body>

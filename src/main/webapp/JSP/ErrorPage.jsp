@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 </head>
 <body>
+<%@ include file="NavigationDiv.jspf" %>
 <DIV class="error_message">
 ${exception}
 </DIV>

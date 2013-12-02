@@ -15,6 +15,7 @@ function goHome(button)
 }
 </SCRIPT>
 <body>
+<%@ include file="NavigationDiv.jspf" %>
 <DIV class="title"><H1>User Information</H1></DIV>
 
 <DIV>

@@ -48,14 +48,7 @@ function enable(id)
 <DIV class="title">
 <H1> Process Sheets</H1>
 </DIV>
-<DIV class="loginbox">
-	<span><c:out value='${pageContext.request.remoteUser}'/></span>
-     
-</DIV>
-<DIV class="navbox">
-<a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
-
-</DIV>
+<%@ include file="NavigationDiv.jspf" %>
 <DIV  class="entrybox">
 
 <FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="get">
