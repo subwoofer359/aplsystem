@@ -422,7 +422,7 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 	public List<MouldingProcess> findProcessSheets(String col, String value)throws SQLException 
 	{
 		Connection connection=getConnection();
-		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+"=?;");
+		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+" REGEXP ?;");
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
