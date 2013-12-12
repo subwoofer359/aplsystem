@@ -21,7 +21,7 @@ public class StartupShutdownListener implements ServletContextListener
 		System.out.println("Servlet shut down....");
 		System.out.println(arg0.getServletContext().getServerInfo());
 		System.out.println(System.currentTimeMillis());
-		sendEmail("MyServlet:Has Shut down");
+		//sendEmail("MyServlet:Has Shut down");
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class StartupShutdownListener implements ServletContextListener
 		System.out.println("Servlet started up....");
 		System.out.println(arg0.getServletContext().getServerInfo());
 		System.out.println(System.currentTimeMillis());
-		sendEmail("MyServlet:Has Started up");
+		//sendEmail("MyServlet:Has Started up");
 	}
 
 	public boolean sendEmail(String message)
