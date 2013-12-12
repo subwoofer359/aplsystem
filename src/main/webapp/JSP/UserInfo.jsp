@@ -30,7 +30,7 @@ Logged in form: ${pageContext.request.remoteHost} on port ${pageContext.request.
 <input type="button" value="Go Home"/> 
 </form>-->
 <button onclick="goHome(this)">Go Home</button>
-<form action="${pageContext.request.contextPath}/logout" method="get">
+<form action="${pageContext.request.contextPath}/logout" method="post">
 <button type="submit">Log Out</button>
 </form>
 </body>
