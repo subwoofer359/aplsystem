@@ -2,12 +2,19 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.DAOFactory;
 import org.amc.servlet.dao.MouldingProcessDAO;
 import org.amc.servlet.model.MouldingProcess;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveProcessSheetAction 
 {
+	private MouldingProcessDAO mouldingProcessDAO;
+	
+	@Autowired
+	public SaveProcessSheetAction(MouldingProcessDAO mouldingProcessDAO)
+	{
+		this.mouldingProcessDAO=mouldingProcessDAO;
+	}
 	/**
 	 * Saves Job to the database as a new entry
 	 * @param job
@@ -15,7 +22,6 @@ public class SaveProcessSheetAction
 	 */
 	public void save(MouldingProcess processSheet) throws SQLException
 	{
-		MouldingProcessDAO mouldingProcessDAO=DAOFactory.getMouldingProcessDAO();
 		mouldingProcessDAO.addProcessSheet(processSheet);
 		
 		
@@ -28,7 +34,6 @@ public class SaveProcessSheetAction
 	 */
 	public void edit(MouldingProcess processSheet) throws SQLException
 	{
-		MouldingProcessDAO mouldingProcessDAO=DAOFactory.getMouldingProcessDAO();
 		mouldingProcessDAO.updateProcessSheet(processSheet);
 	}
 }
