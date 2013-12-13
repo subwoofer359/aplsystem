@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SaveJobTemplateAction 
 {
 	private JobTemplateDAO jobTemplateDAO;
-	@Autowired
+	
 	public SaveJobTemplateAction(JobTemplateDAO jobTemplateDAO)
 	{
 		this.jobTemplateDAO=jobTemplateDAO;

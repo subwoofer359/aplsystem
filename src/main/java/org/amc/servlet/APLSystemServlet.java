@@ -258,6 +258,7 @@ public class APLSystemServlet extends HttpServlet
 		
 		
 		//create an action
+		System.out.println("Inside of APLSystemServlet:"+this.jobActionFactory);
 		SearchJobTemplateAction sjt=this.jobActionFactory.getSearchJobTemplateAction();
 		String dispatchURL=null;
 		try
@@ -334,9 +335,17 @@ public class APLSystemServlet extends HttpServlet
 	}
 	
 	@Autowired
-	public void setJobActionFactory(JobActionFactory jobActionFactory)
+	public void setJobActionFactory(JobActionFactory aJobActionFactory)
 	{
-		this.jobActionFactory=jobActionFactory;
+		this.jobActionFactory=aJobActionFactory;
+	}
+
+	@Override
+	public void init() throws ServletException
+	{
+		ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
+		setJobActionFactory((JobActionFactory)context.getBean("jobActionFactory"));
+		super.init();
 	}
 	
 }

@@ -24,6 +24,8 @@ import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.JobTemplate_Validator;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Servlet implementation class APLProcessServlet
@@ -216,7 +218,6 @@ public class APLProcessServlet extends HttpServlet
 					//if the page is to do a search
 					if(mode==null || mode.equals("search"))
 					{
-						System.out.println("searchProcessSheets:Searching");
 						List<MouldingProcess> list=null;
 						//To check to search for all entries or entries where name=searchWord
 						if(searchWord==null||searchWord.equals(""))// search for all entries
@@ -290,6 +291,14 @@ public class APLProcessServlet extends HttpServlet
 	public void setProcessActionFactory(ProcessActionFactory processActionFactory)
 	{
 		this.processActionFactory = processActionFactory;
+	}
+	
+	@Override
+	public void init() throws ServletException
+	{
+		ApplicationContext context= new ClassPathXmlApplicationContext("ProcessContext.xml");
+		setProcessActionFactory((ProcessActionFactory)context.getBean("processActionFactory"));
+		super.init();
 	}
 	
 }
