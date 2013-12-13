@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amc.servlet.action.JobActionFactory;
+import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveJobTemplateAction;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchJobTemplateAction;
@@ -21,6 +23,7 @@ import org.amc.servlet.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.JobTemplate_Validator;
 import org.amc.servlet.validator.ProcessForm_Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Servlet implementation class APLProcessServlet
@@ -39,14 +42,7 @@ public class APLProcessServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public APLProcessServlet() 
-    {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private ProcessActionFactory processActionFactory;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -134,7 +130,7 @@ public class APLProcessServlet extends HttpServlet
 			
 			String dispatcherURL="";
 			
-			SaveProcessSheetAction action=new SaveProcessSheetAction();
+			SaveProcessSheetAction action=processActionFactory.getSaveProcessSheetAction();
 			try
 			{
 				processSheet=MouldingProcessForm.getMouldingProcess(jForm);
@@ -213,7 +209,7 @@ public class APLProcessServlet extends HttpServlet
 				
 				
 				//create an action
-				SearchProcessSheetAction spt=new SearchProcessSheetAction();
+				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
 				String dispatchURL=null;
 				try
 				{
@@ -286,4 +282,14 @@ public class APLProcessServlet extends HttpServlet
 				}
 		
 	}
+
+	/*
+	 * Required by Spring
+	 */
+	@Autowired
+	public void setProcessActionFactory(ProcessActionFactory processActionFactory)
+	{
+		this.processActionFactory = processActionFactory;
+	}
+	
 }

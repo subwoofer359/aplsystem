@@ -9,14 +9,16 @@
            http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-2.5.xsd">
-
-  <context:component-scan base-package="org.amc" />
-  
-  
-  <bean id="jobActionFactory" class="org.amc.servlet.action.JobActionFactoryImpl">
-  	<constructor-arg ref="jobTemplateDAO" />
+ <context:component-scan base-package="org.amc" />
+ <bean id="APLProcessServlet" class="org.amc.servlet.APLProcessServlet">
+ 	<property name="processActionFactory" ref="processActionFactory"/>
+ </bean>
+ 
+ <bean id="processActionFactory" class="org.amc.servlet.action.ProcessActionFactoryImpl">
+  	<constructor-arg ref="mouldingProcessDAO" />
   </bean>
   
-  <bean id="jobTemplateDAO" class="org.amc.servlet.dao.JobTemplateDAOImpl"/>
-
-</beans> 
+  <bean id="mouldingProcessDAO" class="org.amc.servlet.dao.MouldingProcessDAOImpl"/>
+ 
+           
+ </beans>
