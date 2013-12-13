@@ -329,9 +329,13 @@ public class APLSystemServlet extends HttpServlet
 	
 	private void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
+		response.setHeader("Cache-Control", "no-cache");
+		response.setHeader("Pragma", "no-cache");
 		request.getSession().invalidate();
 		request.logout();
-		request.authenticate(response);
+		
+		//request.authenticate(response);
+		response.sendRedirect(getServletContext().getContextPath()+"/APLSystemServlet");
 	}
 	
 	@Autowired
