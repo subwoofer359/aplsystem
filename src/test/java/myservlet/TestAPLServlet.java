@@ -3,6 +3,7 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,12 +87,16 @@ public class TestAPLServlet
 	public void testLogout()
 	{
 		ServletConfig config = mock(ServletConfig.class);
+		ServletContext context = mock(ServletContext.class);
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         HttpSession session= mock(HttpSession.class);
         
-        when(request.getRequestURI()).thenReturn("/myservlet/logout");
         
+        when(config.getServletContext()).thenReturn(context);
+        when(request.getRequestURI()).thenReturn("/myservlet/logout");
+        when(context.getContextPath()).thenReturn("/myservlet");
         
         when(request.getSession()).thenReturn(session);
 		
@@ -99,12 +104,18 @@ public class TestAPLServlet
         
         try
         {
-        	apl =new APLSystemServlet();
+        	apl =new APLSystemServlet()
+        	{
+        		public void init()
+        		{
+        			
+        		}
+        	};
         	apl.init(config);
         	apl.doGet(request, response);
         	apl.destroy();
         	verify(request).logout();
-        	verify(request).authenticate(response);
+        	verify(response).sendRedirect(anyString());
         	
         }
         catch(IOException e)
