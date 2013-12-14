@@ -17,7 +17,9 @@ import org.amc.servlet.action.SearchJobTemplateAction;
 import org.amc.servlet.model.JobTemplate;
 import org.amc.servlet.model.JobTemplateForm;
 import org.amc.servlet.validator.JobTemplate_Validator;
-import org.mockito.Mock;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Servlet implementation class APLSystemServlet
@@ -333,6 +335,34 @@ public class APLSystemServlet extends HttpServlet
 		
 		//request.authenticate(response);
 		response.sendRedirect(getServletContext().getContextPath()+"/APLSystemServlet");
+	}
+	
+	@Autowired
+	public void setJobActionFactory(JobActionFactory aJobActionFactory)
+	{
+		this.jobActionFactory=aJobActionFactory;
+	}
+
+	@Override
+	public void init() throws ServletException
+	{
+//		ServletContext sc=getServletContext();
+//		Enumeration<String> list=sc.getInitParameterNames();
+//		System.out.println("----------INIT---------");
+//		while(list.hasMoreElements())
+//		{
+//			System.out.println(list.nextElement());
+//		}
+//		Enumeration<String> list2=sc.getAttributeNames();
+//		System.out.println("----------Attibutes---------");
+//		while(list2.hasMoreElements())
+//		{
+//			System.out.println(list2.nextElement());
+//		}
+		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
+		setJobActionFactory((JobActionFactory)context2.getBean("jobActionFactory"));
+		super.init();
 	}
 	
 }

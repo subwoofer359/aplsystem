@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>myservlet_gf</display-name>
+  <display-name>myservlet</display-name>
+  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -9,19 +10,21 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
   <security-role>
     <role-name>manager</role-name>
   </security-role>
   <security-role>
     <role-name>qc</role-name>
   </security-role>
+  
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>JSP Pages</web-resource-name>
       <url-pattern>*.jsp</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-    	<role-name>qc</role-name>
+      <role-name>qc</role-name>
       <role-name>manager</role-name>
     </auth-constraint>
   </security-constraint>
@@ -36,6 +39,7 @@
       <role-name>manager</role-name>
     </auth-constraint>
   </security-constraint>
+  
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
@@ -43,10 +47,22 @@
       <form-error-page>/Error.html</form-error-page>
     </form-login-config>
   </login-config>
+  
   <resource-ref>
     <description>My Database located on virtual machine Fedora19</description>
     <res-ref-name>jdbc/APLSystem</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
+  
+  <!--  Configures a Spring Dependency Injection Listener (not Working) -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>/WEB-INF/ProcessContext.xml  /WEB-INF/PartsContext.xml</param-value>
+  </context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+  
 </web-app>
