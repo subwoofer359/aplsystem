@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,15 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amc.servlet.action.JobActionFactory;
 import org.amc.servlet.action.SaveJobTemplateAction;
 import org.amc.servlet.action.SearchJobTemplateAction;
 import org.amc.servlet.model.JobTemplate;
 import org.amc.servlet.model.JobTemplateForm;
 import org.amc.servlet.validator.JobTemplate_Validator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
-
 /**
  * Servlet implementation class APLSystemServlet
  */
@@ -43,7 +41,8 @@ public class APLSystemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 334034039L;
 
-    
+	private JobActionFactory jobActionFactory;
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -168,7 +167,7 @@ public class APLSystemServlet extends HttpServlet
 			job.setPart_id(jForm.getPart_id());
 			
 			String dispatcherURL="";
-			SaveJobTemplateAction action=new SaveJobTemplateAction();
+			SaveJobTemplateAction action=jobActionFactory.getSaveJobTemplateAction();
 			try
 			{
 				// New JobTemplate to Database
@@ -258,7 +257,8 @@ public class APLSystemServlet extends HttpServlet
 		
 		
 		//create an action
-		SearchJobTemplateAction sjt=new SearchJobTemplateAction();
+		System.out.println("Inside of APLSystemServlet:"+this.jobActionFactory);
+		SearchJobTemplateAction sjt=this.jobActionFactory.getSearchJobTemplateAction();
 		String dispatchURL=null;
 		try
 		{
