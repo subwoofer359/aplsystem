@@ -10,22 +10,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.amc.servlet.action.JobActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
-import org.amc.servlet.action.SaveJobTemplateAction;
 import org.amc.servlet.action.SaveProcessSheetAction;
-import org.amc.servlet.action.SearchJobTemplateAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
-import org.amc.servlet.model.JobTemplate;
-import org.amc.servlet.model.JobTemplateForm;
 import org.amc.servlet.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
-import org.amc.servlet.validator.JobTemplate_Validator;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Servlet implementation class APLProcessServlet
@@ -296,8 +288,8 @@ public class APLProcessServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
-		ApplicationContext context= new ClassPathXmlApplicationContext("ProcessContext.xml");
-		setProcessActionFactory((ProcessActionFactory)context.getBean("processActionFactory"));
+		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
 		super.init();
 	}
 	
