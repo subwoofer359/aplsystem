@@ -3,15 +3,20 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.amc.servlet.APLSystemServlet;
+import org.amc.servlet.action.JobActionFactory;
 import org.amc.servlet.action.SaveJobTemplateAction;
 import org.amc.servlet.model.JobTemplate;
 import org.junit.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -19,17 +24,29 @@ import static org.mockito.Mockito.*;
 public class TestAPLServlet 
 {
 	private APLSystemServlet apl;
+	private ApplicationContext context;
+	private ServletContext sContext;
+	private ServletConfig config;
 	
 	public TestAPLServlet()
 	{
-		
+		//Spring ApplicationContext
+		context= new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/PartsContext.xml");
+		//Mock Servlet Context
+		ServletContext sContext= mock(ServletContext.class);
+		when(sContext.getContextPath()).thenReturn("/myservlet");
+		//Returns Spring Context
+		when(sContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT")).thenReturn(context);
+		//Mock ServletConfig
+		config = mock(ServletConfig.class);
+		when(config.getServletContext()).thenReturn(sContext);
 	}
 	
 	
 	@Test
 	public void testAPLSystemServlet()
 	{
-		ServletConfig config = mock(ServletConfig.class);
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
@@ -57,7 +74,7 @@ public class TestAPLServlet
 	@Test
 	public void testJobTemplate_display()
 	{
-		ServletConfig config = mock(ServletConfig.class);
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
@@ -85,26 +102,32 @@ public class TestAPLServlet
 	@Test
 	public void testLogout()
 	{
-		ServletConfig config = mock(ServletConfig.class);
+		
+		
+		
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         HttpSession session= mock(HttpSession.class);
         
         when(request.getRequestURI()).thenReturn("/myservlet/logout");
         
+       
         
         when(request.getSession()).thenReturn(session);
-		
+        
         
         
         try
         {
+        	
+        	
         	apl =new APLSystemServlet();
+        	apl.setJobActionFactory((JobActionFactory)context.getBean("jobActionFactory"));
         	apl.init(config);
         	apl.doGet(request, response);
         	apl.destroy();
         	verify(request).logout();
-        	verify(request).authenticate(response);
         	
         }
         catch(IOException e)
@@ -117,10 +140,11 @@ public class TestAPLServlet
         }        
 	}
 	
+	
+	//TODO Implement
 	@Test
 	public void testJobTemplate_save()
 	{
-		ServletConfig config = mock(ServletConfig.class);
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
