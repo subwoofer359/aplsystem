@@ -29,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 				"/ProcessSheet_display",
 				"/ProcessSheet_search",
 				"/ProcessSheet_save", 
+				"/ProcessSheet_analysis"
 			})
 
 
@@ -273,6 +274,17 @@ public class APLProcessServlet extends HttpServlet
 					rd.forward(request, response);
 					se.printStackTrace();
 				}
+		
+	}
+	
+	/**
+	 * 
+	 * @param request Receive part to analysis and options
+	 * @param response return result of analysis
+	 * forward to AnalysisProcess.jsp
+	 */
+	private void analysis(HttpServletRequest request, HttpServletResponse response)
+	{
 		
 	}
 

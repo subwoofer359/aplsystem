@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%-- The JSP page display the results of analysing the Process Sheets stored in the database --%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Analysis Process</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
