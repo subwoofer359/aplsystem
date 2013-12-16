@@ -11,13 +11,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.amc.servlet.action.JobActionFactory;
-import org.amc.servlet.action.SaveJobTemplateAction;
-import org.amc.servlet.action.SearchJobTemplateAction;
-import org.amc.servlet.model.JobTemplate;
-import org.amc.servlet.model.JobTemplateForm;
-import org.amc.servlet.validator.JobTemplate_Validator;
+import org.amc.servlet.action.PartActionFactory;
+import org.amc.servlet.action.SavePartAction;
+import org.amc.servlet.action.SearchPartAction;
+import org.amc.servlet.model.Part;
+import org.amc.servlet.model.PartForm;
+import org.amc.servlet.validator.Part_Validator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 /**
  * Servlet implementation class APLSystemServlet
@@ -26,9 +27,9 @@ import org.springframework.web.context.WebApplicationContext;
 		description = "Dispatching Servlet for the Problem Database", 
 		urlPatterns = { 
 				"/APLSystemServlet", 
-				"/JobTemplate_display",
-				"/JobTemplate_search",
-				"/JobTemplate_save", 
+				"/Part_display",
+				"/Part_search",
+				"/Part_save", 
 				"/Problem_save", 
 				"/Problem_display", 
 				"/ProblemDescription_save", 
@@ -41,7 +42,7 @@ public class APLSystemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 334034039L;
 
-	private JobActionFactory jobActionFactory;
+	private PartActionFactory partActionFactory;
 	
 
 	/**
@@ -71,16 +72,16 @@ public class APLSystemServlet extends HttpServlet
 		System.out.println(referal);
 	
 		
-		//Handle JobTemplate Page
-		if(referal.endsWith("JobTemplate_save"))
+		//Handle Part Page
+		if(referal.endsWith("Part_save"))
 		{
 			saveJobTemplate(request, response);
 		}
-		else if(referal.endsWith("JobTemplate_display"))
+		else if(referal.endsWith("Part_display"))
 		{
 			displayJobTemplate(request, response);
 		}
-		else if(referal.endsWith("JobTemplate_search"))
+		else if(referal.endsWith("Part_search"))
 		{
 			searchJobTemplate(request, response);
 		}// To log out the current user
@@ -107,7 +108,7 @@ public class APLSystemServlet extends HttpServlet
 	}
 	
 	/**
-	 * Saves the JobTemplate to the Database
+	 * Saves the Part to the Database
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -120,7 +121,7 @@ public class APLSystemServlet extends HttpServlet
 		String mode=request.getParameter("mode");
 		System.out.printf("mode:[%s]", mode);//debug
 		//create form
-		JobTemplateForm jForm=new JobTemplateForm();
+		PartForm jForm=new PartForm();
 		
 		//If an ID parameter is passed add it to the form 
 		String id=request.getParameter("id");
@@ -148,7 +149,7 @@ public class APLSystemServlet extends HttpServlet
 		jForm.setCompany(request.getParameter("company"));
 		
 		//Validate Form
-		JobTemplate_Validator validator=new JobTemplate_Validator();
+		Part_Validator validator=new Part_Validator();
 		List<String> errors=validator.validate(jForm);
 		
 		//If form validates with no errorts
@@ -156,7 +157,7 @@ public class APLSystemServlet extends HttpServlet
 		{
 		
 			//create model
-			JobTemplate job=new JobTemplate();
+			Part job=new Part();
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
@@ -167,24 +168,24 @@ public class APLSystemServlet extends HttpServlet
 			job.setPart_id(jForm.getPart_id());
 			
 			String dispatcherURL="";
-			SaveJobTemplateAction action=jobActionFactory.getSaveJobTemplateAction();
+			SavePartAction action=partActionFactory.getSaveJobTemplateAction();
 			try
 			{
-				// New JobTemplate to Database
+				// New Part to Database
 				if(mode==null||mode.equals("Enter"))
 				{
 					action.save(job);
 					request.setAttribute("form",jForm);
 					request.setAttribute("result", job.toString()+" saved");
-					dispatcherURL="/JSP/JobTemplate.jsp";
+					dispatcherURL="/JSP/Part.jsp";
 				}
 				else if(mode.equals("Edit"))
 				{
-					//Current JobTemplate is updated in the Database
+					//Current Part is updated in the Database
 					job.setId(Integer.parseInt(jForm.getId()));
 					action.edit(job);
-					//dispatcherURL="JobTemplate_search";
-					response.sendRedirect(request.getContextPath()+"/JobTemplate_search"); // Goto the Search Window
+					//dispatcherURL="Part_search";
+					response.sendRedirect(request.getContextPath()+"/Part_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 
@@ -216,13 +217,13 @@ public class APLSystemServlet extends HttpServlet
 			request.setAttribute("errors", errors);
 			request.setAttribute("form", jForm);			
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/JobTemplate.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Part.jsp");
 			rd.forward(request, response);
 		}
 	}
 	
 	/**
-	 * display a blank JobTemplate page
+	 * display a blank Part page
 	 * @param request
 	 * @param response
 	 * @throws ServletException
@@ -230,7 +231,7 @@ public class APLSystemServlet extends HttpServlet
 	 */
 	private void displayJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		RequestDispatcher rd=request.getRequestDispatcher("/JSP/JobTemplate.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/JSP/Part.jsp");
 		rd.forward(request, response);
 	}
 	
@@ -257,15 +258,15 @@ public class APLSystemServlet extends HttpServlet
 		
 		
 		//create an action
-		System.out.println("Inside of APLSystemServlet:"+this.jobActionFactory);
-		SearchJobTemplateAction sjt=this.jobActionFactory.getSearchJobTemplateAction();
+		System.out.println("Inside of APLSystemServlet:"+this.partActionFactory);
+		SearchPartAction sjt=this.partActionFactory.getSearchJobTemplateAction();
 		String dispatchURL=null;
 		try
 		{
 			//if the page is to do a search
 			if(mode==null || mode.equals("search"))
 			{
-				List<JobTemplate> list=null;
+				List<Part> list=null;
 				//To check to search for all entries or entries where name=searchWord
 				if(searchWord==null||searchWord.equals(""))// search for all entries
 				{
@@ -276,7 +277,7 @@ public class APLSystemServlet extends HttpServlet
 					
 					list=sjt.search("name",searchWord);
 				}
-				request.setAttribute("jobtemplates", list); //Add the result list to the request object to be used by the JSP page
+				request.setAttribute("parts", list); //Add the result list to the request object to be used by the JSP page
 				
 				//debug
 				System.out.printf("%d results returned %n",list.size());
@@ -286,30 +287,30 @@ public class APLSystemServlet extends HttpServlet
 			}
 //			else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
 //			{
-//				//open the JobTemplate JSPage in edit mode
-//				JobTemplate job=sjt.getJobTemplate(idValue);
-//				dispatchURL="/JSP/JobTemplate.jsp";
+//				//open the Part JSPage in edit mode
+//				Part job=sjt.getPart(idValue);
+//				dispatchURL="/JSP/Part.jsp";
 //				request.setAttribute("form", job);
 //				request.setAttribute("mode","edit");
 //				
 //			}
 //			else if(mode!=null && mode.equals("add"))
 //			{
-//				//open the JobTemplate JSPage in add mode
-//				dispatchURL="/JSP/JobTemplate.jsp";
+//				//open the Part JSPage in add mode
+//				dispatchURL="/JSP/Part.jsp";
 //			}
 			else if(mode!=null)
 			{
 				if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
 				{
-					//open the JobTemplate JSPage in add mode
-					dispatchURL="/JSP/JobTemplate.jsp";
+					//open the Part JSPage in add mode
+					dispatchURL="/JSP/Part.jsp";
 				}
 				else if(mode.equals("edit")&&idValue!=null)
 				{
-					//open the JobTemplate JSPage in edit mode
-					JobTemplate job=sjt.getJobTemplate(idValue);
-					dispatchURL="/JSP/JobTemplate.jsp";
+					//open the Part JSPage in edit mode
+					Part job=sjt.getPart(idValue);
+					dispatchURL="/JSP/Part.jsp";
 					request.setAttribute("form", job);
 					request.setAttribute("mode","edit");
 				}
@@ -334,13 +335,13 @@ public class APLSystemServlet extends HttpServlet
 		request.logout();
 		
 		//request.authenticate(response);
-		response.sendRedirect(getServletContext().getContextPath()+"/APLSystemServlet");
+		response.sendRedirect(getServletConfig().getServletContext().getContextPath()+"/APLSystemServlet");
 	}
 	
 	@Autowired
-	public void setJobActionFactory(JobActionFactory aJobActionFactory)
+	public void setJobActionFactory(PartActionFactory aJobActionFactory)
 	{
-		this.jobActionFactory=aJobActionFactory;
+		this.partActionFactory=aJobActionFactory;
 	}
 
 	@Override
@@ -359,9 +360,9 @@ public class APLSystemServlet extends HttpServlet
 //		{
 //			System.out.println(list2.nextElement());
 //		}
-		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+		ApplicationContext context2=(ApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
-		setJobActionFactory((JobActionFactory)context2.getBean("jobActionFactory"));
+		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
 		super.init();
 	}
 	

@@ -3,33 +3,52 @@ import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.amc.servlet.APLSystemServlet;
-import org.amc.servlet.action.SaveJobTemplateAction;
-import org.amc.servlet.model.JobTemplate;
+import org.amc.servlet.action.PartActionFactoryImpl;
+import org.amc.servlet.dao.PartDAOImpl;
+import org.amc.servlet.model.Part;
 import org.junit.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import static org.junit.Assert.*;
+
+
+
+
 import static org.mockito.Mockito.*;
 
 public class TestAPLServlet 
 {
 	private APLSystemServlet apl;
+	private ApplicationContext context;
+	private ServletContext sContext;
+	private ServletConfig config;
 	
 	public TestAPLServlet()
 	{
-		
+		//Spring ApplicationContext
+		context= new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/PartsContext.xml");
+		//Mock Servlet Context
+		ServletContext sContext= mock(ServletContext.class);
+		when(sContext.getContextPath()).thenReturn("/myservlet");
+		//Returns Spring Context
+		when(sContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT")).thenReturn(context);
+		//Mock ServletConfig
+		config = mock(ServletConfig.class);
+		when(config.getServletContext()).thenReturn(sContext);
 	}
 	
 	
 	@Test
 	public void testAPLSystemServlet()
 	{
-		ServletConfig config = mock(ServletConfig.class);
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
@@ -55,14 +74,14 @@ public class TestAPLServlet
 	}
 	
 	@Test
-	public void testJobTemplate_display()
+	public void testPart_display()
 	{
-		ServletConfig config = mock(ServletConfig.class);
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-        when(request.getRequestURI()).thenReturn("/myservlet/JobTemplate_display");
-        when(request.getRequestDispatcher("/JSP/JobTemplate.jsp")).thenReturn(dispatcher);
+        when(request.getRequestURI()).thenReturn("/myservlet/Part_display");
+        when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
         try
         {
         	apl =new APLSystemServlet();
@@ -85,26 +104,31 @@ public class TestAPLServlet
 	@Test
 	public void testLogout()
 	{
-		ServletConfig config = mock(ServletConfig.class);
+		
+		
+		
+		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         HttpSession session= mock(HttpSession.class);
         
         when(request.getRequestURI()).thenReturn("/myservlet/logout");
         
+       
         
         when(request.getSession()).thenReturn(session);
-		
+        
         
         
         try
         {
+        	
+        	
         	apl =new APLSystemServlet();
         	apl.init(config);
         	apl.doGet(request, response);
         	apl.destroy();
         	verify(request).logout();
-        	verify(request).authenticate(response);
         	
         }
         catch(IOException e)
@@ -117,15 +141,16 @@ public class TestAPLServlet
         }        
 	}
 	
+	
+	//TODO Implement
 	@Test
-	public void testJobTemplate_save()
+	public void testPart_save()
 	{
-		ServletConfig config = mock(ServletConfig.class);
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
   
-        when(request.getRequestURI()).thenReturn("/myservlet/JobTemplate_save");
+        when(request.getRequestURI()).thenReturn("/myservlet/Part_save");
         
         //Enter mode
         when(request.getParameter("mode")).thenReturn("Enter");
@@ -141,27 +166,29 @@ public class TestAPLServlet
 		when(request.getParameter("version")).thenReturn("60g");
 		when(request.getParameter("company")).thenReturn("Tosara");
 		
-		when(request.getRequestDispatcher("/JSP/JobTemplate.jsp")).thenReturn(dispatcher);
+		when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
+        PartDAOImpl jobDAO=mock(PartDAOImpl.class);
         
-//        
-//        try
-//        {
-//        	apl =new APLSystemServlet();
-//        	apl.init(config);
-//        	apl.doGet(request, response);
-//        	apl.destroy();
-//        	verify(request).setAttribute(eq("form"),any(JobTemplate.class));
-//        	verify(request).setAttribute(eq("result"),anyString());
-//        	
-//        }
-//        catch(IOException e)
-//        {
-//        	
-//        }
-//        catch(ServletException se)
-//        {
-//        	
-//        }        
+        try
+        {
+        	apl =new APLSystemServlet();
+        	
+        	apl.init(config);
+        	apl.setJobActionFactory(new PartActionFactoryImpl(jobDAO));
+        	apl.doGet(request, response);
+        	apl.destroy();
+        	verify(request).setAttribute(eq("form"),any(Part.class));
+        	verify(request).setAttribute(eq("result"),anyString());
+        	
+        }
+        catch(IOException e)
+        {
+        	e.printStackTrace();
+        }
+        catch(ServletException se)
+        {
+        	se.printStackTrace();
+        }        
 	}
 	
 }

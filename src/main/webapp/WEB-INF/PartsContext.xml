@@ -13,13 +13,13 @@
   <context:component-scan base-package="org.amc" />
   
   <bean id="APLSystemServlet" class="org.amc.servlet.APLSystemServlet">
-  <property name="jobActionFactory" ref="jobActionFactory"/>
+  <property name="jobActionFactory" ref="partActionFactory"/>
   </bean>
   
-  <bean id="jobActionFactory" class="org.amc.servlet.action.JobActionFactoryImpl">
-  	<constructor-arg ref="jobTemplateDAO" />
+  <bean id="partActionFactory" class="org.amc.servlet.action.PartActionFactoryImpl">
+  	<constructor-arg ref="PartDAO" />
   </bean>
   
-  <bean id="jobTemplateDAO" class="org.amc.servlet.dao.JobTemplateDAOImpl"/>
+  <bean id="PartDAO" class="org.amc.servlet.dao.PartDAOImpl"/>
 
 </beans>
