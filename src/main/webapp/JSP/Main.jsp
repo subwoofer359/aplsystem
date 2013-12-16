@@ -84,7 +84,7 @@ DIV#process
 
 <DIV id="partsearch" class="icon">
 
-<DIV class='item'> <a href="${pageContext.request.contextPath}/JobTemplate_search">Part Search</a></DIV>
+<DIV class='item'> <a href="${pageContext.request.contextPath}/Part_search">Part Search</a></DIV>
 
 </DIV>
 

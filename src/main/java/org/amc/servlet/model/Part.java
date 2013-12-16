@@ -17,7 +17,7 @@ package org.amc.servlet.model;
  * Represents a job running in the factory
  */
 
-public class JobTemplate
+public class Part
 {
 	private int id;
 	private String colour;
@@ -35,7 +35,7 @@ public class JobTemplate
 	 * 
 	 * Constructor for JobTemplate.java
 	 */
-	public JobTemplate()
+	public Part()
 	{
 		
 	
@@ -52,7 +52,7 @@ public class JobTemplate
 	 * @param colour
 	 * @param external
 	 */
-	public JobTemplate(String name,
+	public Part(String name,
 						String part_id,
 						String company,
 						String version,

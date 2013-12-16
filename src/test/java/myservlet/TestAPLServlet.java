@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.amc.servlet.APLSystemServlet;
-
-import org.amc.servlet.action.JobActionFactoryImpl;
-
-import org.amc.servlet.dao.JobTemplateDAOImpl;
-import org.amc.servlet.model.JobTemplate;
+import org.amc.servlet.action.PartActionFactoryImpl;
+import org.amc.servlet.dao.PartDAOImpl;
+import org.amc.servlet.model.Part;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+
 
 
 
@@ -167,17 +167,17 @@ public class TestAPLServlet
 		when(request.getParameter("company")).thenReturn("Tosara");
 		
 		when(request.getRequestDispatcher("/JSP/JobTemplate.jsp")).thenReturn(dispatcher);
-        JobTemplateDAOImpl jobDAO=mock(JobTemplateDAOImpl.class);
+        PartDAOImpl jobDAO=mock(PartDAOImpl.class);
         
         try
         {
         	apl =new APLSystemServlet();
         	
         	apl.init(config);
-        	apl.setJobActionFactory(new JobActionFactoryImpl(jobDAO));
+        	apl.setJobActionFactory(new PartActionFactoryImpl(jobDAO));
         	apl.doGet(request, response);
         	apl.destroy();
-        	verify(request).setAttribute(eq("form"),any(JobTemplate.class));
+        	verify(request).setAttribute(eq("form"),any(Part.class));
         	verify(request).setAttribute(eq("result"),anyString());
         	
         }
