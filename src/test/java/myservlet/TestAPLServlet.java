@@ -10,15 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.amc.servlet.APLSystemServlet;
-import org.amc.servlet.action.JobActionFactory;
-import org.amc.servlet.action.SaveJobTemplateAction;
+
+import org.amc.servlet.action.JobActionFactoryImpl;
+
+import org.amc.servlet.dao.JobTemplateDAOImpl;
 import org.amc.servlet.model.JobTemplate;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.web.context.WebApplicationContext;
 
-import static org.junit.Assert.*;
+
+
 import static org.mockito.Mockito.*;
 
 public class TestAPLServlet 
@@ -123,7 +125,6 @@ public class TestAPLServlet
         	
         	
         	apl =new APLSystemServlet();
-        	apl.setJobActionFactory((JobActionFactory)context.getBean("jobActionFactory"));
         	apl.init(config);
         	apl.doGet(request, response);
         	apl.destroy();
@@ -166,26 +167,28 @@ public class TestAPLServlet
 		when(request.getParameter("company")).thenReturn("Tosara");
 		
 		when(request.getRequestDispatcher("/JSP/JobTemplate.jsp")).thenReturn(dispatcher);
+        JobTemplateDAOImpl jobDAO=mock(JobTemplateDAOImpl.class);
         
-//        
-//        try
-//        {
-//        	apl =new APLSystemServlet();
-//        	apl.init(config);
-//        	apl.doGet(request, response);
-//        	apl.destroy();
-//        	verify(request).setAttribute(eq("form"),any(JobTemplate.class));
-//        	verify(request).setAttribute(eq("result"),anyString());
-//        	
-//        }
-//        catch(IOException e)
-//        {
-//        	
-//        }
-//        catch(ServletException se)
-//        {
-//        	
-//        }        
+        try
+        {
+        	apl =new APLSystemServlet();
+        	
+        	apl.init(config);
+        	apl.setJobActionFactory(new JobActionFactoryImpl(jobDAO));
+        	apl.doGet(request, response);
+        	apl.destroy();
+        	verify(request).setAttribute(eq("form"),any(JobTemplate.class));
+        	verify(request).setAttribute(eq("result"),anyString());
+        	
+        }
+        catch(IOException e)
+        {
+        	e.printStackTrace();
+        }
+        catch(ServletException se)
+        {
+        	se.printStackTrace();
+        }        
 	}
 	
 }
