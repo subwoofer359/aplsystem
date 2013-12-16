@@ -41,7 +41,7 @@ public class APLSystemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 334034039L;
 
-	private PartActionFactory jobActionFactory;
+	private PartActionFactory partActionFactory;
 	
 
 	/**
@@ -167,7 +167,7 @@ public class APLSystemServlet extends HttpServlet
 			job.setPart_id(jForm.getPart_id());
 			
 			String dispatcherURL="";
-			SavePartAction action=jobActionFactory.getSaveJobTemplateAction();
+			SavePartAction action=partActionFactory.getSaveJobTemplateAction();
 			try
 			{
 				// New Part to Database
@@ -257,8 +257,8 @@ public class APLSystemServlet extends HttpServlet
 		
 		
 		//create an action
-		System.out.println("Inside of APLSystemServlet:"+this.jobActionFactory);
-		SearchPartAction sjt=this.jobActionFactory.getSearchJobTemplateAction();
+		System.out.println("Inside of APLSystemServlet:"+this.partActionFactory);
+		SearchPartAction sjt=this.partActionFactory.getSearchJobTemplateAction();
 		String dispatchURL=null;
 		try
 		{
@@ -276,7 +276,7 @@ public class APLSystemServlet extends HttpServlet
 					
 					list=sjt.search("name",searchWord);
 				}
-				request.setAttribute("Parts", list); //Add the result list to the request object to be used by the JSP page
+				request.setAttribute("parts", list); //Add the result list to the request object to be used by the JSP page
 				
 				//debug
 				System.out.printf("%d results returned %n",list.size());
@@ -340,7 +340,7 @@ public class APLSystemServlet extends HttpServlet
 	@Autowired
 	public void setJobActionFactory(PartActionFactory aJobActionFactory)
 	{
-		this.jobActionFactory=aJobActionFactory;
+		this.partActionFactory=aJobActionFactory;
 	}
 
 	@Override
@@ -361,7 +361,7 @@ public class APLSystemServlet extends HttpServlet
 //		}
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
-		setJobActionFactory((PartActionFactory)context2.getBean("jobActionFactory"));
+		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
 		super.init();
 	}
 	
