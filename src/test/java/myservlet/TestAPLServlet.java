@@ -74,14 +74,14 @@ public class TestAPLServlet
 	}
 	
 	@Test
-	public void testJobTemplate_display()
+	public void testPart_display()
 	{
 		
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
-        when(request.getRequestURI()).thenReturn("/myservlet/JobTemplate_display");
-        when(request.getRequestDispatcher("/JSP/JobTemplate.jsp")).thenReturn(dispatcher);
+        when(request.getRequestURI()).thenReturn("/myservlet/Part_display");
+        when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
         try
         {
         	apl =new APLSystemServlet();
@@ -144,13 +144,13 @@ public class TestAPLServlet
 	
 	//TODO Implement
 	@Test
-	public void testJobTemplate_save()
+	public void testPart_save()
 	{
 		HttpServletRequest request = mock(HttpServletRequest.class);       
         HttpServletResponse response = mock(HttpServletResponse.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
   
-        when(request.getRequestURI()).thenReturn("/myservlet/JobTemplate_save");
+        when(request.getRequestURI()).thenReturn("/myservlet/Part_save");
         
         //Enter mode
         when(request.getParameter("mode")).thenReturn("Enter");
@@ -166,7 +166,7 @@ public class TestAPLServlet
 		when(request.getParameter("version")).thenReturn("60g");
 		when(request.getParameter("company")).thenReturn("Tosara");
 		
-		when(request.getRequestDispatcher("/JSP/JobTemplate.jsp")).thenReturn(dispatcher);
+		when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
         PartDAOImpl jobDAO=mock(PartDAOImpl.class);
         
         try

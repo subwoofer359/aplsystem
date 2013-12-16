@@ -3,7 +3,7 @@ import org.amc.servlet.model.Part;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class TestJobTemplate
+public class TestPart
 {
 	
 	private int id=4;
