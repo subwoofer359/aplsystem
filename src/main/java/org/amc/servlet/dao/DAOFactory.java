@@ -3,9 +3,9 @@ package org.amc.servlet.dao;
 public class DAOFactory 
 {
 
-	public static JobTemplateDAO getJobTemplateDAO()
+	public static PartDAO getJobTemplateDAO()
 	{
-		return new JobTemplateDAOImpl();
+		return new PartDAOImpl();
 	}
 	
 	public static MouldingProcessDAO getMouldingProcessDAO()

@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.amc.servlet.APLSystemServlet;
-import org.amc.servlet.action.SaveJobTemplateAction;
-import org.amc.servlet.model.JobTemplate;
+import org.amc.servlet.action.SavePartAction;
+import org.amc.servlet.model.Part;
 import org.junit.*;
 
 import static org.junit.Assert.*;

@@ -104,7 +104,7 @@ function enable(id)
 <%@ include file="NavigationDiv.jspf" %>
 <DIV  class="entrybox">
 
-<FORM action="${pageContext.request.contextPath}/JobTemplate_search" method="get">
+<FORM action="${pageContext.request.contextPath}/Part_search" method="get">
 
 <SPAN>
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>
@@ -113,7 +113,7 @@ function enable(id)
 
 <TABLE>
 <TR><TH>Id</TH><TH>Company</TH><TH>Name</TH><TH>Version</TH><TH>Colour</TH><TH>QSS no.</TH><TH></TH></TR>
-<c:forEach items="${jobtemplates}" var="part">
+<c:forEach items="${parts}" var="part">
 <TR><TD>${part.id}</TD><TD>${part.company}</TD><TD>${part.name}</TD><TD>${part.version}</TD><TD>${part.colour}</TD><TD>${part.qss_no}</TD><TD><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
