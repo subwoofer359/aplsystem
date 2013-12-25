@@ -2,6 +2,7 @@ package org.amc.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
@@ -18,6 +20,11 @@ import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.google.visualization.datasource.base.TypeMismatchException;
+import com.google.visualization.datasource.datatable.ColumnDescription;
+import com.google.visualization.datasource.datatable.DataTable;
+import com.google.visualization.datasource.datatable.value.ValueType;
 
 /**
  * Servlet implementation class APLProcessServlet
@@ -196,8 +203,34 @@ public class APLProcessServlet extends HttpServlet
 			try
 			{
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
-				MouldingProcess mp=spt.getMouldingProcess(idValue);
-				request.setAttribute("part",mp);
+				MouldingProcess process=spt.getMouldingProcess(idValue);
+				request.setAttribute("process",process);
+				
+				//Use google Charts objects
+				float startPosition=process.getPosTran()+process.getShotSize();// 0 -> changeover -> shot size
+				DataTable pressure=new DataTable();
+				
+				ArrayList<ColumnDescription> cd = new ArrayList<ColumnDescription>();
+				
+				//cd.add(new ColumnDescription("id", ValueType.NUMBER,"ID"));
+				cd.add(new ColumnDescription("Position", ValueType.TEXT,"Part Name"));
+				cd.add(new ColumnDescription("Pressure",ValueType.NUMBER , "pressure"));
+				
+				
+				pressure.addColumns(cd);
+				
+				
+				try 
+				{
+					pressure.addRowFromValues(startPosition,process.getMaxInjPre());
+					pressure.addRowFromValues(process.getPosTran(),process.getHoldingPressure_1());
+					request.setAttribute("pressureTable",pressure);
+				} 
+				catch (TypeMismatchException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)

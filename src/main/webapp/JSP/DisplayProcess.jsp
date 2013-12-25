@@ -5,6 +5,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Part: ${part.partId}</title>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+
+
+  var chart = new google.visualization.SteppedAreaChart(document.getElementById('chart'));
+  chart.draw(data, options);
+}
+</script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 </head>
 <body>
@@ -21,6 +31,9 @@
 <TR><TD>Date of Issue:</TD><TD>${part.dateOfIssue}</TD></TR>
 <TR><TD>Signed of by:</TD><TD>${part.signOffBy}</TD></TR>
 </TABLE>
+</DIV>
+<DIV class="chart">
+
 </DIV>
 </body>
 </html>
