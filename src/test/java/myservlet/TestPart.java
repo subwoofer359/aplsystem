@@ -1,9 +1,9 @@
 package myservlet;
-import org.amc.servlet.model.JobTemplate;
+import org.amc.servlet.model.Part;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class TestJobTemplate
+public class TestPart
 {
 	
 	private int id=4;
@@ -17,7 +17,7 @@ public class TestJobTemplate
 	private String version="60g";
 	
 	//private JobTemplate job=mock(JobTemplate.class);
-	private JobTemplate job=new JobTemplate();
+	private Part job=new Part();
 	
 	@Before
 	public void init()

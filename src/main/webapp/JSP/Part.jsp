@@ -62,7 +62,7 @@ ${error}<br/>
 </c:if>
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 <DIV class="entrybox">
-<FORM method='get' action='./JobTemplate_save'>
+<FORM method='get' action='./Part_save'>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 <TABLE>
 <%-- To be used in edit mode to store the id of the object being edited --%>
@@ -94,7 +94,7 @@ ${error}<br/>
 <SCRIPT>
 function home()
 {
-	location="JobTemplate_search";
+	location="Part_search";
 }
 </SCRIPT>
 <button type="button" value="home" onclick="home()">Home</button>

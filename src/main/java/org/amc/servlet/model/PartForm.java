@@ -1,6 +1,6 @@
 package org.amc.servlet.model;
 
-public class JobTemplateForm 
+public class PartForm 
 {
 	String id;
 	

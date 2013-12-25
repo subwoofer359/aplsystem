@@ -68,7 +68,7 @@ public class APLProcessServlet extends HttpServlet
 		}
 		else if(referal.endsWith("ProcessSheet_display"))
 		{
-			//displayJobTemplate(request, response);
+			displayProcessSheet(request, response);
 		}
 		else if(referal.endsWith("ProcessSheet_search"))
 		{
@@ -90,8 +90,6 @@ public class APLProcessServlet extends HttpServlet
 			rd.forward(request, response);
 		}
 	}
-	
-	
 
 	private void saveProcessSheet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
@@ -186,6 +184,32 @@ public class APLProcessServlet extends HttpServlet
 			
 			RequestDispatcher rd=request.getRequestDispatcher("/JSP/ProcessPage.jsp");
 			rd.forward(request, response);
+		}
+	}
+	
+	private void displayProcessSheet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException
+	{
+		//Selected Process Page
+		String idValue=request.getParameter("edit");
+		if(idValue!=null && (!idValue.equals("")))
+		{
+			try
+			{
+				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
+				MouldingProcess mp=spt.getMouldingProcess(idValue);
+				request.setAttribute("part",mp);
+				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
+				rd.forward(request, response);
+			} catch (SQLException e)
+			{
+				getServletContext().log(e.getMessage());
+				e.printStackTrace();
+			}
+			
+		}
+		else // No Process selected return to ProcessSearchPage
+		{
+			response.sendRedirect(request.getContextPath()+"/ProcessSheet_search");
 		}
 	}
 	

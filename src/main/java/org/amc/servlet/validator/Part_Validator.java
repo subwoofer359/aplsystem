@@ -2,11 +2,11 @@ package org.amc.servlet.validator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.amc.servlet.model.JobTemplateForm;
+import org.amc.servlet.model.PartForm;
 
-public class JobTemplate_Validator 
+public class Part_Validator 
 {
-	public List<String> validate(JobTemplateForm form)
+	public List<String> validate(PartForm form)
 	{
 		List<String> errors=new ArrayList<String>();
 		String name=form.getName();

@@ -39,6 +39,33 @@ function isChecked(id)
 	}	
 }
 
+function isDisplayChecked(id)
+{
+	var list=document.getElementsByName("edit");
+	console.log(list.length+"\n");
+	var checked=false;
+	for(var t in list)
+	{
+		console.log(list[t]+" "+list.checked+"\n");
+		if(list[t].checked)
+		{
+			checked=true;
+		}
+	}
+	if(checked)
+	{
+		id.formAction="${pageContext.request.contextPath}/ProcessSheet_display";
+	}
+	else
+	{
+		alert("No Process Selected");
+		id.formAction="";
+		id.value="search";
+		
+		
+	}	
+}
+
 function enable(id)
 {
 	id.value="edit";	
@@ -65,7 +92,7 @@ function enable(id)
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
 </DIV>
-<SPAN><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
+<SPAN><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /><input type="submit" name="mode" value="display" onclick="isDisplayChecked(this)" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
 </FORM>
 
 </DIV>
