@@ -196,8 +196,8 @@ public class APLProcessServlet extends HttpServlet
 			try
 			{
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
-				MouldingProcess mp=spt.getMouldingProcess(idValue);
-				request.setAttribute("part",mp);
+				MouldingProcess process=spt.getMouldingProcess(idValue);
+				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)
