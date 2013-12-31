@@ -20,6 +20,28 @@
         
         var injectionPressure=${process.maxInjPre};
 		var posTran=${process.posTran};
+
+		//Calculating times when the injection speed changes
+		var speed=[process.injectionSpeed_1,process.injectionSpeed_2,process.injectionSpeed_3,process.injectionSpeed_4,process.injectionSpeed_5,process.injectionSpeed_6];
+		var position=[startPosition,process.injSpeedPosition_1,process.injSpeedPosition_2,process.injSpeedPosition_3,process.injSpeedPosition_4,process.injSpeedPosition_5,process.injSpeedPosition_6];
+
+		var pointer=0;
+		var timeSpeed=[];
+
+		while(pointer<speed.length)
+		{
+			if(position[pointer+1]!=0)
+			{
+				timeSpeed[pointer]=(position[pointer]-position[pointer+1])/speed[pointer];
+			}
+			else
+			{
+				timeSpeed[pointer]=(position[pointer+1]-posTran)/speed[pointer];
+				break;
+			}
+			pointer++;
+		}		
+		
         var data = google.visualization.arrayToDataTable([
           ['Time','Pressure'],
           [ times[0],injectionPressure],
@@ -37,7 +59,12 @@
           [ times[6]  ,${process.holdingPressure_6}],
           [ times[7] , ${process.holdingPressure_6}]
           ]);
-
+		//Add InjectionSpeed times to chart
+        for(row in timeSpeed)
+         {
+            data.push([timeSpeed[row],speed[row]]);
+         }
+		document.write(data+"<BR>");
         var options = {
           title: 'Set Pressure',
           vAxis: {title: 'Pressure'},
