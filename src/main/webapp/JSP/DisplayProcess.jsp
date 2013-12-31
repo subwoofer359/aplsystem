@@ -10,6 +10,8 @@
     function drawChart() {
         var startPosition=${process.shotSize + process.posTran};
         var injectionTime=${process.shotSize / process.injectionSpeed_1}; // Needs to an average
+
+        //Calculating times for Max injection pressure and holding times
         var times=[0,injectionTime];
         times[2]=times[1]+${process.holdingTime_1};
         times[3]=times[2]+${process.holdingTime_2};
@@ -22,27 +24,46 @@
 		var posTran=${process.posTran};
 
 		//Calculating times when the injection speed changes
-		var speed=[process.injectionSpeed_1,process.injectionSpeed_2,process.injectionSpeed_3,process.injectionSpeed_4,process.injectionSpeed_5,process.injectionSpeed_6];
-		var position=[startPosition,process.injSpeedPosition_1,process.injSpeedPosition_2,process.injSpeedPosition_3,process.injSpeedPosition_4,process.injSpeedPosition_5,process.injSpeedPosition_6];
+		var speed=[
+		   		${process.injectionSpeed_1},
+		   		${process.injectionSpeed_2},
+		   		${process.injectionSpeed_3},
+		   		${process.injectionSpeed_4},
+		   		${process.injectionSpeed_5},
+		   		${process.injectionSpeed_6}
+		   		];
+		var position=[
+		      		startPosition,
+		      		${process.injSpeedPosition_1},
+		      		${process.injSpeedPosition_2},
+		      		${process.injSpeedPosition_3},
+		      		${process.injSpeedPosition_4},
+		      		${process.injSpeedPosition_5},
+		      		${process.injSpeedPosition_6}
+		      		];
 
 		var pointer=0;
 		var timeSpeed=[];
+		var previousTime=0;
 
 		while(pointer<speed.length)
 		{
 			if(position[pointer+1]!=0)
 			{
-				timeSpeed[pointer]=(position[pointer]-position[pointer+1])/speed[pointer];
+				timeSpeed[pointer]=(position[pointer]-position[pointer+1])/speed[pointer]+previousTime;
+				previousTime=timeSpeed[pointer];
 			}
 			else
 			{
-				timeSpeed[pointer]=(position[pointer+1]-posTran)/speed[pointer];
+				timeSpeed[pointer]=(position[pointer]-posTran)/speed[pointer]+previousTime;
+				previousTime=timeSpeed[pointer];
 				break;
 			}
 			pointer++;
 		}		
 		
-        var data = google.visualization.arrayToDataTable([
+		var dataRow=
+          [
           ['Time','Pressure'],
           [ times[0],injectionPressure],
           [  times[1],injectionPressure],
@@ -58,22 +79,36 @@
           [ times[6]  ,${process.holdingPressure_5}],
           [ times[6]  ,${process.holdingPressure_6}],
           [ times[7] , ${process.holdingPressure_6}]
-          ]);
-		//Add InjectionSpeed times to chart
-        for(row in timeSpeed)
-         {
-            data.push([timeSpeed[row],speed[row]]);
-         }
-		document.write(data+"<BR>");
+          ];
+        var data = google.visualization.arrayToDataTable(dataRow);
+
+        var speedRow=[['time','speed']];
+    	previousTime=0;
+    	for(var i=0;i<timeSpeed.length;i++)
+    	{
+    		speedRow.push([previousTime,speed[i]]);
+    		speedRow.push([timeSpeed[i],speed[i]]);
+    		previousTime=timeSpeed[i];
+    	}
+		var speedData=google.visualization.arrayToDataTable(speedRow);
+
         var options = {
           title: 'Set Pressure',
           vAxis: {title: 'Pressure'},
           hAxis: {title: 'Time (sec)'},
           isStacked: false
         };
+        var options2 = {
+          title: 'Injection Speed',
+          vAxis: {title: 'Speed (mm/s)'},
+          hAxis: {title: 'Time (sec)'},
+          isStacked: false
+              };
 
         var chart = new google.visualization.AreaChart(document.getElementById('processChart'));
+        var chart2 = new google.visualization.AreaChart(document.getElementById('processChart2'));
         chart.draw(data, options);
+        chart2.draw(speedData,options2);
       }
     </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -97,5 +132,8 @@
 </DIV>
 <DIV   id="processChart">
 </DIV>
+<DIV   id="processChart2">
+</DIV>
+
 </body>
 </html>
