@@ -8,88 +8,24 @@
  	google.load("visualization", "1", {packages:["corechart"]});
     google.setOnLoadCallback(drawChart);
     function drawChart() {
-        var startPosition=${process.shotSize + process.posTran};
-        var injectionTime=${process.shotSize / process.injectionSpeed_1}; // Needs to an average
-
-        //Calculating times for Max injection pressure and holding times
-        var times=[0,injectionTime];
-        times[2]=times[1]+${process.holdingTime_1};
-        times[3]=times[2]+${process.holdingTime_2};
-        times[4]=times[3]+${process.holdingTime_3};
-        times[5]=times[4]+${process.holdingTime_4};
-        times[6]=times[5]+${process.holdingTime_5};
-        times[7]=times[6]+${process.holdingTime_6};
-        
-        var injectionPressure=${process.maxInjPre};
-		var posTran=${process.posTran};
-
-		//Calculating times when the injection speed changes
-		var speed=[
-		   		${process.injectionSpeed_1},
-		   		${process.injectionSpeed_2},
-		   		${process.injectionSpeed_3},
-		   		${process.injectionSpeed_4},
-		   		${process.injectionSpeed_5},
-		   		${process.injectionSpeed_6}
-		   		];
-		var position=[
-		      		startPosition,
-		      		${process.injSpeedPosition_1},
-		      		${process.injSpeedPosition_2},
-		      		${process.injSpeedPosition_3},
-		      		${process.injSpeedPosition_4},
-		      		${process.injSpeedPosition_5},
-		      		${process.injSpeedPosition_6}
-		      		];
-
-		var pointer=0;
-		var timeSpeed=[];
-		var previousTime=0;
-
-		while(pointer<speed.length)
-		{
-			if(position[pointer+1]!=0)
-			{
-				timeSpeed[pointer]=(position[pointer]-position[pointer+1])/speed[pointer]+previousTime;
-				previousTime=timeSpeed[pointer];
-			}
-			else
-			{
-				timeSpeed[pointer]=(position[pointer]-posTran)/speed[pointer]+previousTime;
-				previousTime=timeSpeed[pointer];
-				break;
-			}
-			pointer++;
-		}		
-		
+        // data to draw Time - Pressure Chart	
 		var dataRow=
           [
           ['Time','Pressure'],
-          [ times[0],injectionPressure],
-          [  times[1],injectionPressure],
-          [ times[1],${process.holdingPressure_1 }],
-          [ times[2]  ,${process.holdingPressure_1}],
-          [ times[2]  ,${process.holdingPressure_2}],
-          [ times[3]  ,${process.holdingPressure_2}],
-          [ times[3]  ,${process.holdingPressure_3}],
-          [ times[4]  ,${process.holdingPressure_3}],
-          [ times[4]  ,${process.holdingPressure_4}],
-          [ times[5]  ,${process.holdingPressure_4}],
-          [ times[5]  ,${process.holdingPressure_5}],
-          [ times[6]  ,${process.holdingPressure_5}],
-          [ times[6]  ,${process.holdingPressure_6}],
-          [ times[7] , ${process.holdingPressure_6}]
+        <c:forEach items='${chartdata.timePressure}' var='data'>
+			[${data[0]},${data[1]}],
+        </c:forEach>
           ];
         var data = google.visualization.arrayToDataTable(dataRow);
 
-        var speedRow=[['time','speed']];
-    	previousTime=0;
-    	for(var i=0;i<timeSpeed.length;i++)
-    	{
-    		speedRow.push([previousTime,speed[i]]);
-    		speedRow.push([timeSpeed[i],speed[i]]);
-    		previousTime=timeSpeed[i];
-    	}
+     // data to draw Time - Speed Chart
+        var speedRow=[['time','speed'],
+        <c:forEach items='${chartdata.timeSpeed}' var='data'>
+			[${data[0]},${data[1]}],
+    	</c:forEach>
+
+        ];
+    	
 		var speedData=google.visualization.arrayToDataTable(speedRow);
 
         var options = {

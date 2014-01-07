@@ -81,7 +81,7 @@ public class MouldProcessAnalysis
 		{
 			timeSpeed[i][0]=times.get(i);timeSpeed[i][1]=speed[ptr];
 			//To use each speed variable twice
-			if(i%2!=0)
+			if(i%2!=0 && ptr<speed.length-1)
 			{
 				ptr++;
 			}
