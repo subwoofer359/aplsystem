@@ -68,7 +68,7 @@ public class MouldProcessAnalysis
 			{
 				totalInjectionTime+=(position[pointer]-process.getPosTran())/speed[pointer];
 				times.add(totalInjectionTime);
-				times.add(totalInjectionTime);
+				//times.add(totalInjectionTime);
 		
 				System.out.println(position[pointer]+"-"+process.getPosTran()+"/"+speed[pointer]);
 				break;
