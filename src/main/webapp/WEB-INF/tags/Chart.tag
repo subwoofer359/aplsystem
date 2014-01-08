@@ -1,29 +1,26 @@
-package org.amc.servlet.model;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class MouldProcessAnalysis
-{
-	private final MouldingProcess process;
-	
+<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
+<%@ attribute name="aprocess" required="true" type="org.amc.servlet.model.MouldingProcess" %>
+<%!
 	float startPosition=0;
 	float totalInjectionTime;
 	float[][] timePressure;
 	float[][] timeSpeed;
-	
-	public MouldProcessAnalysis(final MouldingProcess process)
+	MouldingProcess process;
+		
+	public String createChart()
 	{
-		this.process=process;
-		
-		//calculate Start Position
+		this.process=aprocess;
 		startPosition=process.getShotSize()+process.getPosTran();
-		
 		getTimeSpeedData();
 		getTimePressureData();
 		
+		getJspContext().setAttribute("timePressure", timePressure);
+		getJspContext().setAttribute("timeSpeed", timeSpeed);
+		return "";
 	}
-	
+
 	private void getTimeSpeedData()
 	{
 		
@@ -89,7 +86,7 @@ public class MouldProcessAnalysis
 		}
 		
 	}
-
+	
 	/**
 	 * Must be called after method getTimeSpeedData()
 	 */
@@ -152,7 +149,50 @@ public class MouldProcessAnalysis
 	{
 		return timeSpeed;
 	}
-	
-	
+%>
+<%=createChart() %>
 
-}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+ <script type="text/javascript">
+ 	google.load("visualization", "1", {packages:["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        // data to draw Time - Pressure Chart	
+		var dataRow=
+          [
+          ['Time','Pressure'],
+        <c:forEach items='${timePressure}' var='data'>
+			[${data[0]},${data[1]}],
+        </c:forEach>
+          ];
+        var data = google.visualization.arrayToDataTable(dataRow);
+
+     // data to draw Time - Speed Chart
+        var speedRow=[['time','speed'],
+        <c:forEach items='${timeSpeed}' var='data'>
+			[${data[0]},${data[1]}],
+    	</c:forEach>
+
+        ];
+    	
+		var speedData=google.visualization.arrayToDataTable(speedRow);
+
+        var options = {
+          title: 'Set Pressure',
+          vAxis: {title: 'Pressure'},
+          hAxis: {title: 'Time (sec)'},
+          isStacked: false
+        };
+        var options2 = {
+          title: 'Injection Speed',
+          vAxis: {title: 'Speed (mm/s)'},
+          hAxis: {title: 'Time (sec)'},
+          isStacked: false
+              };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('processChart'));
+        var chart2 = new google.visualization.AreaChart(document.getElementById('processChart2'));
+        chart.draw(data, options);
+        chart2.draw(speedData,options2);
+      }
+    </script>

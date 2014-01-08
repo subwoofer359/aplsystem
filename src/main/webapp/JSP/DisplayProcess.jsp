@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  <script type="text/javascript">
  	google.load("visualization", "1", {packages:["corechart"]});
@@ -47,6 +49,9 @@
         chart2.draw(speedData,options2);
       }
     </script>
+     -->
+  <tags:Chart aprocess="${process}"></tags:Chart>
+     
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
-import org.amc.servlet.model.MouldProcessAnalysis;
 import org.amc.servlet.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
@@ -199,9 +198,7 @@ public class APLProcessServlet extends HttpServlet
 			{
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
 				MouldingProcess process=spt.getMouldingProcess(idValue);
-				MouldProcessAnalysis analysis=new MouldProcessAnalysis(process);
 				request.setAttribute("process",process);
-				request.setAttribute("chartdata",analysis);
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)
