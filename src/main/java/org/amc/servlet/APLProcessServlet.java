@@ -301,17 +301,6 @@ public class APLProcessServlet extends HttpServlet
 				}
 		
 	}
-	
-	/**
-	 * 
-	 * @param request Receive part to analysis and options
-	 * @param response return result of analysis
-	 * forward to AnalysisProcess.jsp
-	 */
-	private void analysis(HttpServletRequest request, HttpServletResponse response)
-	{
-		
-	}
 
 	/*
 	 * Required by Spring

@@ -1017,6 +1017,51 @@ public class MouldingProcess
 		this.decompressionDist = decompressionDist;
 	}	
 	
+	/**
+	 * 
+	 * @return predicted injection time as per the Speed Profile
+	 */
+	@Deprecated
+	public float getTotalInjectionTime()
+	{
+		float totalInjectionTime=0f;
+		float[] position=
+			{
+				shotSize+posTran,
+				getInjSpeedPosition_1(),
+				getInjSpeedPosition_2(),
+				getInjSpeedPosition_3(),
+				getInjSpeedPosition_4(),
+				getInjSpeedPosition_5(),
+				getInjSpeedPosition_6()
+			};
+		
+		float[] speed=
+			{
+				getInjectionSpeed_1(),
+				getInjectionSpeed_2(),
+				getInjectionSpeed_3(),
+				getInjectionSpeed_4(),
+				getInjectionSpeed_5(),
+				getInjectionSpeed_6()
+			};
+		
+		for(int pointer=0;pointer<speed.length;pointer++)
+		{
+			if(position[pointer+1]!=0)
+			{
+				totalInjectionTime+=(position[pointer]-position[pointer+1])/speed[pointer];
+				
+			}
+			else
+			{
+				totalInjectionTime+=(position[pointer]-posTran)/speed[pointer];
+				break;
+			}
+		}
+		return totalInjectionTime;
+	}
+	
 	@Override
 	public String toString()
 	{

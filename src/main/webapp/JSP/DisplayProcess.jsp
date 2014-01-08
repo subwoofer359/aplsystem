@@ -4,53 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
- <script type="text/javascript">
- 	google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-        // data to draw Time - Pressure Chart	
-		var dataRow=
-          [
-          ['Time','Pressure'],
-        <c:forEach items='${chartdata.timePressure}' var='data'>
-			[${data[0]},${data[1]}],
-        </c:forEach>
-          ];
-        var data = google.visualization.arrayToDataTable(dataRow);
-
-     // data to draw Time - Speed Chart
-        var speedRow=[['time','speed'],
-        <c:forEach items='${chartdata.timeSpeed}' var='data'>
-			[${data[0]},${data[1]}],
-    	</c:forEach>
-
-        ];
-    	
-		var speedData=google.visualization.arrayToDataTable(speedRow);
-
-        var options = {
-          title: 'Set Pressure',
-          vAxis: {title: 'Pressure'},
-          hAxis: {title: 'Time (sec)'},
-          isStacked: false
-        };
-        var options2 = {
-          title: 'Injection Speed',
-          vAxis: {title: 'Speed (mm/s)'},
-          hAxis: {title: 'Time (sec)'},
-          isStacked: false
-              };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('processChart'));
-        var chart2 = new google.visualization.AreaChart(document.getElementById('processChart2'));
-        chart.draw(data, options);
-        chart2.draw(speedData,options2);
-      }
-    </script>
-     -->
-  <tags:Chart aprocess="${process}"></tags:Chart>
+<tags:Chart >
+	<jsp:attribute name="timespeed">
+		<tags:TimeSpeed process="${process}"> 
+			<c:set var="injectionTime" value="${totalInjectionTime}" scope="session"/> <!-- The time pressure chart needs the total Injection Time  -->
+		</tags:TimeSpeed>
+	</jsp:attribute>
+	<jsp:attribute name="timepressure">
+		<tags:TimePressure process="${process}" totalInjectionTime="${injectionTime}"></tags:TimePressure>
+	</jsp:attribute>
+</tags:Chart>
      
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
