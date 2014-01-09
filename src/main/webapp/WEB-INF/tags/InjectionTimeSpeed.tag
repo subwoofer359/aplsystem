@@ -1,4 +1,4 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
 <%@ variable name-given="totalInjectionTime" variable-class="java.lang.Float"  %>
@@ -9,15 +9,27 @@
 		
 	public String createTimeSpeedData()
 	{
+		StringBuilder result= new StringBuilder();
+		//Calculate Start position of the Screw for injection
 		startPosition=process.getShotSize()+process.getPosTran();
-		String result=getTimeSpeedData();
-		getJspContext().setAttribute("totalInjectionTime", totalInjectionTime);
-		return result;
+		
+		getTimeSpeedData(result); // Fill the StringBuilder with chart data
+		
+        result.append("var injectionTimeSpeedData=google.visualization.arrayToDataTable(injectionTimeSpeedRow);");
+        
+        result.append("var injectionTimeSpeedOptions = {title: 'Injection Speed',vAxis: {title: 'Speed (mm/s)'},hAxis: {title: 'Time (sec)'},isStacked: false};");
+        
+        result.append("var injectionTimeSpeedChart = new google.visualization.AreaChart(document.getElementById('injectionTimeSpeedChart'));");
+        
+        result.append("injectionTimeSpeedChart.draw(injectionTimeSpeedData,injectionTimeSpeedOptions);");
+        		
+        getJspContext().setAttribute("totalInjectionTime", totalInjectionTime);
+		return result.toString();
 	}
 
-	private String getTimeSpeedData()
+	private void getTimeSpeedData(StringBuilder result)
 	{
-		StringBuilder result= new StringBuilder();
+		result.append("var injectionTimeSpeedRow=[['time','speed'], ");
 		List<Float> times=new ArrayList<Float>();
 		times.add(0f);//Zero at start of time
 		
@@ -84,7 +96,8 @@
 			}
 		
 		}
-		return result.toString();
+		
+		result.append("];");
 	}
 	
 

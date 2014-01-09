@@ -1,13 +1,15 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
 <%@ attribute name="totalInjectionTime" type="java.lang.Float" required="true" %>
-
 <%!
 public String getTimePressureData()
 {
 		StringBuilder result=new StringBuilder();
+        
+        result.append("var injectionTimePressureRow=[['Time','Pressure'],");
+        
 		float[][] timePressure=null;
 		//float totalInjectionTime=process.getTotalInjectionTime();
 		List<Float> times=new ArrayList<Float>();
@@ -38,6 +40,18 @@ public String getTimePressureData()
 		result.append("["+times.get(6)+","+process.getHoldingPressure_5()+"],");
 		result.append("["+times.get(6)+","+process.getHoldingPressure_6()+"],");
 		result.append("["+times.get(7)+","+process.getHoldingPressure_6()+"]");
+		
+		result.append("];");
+
+        
+        result.append("var injectionTimePressureData = google.visualization.arrayToDataTable(injectionTimePressureRow);");
+        
+        result.append("var injectionTimePressureOptions = {title: 'Set Pressure',vAxis: {title: 'Pressure'},hAxis: {title: 'Time (sec)'},isStacked: false};");
+		
+        result.append("var injectionTimePressureChart = new google.visualization.AreaChart(document.getElementById('injectionTimePressureChart'));");
+        
+        result.append("injectionTimePressureChart.draw(injectionTimePressureData, injectionTimePressureOptions);");
+        
 		return result.toString();
 }
 

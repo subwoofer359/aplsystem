@@ -4,29 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<tags:Chart >
-	<jsp:attribute name="timespeed">
-		<tags:TimeSpeed process="${process}"> 
-			<c:set var="injectionTime" value="${totalInjectionTime}" scope="session"/> <!-- The time pressure chart needs the total Injection Time  -->
-		</tags:TimeSpeed>
-	</jsp:attribute>
-	<jsp:attribute name="timepressure">
-		<tags:TimePressure process="${process}" totalInjectionTime="${injectionTime}"></tags:TimePressure>
-	</jsp:attribute>
-	<jsp:attribute name="cycletime">
-		<tags:CycleTime process="${process}"></tags:CycleTime>
-	</jsp:attribute>
-</tags:Chart>
-     
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
-<style type="text/css">
-div#cycleTimeChart
-{
-	height:700px;
-}
-</style>
 </head>
 <body>
 <DIV class="title">
@@ -43,11 +23,18 @@ div#cycleTimeChart
 <TR><TD>Signed of by:</TD><TD>${process.signOffBy}</TD></TR>
 </TABLE>
 </DIV>
-<DIV   id="processChart">
-</DIV>
-<DIV   id="processChart2">
-</DIV>
-<DIV   id="cycleTimeChart">
-</DIV>
+<tags:Chart >
+	<jsp:attribute name="injectiontimespeed">
+		<tags:InjectionTimeSpeed process="${process}"> 
+			<c:set var="injectionTime" value="${totalInjectionTime}" scope="session"/> <%-- The time pressure chart needs the total Injection Time  --%>
+		</tags:InjectionTimeSpeed>
+	</jsp:attribute>
+	<jsp:attribute name="injectiontimepressure">
+		<tags:InjectionTimePressure process="${process}" totalInjectionTime="${injectionTime}"></tags:InjectionTimePressure>
+	</jsp:attribute>
+	<jsp:attribute name="cycletime">
+		<tags:CycleTime process="${process}"></tags:CycleTime>
+	</jsp:attribute>
+</tags:Chart>
 </body>
 </html>

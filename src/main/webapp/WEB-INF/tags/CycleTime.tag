@@ -1,11 +1,10 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
 <%! 
 public String getCycleTimeData()
 {
 	StringBuilder result=new StringBuilder();
-	
 	
 	
 	result.append("var cycleTimeRow=[['Phase','Time(secs)'],"); //Table headers - Two columns
