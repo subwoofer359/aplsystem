@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ attribute name="timespeed" required="true" fragment="true" %>
 <%@ attribute name="timepressure" required="true" fragment="true" %>
+<%@ attribute name="cycletime" required="true" fragment="true" %>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  <script type="text/javascript">
  	google.load("visualization", "1", {packages:["corechart"]});
@@ -40,5 +41,8 @@
         var chart2 = new google.visualization.AreaChart(document.getElementById('processChart2'));
         chart.draw(data, options);
         chart2.draw(speedData,options2);
+
+    	<jsp:invoke fragment="cycletime" />
+        
       }
     </script>

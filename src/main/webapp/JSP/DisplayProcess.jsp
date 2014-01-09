@@ -13,11 +13,20 @@
 	<jsp:attribute name="timepressure">
 		<tags:TimePressure process="${process}" totalInjectionTime="${injectionTime}"></tags:TimePressure>
 	</jsp:attribute>
+	<jsp:attribute name="cycletime">
+		<tags:CycleTime process="${process}"></tags:CycleTime>
+	</jsp:attribute>
 </tags:Chart>
      
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<style type="text/css">
+div#cycleTimeChart
+{
+	height:700px;
+}
+</style>
 </head>
 <body>
 <DIV class="title">
@@ -38,6 +47,7 @@
 </DIV>
 <DIV   id="processChart2">
 </DIV>
-
+<DIV   id="cycleTimeChart">
+</DIV>
 </body>
 </html>
