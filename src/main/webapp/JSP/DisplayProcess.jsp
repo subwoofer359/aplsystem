@@ -7,23 +7,57 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<style>
+.informationbox
+{
+	border-style: solid;
+	border-radius: 25px;
+	background-color: white;
+	margin-top:4px;
+	margin-left:auto;
+	margin-right:auto;
+	top:100px;
+	width:20%;
+	left:10%;
+	padding: 20px;
+	overflow:auto;
+}
+.information
+{
+	border-style: solid;
+	border-radius: 25px;
+	background-color: white;
+	margin-top:4px;
+	margin-left:auto;
+	margin-right:auto;
+	top:100px;
+	width:60%;
+	left:10%;
+	padding: 20px;
+}
+.header
+{
+	font-weight: bold;
+}
+</style>
 </head>
 <body>
 <DIV class="title">
 <H1> Process:${process.partId }</H1>
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
-<DIV>
+<DIV class="informationbox">
 <TABLE>
-<TR><TD>Machine Size:</TD><TD>${process.machineSize}</TD></TR>
-<TR><TD>Machine No.</TD><TD>${process.machineNo}</TD></TR>
-<TR><TD>Material:</TD><TD>${process.material}</TD></TR>
-<TR><TD>Masterbatch:</TD><TD>${process.masterbatchNo}</TD></TR>
-<TR><TD>Date of Issue:</TD><TD>${process.dateOfIssue}</TD></TR>
-<TR><TD>Signed of by:</TD><TD>${process.signOffBy}</TD></TR>
+<TR><TD class="header">Machine Size:</TD><TD>${process.machineSize}</TD></TR>
+<TR><TD class="header">Machine No.</TD><TD>${process.machineNo}</TD></TR>
+<TR><TD class="header">Material:</TD><TD>${process.material}</TD></TR>
+<TR><TD class="header">Masterbatch:</TD><TD>${process.masterbatchNo}</TD></TR>
+<TR><TD class="header">Date of Issue:</TD><TD>${process.dateOfIssue}</TD></TR>
+<TR><TD class="header">Signed of by:</TD><TD>${process.signOffBy}</TD></TR>
 </TABLE>
 </DIV>
-<tags:Chart >
+<DIV class="information">
+<tags:Chart>
 	<jsp:attribute name="injectiontimespeed">
 		<tags:InjectionTimeSpeed process="${process}"> 
 			<c:set var="injectionTime" value="${totalInjectionTime}" scope="session"/> <%-- The time pressure chart needs the total Injection Time  --%>
@@ -36,5 +70,6 @@
 		<tags:CycleTime process="${process}"></tags:CycleTime>
 	</jsp:attribute>
 </tags:Chart>
+</DIV>
 </body>
 </html>
