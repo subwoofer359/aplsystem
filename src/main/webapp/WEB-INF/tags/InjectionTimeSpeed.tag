@@ -17,7 +17,7 @@
 		
         result.append("var injectionTimeSpeedData=google.visualization.arrayToDataTable(injectionTimeSpeedRow);");
         
-        result.append("var injectionTimeSpeedOptions = {title: 'Injection Speed',vAxis: {title: 'Speed (mm/s)'},hAxis: {title: 'Time (sec)'},isStacked: false};");
+        result.append("var injectionTimeSpeedOptions = {title: 'Injection Speed',vAxis: {title: 'Speed (mm/s)',minValue:0,maxValue:100},hAxis: {title: 'Time (sec)'},isStacked: false};");
         
         result.append("var injectionTimeSpeedChart = new google.visualization.AreaChart(document.getElementById('injectionTimeSpeedChart'));");
         
