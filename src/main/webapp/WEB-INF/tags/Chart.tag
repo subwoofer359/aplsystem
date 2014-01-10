@@ -3,15 +3,18 @@
 <%@ attribute name="injectiontimespeed" required="true" fragment="true" %>
 <%@ attribute name="injectiontimepressure" required="true" fragment="true" %>
 <%@ attribute name="cycletime" required="true" fragment="true" %>
+<%@ attribute name="cycletimeline" required="true" fragment="true" %>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  <script type="text/javascript">
-google.load("visualization", "1", {packages:["corechart"]});
+google.load("visualization", "1", {packages:["corechart","timeline"]});
 google.setOnLoadCallback(drawChart);function drawChart()
 {   	
     	<jsp:invoke fragment="injectiontimespeed" />
     	<jsp:invoke fragment="injectiontimepressure" />
     	<jsp:invoke fragment="cycletime" />
+    	<jsp:invoke fragment="cycletimeline" />
+    	
 }
 </script>
 <DIV   id="injectionTimePressureChart">
@@ -19,4 +22,6 @@ google.setOnLoadCallback(drawChart);function drawChart()
 <DIV   id="injectionTimeSpeedChart">
 </DIV>
 <DIV   id="cycleTimeChart" style="height:700px">
+</DIV>
+<DIV   id="cycleTimeLineChart" style="height:700px">
 </DIV>

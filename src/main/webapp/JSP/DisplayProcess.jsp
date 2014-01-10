@@ -69,6 +69,9 @@
 	<jsp:attribute name="cycletime">
 		<tags:CycleTime process="${process}"></tags:CycleTime>
 	</jsp:attribute>
+	<jsp:attribute name="cycletimeline">
+		<tags:CycleTimeLine process="${process}"></tags:CycleTimeLine>
+	</jsp:attribute>
 </tags:Chart>
 </DIV>
 </body>
