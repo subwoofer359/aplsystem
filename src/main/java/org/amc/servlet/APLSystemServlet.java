@@ -74,6 +74,7 @@ public class APLSystemServlet extends HttpServlet
 		//Handle Part Page
 		if(referal.endsWith("Part_save"))
 		{
+			
 			saveJobTemplate(request, response);
 		}
 		else if(referal.endsWith("Part_display"))
@@ -151,6 +152,12 @@ public class APLSystemServlet extends HttpServlet
 		Part_Validator validator=new Part_Validator();
 		List<String> errors=validator.validate(jForm);
 		
+		//Check if user is a role to allow changes to the database
+		if(!(request.isUserInRole("qc")||(request.isUserInRole("manager"))))
+		{
+			errors.add("User has no permissions to alter Part definitions!");
+		}
+				
 		//If form validates with no errorts
 		if(errors.isEmpty())
 		{
@@ -257,7 +264,6 @@ public class APLSystemServlet extends HttpServlet
 		
 		
 		//create an action
-		System.out.println("Inside of APLSystemServlet:"+this.partActionFactory);
 		SearchPartAction sjt=this.partActionFactory.getSearchJobTemplateAction();
 		String dispatchURL=null;
 		try

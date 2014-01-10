@@ -115,6 +115,12 @@ public class APLProcessServlet extends HttpServlet
 		ProcessForm_Validator validator=new ProcessForm_Validator();
 		List<String> errors=validator.validate(jForm);
 		
+		//Check if user is a role to allow changes to the database
+		if(!(request.isUserInRole("qc")||(request.isUserInRole("manager"))))
+		{
+				errors.add("User has no permissions to alter Process sheet definitions!");
+		}
+		
 		//If form validates with no errors
 		if(errors.isEmpty())
 		{
