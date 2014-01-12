@@ -211,6 +211,7 @@ public class APLProcessServlet extends HttpServlet
 			{
 				getServletContext().log(e.getMessage());
 				e.printStackTrace();
+				throw new ServletException("Database not available");			
 			}
 			
 		}
@@ -300,10 +301,8 @@ public class APLProcessServlet extends HttpServlet
 				}
 				catch(SQLException se)
 				{
-					RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
-					request.setAttribute("exception",se);
-					rd.forward(request, response);
 					se.printStackTrace();
+					throw new ServletException("Database not available:"+se.getMessage());
 				}
 		
 	}

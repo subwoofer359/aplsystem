@@ -11,20 +11,18 @@
 <body>
 <%@ include file="NavigationDiv.jspf" %>
 <DIV class="error_message">
-${exception}
-</DIV>
-<DIV class="error_message">
 ${pageContext.exception}
 <br/>
 ${pageContext.errorData.statusCode}
 <br/>
 ${pageContext.errorData.requestURI}
 <br/>
+<%--
 <c:forEach var="trace" 
          items="${pageContext.exception.stackTrace}">
 <p>${trace}</p>
 </c:forEach>
-
+ --%>
 </DIV>
 </body>
 </html>
