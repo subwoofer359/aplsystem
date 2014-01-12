@@ -59,7 +59,7 @@ TD
 	border-radius: 25px;
 	background-color: red;
 	
-	position:fixed;
+	position:relative;
 	top:100px;
 	width:60%;
 	left:10%;

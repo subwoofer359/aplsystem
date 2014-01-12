@@ -203,9 +203,7 @@ public class APLSystemServlet extends HttpServlet
 			catch(SQLException se)
 			{
 				
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
-				request.setAttribute("exception",se);
-				rd.forward(request, response);
+				throw new ServletException("Database not available:"+se.getMessage());
 			}
 			
 			
@@ -319,10 +317,9 @@ public class APLSystemServlet extends HttpServlet
 		}
 		catch(SQLException se)
 		{
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
-			request.setAttribute("exception",se);
-			rd.forward(request, response);
+			
 			se.printStackTrace();
+			throw new ServletException("Database not available:"+se.getMessage());
 		}
 	}
 	
