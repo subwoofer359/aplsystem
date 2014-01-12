@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>APL Systems' Main Page</title>
+<title>ACME Plastics Systems' Main Page</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 <STYLE>
 BODY
@@ -74,7 +74,7 @@ DIV#process
 <body>
 
 <DIV class="title">
-<H1>Automatic Plastics Ltd. System</H1>
+<H1>ACME Plastics System</H1>
 </DIV>
 
 <DIV class="loginbox">
