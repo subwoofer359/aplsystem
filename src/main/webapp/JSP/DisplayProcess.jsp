@@ -39,6 +39,12 @@
 {
 	font-weight: bold;
 }
+.chart
+{
+ padding-top: 5px;
+ padding-bottom: 5px;
+ 
+}
 </style>
 </head>
 <body>
@@ -59,15 +65,10 @@
 <DIV class="information">
 <tags:Chart>
 	<jsp:attribute name="injectiontimespeed">
-		<tags:InjectionTimeSpeed process="${process}"> 
-			<c:set var="injectionTime" value="${totalInjectionTime}" scope="session"/> <%-- The time pressure chart needs the total Injection Time  --%>
-		</tags:InjectionTimeSpeed>
+		<tags:InjectionTimeSpeed process="${process}"></tags:InjectionTimeSpeed>
 	</jsp:attribute>
 	<jsp:attribute name="injectiontimepressure">
-		<tags:InjectionTimePressure process="${process}" totalInjectionTime="${injectionTime}"></tags:InjectionTimePressure>
-	</jsp:attribute>
-	<jsp:attribute name="cycletime">
-		<tags:CycleTime process="${process}"></tags:CycleTime>
+		<tags:InjectionTimePressure process="${process}"></tags:InjectionTimePressure>
 	</jsp:attribute>
 	<jsp:attribute name="cycletimeline">
 		<tags:CycleTimeLine process="${process}"></tags:CycleTimeLine>

@@ -1,13 +1,15 @@
+<%@tag import="org.amc.servlet.model.MouldingProcessUtil"%>
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
-<%@ attribute name="totalInjectionTime" type="java.lang.Float" required="true" %>
 <%!
 public String getTimePressureData()
 {
 		StringBuilder result=new StringBuilder();
         
+		float totalInjectionTime=MouldingProcessUtil.getTotalInjectionTime(process);
+		
         result.append("var injectionTimePressureRow=[['Time','Pressure'],");
         
 		float[][] timePressure=null;

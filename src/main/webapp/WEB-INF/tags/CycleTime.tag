@@ -1,3 +1,4 @@
+<%@tag import="org.amc.servlet.model.MouldingProcessUtil"%>
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
@@ -9,7 +10,7 @@ public String getCycleTimeData()
 	
 	result.append("var cycleTimeRow=[['Phase','Time(secs)'],"); //Table headers - Two columns
 	
-	result.append("['Injection',"+process.getTotalInjectionTime()+"],"); //Injection time
+	result.append("['Injection',"+MouldingProcessUtil.getTotalInjectionTime(process)+"],"); //Injection time
 	
 	result.append("['Holding',"+(
 	                process.getHoldingTime_1()+

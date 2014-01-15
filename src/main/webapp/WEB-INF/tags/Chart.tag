@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ attribute name="injectiontimespeed" required="true" fragment="true" %>
 <%@ attribute name="injectiontimepressure" required="true" fragment="true" %>
-<%@ attribute name="cycletime" required="true" fragment="true" %>
+<%@ attribute name="cycletime" required="false" fragment="true" %>
 <%@ attribute name="cycletimeline" required="true" fragment="true" %>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -17,11 +17,13 @@ google.setOnLoadCallback(drawChart);function drawChart()
     	
 }
 </script>
-<DIV   id="injectionTimePressureChart">
+<DIV   id="injectionTimePressureChart" class="chart">
 </DIV>
-<DIV   id="injectionTimeSpeedChart">
+<DIV   id="injectionTimeSpeedChart" class="chart">
 </DIV>
-<DIV   id="cycleTimeChart" style="height:700px">
+<c:if test="${cycletime ne null}">
+<DIV   id="cycleTimeChart" style="height:700px" class="chart">
 </DIV>
-<DIV   id="cycleTimeLineChart" style="height:700px">
+</c:if>
+<DIV   id="cycleTimeLineChart" style="height:400px" class="chart">
 </DIV>

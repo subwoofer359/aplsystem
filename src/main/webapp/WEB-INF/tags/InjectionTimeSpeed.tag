@@ -1,7 +1,6 @@
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
-<%@ variable name-given="totalInjectionTime" variable-class="java.lang.Float"  %>
 <%!
 	float startPosition=0;
 	float totalInjectionTime;
@@ -23,7 +22,6 @@
         
         result.append("injectionTimeSpeedChart.draw(injectionTimeSpeedData,injectionTimeSpeedOptions);");
         		
-        getJspContext().setAttribute("totalInjectionTime", totalInjectionTime);
 		return result.toString();
 	}
 

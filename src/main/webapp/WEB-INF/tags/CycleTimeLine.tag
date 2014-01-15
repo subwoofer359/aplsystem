@@ -1,5 +1,6 @@
+<%@tag import="org.amc.servlet.model.MouldingProcessUtil"%>
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
+<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess" import="org.amc.servlet.model.MouldingProcessUtil" %>
 <%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
 <%!
 
@@ -22,7 +23,7 @@ public String getCycleTimeLineData()
 	
 	result.append("var cycleTimeLineRow=[['Phase','Start','End'],"); //Table headers - Three columns
 	
-	getNextTime(timeStart+process.getTotalInjectionTime());
+	getNextTime(timeStart+MouldingProcessUtil.getTotalInjectionTime(process));
 	
 	result.append("['Injection',"+timeStart+","+timeEnd+"],"); //Injection time
 	
