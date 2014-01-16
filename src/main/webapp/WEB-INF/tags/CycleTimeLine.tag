@@ -50,7 +50,7 @@ public String getCycleTimeLineData()
 	
 	result.append("['Ejectors',"+timeStart+","+timeEnd+"],");
 	
-	getNextTime(1); // Todo need the correct time for Mould Closing
+	getNextTime(MouldingProcessUtil.getMouldClosingTime(process)); // Todo need the correct time for Mould Closing
 	
 	result.append("['Mould Closing',"+timeStart+","+timeEnd+"]");
 	

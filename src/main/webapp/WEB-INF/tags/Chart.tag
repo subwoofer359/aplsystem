@@ -4,6 +4,7 @@
 <%@ attribute name="injectiontimepressure" required="true" fragment="true" %>
 <%@ attribute name="cycletime" required="false" fragment="true" %>
 <%@ attribute name="cycletimeline" required="true" fragment="true" %>
+<%@ attribute name="mouldclosingtime" required="true" fragment="true" %>
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
  <script type="text/javascript">
@@ -14,6 +15,7 @@ google.setOnLoadCallback(drawChart);function drawChart()
     	<jsp:invoke fragment="injectiontimepressure" />
     	<jsp:invoke fragment="cycletime" />
     	<jsp:invoke fragment="cycletimeline" />
+    	<jsp:invoke fragment="mouldclosingtime" />
     	
 }
 </script>
@@ -25,5 +27,7 @@ google.setOnLoadCallback(drawChart);function drawChart()
 <DIV   id="cycleTimeChart" style="height:700px" class="chart">
 </DIV>
 </c:if>
+<DIV   id="mouldclosingtimechart" style="height:400px" class="chart">
+</DIV>
 <DIV   id="cycleTimeLineChart" style="height:400px" class="chart">
 </DIV>

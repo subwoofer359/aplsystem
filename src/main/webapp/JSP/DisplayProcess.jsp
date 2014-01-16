@@ -73,6 +73,9 @@
 	<jsp:attribute name="cycletimeline">
 		<tags:CycleTimeLine process="${process}"></tags:CycleTimeLine>
 	</jsp:attribute>
+	<jsp:attribute name="mouldclosingtime">
+		<tags:MouldClosing process="${process}"></tags:MouldClosing>
+	</jsp:attribute>
 </tags:Chart>
 </DIV>
 </body>
