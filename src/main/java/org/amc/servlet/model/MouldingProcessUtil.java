@@ -177,19 +177,22 @@ public class MouldingProcessUtil
 		data[6][2]=0;
 		
 		float distanceB=expectedDistance1-(distanceA+0.5f*distanceC);
-		float timeB=distanceB/speed1;
+		distanceB=(distanceB<0)?0:distanceB;
+		float timeB=(distanceB/speed1<0)?0:distanceB/speed1;
 		data[1][0]=timeB;
 		data[1][1]=distanceB;
 		data[1][2]=speed1;
 		
 		float distanceD=expectedDistance2-(0.5f*distanceC+0.5f*distanceE);
-		float timeD=distanceD/speed2;
+		distanceD=(distanceD<0)?0:distanceD;
+		float timeD=(distanceD/speed2<0)?0:distanceD/speed2;
 		data[3][0]=timeD;
 		data[3][1]=distanceD;
 		data[3][2]=speed2;
 		
 		float distanceF=expectedDistance3-(0.5f*distanceE+distanceG);
-		float timeF=distanceF/speed3;
+		distanceF=(distanceF<0)?0:distanceF;
+		float timeF=(distanceF/speed3<0)?0:distanceF/speed3;
 		data[5][0]=timeF;
 		data[5][1]=distanceF;
 		data[5][2]=speed3;
