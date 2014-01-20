@@ -209,7 +209,11 @@ public class MouldingProcessUtil
 
 	
 	/**
+<<<<<<< HEAD
 	 * todo Fix the problem when acceleration/deceleration distance is greater than the pre-set distance
+=======
+	 * 
+>>>>>>> 55411e149705a908978dd4d338261b2b3a0696e4
 	 * @param process
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
@@ -334,15 +338,17 @@ public class MouldingProcessUtil
 			t=t+2;
 		}
 		
-		distance=0f;
-		time=0f;
-		for(float[] f:data)
-		{
-			distance+=f[1];
-			time+=f[0];
-			System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",f[1],f[0],f[2]);
-			//System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",distance,time,f[2]);
-		}
+
+//		distance=0f;
+//		time=0f;
+//		for(float[] f:data)
+//		{
+//			distance+=f[1];
+//			time+=f[0];
+//			System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",f[1],f[0],f[2]);
+//			//System.out.printf("Distance(%.3f) Time(%.3f) Speed(%.3f)%n",distance,time,f[2]);
+//		}
+
 		
 		
 		return data;
