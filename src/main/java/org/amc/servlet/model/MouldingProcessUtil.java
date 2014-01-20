@@ -240,7 +240,7 @@ public class MouldingProcessUtil
 		 */
 		data[data.length-2][0]=getTime(process.getClsSPSpeed(), 0,CLAMP_CLOSING_DEACCELERATION);
 		data[data.length-2][1]=getDistance(process.getClsSPSpeed(), data[data.length-2][0], CLAMP_CLOSING_DEACCELERATION);
-		data[data.length-2][2]=(CLAMP_CLOSING_DEACCELERATION*data[data.length-2][0]);
+		data[data.length-2][2]=0;
 	
 		//Distance at each set mould clsoing speed
 		float[] posData={
