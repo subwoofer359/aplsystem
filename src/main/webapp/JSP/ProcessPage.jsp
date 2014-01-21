@@ -149,7 +149,7 @@ ${error}<br/>
 <TR><TD>Open Limit:</TD>
 <TD><input type="text" name="mouldClosingOpenLimitPos" value='${form.mouldClosingOpenLimitPos}'/></TD><TD><input type="text" name="mouldClosingOpenLimitSpeed" value='${form.mouldClosingOpenLimitSpeed}'/></TD></TR>
 <TR><TD>Closed Limit:</TD>
-<TD><input type="text" name="mouldClosedLimitPos" value='${form.mouldClosedLimitPos}'/></TD><TD><input type="text" name="mouldClosedLimitSpeed" value='${form.mouldClosedLimitPos}'/></TD></TR>
+<TD><input type="text" name="mouldClosedLimitPos" value='${form.mouldClosedLimitPos}'/></TD><TD><input type="text" name="mouldClosedLimitSpeed" value='${form.mouldClosedLimitSpeed}'/></TD></TR>
 <TR><TD>CLS Slow</TD><TD>
 <input type="text" name="clsSlowPos" value='${form.clsSlowPos}'/></TD><TD><input type="text" name="clsSlowSpeed" value='${form.clsSlowSpeed}'/></TD></TR>
 <TR><TD>Close SP</TD><TD>
