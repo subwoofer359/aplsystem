@@ -16,12 +16,6 @@ public class SearchProcessSheetAction
 		this.mouldingProcessDAO=mouldingProcessDAO;
 	}
 	
-	public void search(MouldingProcess process) throws SQLException
-	{	
-		mouldingProcessDAO.addProcessSheet(process);
-		
-	}
-	
 	public List<MouldingProcess> search() throws SQLException
 	{	
 		return mouldingProcessDAO.findProcessSheets();

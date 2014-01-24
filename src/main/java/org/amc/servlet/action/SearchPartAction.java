@@ -16,11 +16,6 @@ public class SearchPartAction
 	{
 		this.partDAO=jobTemplateDAO;
 	}
-	public void search(Part job) throws SQLException
-	{
-		partDAO.addPart(job);
-		
-	}
 	
 	public List<Part> search() throws SQLException
 	{
