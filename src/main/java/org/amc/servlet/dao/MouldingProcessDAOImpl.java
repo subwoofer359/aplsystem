@@ -33,7 +33,7 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 		statement.setString(1, process.getPartId());
 		statement.setInt(2, process.getMachineSize());
 		statement.setString(3, process.getMachineNo());
-		statement.setString(4, process.getMaterial());
+		statement.setInt(4, process.getMaterial());
 		statement.setString(5, process.getMasterbatchNo());
 		statement.setDate(6, process.getDateOfIssue());
 		statement.setString(7, process.getSignOffBy());
@@ -269,7 +269,7 @@ public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessD
 		statement.setString(1, process.getPartId());
 		statement.setInt(2, process.getMachineSize());
 		statement.setString(3, process.getMachineNo());
-		statement.setString(4, process.getMaterial());
+		statement.setInt(4, process.getMaterial());
 		statement.setString(5, process.getMasterbatchNo());
 		statement.setDate(6, process.getDateOfIssue());
 		statement.setString(7, process.getSignOffBy());

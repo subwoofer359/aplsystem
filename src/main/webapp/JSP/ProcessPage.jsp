@@ -58,7 +58,15 @@ ${error}<br/>
 <TR><TD>Part ID:</TD><TD><input type="text" name="partId" value='${form.partId}' autofocus="autofocus"/></TD></TR>
 <TR><TD>Machine Size:</TD><TD><input type="text" name="machineSize"  value='${form.machineSize}'/></TD></TR>
 <TR><TD>Machine No:</TD><TD><input type="text" name="machineNo" value='${form.machineNo}'/></TD></TR>
-<TR><TD>Material:</TD><TD><input type="text" name="material"  value='${form.material}'/></TD></TR>
+<TR><TD>Material:</TD><TD>
+<select name="material">
+	<c:forEach items='${materials}' var='material'>
+		<option value='${material.id}' <c:if test="${material.id eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
+				${material}
+		</option>
+	</c:forEach>
+</select>
+</TD></TR>
 <TR><TD>MasterBatch:</TD><TD><input type="text" name="masterbatchNo" value='${form.masterbatchNo}'/></TD></TR>
 <TR><TD>Date of Issue</TD><TD><input type="date" name="dateOfIssue" value='${form.dateOfIssue}'/></TD></TR>
 <TR><TD>Sign Off by:</TD><TD><input type="text" name="signOffBy"  value='${form.signOffBy}'/></TD></TR>

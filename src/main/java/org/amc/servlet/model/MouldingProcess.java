@@ -117,7 +117,7 @@ public class MouldingProcess
 	private String partId;
 	private int machineSize;
 	private String machineNo;
-	private String material;
+	private int material;
 	private String masterbatchNo;
 	private Date dateOfIssue;
 	private String signOffBy;
@@ -389,7 +389,7 @@ public class MouldingProcess
 	public String getMachineNo() {
 		return this.machineNo;
 	}
-	public String getMaterial() {
+	public int getMaterial() {
 		return this.material;
 	}
 	public String getMasterbatchNo() {
@@ -692,7 +692,7 @@ public class MouldingProcess
 	public void setMachineNo(String machineNo) {
 		this.machineNo=machineNo;
 	}
-	public void setMaterial(String material) {
+	public void setMaterial(int material) {
 		this.material=material;
 	}
 	public void setMasterbatchNo(String masterbatchNo) {

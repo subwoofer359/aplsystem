@@ -12,7 +12,7 @@
 
   <context:component-scan base-package="org.amc" />
   
-  <bean id="APLSystemServlet" class="org.amc.servlet.APLSystemServlet">
+  <bean id="APLProcessServlet" class="org.amc.servlet.APLProcessServlet">
   <property name="materialActionFactory" ref="materialActionFactory"/>
   </bean>
   

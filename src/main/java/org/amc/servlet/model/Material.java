@@ -155,4 +155,9 @@ public class Material
 		this.mould_temp_upper = mould_temp_upper;
 	}
 
+	@Override
+	public String toString()
+	{
+		return this.getCompany()+" "+this.getName()+" "+this.getType();
+	}
 }

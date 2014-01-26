@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.PartActionFactory;
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
+import org.amc.servlet.model.Material;
 import org.amc.servlet.model.Part;
 import org.amc.servlet.model.PartForm;
 import org.amc.servlet.validator.Part_Validator;
@@ -41,8 +43,7 @@ public class APLSystemServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 334034039L;
 
-	private PartActionFactory partActionFactory;
-	
+	private PartActionFactory partActionFactory;	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -345,6 +346,7 @@ public class APLSystemServlet extends HttpServlet
 	{
 		this.partActionFactory=aJobActionFactory;
 	}
+	
 
 	@Override
 	public void init() throws ServletException
@@ -367,5 +369,7 @@ public class APLSystemServlet extends HttpServlet
 		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
 		super.init();
 	}
+
+	
 	
 }

@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.model.Material;
 import org.amc.servlet.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
@@ -39,6 +41,8 @@ public class APLProcessServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
        
 	private ProcessActionFactory processActionFactory;
+	
+	private MaterialActionFactory materialActionFactory;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -255,7 +259,6 @@ public class APLProcessServlet extends HttpServlet
 							list=spt.search("partId",searchWord);
 						}
 						request.setAttribute("processSheets", list); //Add the result list to the request object to be used by the JSP page
-						
 						//debug
 						System.out.printf("%d results returned %n",list.size());
 					
@@ -296,6 +299,10 @@ public class APLProcessServlet extends HttpServlet
 							request.setAttribute("mode","edit");
 						}
 					}
+					//Get List of Material
+					List<Material> materials=materialActionFactory.getSearchMaterialAction().search();
+					request.setAttribute("materials", materials);
+					
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);
 				}
@@ -316,11 +323,18 @@ public class APLProcessServlet extends HttpServlet
 		this.processActionFactory = processActionFactory;
 	}
 	
+	@Autowired
+	public void setMaterialActionFactory(MaterialActionFactory materialActionFactory)
+	{
+		this.materialActionFactory = materialActionFactory;
+	}
+	
 	@Override
 	public void init() throws ServletException
 	{
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
+		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
 		super.init();
 	}
 	
