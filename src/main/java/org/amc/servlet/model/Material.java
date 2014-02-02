@@ -160,4 +160,26 @@ public class Material
 	{
 		return this.getCompany()+" "+this.getName()+" "+this.getType();
 	}
+	
+	@Override
+	public boolean equals(Object material)
+	{
+		Material m2=(Material)material;
+		
+		if(m2 instanceof Material)
+		{
+			if(this.getName().equals(m2.getName()) && this.getCompany().equals(m2.getCompany()) && getType().equals(m2.getType()))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

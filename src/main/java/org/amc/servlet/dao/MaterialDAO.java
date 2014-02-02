@@ -1,5 +1,6 @@
 package org.amc.servlet.dao;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface MaterialDAO
 	public abstract List<Material> findMaterials(String col, String value) throws SQLException;
 	
 	public abstract List<Material> findMaterials() throws SQLException;
+	
+	public abstract void setConnection(Connection connection);
+	
+	public abstract Connection getConnection() throws SQLException;
 }

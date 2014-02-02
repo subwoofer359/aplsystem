@@ -13,4 +13,9 @@ public class DAOFactory
 		return new MouldingProcessDAOImpl();
 	}
 	
+	public static MaterialDAO getMaterialDAO()
+	{
+		return new MaterialDAOImpl();
+	}
+	
 }

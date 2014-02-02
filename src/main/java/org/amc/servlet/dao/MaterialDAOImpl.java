@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 {
 
+
 	private static String tablename="material";
 	@Override
 	public Material getMaterial(String materialId) throws SQLException
@@ -91,4 +92,6 @@ public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 		
 		return m;
 	}
+
+
 }

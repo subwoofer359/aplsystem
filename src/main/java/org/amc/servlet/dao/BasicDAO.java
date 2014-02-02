@@ -11,10 +11,17 @@ import javax.sql.DataSource;
 
 public class BasicDAO implements DAO 
 {
+	private Connection connection;
+	
+
 	public Connection getConnection() throws SQLException
-	{  
-		DataSource dataSource=DataSourceCache.getInstance().getDataSource(); 
-		return dataSource.getConnection();
+	{
+		if(connection==null)
+		{
+			DataSource dataSource=DataSourceCache.getInstance().getDataSource();
+			connection=dataSource.getConnection();
+		}
+		return connection;
 	
 //		DriverManager method for creating a database connection
 //		try {
@@ -37,7 +44,10 @@ public class BasicDAO implements DAO
 		
 	}
 	
-	
+	public void setConnection(Connection connection)
+	{
+		this.connection=connection;
+	}
 	protected void closeDBObjects(ResultSet resultSet,Statement statement,Connection connection)
 	{
 		if(resultSet!=null)
