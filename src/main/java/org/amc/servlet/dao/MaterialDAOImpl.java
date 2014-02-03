@@ -11,9 +11,17 @@ import org.amc.servlet.model.Material;
 
 import java.sql.PreparedStatement;
 
+import javax.sql.DataSource;
+
 public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 {
 
+
+	public MaterialDAOImpl(DataSource dataSource)
+	{
+		super(dataSource);
+		// TODO Auto-generated constructor stub
+	}
 
 	private static String tablename="material";
 	@Override

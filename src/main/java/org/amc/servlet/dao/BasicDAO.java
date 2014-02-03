@@ -12,15 +12,17 @@ import javax.sql.DataSource;
 public class BasicDAO implements DAO 
 {
 	private Connection connection;
+	private DataSource dataSource;
+
 	
+	public BasicDAO(DataSource dataSource)
+	{
+		this.dataSource=dataSource;
+	}
 
 	public Connection getConnection() throws SQLException
 	{
-		if(connection==null)
-		{
-			DataSource dataSource=DataSourceCache.getInstance().getDataSource();
-			connection=dataSource.getConnection();
-		}
+		connection=dataSource.getConnection();
 		return connection;
 	
 //		DriverManager method for creating a database connection
@@ -42,11 +44,6 @@ public class BasicDAO implements DAO
 //		Connection connection=DriverManager.getConnection("jdbc:mysql://192.168.1.105/aplsystem",prop);
 		//return connection;
 		
-	}
-	
-	public void setConnection(Connection connection)
-	{
-		this.connection=connection;
 	}
 	protected void closeDBObjects(ResultSet resultSet,Statement statement,Connection connection)
 	{

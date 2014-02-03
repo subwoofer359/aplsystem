@@ -3,33 +3,25 @@ package org.amc.servlet.dao;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-public class DataSourceCache 
+
+public class DataSourceCache
 {
 	private static DataSourceCache instance;
 	private DataSource dataSource;
-	
-	static
-	{
-		instance=new DataSourceCache();
-	}
-	
-	private DataSourceCache()
+
+	private DataSourceCache(String url)
 	{
 		Context context=null;
 		
 		try
 		{
 			context=new InitialContext();
-			
-			Context envCtx = (Context) context.lookup("java:comp/env");
-			
-			dataSource=(DataSource)envCtx.lookup("jdbc/APLSystem");
-			System.err.println("Datasource:"+dataSource);
+			Context envCtx = (Context) context.lookup("java:comp/env");	
+			dataSource=(DataSource)envCtx.lookup(url); //Local testing only
 			
 		}
 		catch(NamingException ne)
@@ -41,12 +33,20 @@ public class DataSourceCache
 		{
 			cce.printStackTrace();
 		}
+		finally
+		{
+			System.err.println("Datasource:"+dataSource);
+		}
 	}
 	
 
 	
-	public static DataSourceCache getInstance()
+	public static DataSourceCache getInstance(String url)
 	{
+		if(instance==null)
+		{
+			instance=new DataSourceCache(url);
+		}
 		return instance;
 	}
 	

@@ -8,10 +8,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.amc.servlet.model.Part;
 
 public class PartDAOImpl extends BasicDAO implements PartDAO 
 {
+
+	public PartDAOImpl(DataSource dataSource)
+	{
+		super(dataSource);
+		// TODO Auto-generated constructor stub
+	}
+
 
 	private static String tablename="jobtemplate";
 	/* (non-Javadoc)

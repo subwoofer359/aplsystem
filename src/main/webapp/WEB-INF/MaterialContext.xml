@@ -20,6 +20,7 @@
   	<constructor-arg ref="MaterialDAO" />
   </bean>
   
-  <bean id="MaterialDAO" class="org.amc.servlet.dao.MaterialDAOImpl"/>
-
+  <bean id="MaterialDAO" class="org.amc.servlet.dao.MaterialDAOImpl">
+  	<constructor-arg ref="dataSource" />
+  </bean>
 </beans>

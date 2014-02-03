@@ -7,10 +7,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.sql.DataSource;
+
 import org.amc.servlet.model.MouldingProcess;
 
 public class MouldingProcessDAOImpl extends BasicDAO implements MouldingProcessDAO 
 {
+	public MouldingProcessDAOImpl(DataSource dataSource)
+	{
+		super(dataSource);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static String tablename="processSheets";
 
 	@Override

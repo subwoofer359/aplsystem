@@ -1,21 +1,29 @@
 package org.amc.servlet.dao;
 
+import javax.sql.DataSource;
+
 public class DAOFactory 
 {
+	private DataSource dataSource;
+	
+	public DAOFactory(DataSource dataSource)
+	{
+		this.dataSource=dataSource;
+	}
 
-	public static PartDAO getJobTemplateDAO()
+	public PartDAO getJobTemplateDAO()
 	{
-		return new PartDAOImpl();
+		return new PartDAOImpl(dataSource);
 	}
 	
-	public static MouldingProcessDAO getMouldingProcessDAO()
+	public MouldingProcessDAO getMouldingProcessDAO()
 	{
-		return new MouldingProcessDAOImpl();
+		return new MouldingProcessDAOImpl(dataSource);
 	}
 	
-	public static MaterialDAO getMaterialDAO()
+	public MaterialDAO getMaterialDAO()
 	{
-		return new MaterialDAOImpl();
+		return new MaterialDAOImpl(dataSource);
 	}
 	
 }

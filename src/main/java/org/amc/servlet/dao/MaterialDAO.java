@@ -15,7 +15,5 @@ public interface MaterialDAO
 	
 	public abstract List<Material> findMaterials() throws SQLException;
 	
-	public abstract void setConnection(Connection connection);
-	
 	public abstract Connection getConnection() throws SQLException;
 }
