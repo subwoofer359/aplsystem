@@ -1,4 +1,4 @@
-package myservlet;
+package org.amc.myservlet.test;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -33,7 +33,7 @@ public class TestAPLServlet
 	public TestAPLServlet()
 	{
 		//Spring ApplicationContext
-		context= new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/PartsContext.xml");
+		context= new FileSystemXmlApplicationContext("/src/main/webapp/WEB-INF/PartsContext.xml","/src/main/webapp/WEB-INF/TestDataSource.xml");
 		//Mock Servlet Context
 		ServletContext sContext= mock(ServletContext.class);
 		when(sContext.getContextPath()).thenReturn("/myservlet");
@@ -165,6 +165,9 @@ public class TestAPLServlet
 		when(request.getParameter("revision")).thenReturn("2");
 		when(request.getParameter("version")).thenReturn("60g");
 		when(request.getParameter("company")).thenReturn("Tosara");
+		
+		// To make sure the user has permission to save to the database
+		when(request.isUserInRole("qc")).thenReturn(true);
 		
 		when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
         PartDAOImpl jobDAO=mock(PartDAOImpl.class);

@@ -1,4 +1,4 @@
-package myservlet;
+package org.amc.myservlet.test;
 import org.amc.servlet.model.Part;
 import org.junit.*;
 import static org.junit.Assert.*;

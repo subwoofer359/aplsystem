@@ -1,10 +1,11 @@
-package myservlet;
+package org.amc.myservlet.test;
 import org.junit.*;
 import org.amc.servlet.model.*;
 import static org.junit.Assert.*;
 
 public class TestMouldClosingData 
 {
+	@Ignore
 	@Test
 	public void testGetMouldClosingTimeData()
 	{

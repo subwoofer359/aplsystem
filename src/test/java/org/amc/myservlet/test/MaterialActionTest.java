@@ -1,18 +1,13 @@
-package myservlet;
+package org.amc.myservlet.test;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.servlet.dao.DataSourceCache;
 import org.amc.servlet.dao.MaterialDAO;
 import org.amc.servlet.dao.MaterialDAOImpl;
 import org.amc.servlet.model.Material;
 import org.junit.*;
-
-import com.mchange.*;
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import java.sql.PreparedStatement;
 import java.util.List;
@@ -22,7 +17,8 @@ import javax.sql.DataSource;
 import static org.junit.Assert.*;
 public class MaterialActionTest
 {
-	private static DataSource dataSource;
+	private DataSource dataSource;
+	private static final String DATABASE="test_myservlet";
 	private static Material material_1;
 	private static Material material_2;
 	
@@ -31,22 +27,12 @@ public class MaterialActionTest
 	{
 		try
 		{
-			//DataSource dataSource=DataSourceCache.getInstance().getDataSource();
-			
-			ComboPooledDataSource dataSource = new ComboPooledDataSource(); 
-			dataSource.setDriverClass("com.mysql.jdbc.Driver");
-			dataSource.setUser("adrian");
-			dataSource.setPassword("cr2032ux");
-			dataSource.setJdbcUrl("jdbc:mysql://192.168.1.105/test_myservlet");
-			dataSource.setMinPoolSize(5);                                     
-			dataSource.setAcquireIncrement(5);
-			dataSource.setMaxPoolSize(20);
-			MaterialActionTest.dataSource=dataSource;
+			DataSource dataSource=TestLocalDataSourceCache.getInstance().getDataSource();
 			Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement();
-			connection.createStatement().execute("drop database if exists test_myservlet;");
-			statement.execute("create database test_myservlet;");
-			statement.execute("use test_myservlet;");
+			connection.createStatement().execute("drop database if exists "+DATABASE+";");
+			statement.execute("create database "+DATABASE+";");
+			statement.execute("use "+DATABASE+";");
 			statement
 					.execute("CREATE TABLE material (id int(11) NOT NULL AUTO_INCREMENT,"
 							+ "company varchar(100) NOT NULL,"
@@ -244,7 +230,8 @@ public class MaterialActionTest
 	@AfterClass
 	public static void  closeDatabase() throws SQLException
 	{
-		Connection connection=MaterialActionTest.dataSource.getConnection();
+		DataSource dataSource=TestLocalDataSourceCache.getInstance().getDataSource();
+		Connection connection=dataSource.getConnection();
 		connection.createStatement().execute("use test_myservlet;");
 		connection.createStatement().execute("drop table processSheets;");
 		connection.createStatement().execute("drop table material;");
@@ -252,11 +239,16 @@ public class MaterialActionTest
 		connection.close();
 	}
 
+	@Before
+	public void setUp()
+	{
+		this.dataSource=TestLocalDataSourceCache.getInstance().getDataSource();
+	}
+	
 	@Test
 	public void testSearch()
 	{
-		
-		MaterialDAO materialDAO=new MaterialDAOImpl(MaterialActionTest.dataSource);
+		MaterialDAO materialDAO=new MaterialDAOImpl(dataSource);
 		SearchMaterialAction search=new SearchMaterialAction(materialDAO);
 		
 		try
