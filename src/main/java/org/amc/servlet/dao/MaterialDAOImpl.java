@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.amc.servlet.model.Material;
 
@@ -42,7 +42,7 @@ public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 	}
 
 	@Override
-	public List<Material> findMaterials(String col, String value)
+	public Map<Integer,Material> findMaterials(String col, String value)
 			throws SQLException
 	{
 		Connection connection=getConnection();
@@ -50,12 +50,12 @@ public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
-		List<Material> list=new ArrayList<Material>();
+		Map<Integer,Material> list=new HashMap<Integer,Material>();
 		
 		while(rs.next())
 		{
 			Material tempMaterial=getMaterial(rs);
-			list.add(tempMaterial);
+			list.put(tempMaterial.getId(),tempMaterial);
 		}
 		closeDBObjects(rs, statement, connection);
 		
@@ -63,17 +63,17 @@ public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 	}
 
 	@Override
-	public List<Material> findMaterials() throws SQLException
+	public Map<Integer,Material> findMaterials() throws SQLException
 	{
 		Connection connection=getConnection();
 		Statement statement=connection.createStatement();
 		ResultSet rs=statement.executeQuery("select * from "+tablename+";");
-		List<Material> list=new ArrayList<Material>();
+		Map<Integer,Material> list=new HashMap<Integer,Material>();
 		
 		while(rs.next())
 		{
 			Material tempMaterial=getMaterial(rs);
-			list.add(tempMaterial);
+			list.put(tempMaterial.getId(),tempMaterial);
 		}
 		
 		closeDBObjects(rs, statement, connection);

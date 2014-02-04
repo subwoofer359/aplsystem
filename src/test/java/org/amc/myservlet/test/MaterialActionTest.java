@@ -10,7 +10,8 @@ import org.amc.servlet.model.Material;
 import org.junit.*;
 
 import java.sql.PreparedStatement;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -27,7 +28,7 @@ public class MaterialActionTest
 	{
 		try
 		{
-			DataSource dataSource=TestLocalDataSourceCache.getInstance().getDataSource();
+			DataSource dataSource=TestLocalDataSourceCache.getInstance().getDefaultDataSource();
 			Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement();
 			connection.createStatement().execute("drop database if exists "+DATABASE+";");
@@ -253,7 +254,7 @@ public class MaterialActionTest
 		
 		try
 		{
-			List<Material> list=search.search();
+			Map<Integer,Material> list=search.search();
 			assertEquals(list.size(),2);
 			
 			Material m=search.getPart("1");
@@ -261,7 +262,8 @@ public class MaterialActionTest
 			
 			list=search.search("material_drying", "60");
 			assertEquals(list.size(),1);
-			Material m2=list.get(0);
+			Iterator<Material> i=list.values().iterator();
+			Material m2=i.next();
 			assertTrue(m2.equals(material_2));
 			
 		} catch (SQLException e)

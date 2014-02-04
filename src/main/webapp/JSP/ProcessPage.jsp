@@ -59,13 +59,15 @@ ${error}<br/>
 <TR><TD>Machine Size:</TD><TD><input type="text" name="machineSize"  value='${form.machineSize}'/></TD></TR>
 <TR><TD>Machine No:</TD><TD><input type="text" name="machineNo" value='${form.machineNo}'/></TD></TR>
 <TR><TD>Material:</TD><TD>
+ 
 <select name="material">
 	<c:forEach items='${materials}' var='material'>
-		<option value='${material.id}' <c:if test="${material.id eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-				${material}
+		<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
+				${material.value}
 		</option>
 	</c:forEach>
 </select>
+
 </TD></TR>
 <TR><TD>MasterBatch:</TD><TD><input type="text" name="masterbatchNo" value='${form.masterbatchNo}'/></TD></TR>
 <TR><TD>Date of Issue</TD><TD><input type="date" name="dateOfIssue" value='${form.dateOfIssue}'/></TD></TR>

@@ -2,7 +2,9 @@ package org.amc.servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -300,8 +302,10 @@ public class APLProcessServlet extends HttpServlet
 						}
 					}
 					//Get List of Material
-					List<Material> materials=materialActionFactory.getSearchMaterialAction().search();
+					Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
+
 					request.setAttribute("materials", materials);
+					System.out.println("Materials:"+materials);
 					
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);

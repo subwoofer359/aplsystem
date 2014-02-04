@@ -1,6 +1,6 @@
 package org.amc.servlet.action;
 import java.sql.SQLException;
-import java.util.List;
+import java.util.Map;
 
 import org.amc.servlet.dao.MaterialDAO;
 import org.amc.servlet.model.Material;
@@ -18,13 +18,13 @@ public class SearchMaterialAction
 	}
 	
 	
-	public List<Material> search() throws SQLException
+	public Map<Integer,Material> search() throws SQLException
 	{
 		return materialDAO.findMaterials();
 		
 	}
 	
-	public List<Material> search(String item,String value) throws SQLException
+	public Map<Integer,Material> search(String item,String value) throws SQLException
 	{
 		return materialDAO.findMaterials(item,value);
 		

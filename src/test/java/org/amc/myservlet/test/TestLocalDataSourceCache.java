@@ -10,7 +10,6 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 public class TestLocalDataSourceCache
 {
-	private static boolean FIRST_TIME=true;
 	private static final String DATABASE="test_myservlet";
 	private static TestLocalDataSourceCache instance;
 	static
@@ -45,24 +44,20 @@ public class TestLocalDataSourceCache
 	}
 	
 	/**
-	 * On First Call No Database set
-	 * On Second Call Database set
-	 * On Third and more Calls no need to set Database again
-	 * @return
+	 * 
+	 * @return DataSource with no database selected
+	 */
+	public DataSource getDefaultDataSource()
+	{
+		return this.dataSource;
+	}
+	/**
+	 * 
+	 * @return DataSource with test database selected
 	 */
 	public DataSource getDataSource()
 	{
-		if(FIRST_TIME)
-		{
-			FIRST_TIME=false;
-			return this.dataSource;
-		}
-		else
-		{
-			((ComboPooledDataSource)this.dataSource).setJdbcUrl("jdbc:mysql://192.168.1.105/"+DATABASE);
-			return this.dataSource;
-		}
-			
-		
+		((ComboPooledDataSource)this.dataSource).setJdbcUrl("jdbc:mysql://192.168.1.105/"+DATABASE);
+		return this.dataSource;
 	}
 }
