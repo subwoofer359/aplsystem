@@ -51,7 +51,7 @@ function enable(id)
 
 <DIV  class="entrybox">
 
-<FORM action="${pageContext.request.contextPath}/Material_search" method="get">
+<FORM action="${pageContext.request.contextPath}/Material_search" method="post">
 
 <SPAN>
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>

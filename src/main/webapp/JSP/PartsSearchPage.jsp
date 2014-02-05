@@ -104,7 +104,7 @@ function enable(id)
 <%@ include file="NavigationDiv.jspf" %>
 <DIV  class="entrybox">
 
-<FORM action="${pageContext.request.contextPath}/Part_search" method="get">
+<FORM action="${pageContext.request.contextPath}/Part_search" method="post">
 
 <SPAN>
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>

@@ -149,7 +149,7 @@ public class APLMaterialServlet extends HttpServlet
 					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
-				else if(mode.equals("Edit"))
+				else if(mode.equals("edit"))
 				{
 					System.out.println("SaveMaterial:Editing entry into database");
 					//Current JobTemplate is updated in the Database
@@ -185,6 +185,10 @@ public class APLMaterialServlet extends HttpServlet
 		else
 		{
 			//if the form doesn't validate without errors then
+			if(mode.equals("edit")) //Remember page is in edit mode
+			{
+				request.setAttribute("mode", mode);
+			}
 			request.setAttribute("errors", errors);
 			request.setAttribute("form", jForm);			
 			

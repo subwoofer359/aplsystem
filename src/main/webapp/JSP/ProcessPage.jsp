@@ -230,7 +230,7 @@ ${error}<br/>
 	<input type='submit'  name="mode" value='Enter'/>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<input type='submit'  name="mode" value='Edit'/>
+	<input type='submit'  name="mode" value='edit'/>
 </c:if>
 
 </FORM>

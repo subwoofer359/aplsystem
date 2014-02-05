@@ -148,7 +148,7 @@ public class APLProcessServlet extends HttpServlet
 					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
-				else if(mode.equals("Edit"))
+				else if(mode.equals("edit"))
 				{
 					System.out.println("SaveProcessSheet:Editing entry into database");
 					//Current JobTemplate is updated in the Database
@@ -184,12 +184,28 @@ public class APLProcessServlet extends HttpServlet
 		}
 		else
 		{
+			try
+			{
 			//if the form doesn't validate without errors then
-			request.setAttribute("errors", errors);
-			request.setAttribute("form", jForm);			
-			
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/ProcessPage.jsp");
-			rd.forward(request, response);
+			//Remember page is in edit mode
+				if(mode.equals("edit")) 
+				{
+					request.setAttribute("mode", mode);
+				}
+			//Get List of Material
+				Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
+
+				request.setAttribute("materials", materials);
+				request.setAttribute("errors", errors);
+				request.setAttribute("form", jForm);			
+				
+				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ProcessPage.jsp");
+				rd.forward(request, response);
+			}
+			catch(SQLException sqle)
+			{
+				throw new ServletException(sqle);
+			}
 		}
 	}
 	
