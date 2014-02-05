@@ -10,12 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.PartActionFactory;
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
-import org.amc.servlet.model.Material;
 import org.amc.servlet.model.Part;
 import org.amc.servlet.model.PartForm;
 import org.amc.servlet.validator.Part_Validator;
@@ -204,9 +201,7 @@ public class APLSystemServlet extends HttpServlet
 			}
 			catch(NumberFormatException se)
 			{
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ErrorPage.jsp");
-				request.setAttribute("exception",se);
-				rd.forward(request, response);
+				throw new ServletException(se);
 			}
 			catch(SQLException se)
 			{

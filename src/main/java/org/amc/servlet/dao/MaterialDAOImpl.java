@@ -24,6 +24,84 @@ public class MaterialDAOImpl extends BasicDAO implements MaterialDAO
 	}
 
 	private static String tablename="material";
+	
+	@Override
+	public void addMaterial(Material material) throws SQLException
+	{
+		/*
+		`id` int(11) NOT NULL AUTO_INCREMENT,
+		  `company` varchar(100) NOT NULL,
+		  `name` varchar(100) NOT NULL,
+		  `type` varchar(100) NOT NULL,
+		  `density` float DEFAULT NULL,
+		  `linear_expansion` float DEFAULT NULL,
+		  `water_absorption` float DEFAULT NULL,
+		  `material_drying` float DEFAULT NULL,
+		  `melting_temp_lower` float DEFAULT NULL,
+		  `melting_temp_upper` float DEFAULT NULL,
+		  `mould_shrinkage` float DEFAULT NULL,
+		  `mould_temp_low` float DEFAULT NULL,
+		  `mould_temp_upper` float DEFAULT NULL,
+		  */
+		Connection connection=getConnection();
+		PreparedStatement statement=connection.prepareStatement("INSERT INTO "+tablename+" VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?)");
+		statement.setString(1, material.getCompany());
+		statement.setString(2, material.getName());
+		statement.setString(3, material.getType());
+		statement.setFloat(4, material.getDensity());
+		statement.setFloat(5, material.getLinear_expansion());
+		statement.setFloat(6, material.getWater_absorption());
+		statement.setFloat(7, material.getMaterial_drying());
+		statement.setFloat(8, material.getMelting_temp_lower());
+		statement.setFloat(9, material.getMelting_temp_upper());
+		statement.setFloat(10, material.getMould_shrinkage());
+		statement.setFloat(11, material.getMould_temp_low());
+		statement.setFloat(12, material.getMould_temp_upper());
+		
+		statement.executeUpdate();
+		closeDBObjects(null, statement, connection);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org.amc.servlet.dao.JobTemplateDAO#updateJobTemplate(org.amc.servlet.model.JobTemplate)
+	 */
+	@Override
+	public void updateMaterial(Material material) throws SQLException
+	{
+		Connection connection=getConnection();
+		PreparedStatement statement=connection.prepareStatement("UPDATE "+tablename
+				+ " set company=?,"
+				+ "name=?,"
+				+ "type=?,"
+				+ "density=?,"
+				+ "linear_expansion=?,"
+				+ "water_absorption=?,"
+				+ "material_drying=?,"
+				+ "melting_temp_lower=?,"
+				+ "melting_temp_upper=?,"
+				+ "mould_shrinkage=?,"
+				+ "mould_temp_low=?,"
+				+ "mould_temp_upper=? where id=?");
+				statement.setString(1, material.getCompany());
+				statement.setString(2, material.getName());
+				statement.setString(3, material.getType());
+				statement.setFloat(4, material.getDensity());
+				statement.setFloat(5, material.getLinear_expansion());
+				statement.setFloat(6, material.getWater_absorption());
+				statement.setFloat(7, material.getMaterial_drying());
+				statement.setFloat(8, material.getMelting_temp_lower());
+				statement.setFloat(9, material.getMelting_temp_upper());
+				statement.setFloat(10, material.getMould_shrinkage());
+				statement.setFloat(11, material.getMould_temp_low());
+				statement.setFloat(12, material.getMould_temp_upper());
+				statement.setString(13, String.valueOf(material.getId()));
+				
+	
+				statement.executeUpdate();
+				closeDBObjects(null, statement, connection);
+		
+	}
+	
 	@Override
 	public Material getMaterial(String materialId) throws SQLException
 	{

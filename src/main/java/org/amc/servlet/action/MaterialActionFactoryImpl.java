@@ -19,4 +19,8 @@ public class MaterialActionFactoryImpl implements MaterialActionFactory
 		return new SearchMaterialAction(materialDAO);
 	}
 
+	public SaveMaterialAction getSaveMaterialAction()
+	{
+		return new SaveMaterialAction(materialDAO);
+	}
 }

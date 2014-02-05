@@ -919,7 +919,8 @@ public class MouldingProcessForm
 			processSheet.setClsSPPos(Float.parseFloat(jForm.getClsSPPos()));
 			processSheet.setClsSPSpeed(Float.parseFloat(jForm.getClsSPSpeed()));
 			processSheet.setDecompressionDist(Float.parseFloat(jForm.getDecompressionDist()));
-		} catch (NumberFormatException e) 
+		} 
+		catch (NumberFormatException e) 
 		{
 			Exception exception=new Exception("Couldn't parse MouldingProcessForm into MouldingProcess object");
 			exception.addSuppressed(e);

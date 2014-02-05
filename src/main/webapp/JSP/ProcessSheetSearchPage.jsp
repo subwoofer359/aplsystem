@@ -22,7 +22,7 @@ function isChecked(id)
 	var checked=false;
 	for(var t in list)
 	{
-		console.log(list[t]+" "+list.checked+"\n");
+		console.log(list[t]+" "+list[t].checked+"\n");
 		if(list[t].checked)
 		{
 			checked=true;
@@ -45,7 +45,7 @@ function isDisplayChecked(id)
 	var checked=false;
 	for(var t in list)
 	{
-		console.log(list[t]+" "+list.checked+"\n");
+		console.log(list[t]+" "+list[t].checked+"\n");
 		if(list[t].checked)
 		{
 			checked=true;

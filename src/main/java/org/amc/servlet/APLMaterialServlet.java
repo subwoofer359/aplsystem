@@ -4,46 +4,46 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.amc.servlet.action.MaterialActionFactory;
-import org.amc.servlet.action.ProcessActionFactory;
-import org.amc.servlet.action.SaveProcessSheetAction;
-import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.action.SaveMaterialAction;
+import org.amc.servlet.action.SearchMaterialAction;
 import org.amc.servlet.model.Material;
-import org.amc.servlet.model.MouldingProcess;
-import org.amc.servlet.model.MouldingProcessForm;
-import org.amc.servlet.validator.ProcessForm_Validator;
+import org.amc.servlet.model.MaterialForm;
+import org.amc.servlet.validator.MaterialForm_Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * Servlet implementation class APLProcessServlet
+ * Servlet implementation class APLMaterialServlet
  */
-@WebServlet(description = "To serve up Process Sheet Data", 
-			urlPatterns = 
-			{
-				"/APLProcessServlet",
-				"/ProcessSheet_display",
-				"/ProcessSheet_search",
-				"/ProcessSheet_save", 
-				"/ProcessSheet_analysis"
-			})
-
-
-public class APLProcessServlet extends HttpServlet 
+@WebServlet(
+		description = "To Process Material Requests", 
+		urlPatterns = { 
+				"/Material_display",
+				"/Material_save",
+				"/Material_search",
+				"/MaterialServlet"
+				}
+		)
+public class APLMaterialServlet extends HttpServlet 
 {
-	private static final long serialVersionUID = 1L;
-       
-	private ProcessActionFactory processActionFactory;
-	
+	private static final long serialVersionUID = 5984908504L;
 	private MaterialActionFactory materialActionFactory;
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public APLMaterialServlet() 
+    {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -61,6 +61,13 @@ public class APLProcessServlet extends HttpServlet
 		process(request, response);
 	}
 	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String referal=request.getRequestURI();
@@ -68,19 +75,19 @@ public class APLProcessServlet extends HttpServlet
 		
 		
 		//Handle JobTemplate Page
-		if(referal.endsWith("ProcessSheet_save"))
+		if(referal.endsWith("Material_save"))
 		{
-			saveProcessSheet(request, response);
+			saveMaterial(request, response);
 		}
-		else if(referal.endsWith("ProcessSheet_display"))
+		else if(referal.endsWith("Material_display"))
 		{
-			displayProcessSheet(request, response);
+			displayMaterial(request, response);
 		}
-		else if(referal.endsWith("ProcessSheet_search"))
+		else if(referal.endsWith("Material_search"))
 		{
-			searchProcessSheets(request, response);
+			searchMaterial(request, response);
 		}
-		else if(referal.endsWith("APLProcessServlet"))
+		else if(referal.endsWith("MaterialServlet"))
 		{
 //			PrintWriter writer=response.getWriter();
 //			response.setContentType("text/html");
@@ -96,28 +103,22 @@ public class APLProcessServlet extends HttpServlet
 			rd.forward(request, response);
 		}
 	}
-
-	private void saveProcessSheet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	
+	private void saveMaterial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		System.out.println("Context Path:"+request.getContextPath());
 		//check if page is in create or edit mode
 		String mode=request.getParameter("mode");
-		System.out.printf("SaveProcessSheet:mode:[%s]%n", mode);//debug
-		System.out.println("SaveProcessSheet:"+request.getParameter("dateOfIssue"));
+		System.out.printf("SaveMaterial:mode:[%s]%n", mode);//debug
 		//create form
 		
 		//If an ID parameter is passed add it to the form
-		MouldingProcessForm jForm=(MouldingProcessForm)request.getAttribute("processSheet");
+		MaterialForm jForm=(MaterialForm)request.getAttribute("material");
 		System.out.println("\nSubmitted Process:"+jForm);
-//		String id=request.getParameter("id");
-//		if(id!=null)
-//		{
-//			jForm.setId(id);
-//		}
 
 		
 		//Validate Form
-		ProcessForm_Validator validator=new ProcessForm_Validator();
+		MaterialForm_Validator validator=new MaterialForm_Validator();
 		List<String> errors=validator.validate(jForm);
 		
 		//Check if user is a role to allow changes to the database
@@ -131,32 +132,32 @@ public class APLProcessServlet extends HttpServlet
 		{
 		
 			//create model
-			MouldingProcess processSheet;
+			Material material;
 			
 			String dispatcherURL="";
 			
-			SaveProcessSheetAction action=processActionFactory.getSaveProcessSheetAction();
+			SaveMaterialAction action=materialActionFactory.getSaveMaterialAction();
 			try
 			{
-				processSheet=MouldingProcessForm.getMouldingProcess(jForm);
+				material=MaterialForm.getMaterial(jForm);
 				// New JobTemplate to Database
 				if(mode==null||mode.equals("Enter"))
 				{
-					System.out.println("SaveProcessSheet:Entering entry into database");
-					action.save(processSheet);
-					dispatcherURL="ProcessSheet_search";
-					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
+					System.out.println("SaveMaterial:Entering entry into database");
+					action.save(material);
+					dispatcherURL="Material_search";
+					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else if(mode.equals("Edit"))
 				{
-					System.out.println("SaveProcessSheet:Editing entry into database");
+					System.out.println("SaveMaterial:Editing entry into database");
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
-					processSheet.setId(Integer.parseInt(jForm.getId()));
-					action.edit(processSheet);
-					dispatcherURL="ProcessSheet_search";
-					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
+					material.setId(Integer.parseInt(jForm.getId()));
+					action.edit(material);
+					dispatcherURL="Material_search";
+					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 
@@ -171,8 +172,7 @@ public class APLProcessServlet extends HttpServlet
 				throw new ServletException(se);
 			}
 			catch(SQLException se)
-			{
-				
+			{	
 				throw new ServletException(se);
 			}
 			catch(Exception e)
@@ -188,12 +188,11 @@ public class APLProcessServlet extends HttpServlet
 			request.setAttribute("errors", errors);
 			request.setAttribute("form", jForm);			
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/ProcessPage.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Material.jsp");
 			rd.forward(request, response);
 		}
 	}
-	
-	private void displayProcessSheet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException
+	private void displayMaterial(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException
 	{
 		//Selected Process Page
 		String idValue=request.getParameter("edit");
@@ -201,10 +200,10 @@ public class APLProcessServlet extends HttpServlet
 		{
 			try
 			{
-				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
-				MouldingProcess process=spt.getMouldingProcess(idValue);
+				SearchMaterialAction spt=materialActionFactory.getSearchMaterialAction();
+				Material process=spt.getMaterial(idValue);
 				request.setAttribute("process",process);
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("/JSP/Material.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)
 			{
@@ -216,11 +215,11 @@ public class APLProcessServlet extends HttpServlet
 		}
 		else // No Process selected return to ProcessSearchPage
 		{
-			response.sendRedirect(request.getContextPath()+"/ProcessSheet_search");
+			response.sendRedirect(request.getContextPath()+"/Material_search");
 		}
 	}
 	
-	private void searchProcessSheets(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
+	private void searchMaterial(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
 	{
 		//check to if in search or edit mode TODO add delete mode
 				String mode=request.getParameter("mode");
@@ -230,19 +229,19 @@ public class APLProcessServlet extends HttpServlet
 				String idValue=request.getParameter("edit");
 				
 				//Debug
-				System.out.printf("searchProcessSheets:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue);
+				System.out.printf("searchMaterial:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue);
 				
 				
 				
 				//create an action
-				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
+				SearchMaterialAction spt=materialActionFactory.getSearchMaterialAction();
 				String dispatchURL=null;
 				try
 				{
 					//if the page is to do a search
 					if(mode==null || mode.equals("search"))
 					{
-						List<MouldingProcess> list=null;
+						Map<Integer,Material> list=null;
 						//To check to search for all entries or entries where name=searchWord
 						if(searchWord==null||searchWord.equals(""))// search for all entries
 						{
@@ -251,13 +250,13 @@ public class APLProcessServlet extends HttpServlet
 						else //search for entry where name=searchWord 
 						{
 							
-							list=spt.search("partId",searchWord);
+							list=spt.search("type",searchWord);
 						}
-						request.setAttribute("processSheets", list); //Add the result list to the request object to be used by the JSP page
+						request.setAttribute("materials", list); //Add the result list to the request object to be used by the JSP page
 						//debug
 						System.out.printf("%d results returned %n",list.size());
 					
-						dispatchURL="/JSP/ProcessSheetSearchPage.jsp";
+						dispatchURL="/JSP/MaterialSearchPage.jsp";
 						
 					}
 //					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
@@ -278,27 +277,22 @@ public class APLProcessServlet extends HttpServlet
 					{
 						if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
-							System.out.println("searchProcessSheets:Opening ProcessPage.jsp");
+							System.out.println("searchMaterial:Opening Material.jsp");
 							//open the JobTemplate JSPage in add mode
-							MouldingProcess process =new MouldingProcess();
-							request.setAttribute("form", process);
-							dispatchURL="/JSP/ProcessPage.jsp";
+							Material material =new Material();
+							request.setAttribute("form", material);
+							dispatchURL="/JSP/Material.jsp";
 						}
 						else if(mode.equals("edit")&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
-							System.out.println("searchProcessSheets:Opening ProcessPage.jsp in edit mode");
-							MouldingProcess process=spt.getMouldingProcess(idValue);
-							dispatchURL="/JSP/ProcessPage.jsp";
-							request.setAttribute("form", process);
+							System.out.println("searchMaterial:Opening Material.jsp in edit mode");
+							Material material=spt.getMaterial(idValue);
+							dispatchURL="/JSP/Material.jsp";
+							request.setAttribute("form", material);
 							request.setAttribute("mode","edit");
 						}
 					}
-					//Get List of Material
-					Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
-
-					request.setAttribute("materials", materials);
-					System.out.println("Materials:"+materials);
 					
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);
@@ -310,16 +304,6 @@ public class APLProcessServlet extends HttpServlet
 				}
 		
 	}
-
-	/*
-	 * Required by Spring
-	 */
-	@Autowired
-	public void setProcessActionFactory(ProcessActionFactory processActionFactory)
-	{
-		this.processActionFactory = processActionFactory;
-	}
-	
 	@Autowired
 	public void setMaterialActionFactory(MaterialActionFactory materialActionFactory)
 	{
@@ -330,9 +314,7 @@ public class APLProcessServlet extends HttpServlet
 	public void init() throws ServletException
 	{
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
-		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
 		super.init();
 	}
-	
 }

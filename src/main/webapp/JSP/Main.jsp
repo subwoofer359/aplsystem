@@ -43,6 +43,13 @@ DIV#partsearch
 	left:40px;
 }
 
+DIV#material
+{
+	position:fixed;
+	top:400px;
+	left:40px;
+}
+
 DIV#problemdb
 {
 	position:fixed;
@@ -99,6 +106,14 @@ DIV#process
 <DIV class="item"><a href="${pageContext.request.contextPath}/ProcessSheet_search">Process Sheets</a></DIV>
 
 </DIV>
+<DIV id="material" class="icon">
+
+<DIV class="item"><a href="${pageContext.request.contextPath}/Material_search">Material list</a></DIV>
+
+</DIV>
+
+
+</body>
 
 </body>
 </html>

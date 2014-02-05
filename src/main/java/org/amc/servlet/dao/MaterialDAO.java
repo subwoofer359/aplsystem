@@ -7,8 +7,13 @@ import java.util.Map;
 import org.amc.servlet.model.Material;
 
 
+
 public interface MaterialDAO
 {
+	public abstract void addMaterial(Material material) throws SQLException;
+
+	public abstract void updateMaterial(Material material) throws SQLException;
+	
 	public abstract Material getMaterial(String materialId) throws SQLException;
 
 	public abstract Map<Integer,Material> findMaterials(String col, String value) throws SQLException;

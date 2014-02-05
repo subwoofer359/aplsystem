@@ -16,6 +16,10 @@
   <property name="materialActionFactory" ref="materialActionFactory"/>
   </bean>
   
+  <bean id="APLMaterialServlet" class="org.amc.servlet.APLMaterialServlet">
+  	<property name="materialActionFactory" ref="materialActionFactory"/>
+  </bean>
+  
   <bean id="materialActionFactory" class="org.amc.servlet.action.MaterialActionFactoryImpl">
   	<constructor-arg ref="MaterialDAO" />
   </bean>
