@@ -257,7 +257,7 @@ public class MaterialActionTest
 			Map<Integer,Material> list=search.search();
 			assertEquals(list.size(),2);
 			
-			Material m=search.getPart("1");
+			Material m=search.getMaterial("1");
 			assertTrue(m.equals(material_1));
 			
 			list=search.search("material_drying", "60");

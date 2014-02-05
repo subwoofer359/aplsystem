@@ -30,7 +30,7 @@ public class SearchMaterialAction
 		
 	}
 	
-	public Material getPart(String id) throws SQLException
+	public Material getMaterial(String id) throws SQLException
 	{
 		return materialDAO.getMaterial(id);
 	}
