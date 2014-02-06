@@ -8,7 +8,6 @@
 <body>
 <DIV class="loginbox">
 	<span><a href="${pageContext.request.contextPath }/JSP/UserInfo.jsp"><c:out value='${pageContext.request.remoteUser}'/></a></span>
-     
 </DIV>
 <DIV class="navbox">
 <a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>

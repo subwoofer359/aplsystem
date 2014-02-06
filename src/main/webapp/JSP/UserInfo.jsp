@@ -22,8 +22,25 @@ function goHome(button)
 <fieldset>
 <legend>Basic</legend>
 UserName: ${pageContext.request.remoteUser}<br/>
+Role: 
+<c:if test="${pageContext.request.isUserInRole('qc')}">
+	QC
+</c:if> 
+<c:if test="${pageContext.request.isUserInRole('manager')}">
+	Manager
+</c:if>
+<c:if test="${pageContext.request.isUserInRole('guest')}">
+	Guest
+</c:if>
+<br/>
 Logged in form: ${pageContext.request.remoteHost} on port ${pageContext.request.remotePort}
 
+</fieldset>
+</DIV>
+<DIV>
+<fieldset>
+<legend>System info</legend>
+Session count: ${session_count}<br/>
 </fieldset>
 </DIV>
 <!--  <form action="APLSystemServlet">

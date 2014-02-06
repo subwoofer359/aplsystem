@@ -124,7 +124,7 @@ public class APLMaterialServlet extends HttpServlet
 		//Check if user is a role to allow changes to the database
 		if(!(request.isUserInRole("qc")||(request.isUserInRole("manager"))))
 		{
-				errors.add("User has no permissions to alter Process sheet definitions!");
+				errors.add("User has no permissions to alter Material definitions!");
 		}
 		
 		//If form validates with no errors

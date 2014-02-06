@@ -10,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.amc.servlet.action.PartActionFactory;
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
@@ -329,11 +331,15 @@ public class APLSystemServlet extends HttpServlet
 	{
 		response.setHeader("Cache-Control", "no-cache");
 		response.setHeader("Pragma", "no-cache");
-		request.getSession().invalidate();
+		HttpSession session=request.getSession(false);
+		if(session !=null)
+		{
+			session.invalidate();
+		}
 		request.logout();
 		
 		//request.authenticate(response);
-		response.sendRedirect(getServletConfig().getServletContext().getContextPath()+"/APLSystemServlet");
+		response.sendRedirect(getServletConfig().getServletContext().getContextPath());
 	}
 	
 	@Autowired
