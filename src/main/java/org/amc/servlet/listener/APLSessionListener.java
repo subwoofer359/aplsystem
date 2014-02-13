@@ -1,13 +1,20 @@
 package org.amc.servlet.listener;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+
+import com.sun.security.auth.UserPrincipal;
 
 @WebListener
 public class APLSessionListener implements HttpSessionListener
 {
+	private Logger log;
 	public static int count=0;
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0)
@@ -44,5 +51,6 @@ public class APLSessionListener implements HttpSessionListener
 			context.setAttribute("session_count", count);
 		}
 	}
+	
 
 }

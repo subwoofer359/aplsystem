@@ -4,19 +4,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.SaveMaterialAction;
 import org.amc.servlet.action.SearchMaterialAction;
 import org.amc.servlet.model.Material;
 import org.amc.servlet.model.MaterialForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -35,6 +37,9 @@ import org.springframework.web.context.WebApplicationContext;
 public class APLMaterialServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 5984908504L;
+	
+	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
+	
 	private MaterialActionFactory materialActionFactory;
     /**
      * @see HttpServlet#HttpServlet()
@@ -71,7 +76,7 @@ public class APLMaterialServlet extends HttpServlet
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String referal=request.getRequestURI();
-		System.out.println(referal);
+		logger.debug(String.format(referal));
 		
 		
 		//Handle JobTemplate Page
@@ -106,15 +111,15 @@ public class APLMaterialServlet extends HttpServlet
 	
 	private void saveMaterial(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		System.out.println("Context Path:"+request.getContextPath());
+		logger.debug(String.format("Context Path:"+request.getContextPath()));
 		//check if page is in create or edit mode
 		String mode=request.getParameter("mode");
-		System.out.printf("SaveMaterial:mode:[%s]%n", mode);//debug
+		logger.debug(String.format("SaveMaterial:mode:[%s]%n", mode));//debug
 		//create form
 		
 		//If an ID parameter is passed add it to the form
 		MaterialForm jForm=(MaterialForm)request.getAttribute("material");
-		System.out.println("\nSubmitted Process:"+jForm);
+		logger.debug(String.format("\nSubmitted Process:"+jForm));
 
 		
 		//Validate Form
@@ -143,7 +148,7 @@ public class APLMaterialServlet extends HttpServlet
 				// New JobTemplate to Database
 				if(mode==null||mode.equals("Enter"))
 				{
-					System.out.println("SaveMaterial:Entering entry into database");
+					logger.debug(String.format("SaveMaterial:Entering entry into database"));
 					action.save(material);
 					dispatcherURL="Material_search";
 					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
@@ -151,7 +156,7 @@ public class APLMaterialServlet extends HttpServlet
 				}
 				else if(mode.equals("edit"))
 				{
-					System.out.println("SaveMaterial:Editing entry into database");
+					logger.debug(String.format("SaveMaterial:Editing entry into database"));
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					material.setId(Integer.parseInt(jForm.getId()));
@@ -233,7 +238,7 @@ public class APLMaterialServlet extends HttpServlet
 				String idValue=request.getParameter("edit");
 				
 				//Debug
-				System.out.printf("searchMaterial:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue);
+				logger.debug(String.format("searchMaterial:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
 				
 				
 				
@@ -258,7 +263,7 @@ public class APLMaterialServlet extends HttpServlet
 						}
 						request.setAttribute("materials", list); //Add the result list to the request object to be used by the JSP page
 						//debug
-						System.out.printf("%d results returned %n",list.size());
+						logger.debug(String.format("%d results returned %n",list.size()));
 					
 						dispatchURL="/JSP/MaterialSearchPage.jsp";
 						
@@ -281,7 +286,7 @@ public class APLMaterialServlet extends HttpServlet
 					{
 						if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
-							System.out.println("searchMaterial:Opening Material.jsp");
+							logger.debug(String.format("searchMaterial:Opening Material.jsp"));
 							//open the JobTemplate JSPage in add mode
 							Material material =new Material();
 							request.setAttribute("form", material);
@@ -290,7 +295,7 @@ public class APLMaterialServlet extends HttpServlet
 						else if(mode.equals("edit")&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
-							System.out.println("searchMaterial:Opening Material.jsp in edit mode");
+							logger.debug(String.format("searchMaterial:Opening Material.jsp in edit mode"));
 							Material material=spt.getMaterial(idValue);
 							dispatchURL="/JSP/Material.jsp";
 							request.setAttribute("form", material);

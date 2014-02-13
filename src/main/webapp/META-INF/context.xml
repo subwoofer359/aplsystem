@@ -15,10 +15,10 @@
 				password="iDwuSCz7GaUK"
 				driverClassName="com.mysql.jdbc.Driver"
 				url="jdbc:mysql://127.12.78.130/myservlet"
-				maxActive="20"
+				maxActive="200"
 				maxIdle="10"
 				removeAbandoned="true"
-				removeAbandonedTimeout="60"
+				removeAbandonedTimeout="300"
 				logAbandoned="true"
 				/>
 				
