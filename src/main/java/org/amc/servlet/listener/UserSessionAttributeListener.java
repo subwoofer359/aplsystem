@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 @WebListener
 public class UserSessionAttributeListener implements HttpSessionAttributeListener {
 
-   
+   private static String remote_address=""; 
 	/**
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
@@ -33,10 +33,6 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         			Principal user=(Principal)temp;
         			log.info("User:"+user.getName()+" has logged out");
         		}
-        		else
-        		{
-        			log.info("User: unknown has logged in");
-        		}
         	}
         	catch(ClassCastException cce)
         	{
@@ -48,7 +44,7 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
 	/**
      * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
      */
-    public void attributeAdded(HttpSessionBindingEvent arg0) 
+    public void attributeAdded(HttpSessionBindingEvent arg0) //FIX
     {
         HttpSession session=arg0.getSession();
         Logger log=(Logger)Logger.getLogger(UserSessionAttributeListener.class);
@@ -57,18 +53,27 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         {
         	try
         	{
-        		Object temp=session.getAttribute("USER");
-        		if(temp!=null)
+        		if(arg0.getName().equals("USER"))
         		{
-        			Principal user=(Principal)temp;
-        			log.info("User:"+user.getName()+" has logged in");
-        			//System.out.println("User:"+user.getName()+" has logged in");
-        		}
-        		else
-        		{
-        			System.out.println("User: unknown has logged in");
-        			log.info("User: unknown has logged in");
+        			Object temp=session.getAttribute("USER");
         			
+        			if(temp!=null)
+        			{
+        				Principal user=(Principal)temp;	
+        				log.info("User:"+user.getName()+" has logged in from "+remote_address);
+        			//	System.out.println("User:"+user.getName()+" has logged in");
+        			}
+        		}
+        		if(arg0.getName().equals("REMOTE_ADDRESS"))
+        		{
+        			Object remote_address=session.getAttribute("REMOTE_ADDRESS");
+        			if(remote_address!=null)
+    				{
+        				synchronized(UserSessionAttributeListener.class)
+        				{
+        					remote_address=(String)remote_address;
+        				}
+    				}
         		}
         	}
         	catch(ClassCastException cce)

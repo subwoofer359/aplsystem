@@ -35,11 +35,20 @@ public class UserFilter implements Filter {
 		//Save User
 		HttpServletRequest httpRequest=(HttpServletRequest)request;
 		HttpSession session=httpRequest.getSession();
-		if(httpRequest.getUserPrincipal()!=null && session.getAttribute("USER")==null)
+		synchronized (session)
 		{
+			if(httpRequest.getUserPrincipal()!=null && session.getAttribute("USER")==null)
+			{
 			//session.setAttribute("USER", new MyServletUser(request.getUserPrincipal()));
-			session.setAttribute("USER", httpRequest.getUserPrincipal());
+				session.setAttribute("USER", httpRequest.getUserPrincipal());
+				//Save Remote address when USER is saved
+				if(session.getAttribute("REMOTE_ADDRESS")==null)
+				{
+					session.setAttribute("REMOTE_ADDRESS", httpRequest.getRemoteAddr());
+				}
+			}
 		}
+		
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
