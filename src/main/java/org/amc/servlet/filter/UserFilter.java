@@ -40,12 +40,13 @@ public class UserFilter implements Filter {
 			if(httpRequest.getUserPrincipal()!=null && session.getAttribute("USER")==null)
 			{
 			//session.setAttribute("USER", new MyServletUser(request.getUserPrincipal()));
-				session.setAttribute("USER", httpRequest.getUserPrincipal());
-				//Save Remote address when USER is saved
 				if(session.getAttribute("REMOTE_ADDRESS")==null)
 				{
 					session.setAttribute("REMOTE_ADDRESS", httpRequest.getRemoteAddr());
 				}
+				session.setAttribute("USER", httpRequest.getUserPrincipal());
+				//Save Remote address when USER is saved
+				
 			}
 		}
 		

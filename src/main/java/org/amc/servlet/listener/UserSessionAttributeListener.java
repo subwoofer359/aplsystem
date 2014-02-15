@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 @WebListener
 public class UserSessionAttributeListener implements HttpSessionAttributeListener {
 
-   private static String remote_address=""; 
+   private static String REMOTE_ADDRESS=""; 
 	/**
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
@@ -60,10 +60,11 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         			if(temp!=null)
         			{
         				Principal user=(Principal)temp;	
-        				log.info("User:"+user.getName()+" has logged in from "+remote_address);
+        				log.info("User:"+user.getName()+" has logged in from "+REMOTE_ADDRESS);
         			//	System.out.println("User:"+user.getName()+" has logged in");
         			}
         		}
+        		else
         		if(arg0.getName().equals("REMOTE_ADDRESS"))
         		{
         			Object remote_address=session.getAttribute("REMOTE_ADDRESS");
@@ -71,7 +72,7 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
     				{
         				synchronized(UserSessionAttributeListener.class)
         				{
-        					remote_address=(String)remote_address;
+        					REMOTE_ADDRESS=(String)remote_address;
         				}
     				}
         		}
