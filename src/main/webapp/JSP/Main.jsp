@@ -1,9 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
+<%@ taglib uri="/WEB-INF/tags/mytagsandfunctions.tld" prefix="my"  %>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--  <link rel="SHORTCUT ICON" HREF="${pageContext.request.contextPath}/images/xbill_01.jpg">  --> <!--  To be placed in header --> 
 <title>ACME Plastics Systems' Main Page</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
 <STYLE>
@@ -64,6 +67,13 @@ DIV#process
 	left:640px;
 }
 
+DIV#security
+{
+	position:fixed;
+	top:400px;
+	left:340px;
+}
+
 .item
 {
 	position: relative;
@@ -112,6 +122,13 @@ DIV#process
 
 </DIV>
 
+<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
+<DIV id="security" class="icon">
+
+<DIV class="item"><a href="${pageContext.request.contextPath}/security">Security Panel</a></DIV>
+
+</DIV>
+</c:if>
 
 </body>
 

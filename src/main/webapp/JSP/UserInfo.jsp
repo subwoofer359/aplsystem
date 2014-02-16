@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="/WEB-INF/tags/mytagsandfunctions.tld" prefix="my" %>
 <!DOCTYPE html>
 
 <html>
@@ -23,13 +24,13 @@ function goHome(button)
 <legend>Basic</legend>
 UserName: ${pageContext.request.remoteUser}<br/>
 Role: 
-<c:if test="${pageContext.request.isUserInRole('qc')}">
+<c:if test="${my:isUserInRole(pageContext.request,('qc'))}">
 	QC
 </c:if> 
-<c:if test="${pageContext.request.isUserInRole('manager')}">
+<c:if test="${my:isUserInRole(pageContext.request,('manager'))}">
 	Manager
 </c:if>
-<c:if test="${pageContext.request.isUserInRole('guest')}">
+<c:if test="${my:isUserInRole(pageContext.request,('guest'))}">
 	Guest
 </c:if>
 <br/>
