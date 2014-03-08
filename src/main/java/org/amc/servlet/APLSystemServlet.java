@@ -37,7 +37,7 @@ import org.springframework.context.ApplicationContext;
 				"/ProblemDescription_display", 
 				"/SearchProblemDatabase",
 				"/logout"
-		})
+		},loadOnStartup=1)
 
 public class APLSystemServlet extends HttpServlet 
 {

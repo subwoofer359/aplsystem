@@ -35,7 +35,7 @@ import org.springframework.web.context.WebApplicationContext;
 				"/ProcessSheet_search",
 				"/ProcessSheet_save", 
 				"/ProcessSheet_analysis"
-			})
+			},loadOnStartup=2)
 
 
 public class APLProcessServlet extends HttpServlet 

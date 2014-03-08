@@ -33,7 +33,7 @@ import org.springframework.web.context.WebApplicationContext;
 				"/Material_search",
 				"/MaterialServlet"
 				}
-		)
+		,loadOnStartup=3)
 public class APLMaterialServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 5984908504L;
