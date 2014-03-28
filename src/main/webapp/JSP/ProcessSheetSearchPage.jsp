@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page errorPage="ErrorPage.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +88,7 @@ function enable(id)
 <TABLE>
 <TR><TH>Date Of Issue</TH><TH>Product</TH><TH>machineSize</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></TR>
 <c:forEach items="${processSheets}" var="part">
-<TR><TD>${part.dateOfIssue}</TD><TD>${part.partId}</TD><TD>${part.machineSize}</TD><TD>${part.machineNo}</TD><TD><c:out value='${materials[part.material]}'></c:out></TD><TD><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
+<TR><TD>${part.dateOfIssue}</TD><TD>${part.partId}</TD><TD>${part.machineSize}</TD><TD>${part.machineNo}</TD><TD><c:out value='${myfunc:toString(materials[part.material])}'></c:out></TD><TD><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>

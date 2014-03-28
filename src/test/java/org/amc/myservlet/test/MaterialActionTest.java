@@ -4,30 +4,41 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.servlet.dao.MaterialDAO;
-import org.amc.servlet.dao.MaterialDAOImpl;
-import org.amc.servlet.model.Material;
+import org.amc.dao.MaterialDAOBeanRemote;
+import org.amc.model.MaterialBeanRemote;
 import org.junit.*;
 
 import java.sql.PreparedStatement;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import static org.junit.Assert.*;
 public class MaterialActionTest
 {
-	private DataSource dataSource;
 	private static final String DATABASE="test_myservlet";
-	private static Material material_1;
-	private static Material material_2;
+	private static MaterialBeanRemote material_1;
+	private static MaterialBeanRemote material_2;
 	
 	@BeforeClass
 	public static void setUpDatabase() throws SQLException
 	{
 		try
 		{
+			InitialContext ctx;
+			
+		     Properties props = new Properties();
+		     props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+		     props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
+		     ctx = new InitialContext(props);
+		     
+		     
+			
 			DataSource dataSource=TestLocalDataSourceCache.getInstance().getDefaultDataSource();
 			Connection connection = dataSource.getConnection();
 			Statement statement = connection.createStatement();
@@ -160,7 +171,7 @@ public class MaterialActionTest
 							+ " index material (material),"
 							+ " CONSTRAINT fk_material FOREIGN KEY (material) REFERENCES material (id)) ENGINE=InnoDB;");
 
-			material_1 = new Material();
+			material_1 = (MaterialBeanRemote)ctx.lookup("MaterialBeanRemote");
 			material_1.setCompany("ACME");
 			material_1.setName("ll6201");
 			material_1.setDensity(0.5f);
@@ -174,7 +185,7 @@ public class MaterialActionTest
 			material_1.setType("Resin");
 			material_1.setWater_absorption(2.3f);
 
-			material_2 = new Material();
+			material_2 = (MaterialBeanRemote)ctx.lookup("MaterialBeanRemote");
 			material_2.setCompany("TT");
 			material_2.setName("PPDE");
 			material_2.setDensity(0.2f);
@@ -221,7 +232,12 @@ public class MaterialActionTest
 			preparedStatement.setFloat(12, material_2.getMould_temp_upper());
 
 			preparedStatement.execute();
-		} catch (Exception e)
+		} 
+		catch (NamingException ex) 
+		{
+	         ex.printStackTrace();
+	    }
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -243,33 +259,43 @@ public class MaterialActionTest
 	@Before
 	public void setUp()
 	{
-		this.dataSource=TestLocalDataSourceCache.getInstance().getDataSource();
+		
 	}
 	
 	@Test
 	public void testSearch()
 	{
-		MaterialDAO materialDAO=new MaterialDAOImpl(dataSource);
-		SearchMaterialAction search=new SearchMaterialAction(materialDAO);
-		
+		InitialContext ctx;
 		try
 		{
-			Map<Integer,Material> list=search.search();
-			assertEquals(list.size(),2);
-			
-			Material m=search.getMaterial("1");
+			Properties props = new Properties();
+			props.put(Context.INITIAL_CONTEXT_FACTORY,
+					"org.apache.openejb.client.RemoteInitialContextFactory");
+			props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
+			ctx = new InitialContext(props);
+			MaterialDAOBeanRemote materialDAO = (MaterialDAOBeanRemote) ctx
+					.lookup("MaterialDAOBeanRemote");
+			SearchMaterialAction search = new SearchMaterialAction(materialDAO);
+
+			Map<Integer, MaterialBeanRemote> list = search.search();
+			assertEquals(list.size(), 2);
+
+			MaterialBeanRemote m = search.getMaterial("1");
 			assertTrue(m.equals(material_1));
-			
-			list=search.search("material_drying", "60");
-			assertEquals(list.size(),1);
-			Iterator<Material> i=list.values().iterator();
-			Material m2=i.next();
+
+			list = search.search("material_drying", "60");
+			assertEquals(list.size(), 1);
+			Iterator<MaterialBeanRemote> i = list.values().iterator();
+			MaterialBeanRemote m2 = i.next();
 			assertTrue(m2.equals(material_2));
-			
+
 		} catch (SQLException e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NamingException ne)
+		{
+			ne.printStackTrace();
 		}
 		
 	}

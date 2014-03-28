@@ -3,7 +3,13 @@ package org.amc.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Properties;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NameClassPair;
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,15 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.amc.model.PartBeanRemote;
 import org.amc.servlet.action.PartActionFactory;
+
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
-import org.amc.servlet.model.Part;
 import org.amc.servlet.model.PartForm;
 import org.amc.servlet.validator.Part_Validator;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+
 /**
  * Servlet implementation class APLSystemServlet
  */
@@ -160,12 +167,12 @@ public class APLSystemServlet extends HttpServlet
 			errors.add("User has no permissions to alter Part definitions!");
 		}
 				
-		//If form validates with no errorts
+		//If form validates with no errors
 		if(errors.isEmpty())
 		{
 		
 			//create model
-			Part job=new Part();
+			PartBeanRemote job=getPartBean();
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
@@ -269,7 +276,7 @@ public class APLSystemServlet extends HttpServlet
 			//if the page is to do a search
 			if(mode==null || mode.equals("search"))
 			{
-				List<Part> list=null;
+				List<PartBeanRemote> list=null;
 				//To check to search for all entries or entries where name=searchWord
 				if(searchWord==null||searchWord.equals(""))// search for all entries
 				{
@@ -312,7 +319,7 @@ public class APLSystemServlet extends HttpServlet
 				else if(mode.equals("edit")&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
-					Part job=sjt.getPart(idValue);
+					PartBeanRemote job=sjt.getPart(idValue);
 					dispatchURL="/JSP/Part.jsp";
 					request.setAttribute("form", job);
 					request.setAttribute("mode","edit");
@@ -344,7 +351,6 @@ public class APLSystemServlet extends HttpServlet
 		response.sendRedirect(getServletConfig().getServletContext().getContextPath());
 	}
 	
-	@Autowired
 	public void setJobActionFactory(PartActionFactory aJobActionFactory)
 	{
 		this.partActionFactory=aJobActionFactory;
@@ -354,6 +360,7 @@ public class APLSystemServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 //		ServletContext sc=getServletContext();
 //		Enumeration<String> list=sc.getInitParameterNames();
 //		System.out.println("----------INIT---------");
@@ -366,14 +373,43 @@ public class APLSystemServlet extends HttpServlet
 //		while(list2.hasMoreElements())
 //		{
 //			System.out.println(list2.nextElement());
-//		}
+////		}
 		ApplicationContext context2=(ApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
 		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
 		
-		super.init();
+		//DAOFactory daoFactory=DAOFactory.getInstance();
+		
+		//setJobActionFactory(new PartActionFactoryImpl(daoFactory.getJobTemplateDAO()));
+		
+		
+		
 	}
 
-	
+	private PartBeanRemote getPartBean()
+	{
+		InitialContext ctx;
+      
+		PartBeanRemote part=null;
+		try {
+	    	  Properties props = new Properties();
+	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
+	         ctx = new InitialContext(props);
+	         
+	         NamingEnumeration<NameClassPair> list = ctx.list("global/MyServletModel");
+
+	         while (list.hasMore()) {
+	             NameClassPair nc = (NameClassPair)list.next();
+	             System.out.println(nc);
+	         }
+	         
+	         part=(PartBeanRemote)ctx.lookup("PartBeanRemote");
+	      } catch (NamingException ex) {
+	         ex.printStackTrace();
+	      }
+		return part;
+	}
+
 	
 }

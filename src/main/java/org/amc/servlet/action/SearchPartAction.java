@@ -3,33 +3,33 @@ package org.amc.servlet.action;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.amc.servlet.dao.PartDAO;
-import org.amc.servlet.model.Part;
+import org.amc.dao.PartDAOBeanRemote;
+import org.amc.model.PartBeanRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SearchPartAction 
 {
-	private PartDAO partDAO;
+	private PartDAOBeanRemote partDAO;
 	
 	@Autowired
-	public SearchPartAction(PartDAO jobTemplateDAO)
+	public SearchPartAction(PartDAOBeanRemote jobTemplateDAO)
 	{
 		this.partDAO=jobTemplateDAO;
 	}
 	
-	public List<Part> search() throws SQLException
+	public List<PartBeanRemote> search() throws SQLException
 	{
 		return partDAO.findParts();
 		
 	}
 	
-	public List<Part> search(String item,String value) throws SQLException
+	public List<PartBeanRemote> search(String item,String value) throws SQLException
 	{
 		return partDAO.findParts(item,value);
 		
 	}
 	
-	public Part getPart(String id) throws SQLException
+	public PartBeanRemote getPart(String id) throws SQLException
 	{
 		return partDAO.getPart(id);
 	}

@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +20,11 @@ import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
-import org.amc.servlet.model.Material;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MaterialBeanRemote;
+import org.amc.model.MouldingProcessBeanRemote;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -134,7 +137,7 @@ public class APLProcessServlet extends HttpServlet
 		{
 		
 			//create model
-			MouldingProcess processSheet;
+			MouldingProcessBeanRemote processSheet;
 			
 			String dispatcherURL="";
 			
@@ -196,7 +199,7 @@ public class APLProcessServlet extends HttpServlet
 					request.setAttribute("mode", mode);
 				}
 			//Get List of Material
-				Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
+				Map<Integer,MaterialBeanRemote> materials=materialActionFactory.getSearchMaterialAction().search();
 
 				request.setAttribute("materials", materials);
 				request.setAttribute("errors", errors);
@@ -221,7 +224,7 @@ public class APLProcessServlet extends HttpServlet
 			try
 			{
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
-				MouldingProcess process=spt.getMouldingProcess(idValue);
+				MouldingProcessBeanRemote process=spt.getMouldingProcess(idValue);
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
@@ -261,7 +264,7 @@ public class APLProcessServlet extends HttpServlet
 					//if the page is to do a search
 					if(mode==null || mode.equals("search"))
 					{
-						List<MouldingProcess> list=null;
+						List<MouldingProcessBeanRemote> list=null;
 						//To check to search for all entries or entries where name=searchWord
 						if(searchWord==null||searchWord.equals(""))// search for all entries
 						{
@@ -299,7 +302,7 @@ public class APLProcessServlet extends HttpServlet
 						{
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
 							//open the JobTemplate JSPage in add mode
-							MouldingProcess process =new MouldingProcess();
+							MouldingProcessBeanRemote process =getMouldingProcessBean();
 							request.setAttribute("form", process);
 							dispatchURL="/JSP/ProcessPage.jsp";
 						}
@@ -307,14 +310,14 @@ public class APLProcessServlet extends HttpServlet
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
-							MouldingProcess process=spt.getMouldingProcess(idValue);
+							MouldingProcessBeanRemote process=spt.getMouldingProcess(idValue);
 							dispatchURL="/JSP/ProcessPage.jsp";
 							request.setAttribute("form", process);
 							request.setAttribute("mode","edit");
 						}
 					}
 					//Get List of Material
-					Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
+					Map<Integer,MaterialBeanRemote> materials=materialActionFactory.getSearchMaterialAction().search();
 
 					request.setAttribute("materials", materials);
 					logger.debug(String.format("Materials:"+materials));
@@ -333,13 +336,13 @@ public class APLProcessServlet extends HttpServlet
 	/*
 	 * Required by Spring
 	 */
-	@Autowired
+
 	public void setProcessActionFactory(ProcessActionFactory processActionFactory)
 	{
 		this.processActionFactory = processActionFactory;
 	}
 	
-	@Autowired
+	
 	public void setMaterialActionFactory(MaterialActionFactory materialActionFactory)
 	{
 		this.materialActionFactory = materialActionFactory;
@@ -348,10 +351,29 @@ public class APLProcessServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-		super.init();
+//		DAOFactory daoFactory=DAOFactory.getInstance();
+//		setProcessActionFactory(new ProcessActionFactoryImpl(daoFactory.getMouldingProcessDAO()));
+//		setMaterialActionFactory(new MaterialActionFactoryImpl(daoFactory.getMaterialDAO()));
+		
 	}
 	
+	private MouldingProcessBeanRemote getMouldingProcessBean()
+	{
+		InitialContext ctx;
+		MouldingProcessBeanRemote process=null;
+		try {
+	    	  Properties props = new Properties();
+	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
+	         ctx = new InitialContext(props);
+	         process=(MouldingProcessBeanRemote)ctx.lookup("MouldingProcessBeanRemote");
+	      } catch (NamingException ex) {
+	         ex.printStackTrace();
+	      }
+		return process;
+	}
 }

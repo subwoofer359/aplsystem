@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MouldingProcessBeanRemote;
 import org.amc.servlet.model.MouldingProcessForm;
 
 public class ProcessForm_Validator 
@@ -46,7 +46,7 @@ public class ProcessForm_Validator
 			String field=null;
 			try
 			{
-				field=MouldingProcess.fields[i];
+				field=MouldingProcessBeanRemote.fields[i];
 				Field refField=MouldingProcessForm.class.getDeclaredField(field);
 				Float.parseFloat((String)refField.get(form));
 				
@@ -73,7 +73,7 @@ public class ProcessForm_Validator
 			String field=null;
 			try
 			{
-				field=MouldingProcess.fields[i];
+				field=MouldingProcessBeanRemote.fields[i];
 				Field refField=MouldingProcessForm.class.getDeclaredField(field);
 				Float.parseFloat((String)refField.get(form));
 				

@@ -1,12 +1,14 @@
 package org.amc.servlet.model;
 
+import org.amc.model.MouldingProcessBeanRemote;
+
 public class MouldingProcessUtil
 {
 	private final static float CLAMP_CLOSING_ACCELERATION=1250f;
 	private final static float CLAMP_CLOSING_DEACCELERATION=-1000f;
 	
 	
-	public static float getTotalInjectionTime(MouldingProcess process)
+	public static float getTotalInjectionTime(MouldingProcessBeanRemote process)
 	{
 		float totalInjectionTime=0f;
 		float[] position=
@@ -82,7 +84,7 @@ public class MouldingProcessUtil
 		return (finalVelocity-intialVelocity)/acceleration;
 	}
 	
-	public static float getMouldClosingTime(MouldingProcess process)
+	public static float getMouldClosingTime(MouldingProcessBeanRemote process)
 	{
 		float[][] data=getMouldClosingTimeData(process);
 		
@@ -100,7 +102,7 @@ public class MouldingProcessUtil
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
 	@Deprecated
-	public static float[][] getOldMouldClosingTimeData(MouldingProcess process)
+	public static float[][] getOldMouldClosingTimeData(MouldingProcessBeanRemote process)
 	{
 		float[][] data=new float[8][3];
 		float expectedDistance1=process.getMouldClosingOpenLimitPos()-process.getMouldClosedLimitPos();
@@ -217,7 +219,7 @@ public class MouldingProcessUtil
 	 * @param process
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
-	public static float[][] getMouldClosingTimeData(MouldingProcess process)
+	public static float[][] getMouldClosingTimeData(MouldingProcessBeanRemote process)
 	{
 		float[][] data=new float[8][3];
 		/*
@@ -355,25 +357,7 @@ public class MouldingProcessUtil
 	}
 	
 	
-	public static void main(String[] args)
-	{
-		
-		MouldingProcess p=new MouldingProcess();
-		p.setMouldClosingOpenLimitPos(388);
-		p.setMouldClosedLimitPos(250);
-		p.setClsSlowPos(190);
-		p.setClsSPPos(68.9f);
-		p.setMouldClosingOpenLimitSpeed(415);
-		p.setMouldClosedLimitSpeed(250);
-		p.setClsSPSpeed(200);
-		
-		//System.out.println(getMouldClosingTime(p));
-		getMouldClosingTimeData(p);
-		getOldMouldClosingTimeData(p);
-		
-		
-		
-	}
+
 }
 
 
