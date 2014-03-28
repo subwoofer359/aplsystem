@@ -94,10 +94,7 @@ DIV#security
 <H1>ACME Plastics System</H1>
 </DIV>
 
-<DIV class="loginbox">
-	<span><a href="JSP/UserInfo.jsp"><c:out value='${pageContext.request.remoteUser}'/></a></span>
-     
-</DIV>
+<%@ include file="NavigationDiv.jspf" %>
 
 <DIV id="partsearch" class="icon">
 

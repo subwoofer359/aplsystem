@@ -104,7 +104,7 @@ public class APLMaterialServlet extends HttpServlet
 //					+ "</BODY>"
 //					+ "</HTML>");
 //			writer.flush();
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Main.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
 			rd.forward(request, response);
 		}
 	}
@@ -197,7 +197,7 @@ public class APLMaterialServlet extends HttpServlet
 			request.setAttribute("errors", errors);
 			request.setAttribute("form", jForm);			
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Material.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
 			rd.forward(request, response);
 		}
 	}
@@ -212,7 +212,7 @@ public class APLMaterialServlet extends HttpServlet
 				SearchMaterialAction spt=materialActionFactory.getSearchMaterialAction();
 				Material process=spt.getMaterial(idValue);
 				request.setAttribute("process",process);
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/Material.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)
 			{
@@ -265,7 +265,7 @@ public class APLMaterialServlet extends HttpServlet
 						//debug
 						logger.debug(String.format("%d results returned %n",list.size()));
 					
-						dispatchURL="/JSP/MaterialSearchPage.jsp";
+						dispatchURL="/WEB-INF/JSP/MaterialSearchPage.jsp";
 						
 					}
 //					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
@@ -290,14 +290,14 @@ public class APLMaterialServlet extends HttpServlet
 							//open the JobTemplate JSPage in add mode
 							Material material =new Material();
 							request.setAttribute("form", material);
-							dispatchURL="/JSP/Material.jsp";
+							dispatchURL="/WEB-INF/JSP/Material.jsp";
 						}
 						else if(mode.equals("edit")&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchMaterial:Opening Material.jsp in edit mode"));
 							Material material=spt.getMaterial(idValue);
-							dispatchURL="/JSP/Material.jsp";
+							dispatchURL="/WEB-INF/JSP/Material.jsp";
 							request.setAttribute("form", material);
 							request.setAttribute("mode","edit");
 						}

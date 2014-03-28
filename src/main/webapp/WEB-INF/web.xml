@@ -78,4 +78,33 @@
   	</jsp-property-group>
   </jsp-config>
   
+  <servlet>
+  	<servlet-name>UserPage</servlet-name>
+  	<jsp-file>/WEB-INF/JSP/UserInfo.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  <servlet-name>UserPage</servlet-name>
+  <url-pattern>/UserInfo</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>MaterialBean</servlet-name>
+  	<jsp-file>/WEB-INF/JSP/MaterialBean.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>MaterialBean</servlet-name>
+  	<url-pattern>/Processing/MaterialBean</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ProcessSheetBean</servlet-name>
+  	<jsp-file>/WEB-INF/JSP/ProcessSheetBean.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ProcessSheetBean</servlet-name>
+  	<url-pattern>/Processing/ProcessSheetBean</url-pattern>
+  </servlet-mapping>
+  
+  
+  
 </web-app>

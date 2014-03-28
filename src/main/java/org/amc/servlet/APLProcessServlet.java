@@ -95,7 +95,7 @@ public class APLProcessServlet extends HttpServlet
 //					+ "</BODY>"
 //					+ "</HTML>");
 //			writer.flush();
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Main.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
 			rd.forward(request, response);
 		}
 	}
@@ -202,7 +202,7 @@ public class APLProcessServlet extends HttpServlet
 				request.setAttribute("errors", errors);
 				request.setAttribute("form", jForm);			
 				
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ProcessPage.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/ProcessPage.jsp");
 				rd.forward(request, response);
 			}
 			catch(SQLException sqle)
@@ -223,7 +223,7 @@ public class APLProcessServlet extends HttpServlet
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
 				MouldingProcess process=spt.getMouldingProcess(idValue);
 				request.setAttribute("process",process);
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)
 			{
@@ -276,7 +276,7 @@ public class APLProcessServlet extends HttpServlet
 						//debug
 						logger.debug(String.format("%d results returned %n",list.size()));
 					
-						dispatchURL="/JSP/ProcessSheetSearchPage.jsp";
+						dispatchURL="/WEB-INF/JSP/ProcessSheetSearchPage.jsp";
 						
 					}
 //					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
@@ -301,14 +301,14 @@ public class APLProcessServlet extends HttpServlet
 							//open the JobTemplate JSPage in add mode
 							MouldingProcess process =new MouldingProcess();
 							request.setAttribute("form", process);
-							dispatchURL="/JSP/ProcessPage.jsp";
+							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 						}
 						else if(mode.equals("edit")&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
 							MouldingProcess process=spt.getMouldingProcess(idValue);
-							dispatchURL="/JSP/ProcessPage.jsp";
+							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 							request.setAttribute("form", process);
 							request.setAttribute("mode","edit");
 						}

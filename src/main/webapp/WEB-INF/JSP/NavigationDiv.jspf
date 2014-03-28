@@ -3,8 +3,10 @@
 <!DOCTYPE html>
 
 <DIV class="loginbox">
-	<span><a href="${pageContext.request.contextPath }/JSP/UserInfo.jsp"><c:out value='${pageContext.request.remoteUser}'/></a></span>
+	<span><a href="${pageContext.request.contextPath }/UserInfo"><c:out value='${pageContext.request.remoteUser}'/></a></span>
 </DIV>
+<c:if test="${pageContext.request.servletPath != '/WEB-INF/JSP/Main.jsp' }">
 <DIV class="navbox">
 <a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
 </DIV>
+</c:if>

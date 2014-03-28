@@ -103,7 +103,7 @@ public class APLSystemServlet extends HttpServlet
 //					+ "</BODY>"
 //					+ "</HTML>");
 //			writer.flush();
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Main.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
 			rd.forward(request, response);
 		}
 		
@@ -185,7 +185,7 @@ public class APLSystemServlet extends HttpServlet
 					action.save(job);
 					request.setAttribute("form",jForm);
 					request.setAttribute("result", job.toString()+" saved");
-					dispatcherURL="/JSP/Part.jsp";
+					dispatcherURL="/WEB-INF/JSP/Part.jsp";
 				}
 				else if(mode.equals("Edit"))
 				{
@@ -221,7 +221,7 @@ public class APLSystemServlet extends HttpServlet
 			request.setAttribute("errors", errors);
 			request.setAttribute("form", jForm);			
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Part.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Part.jsp");
 			rd.forward(request, response);
 		}
 	}
@@ -235,7 +235,7 @@ public class APLSystemServlet extends HttpServlet
 	 */
 	private void displayJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		RequestDispatcher rd=request.getRequestDispatcher("/JSP/Part.jsp");
+		RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Part.jsp");
 		rd.forward(request, response);
 	}
 	
@@ -285,7 +285,7 @@ public class APLSystemServlet extends HttpServlet
 				//debug
 				logger.debug(String.format("%d results returned %n",list.size()));
 			
-				dispatchURL="/JSP/PartsSearchPage.jsp";
+				dispatchURL="/WEB-INF/JSP/PartsSearchPage.jsp";
 				
 			}
 //			else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
@@ -307,13 +307,13 @@ public class APLSystemServlet extends HttpServlet
 				if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
 				{
 					//open the Part JSPage in add mode
-					dispatchURL="/JSP/Part.jsp";
+					dispatchURL="/WEB-INF/JSP/Part.jsp";
 				}
 				else if(mode.equals("edit")&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
 					Part job=sjt.getPart(idValue);
-					dispatchURL="/JSP/Part.jsp";
+					dispatchURL="/WEB-INF/JSP/Part.jsp";
 					request.setAttribute("form", job);
 					request.setAttribute("mode","edit");
 				}
