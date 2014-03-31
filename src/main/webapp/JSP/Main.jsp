@@ -14,17 +14,6 @@ BODY
 {
 	background-color: #7287d4;
 }
-.title 
-{
-	text-align: center;
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	width:50%;
-	margin-left: auto;
-	margin-right: auto;
-
-}
 
 DIV.icon 
 {

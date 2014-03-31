@@ -20,47 +20,9 @@ body
 	border-color: red;
 }
 
-.title 
-{
-	text-align: center;
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	width:50%;
-	margin-left: auto;
-	margin-right: auto;
 
-}
-.entrybox
-{
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	
-	position:fixed;
-	top:100px;
-	width:60%;
-	left:10%;
-	padding: 20px;
-	
-	
-}
-.entrybox DIV
-{
-	border-style:solid;
-	padding: 10px;
-	width:90%;
-	height:400px;
-	overflow:auto;	
-}
-TABLE
-{
-	width:100%;
-}
-TD 
-{ 
-	text-align: left;
-}
+
+
 TH
 {
 	border-bottom-style: solid;
