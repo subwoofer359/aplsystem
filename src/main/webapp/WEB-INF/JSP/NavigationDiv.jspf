@@ -2,11 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 
-<DIV class="loginbox">
-	<span><a href="${pageContext.request.contextPath }/UserInfo"><c:out value='${pageContext.request.remoteUser}'/></a></span>
+<a href="${pageContext.request.contextPath }/UserInfo">
+<DIV class="navbox" style="right:0;">
+	<span><c:out value='${pageContext.request.remoteUser}'/></span>
 </DIV>
+</a>
 <c:if test="${pageContext.request.servletPath != '/WEB-INF/JSP/Main.jsp' }">
-<DIV class="navbox">
-<a href="${pageContext.request.contextPath}/APLSystemServlet">Main</a><br/>
+<a href="${pageContext.request.contextPath}/APLSystemServlet">
+<DIV class="navbox"  style="right:110px;">
+Main<br/>
 </DIV>
+</a>
 </c:if>

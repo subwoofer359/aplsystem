@@ -6,12 +6,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics :Material Search Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
 <STYLE>
-TH
-{
-	text-align: left;
-}
+
 </STYLE>
 </head>
 <SCRIPT type="text/javascript">
@@ -49,14 +47,9 @@ function enable(id)
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<DIV  class="entrybox">
 
 <FORM action="${pageContext.request.contextPath}/Material_search" method="post">
-
-<SPAN>
-<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
-</SPAN>
-<DIV>
+<DIV class="results">
 <TABLE>
 <TR><TH>Company</TH><TH>Name</TH><TH>Type</TH><TH></TH></TR>
 <c:forEach items="${materials}" var="material">
@@ -65,10 +58,11 @@ function enable(id)
 <TR><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
 </DIV>
-<SPAN><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
+<SPAN class="search">
+<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
+</SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
 </FORM>
-
-</DIV>
 
 </body>
 </html>

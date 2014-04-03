@@ -6,13 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics :Process Sheets Search Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
-<STYLE>
-TH
-{
-	text-align: left;
-}
-</STYLE>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
+<style>
+
+</style>
+
 </head>
 <SCRIPT type="text/javascript">
 function isChecked(id)
@@ -76,13 +75,9 @@ function enable(id)
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<DIV  class="entrybox">
+<DIV  class="results">
 
 <FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post">
-
-<SPAN>
-<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
-</SPAN>
 <DIV>
 <TABLE>
 <TR><TH>Date Of Issue</TH><TH>Product</TH><TH>machineSize</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></TR>
@@ -92,7 +87,10 @@ function enable(id)
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
 </DIV>
-<SPAN><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /><input type="submit" name="mode" value="display" onclick="isDisplayChecked(this)" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
+<SPAN class="search">
+<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
+</SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /><input type="submit" name="mode" value="display" onclick="isDisplayChecked(this)" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
 </FORM>
 
 </DIV>
