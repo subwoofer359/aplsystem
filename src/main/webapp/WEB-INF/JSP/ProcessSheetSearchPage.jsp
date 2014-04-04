@@ -75,10 +75,9 @@ function enable(id)
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<DIV  class="results">
 
 <FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post">
-<DIV>
+<DIV class="results">
 <TABLE>
 <TR><TH>Date Of Issue</TH><TH>Product</TH><TH>machineSize</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></TR>
 <c:forEach items="${processSheets}" var="part">
@@ -92,8 +91,6 @@ function enable(id)
 </SPAN>
 <SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /><input type="submit" name="mode" value="display" onclick="isDisplayChecked(this)" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
 </FORM>
-
-</DIV>
 
 </body>
 </html>

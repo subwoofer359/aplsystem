@@ -14,6 +14,7 @@ BODY
 {
 	background-color: #7287d4;
 }
+
 .title 
 {
 	text-align: center;
@@ -26,6 +27,7 @@ BODY
 	
 
 }
+
 
 DIV.icon 
 {

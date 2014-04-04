@@ -17,7 +17,7 @@ body
 	border-style: solid;
 	border-radius: 25px;
 	background-color: white;
-	width:50%;
+	width:100%;
 	margin-left: auto;
 	margin-right: auto;
 
@@ -30,8 +30,8 @@ body
 	
 	position:fixed;
 	top:100px;
-	width:60%;
-	left:10%;
+	width:95%;
+	#left:10%;
 	padding: 20px;
 	
 	
@@ -40,8 +40,8 @@ body
 {
 	border-style:solid;
 	padding: 10px;
-	width:90%;
-	height:400px;
+	width:95%;
+	height:98%;
 	overflow:auto;	
 }
 TABLE
@@ -120,10 +120,10 @@ DIV#spc
 {
 	position:fixed;
 	top:20px;
-	right:0%;
+	right:2%;
 	background-color: white;
 	width: 10%;
-	heigth: 40px;
+	heigth: 60px;
 	border-style: solid;
 	border-radius: 25px;
 	text-align: center;
@@ -132,10 +132,10 @@ DIV#spc
 {
 	position:fixed;
 	top:60px;
-	right:0%;
+	right:2%;
 	background-color: white;
 	width: 10%;
-	heigth: 40px;
+	heigth: 60px;
 	border-style: solid;
 	border-radius: 25px;
 	text-align: center;
