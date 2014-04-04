@@ -9,11 +9,44 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
 <style>
-
+.checkbox
+{
+	visibility:hidden;
+	width:0;
+}
 </style>
 
 </head>
 <SCRIPT type="text/javascript">
+
+function selected(element)
+{
+	var elementsArray=document.getElementsByTagName("input");
+	for(var i=0;i<elementsArray.length;i++)
+	{
+		if(elementsArray[i].type=="checkbox")
+		{
+			elementsArray[i].checked=false;
+			//Set parent <TR> element background to original colour
+			elementsArray[i].parentNode.parentNode.style.backgroundColor="";  
+		}
+	}
+	
+	console.log(element);
+	var checkbox=element.getElementsByTagName("input");
+	if(checkbox != null || checkbox.length>0)
+	{
+		console.log(checkbox[0]);
+		checkbox[0].checked=true;
+		element.style.backgroundColor="red";
+	}
+	else
+	{
+		console.log("Checkbox element not found");
+	}
+	
+}
+
 function isChecked(id)
 {
 	var list=document.getElementsByName("edit");
@@ -81,7 +114,7 @@ function enable(id)
 <TABLE>
 <TR><TH>Date Of Issue</TH><TH>Product</TH><TH>machineSize</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></TR>
 <c:forEach items="${processSheets}" var="part">
-<TR><TD>${part.dateOfIssue}</TD><TD>${part.partId}</TD><TD>${part.machineSize}</TD><TD>${part.machineNo}</TD><TD><c:out value='${materials[part.material]}'></c:out></TD><TD><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
+<TR onclick="selected(this)"><TD>${part.dateOfIssue}</TD><TD>${part.partId}</TD><TD>${part.machineSize}</TD><TD>${part.machineNo}</TD><TD><c:out value='${materials[part.material]}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
