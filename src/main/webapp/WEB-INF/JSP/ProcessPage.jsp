@@ -6,17 +6,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics: Process Setup Sheet</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+
 
 <style type="text/css">
-.float input
+select,textarea,fieldset legend
 {
-	width:50px;
+	font-size:xx-large;
+}
+
+
+.float input,.info input
+{
+	width:80%;
+	font-size:xx-large;
+}
+.float td,.info td
+{
+	font-size:xx-large;
+	
 }
 table
 {
-	width:auto;
+	
 }
+
 .info,
 .injection,
 .holding,
@@ -28,15 +42,113 @@ table
 .dme,
 .ejectors
 {
-	width:40%;
+	position:absolute;
+	top:200px;
+	width:98%;
+	height:100%;
+	z-index:-1;
+	
 }
+/* To make all divs invisible */
+.injection,
+.holding,
+.injExtOptions,
+.extrusion,
+.barrelTemperatures,
+.mouldOpening,
+.mouldClosing,
+.dme,
+.ejectors
+{
+	visibility:hidden;
+}
+
+/* To be removed in the future*/
+.buttons
+{
+	position:fixed;
+	right:4px;
+	bottom:4px;
+}
+.buttons input
+{
+	font-size:xx-large;
+}
+/* Tabs at the top of window */
+.menu
+{
+	position:fixed; 
+	top:80px; 
+}
+
+.menu span
+{
+	height:40px;
+	line-height:40px;	/* #must be the same as height */
+	border-style:solid;
+	border-color:black;
+	padding-right:4px;
+	display:inline-block;
+}
+
 </style>
 
 </head>
 
 <body>
-<H1 class="title">Process Setup Sheet</H1>
+
+<!-- Javascript function to work tabbing -->
+<SCRIPT>
+var tabs=["info",
+          "injection",
+          "holding",
+          "injExtOptions",
+          "extrusion",
+          "barrelTemperatures",
+          "mouldOpening",
+          "mouldClosing",
+          "dme",
+          "ejectors"
+          ];
+          
+function hideInfo(element)
+{
+	console.log(element);
+	var selectedTab=element.id;
+	for(var i=0;i<tabs.length;i++)
+	{
+		if(tabs[i]!=selectedTab)
+		{
+			var elements=document.getElementsByClassName(tabs[i]);
+			elements[0].style.visibility="hidden";
+			console.log("Element:"+tabs[i]+" is hidden");	
+		}
+	}
+	var elements=document.getElementsByClassName(selectedTab);
+	elements[0].style.visibility="visible";
+	console.log("Element:"+selectedTab+" is visible");
+	
+}
+</SCRIPT>
+<div class="title">
+<H1>Process Setup Sheet</H1>
+</div>
 <%@ include file="NavigationDiv.jspf" %>
+
+<!-- Display tabs -->
+<SPAN class="menu">
+<SPAN  id="info"			onclick='hideInfo(this)'>Information</SPAN>
+<SPAN  id="injection"		onclick='hideInfo(this)'>Injection</SPAN>
+<SPAN  id="holding"			onclick='hideInfo(this)'>Holding</SPAN>
+<SPAN  id="injExtOptions"	onclick='hideInfo(this)'>Injection Options</SPAN>
+<SPAN  id="extrusion"		onclick='hideInfo(this)'>Extrusion</SPAN>
+<SPAN  id="barrelTemperatures"  onclick='hideInfo(this)'>Barrel Temperatures</SPAN>
+<SPAN  id="mouldOpening"  	onclick='hideInfo(this)'>Moulding Opening</SPAN>
+<SPAN  id="mouldClosing"	onclick='hideInfo(this)'>Moulding Closing</SPAN>
+<SPAN  id="dme"  			onclick='hideInfo(this)'>DME</SPAN>
+<SPAN  id="ejectors"  		onclick='hideInfo(this)'>Ejectors</SPAN>
+</SPAN>
+
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <DIV class="error">
@@ -225,6 +337,7 @@ ${error}<br/>
 </TABLE>
 </fieldset>
 </DIV>
+<SPAN class="buttons">
 <%-- To tell the servlet which mode the page is submitting in --%>
 <c:if test="${mode eq null }">
 	<input type='submit'  name="mode" value='Enter'/>
@@ -232,7 +345,7 @@ ${error}<br/>
 <c:if test="${mode eq 'edit' }">
 	<input type='submit'  name="mode" value='edit'/>
 </c:if>
-
+</SPAN>
 </FORM>
 
 </body>
