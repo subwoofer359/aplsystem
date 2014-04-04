@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
-.title
+.title 
 {
+	/* to be removed in the future already in General.css */
 	position: fixed;
 	background-color: green;
 	width: 100%;
@@ -8,25 +9,6 @@
 	top: 0;
 	left: 0;
 	text-indent:5%;
-}
-
-.navbox
-{
-	position: fixed;
-	top: 0;
-	background-color: greenyellow;
-	max-height: 150px;
-	min-height: 70px;
-	line-height:70px;
-	width: 100px;
-	border-style:solid;
-	margin-right:5px;
-	text-align:center;
-	#padding-top:40px;
-	border-radius:30px;
-	border-collapse: separate;
-	margin:4px;
-	
 }
 
 .search
@@ -37,7 +19,6 @@
 	border-style: solid;
 	border-radius: 30px;
 	padding: 10px;
-	#width:70%;
 	min-width:30%;
 	max-width:70%;
 }
