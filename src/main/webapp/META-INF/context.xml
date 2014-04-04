@@ -14,11 +14,12 @@
 				username="adminYTspVIn"
 				password="iDwuSCz7GaUK"
 				driverClassName="com.mysql.jdbc.Driver"
-				url="jdbc:mysql://127.12.78.130/myservlet"
+				url="jdbc:mysql://127.12.78.130:3306/myservlet"
 				maxActive="200"
-				maxIdle="10"
+				maxIdle="20"
+				maxWait="10000"
 				removeAbandoned="true"
-				removeAbandonedTimeout="300"
+				removeAbandonedTimeout="30"
 				logAbandoned="true"
 				/>
 				
