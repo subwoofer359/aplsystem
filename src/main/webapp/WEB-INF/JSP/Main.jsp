@@ -8,25 +8,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--  <link rel="SHORTCUT ICON" HREF="${pageContext.request.contextPath}/images/xbill_01.jpg">  --> <!--  To be placed in header --> 
 <title>ACME Plastics Systems' Main Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
 <STYLE>
-BODY
-{
-	background-color: #7287d4;
-}
 
-.title 
-{
-	text-align: center;
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	width:50%;
-	margin-left: auto;
-	margin-right: auto;
-	
-
-}
 
 
 DIV.icon 

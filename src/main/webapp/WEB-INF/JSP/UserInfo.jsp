@@ -7,7 +7,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics: User Information</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+<style>
+.info
+{
+	position:relative;
+	top:100px;
+	font-size:xx-large;
+}
+.buttons
+{
+	position:fixed;
+	right:4px;
+	bottom:4px;
+}
+.buttons input,button
+{
+	font-size:xx-large;
+}
+</style>
 </head>
 <SCRIPT>
 function goHome(button)
@@ -16,10 +34,10 @@ function goHome(button)
 }
 </SCRIPT>
 <body>
-<%@ include file="NavigationDiv.jspf" %>
 <DIV class="title"><H1>User Information</H1></DIV>
+<%@ include file="NavigationDiv.jspf" %>
 
-<DIV>
+<DIV class="info">
 <fieldset>
 <legend>Basic</legend>
 UserName: ${pageContext.request.remoteUser}<br/>
@@ -37,8 +55,7 @@ Role:
 Logged in form: ${pageContext.request.remoteHost} on port ${pageContext.request.remotePort}
 
 </fieldset>
-</DIV>
-<DIV>
+
 <fieldset>
 <legend>System info</legend>
 Session count: ${session_count}<br/>
@@ -47,9 +64,14 @@ Session count: ${session_count}<br/>
 <!--  <form action="APLSystemServlet">
 <input type="button" value="Go Home"/> 
 </form>-->
+<span class="buttons">
 <button onclick="goHome(this)">Go Home</button>
 <form action="${pageContext.request.contextPath}/logout" method="post">
+
+
 <button type="submit">Log Out</button>
+
 </form>
+</span>
 </body>
 </html>
