@@ -11,65 +11,35 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
 <STYLE>
 
-
-
 DIV.icon 
 {
-	border-style:solid;
-	border-color:black;
-	border-width:1px;
-	border-radius:25px;
-	width:110px;
-	height:110px;
+	border-style: solid;
+	border-color: black;
+	border-width: 1px;
+	border-radius: 25px;
 	background-color: white;
-	
-}
-
-
-DIV#partsearch
-{
-	position:fixed;
-	top:200px;
-	left:40px;
-}
-
-DIV#material
-{
-	position:fixed;
-	top:400px;
-	left:40px;
-}
-
-DIV#problemdb
-{
-	position:fixed;
-	top:200px;
-	left:340px;
-}
-
-DIV#process
-{
-	position:fixed;
-	top:200px;
-	left:640px;
-}
-
-DIV#security
-{
-	position:fixed;
-	top:400px;
-	left:340px;
-}
-
-.item
-{
-	position: relative;
-	top: 30%;
-	padding: 4px;
+	height: 150px;
+	margin:	20px;
+	line-height: 150px;
 	text-align: center;
-	margin-right: auto;
-	margin-left: auto;
-	
+	font-size: xx-large;
+}
+
+DIV.icon:hover
+{
+	background-color: red;
+}
+div.icon:VISITED
+{
+	text-decoration: none;	
+}
+
+table
+{
+	position:fixed;
+	top:100px;
+	height:80%;
+	width:100%;
 }
 
 
@@ -82,39 +52,48 @@ DIV#security
 </DIV>
 
 <%@ include file="NavigationDiv.jspf" %>
-
-<DIV id="partsearch" class="icon">
-
-<DIV class='item'> <a href="${pageContext.request.contextPath}/Part_search">Part Search</a></DIV>
-
-</DIV>
-
-<DIV id="problemdb" class="icon">
-
-<DIV class="item">Problem Database</DIV>
-
-</DIV>
-
-<DIV id="process" class="icon">
-
-<DIV class="item"><a href="${pageContext.request.contextPath}/ProcessSheet_search">Process Sheets</a></DIV>
-
-</DIV>
-<DIV id="material" class="icon">
-
-<DIV class="item"><a href="${pageContext.request.contextPath}/Material_search">Material list</a></DIV>
-
-</DIV>
-
-<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
-<DIV id="security" class="icon">
-
-<DIV class="item"><a href="${pageContext.request.contextPath}/security">Security Panel</a></DIV>
-
-</DIV>
-</c:if>
-
-</body>
-
+<table>
+<tr>
+<td>
+	<a href="${pageContext.request.contextPath}/Part_search">
+	<DIV id="partsearch" class="icon">
+ 		Part Search
+	</DIV>
+	</a>
+</td>
+<td>
+	<DIV id="problemdb" class="icon">
+		Problem Database
+	</DIV>
+</td>
+<td>
+	<a href="${pageContext.request.contextPath}/ProcessSheet_search">
+	<DIV id="process" class="icon">
+		Process Sheets
+	</DIV>
+	</a>
+</td>
+</tr>
+<tr>
+<td>
+	<a href="${pageContext.request.contextPath}/Material_search">
+	<DIV id="material" class="icon">
+		Material list
+	</DIV>
+	</a>
+</td>
+<td>
+	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
+	<a href="${pageContext.request.contextPath}/security">
+	<DIV id="security" class="icon">
+		Security Panel
+	</DIV>
+	</c:if>
+	</a>
+</td>
+<td>
+</td>
+</tr>
+</table>
 </body>
 </html>

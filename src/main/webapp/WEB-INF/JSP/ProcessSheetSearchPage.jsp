@@ -9,67 +9,13 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
 <style>
-.checkbox
-{
-	visibility:hidden;
-	width:0;
-}
+
 </style>
-
-</head>
-<SCRIPT type="text/javascript">
-
-function selected(element)
-{
-	var elementsArray=document.getElementsByTagName("input");
-	for(var i=0;i<elementsArray.length;i++)
-	{
-		if(elementsArray[i].type=="checkbox")
-		{
-			elementsArray[i].checked=false;
-			//Set parent <TR> element background to original colour
-			elementsArray[i].parentNode.parentNode.style.backgroundColor="";  
-		}
-	}
-	
-	console.log(element);
-	var checkbox=element.getElementsByTagName("input");
-	if(checkbox != null || checkbox.length>0)
-	{
-		console.log(checkbox[0]);
-		checkbox[0].checked=true;
-		element.style.backgroundColor="red";
-	}
-	else
-	{
-		console.log("Checkbox element not found");
-	}
-	
-}
-
-function isChecked(id)
-{
-	var list=document.getElementsByName("edit");
-	console.log(list.length+"\n");
-	var checked=false;
-	for(var t in list)
-	{
-		console.log(list[t]+" "+list[t].checked+"\n");
-		if(list[t].checked)
-		{
-			checked=true;
-		}
-	}
-	if(!checked)
-	{
-		id.value="add";
-	}
-	else
-	{
-		id.value="edit";
-	}	
-}
-
+<script src="js/SearchPage.js"></script>
+<script type="text/javascript">
+/**
+ * Needs to be in JSP. Contains EL Expression 
+ */
 function isDisplayChecked(id)
 {
 	var list=document.getElementsByName("edit");
@@ -96,12 +42,9 @@ function isDisplayChecked(id)
 		
 	}	
 }
+</script>
+</head>
 
-function enable(id)
-{
-	id.value="edit";	
-}
-</SCRIPT>
 <body>
 <DIV class="title">
 <H1> Process Sheets</H1>

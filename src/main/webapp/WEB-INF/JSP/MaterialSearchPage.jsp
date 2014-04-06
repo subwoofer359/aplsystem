@@ -11,36 +11,8 @@
 <STYLE>
 
 </STYLE>
+<script src="js/SearchPage.js"></script>
 </head>
-<SCRIPT type="text/javascript">
-function isChecked(id)
-{
-	var list=document.getElementsByName("edit");
-	console.log(list.length+"\n");
-	var checked=false;
-	for(var t in list)
-	{
-		console.log(list[t]+" "+list.checked+"\n");
-		if(list[t].checked)
-		{
-			checked=true;
-		}
-	}
-	if(!checked)
-	{
-		id.value="add";
-	}
-	else
-	{
-		id.value="edit";
-	}	
-}
-
-function enable(id)
-{
-	id.value="edit";	
-}
-</SCRIPT>
 <body>
 <DIV class="title">
 <H1>Material</H1>
@@ -53,7 +25,7 @@ function enable(id)
 <TABLE>
 <TR><TH>Company</TH><TH>Name</TH><TH>Type</TH><TH></TH></TR>
 <c:forEach items="${materials}" var="material">
-<TR><TD>${material.value.company}</TD><TD>${material.value.name}</TD><TD>${material.value.type}</TD><TD><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
+<TR  onclick="selected(this)"><TD>${material.value.company}</TD><TD>${material.value.name}</TD><TD>${material.value.type}</TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>

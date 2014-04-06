@@ -12,36 +12,8 @@
 
 
 </STYLE>
+<script src="js/SearchPage.js"></script>
 </head>
-<SCRIPT type="text/javascript">
-function isChecked(id)
-{
-	var list=document.getElementsByName("edit");
-	console.log(list.length+"\n");
-	var checked=false;
-	for(var t in list)
-	{
-		console.log(list[t]+" "+list.checked+"\n");
-		if(list[t].checked)
-		{
-			checked=true;
-		}
-	}
-	if(!checked)
-	{
-		id.value="add";
-	}
-	else
-	{
-		id.value="edit";
-	}	
-}
-
-function enable(id)
-{
-	id.value="edit";	
-}
-</SCRIPT>
 <body>
 <DIV class="title">
 <H1> Part Inventory</H1>
@@ -53,7 +25,7 @@ function enable(id)
 <TABLE>
 <TR><TH>Id</TH><TH>Company</TH><TH>Name</TH><TH>Version</TH><TH>Colour</TH><TH>QSS no.</TH><TH></TH></TR>
 <c:forEach items="${parts}" var="part">
-<TR><TD>${part.id}</TD><TD>${part.company}</TD><TD>${part.name}</TD><TD>${part.version}</TD><TD>${part.colour}</TD><TD>${part.qss_no}</TD><TD><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
+<TR  onclick="selected(this)"><TD>${part.id}</TD><TD>${part.company}</TD><TD>${part.name}</TD><TD>${part.version}</TD><TD>${part.colour}</TD><TD>${part.qss_no}</TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
