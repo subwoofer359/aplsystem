@@ -7,42 +7,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics:Part Description Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
+<SCRIPT>
+function home()
+{
+	location="Part_search";
+}
+</SCRIPT>
 <STYLE>
 
-body
+TABLE
 {
-	background-color: #7287d4;
-}
-
-.error
-{
-	border-style: solid;
-	border-color: red;
-}
-
-.title 
-{
-	text-align: center;
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	width:50%;
-	margin-left: auto;
-	margin-right: auto;
-
-}
-.entrybox
-{
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	
 	position:fixed;
-	top:200px;
-	left:10%;
-	width:30%;
+	top:110px;
+	background-color:white;
+	width:95%;	
+	margin-left:2%;
+	margin-right:auto;
+
 }
+
+TD
+{
+	text-align:left;
+	font-size:xx-large;
+	line-height: 77px;
+}
+
+TH
+{
+	text-align:left;
+	font-size:xx-large;
+}
+
+input[type="text"]
+{
+	width:70%;
+	font-size:xx-large;
+}
+
 </STYLE>
 
 </head>
@@ -54,51 +58,44 @@ body
 <%@ include file="NavigationDiv.jspf" %>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
-<DIV class="error">
-<c:forEach items="${errors}" var="error"> 
-${error}<br/>
-</c:forEach>
-</DIV>
+<SCRIPT>alert("${errors}");</SCRIPT>
 </c:if>
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
-<DIV class="entrybox">
+
 <FORM method='post' action='./Part_save'>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 <TABLE>
 <%-- To be used in edit mode to store the id of the object being edited --%>
-<TR><TD>Name</TD><TD>
+<TR><TD class="description">Name</TD><TD>
 	<input type='text' name='name' <c:if test='${form ne null}'>value='${form.name}'</c:if> />
 </TD></TR>
-<TR><TD>Company</TD><TD>
+<TR><TD class="description">Company</TD><TD>
 	<input type='text' name='company' <c:if test='${form ne null}'>value='${form.company}'</c:if> />
 </TD></TR>
-<TR><TD>Product No.</TD><TD>
+<TR><TD class="description">Product No.</TD><TD>
 	<input type='text' name='part_id' <c:if test='${form ne null}'>value='${form.part_id}'</c:if> />
 </TD></TR>
-<TR><TD>Version</TD><TD>
+<TR><TD class="description">Version</TD><TD>
 	<input type='text' name='version' <c:if test='${form ne null}'>value='${form.version}'</c:if> />
 </TD></TR>
-<TR><TD>Revision</TD><TD>
+<TR><TD class="description">Revision</TD><TD>
 	<input type='text' name='revision' <c:if test='${form ne null}'>value='${form.revision}'</c:if> />
 </TD></TR>
-<TR><TD>Colour</TD><TD>
+<TR><TD class="description">Colour</TD><TD>
 	<input type='text' name='colour' <c:if test='${form ne null}'>value='${form.colour}'</c:if> />
 </TD></TR>
-<TR><TD>External</TD><TD>
+<TR><TD class="description">External</TD><TD>
 	<input type='checkbox' name='external' <c:if test='${form ne null and form.external eq true}'>checked='checked'</c:if> />
 </TD></TR>
-<TR><TD>QSS No.</TD><TD>
+<TR><TD class="description">QSS No.</TD><TD>
 	<input type='text' name='qss_no' <c:if test='${form ne null}'>value='${form.qss_no}'</c:if> />
 </TD></TR>
-<TR><TD>
-<SCRIPT>
-function home()
-{
-	location="Part_search";
-}
-</SCRIPT>
+
+
+</TABLE>
+
+<span class="buttons">
 <button type="button" value="home" onclick="home()">Home</button>
-</TD><TD>
 <%-- To tell the servlet which mode the page is submitting in --%>
 <c:if test="${mode eq null }">
 	<input type='submit'  name="mode" value='Enter'/>
@@ -106,13 +103,9 @@ function home()
 <c:if test="${mode eq 'edit' }">
 	<input type='submit'  name="mode" value='Edit'/>
 </c:if>
-</TD></TR>
-</TABLE>
-
+</span>
 </FORM>
 
-
-</DIV>
 <DIV class="result">
 <%-- To let the user know the part has been saved --%>
 <c:if test="${result ne null }">

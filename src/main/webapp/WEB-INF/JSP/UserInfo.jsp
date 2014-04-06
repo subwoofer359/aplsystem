@@ -64,14 +64,13 @@ Session count: ${session_count}<br/>
 <!--  <form action="APLSystemServlet">
 <input type="button" value="Go Home"/> 
 </form>-->
+
+
+<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
+</form>
 <span class="buttons">
 <button onclick="goHome(this)">Go Home</button>
-<form action="${pageContext.request.contextPath}/logout" method="post">
-
-
-<button type="submit">Log Out</button>
-
-</form>
+<button form="logout" type="submit">Log Out</button>
 </span>
 </body>
 </html>

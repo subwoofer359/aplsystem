@@ -42,7 +42,7 @@ table
 .dme,
 .ejectors
 {
-	position:absolute;
+	position:fixed;
 	top:200px;
 	width:98%;
 	height:100%;
@@ -151,11 +151,7 @@ function hideInfo(element)
 
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
-<DIV class="error">
-<c:forEach items="${errors}" var="error"> 
-${error}<br/>
-</c:forEach>
-</DIV>
+<SCRIPT>alert("${errors}");</SCRIPT>
 </c:if>
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
 <FORM method="post" action="${pageContext.request.contextPath}/Processing/ProcessSheetBean"> 

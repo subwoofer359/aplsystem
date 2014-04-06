@@ -1,0 +1,23 @@
+@CHARSET "UTF-8";
+/* Layout for Entry pages */
+TABLE
+{
+	position:fixed;
+	top:110px;
+	background-color:white;
+	width:95%;	
+	margin-left:2%;
+	margin-right:auto;
+
+}
+
+.description /* TD */
+{
+	width:25%;
+}
+
+input[type="text"]
+{
+	width:70%;
+	font-size:xx-large;
+}

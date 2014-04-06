@@ -12,36 +12,35 @@
 }
 
 .search
-{
-	position: fixed;
-	left:0;
-	bottom:4px;
-	border-style: solid;
-	border-radius: 30px;
-	padding: 10px;
-	min-width:30%;
-	max-width:70%;
-}
-
-.search input[type="text"]
-{
-	max-width:80%;
-	font-size:xx-large;
-	
-}
-.search input[type="submit"]
-{
-	max-height:50px;
-	font-size:xx-large;
-}
-
+ {
+ 	position: fixed;
+ 	left:0;
+ 	bottom:4px;
+ 	borderstyle: solid;
+ 	borderradius: 30px;
+ 	padding: 10px;
+ 	minwidth:30%;
+ 	maxwidth:70%;
+ }
+ 
+ .search input[type="text"]
+ {
+ 	maxwidth:80%;
+ 	fontsize:xxlarge;
+ 	
+ }
+ .search input[type="submit"]
+ {
+ 	maxheight:50px;
+ 	fontsize:xxlarge;
+ }
 .buttons
 {
 	position:fixed;
 	right:4px;
 	bottom:4px;
 }
-.buttons input
+.buttons input,button
 {
 	font-size:xx-large;
 }
@@ -63,7 +62,7 @@
 
 TABLE
 {
-	position:absolute;
+	top:150px;
 	background-color:white;
 	width:100%;	
 }
@@ -71,7 +70,7 @@ TABLE
 TD
 {
 	text-align:left;
-	font-size:x-large;
+	font-size:xx-large;
 	line-height: 77px;
 }
 
@@ -93,4 +92,10 @@ TH
 INPUT[type="checkbox"]
 {
 
+}
+/* Hide Checkboxes*/
+.checkbox
+{
+	visibility:hidden;
+	width:0;
 }
