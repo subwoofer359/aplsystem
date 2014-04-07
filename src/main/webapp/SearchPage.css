@@ -26,13 +26,13 @@
  .search input[type="text"]
  {
  	max-width:80%;
- 	font-size:xxlarge;
+ 	font-size:xx-large;
  	
  }
  .search input[type="submit"]
  {
  	max-height:50px;
- 	font-size:xxlarge;
+ 	font-size:xx-large;
  }
 .buttons
 {
