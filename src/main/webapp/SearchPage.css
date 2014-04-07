@@ -16,23 +16,23 @@
  	position: fixed;
  	left:0;
  	bottom:4px;
- 	borderstyle: solid;
- 	borderradius: 30px;
+ 	border-style: solid;
+ 	border-radius: 30px;
  	padding: 10px;
- 	minwidth:30%;
- 	maxwidth:70%;
+ 	min-width:30%;
+ 	max-width:70%;
  }
  
  .search input[type="text"]
  {
- 	maxwidth:80%;
- 	fontsize:xxlarge;
+ 	max-width:80%;
+ 	font-size:xxlarge;
  	
  }
  .search input[type="submit"]
  {
- 	maxheight:50px;
- 	fontsize:xxlarge;
+ 	max-height:50px;
+ 	font-size:xxlarge;
  }
 .buttons
 {
@@ -49,7 +49,7 @@
 {
 	position: fixed;
 	top: 90px;
-	border-style: solid;
+	/*border-style: solid;*/
 	width:98%;
 	min-width:70%;
 	max-width:98%;
