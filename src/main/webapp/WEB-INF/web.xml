@@ -127,4 +127,16 @@
     <servlet-name>ProcessSheetBean</servlet-name>
     <url-pattern>/Processing/ProcessSheetBean</url-pattern>
   </servlet-mapping>
+  
+  
+  <servlet>
+        <servlet-name>User</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>User</servlet-name>
+        <url-pattern>/User/*</url-pattern>
+    </servlet-mapping>
 </web-app>
