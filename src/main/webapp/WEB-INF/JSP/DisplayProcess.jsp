@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <style>
 .title 
 {
