@@ -6,35 +6,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/theme.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
 <style>
+.title 
+{
+	z-index: 1;
+}
+
+.navbox
+{
+	z-index: 2;
+}
+
 .informationbox
 {
+	position:absolute;
 	border-style: solid;
 	border-radius: 25px;
 	background-color: white;
 	margin-top:4px;
-	margin-left:auto;
+	margin-left:20px;
 	margin-right:auto;
 	top:100px;
-	width:20%;
-	left:10%;
+	width:50%;
+	left:5%;
 	padding: 20px;
 	overflow:auto;
+	font-size:xx-large;
 }
+
 .information
 {
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	margin-top:4px;
-	margin-left:auto;
-	margin-right:auto;
-	top:100px;
-	width:60%;
-	left:10%;
-	padding: 20px;
+	position:relative;
+	top:420px;
+	
 }
+
 .header
 {
 	font-weight: bold;
