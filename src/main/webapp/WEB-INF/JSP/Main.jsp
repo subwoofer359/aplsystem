@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!--  <link rel="SHORTCUT ICON" HREF="${pageContext.request.contextPath}/images/xbill_01.jpg">  --> <!--  To be placed in header --> 
 <title>ACME Plastics Systems' Main Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <STYLE>
 
 DIV.icon 
@@ -88,8 +88,9 @@ table
 	<DIV id="security" class="icon">
 		Security Panel
 	</DIV>
-	</c:if>
 	</a>
+	</c:if>
+	
 </td>
 <td>
 </td>

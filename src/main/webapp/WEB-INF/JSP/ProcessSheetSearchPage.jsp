@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics :Process Sheets Search Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <style>
 
 </style>

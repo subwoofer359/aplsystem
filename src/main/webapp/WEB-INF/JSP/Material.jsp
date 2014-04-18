@@ -6,9 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics: Material Sheet</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/General.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/SearchPage.css">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/EntryPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <style type="text/css">
 TD
 {
