@@ -58,12 +58,10 @@ function hideInfo(element)
 	border-radius: 25px;
 	background-color: white;
 	margin-top:4px;
-	margin-left:20px;
-	margin-right:auto;
-	top:90px;
+	top:85px;
 	width:50%;
-	left:5%;
-	padding: 20px;
+	left:10px;
+	padding: 10px;
 	overflow:auto;
 	font-size:xx-large;
 }
@@ -76,11 +74,13 @@ function hideInfo(element)
 .chart
 {
 	position:absolute;
-	top:400px;
+	top:360px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	width:95%;
-	height:50%;
+	height:45%;
+	min-height:40%;
+	margin-top:40px;
 	margin-right:10px;
 	margin-left:10px;
 	visibility:hidden;
@@ -118,7 +118,7 @@ select
 </TABLE>
 </DIV>
 
-<select id="chartSelect" onclick="hideInfo(this)">
+<select id="chartSelect" onchange="hideInfo(this)">
 	<option value="injectionTimePressureChart" >Injection Time/Pressure</option>
 	<option value="injectionTimeSpeedChart" >Injection Time/Speed</option>
 	<option value="mouldclosingtimechart" >Mould Closing</option>

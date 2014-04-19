@@ -131,7 +131,7 @@ function hideInfo(element)
 <%@ include file="NavigationDiv.jspf" %>
 
 <!-- Selection box -->
-<select id="pageSelect" onclick='hideInfo(this)'>
+<select id="pageSelect" onchange='hideInfo(this)'>
 <option value="info">Information</option>
 <option value="injection">Injection</option>
 <option value="holding">Holding</option>
