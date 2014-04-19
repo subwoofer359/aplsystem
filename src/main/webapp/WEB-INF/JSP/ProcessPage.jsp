@@ -75,21 +75,12 @@ table
 	font-size:xx-large;
 }
 /* Tabs at the top of window */
-.menu
+#pageSelect
 {
 	position:fixed; 
-	top:80px; 
+	top:80px;
 }
 
-.menu span
-{
-	height:40px;
-	line-height:40px;	/* #must be the same as height */
-	border-style:solid;
-	border-color:black;
-	padding-right:4px;
-	display:inline-block;
-}
 
 </style>
 
@@ -99,6 +90,7 @@ table
 
 <!-- Javascript function to work tabbing -->
 <SCRIPT>
+/*List of HTML divs*/
 var tabs=["info",
           "injection",
           "holding",
@@ -110,23 +102,26 @@ var tabs=["info",
           "dme",
           "ejectors"
           ];
-          
+
+/**
+ * To display the select HTML div and hide the rest
+ */
 function hideInfo(element)
 {
 	console.log(element);
-	var selectedTab=element.id;
+	var selectedOption=element.options[element.selectedIndex];
 	for(var i=0;i<tabs.length;i++)
 	{
-		if(tabs[i]!=selectedTab)
+		if(tabs[i]!=selectedOption.value)
 		{
 			var elements=document.getElementsByClassName(tabs[i]);
 			elements[0].style.visibility="hidden";
 			console.log("Element:"+tabs[i]+" is hidden");	
 		}
 	}
-	var elements=document.getElementsByClassName(selectedTab);
+	var elements=document.getElementsByClassName(selectedOption.value);
 	elements[0].style.visibility="visible";
-	console.log("Element:"+selectedTab+" is visible");
+	console.log("Element:"+selectedOption.value+" is visible");
 	
 }
 </SCRIPT>
@@ -135,19 +130,19 @@ function hideInfo(element)
 </div>
 <%@ include file="NavigationDiv.jspf" %>
 
-<!-- Display tabs -->
-<SPAN class="menu">
-<SPAN  id="info"			onclick='hideInfo(this)'>Information</SPAN>
-<SPAN  id="injection"		onclick='hideInfo(this)'>Injection</SPAN>
-<SPAN  id="holding"			onclick='hideInfo(this)'>Holding</SPAN>
-<SPAN  id="injExtOptions"	onclick='hideInfo(this)'>Injection Options</SPAN>
-<SPAN  id="extrusion"		onclick='hideInfo(this)'>Extrusion</SPAN>
-<SPAN  id="barrelTemperatures"  onclick='hideInfo(this)'>Barrel Temperatures</SPAN>
-<SPAN  id="mouldOpening"  	onclick='hideInfo(this)'>Moulding Opening</SPAN>
-<SPAN  id="mouldClosing"	onclick='hideInfo(this)'>Moulding Closing</SPAN>
-<SPAN  id="dme"  			onclick='hideInfo(this)'>DME</SPAN>
-<SPAN  id="ejectors"  		onclick='hideInfo(this)'>Ejectors</SPAN>
-</SPAN>
+<!-- Selection box -->
+<select id="pageSelect" onclick='hideInfo(this)'>
+<option value="info">Information</option>
+<option value="injection">Injection</option>
+<option value="holding">Holding</option>
+<option value="injExtOptions">Inejection/Extrusion Options</option>
+<option value="extrusion">Extrusion</option>
+<option value="barrelTemperatures">Barrel Temperatures</option>
+<option value="mouldOpening">Mould Opening</option>
+<option value="mouldClosing">Mould Closing</option>
+<option value="dme">DME</option>
+<option value="ejectors">Ejectors</option>
+</select>
 
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
