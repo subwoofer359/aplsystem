@@ -7,6 +7,39 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
+
+<SCRIPT>
+//An array of Chart IDs
+var charts=[
+		"injectionTimePressureChart",
+		"injectionTimeSpeedChart",
+		"mouldclosingtimechart",
+		"cycleTimeLineChart"	
+          ];
+
+//Function to display the correct chart
+function hideInfo(element)
+{
+
+	console.log(element);
+	var selectedChart=element.options[element.selectedIndex];
+	var id=selectedChart.value;
+	
+	for(var i=0;i<charts.length;i++)
+	{
+		if(charts[i]!=id)
+		{
+			var element=document.getElementById(charts[i]);
+			element.style.visibility="hidden";
+			console.log("Element:"+charts[i]+" is hidden");	
+		}
+	}
+	var element=document.getElementById(id);
+	element.style.visibility="visible";
+	console.log("Element:"+selectedChart+" is visible");
+}
+</SCRIPT>
+
 <style>
 .title 
 {
@@ -27,7 +60,7 @@
 	margin-top:4px;
 	margin-left:20px;
 	margin-right:auto;
-	top:100px;
+	top:90px;
 	width:50%;
 	left:5%;
 	padding: 20px;
@@ -35,22 +68,37 @@
 	font-size:xx-large;
 }
 
-.information
-{
-	position:relative;
-	top:420px;
-	
-}
-
 .header
 {
 	font-weight: bold;
 }
+
 .chart
 {
- padding-top: 5px;
- padding-bottom: 5px;
- 
+	position:absolute;
+	top:400px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width:95%;
+	height:50%;
+	margin-right:10px;
+	margin-left:10px;
+	visibility:hidden;
+	
+}
+
+select
+{
+	position:fixed;
+	top:100px;
+	right:5px;
+	font-size:xx-large;
+	z-index:4;
+}
+
+#injectionTimePressureChart
+{
+	visibility: visible;
 }
 </style>
 </head>
@@ -69,7 +117,14 @@
 <TR><TD class="header">Signed of by:</TD><TD>${process.signOffBy}</TD></TR>
 </TABLE>
 </DIV>
-<DIV class="information">
+
+<select id="chartSelect" onclick="hideInfo(this)">
+	<option value="injectionTimePressureChart" >Injection Time/Pressure</option>
+	<option value="injectionTimeSpeedChart" >Injection Time/Speed</option>
+	<option value="mouldclosingtimechart" >Mould Closing</option>
+	<option value="cycleTimeLineChart" >Cycle Time</option>
+</select>
+
 <tags:Chart>
 	<jsp:attribute name="injectiontimespeed">
 		<tags:InjectionTimeSpeed process="${process}"></tags:InjectionTimeSpeed>
@@ -84,6 +139,6 @@
 		<tags:MouldClosing process="${process}"></tags:MouldClosing>
 	</jsp:attribute>
 </tags:Chart>
-</DIV>
+
 </body>
 </html>

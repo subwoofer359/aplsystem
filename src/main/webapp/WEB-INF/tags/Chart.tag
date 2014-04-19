@@ -24,10 +24,10 @@ google.setOnLoadCallback(drawChart);function drawChart()
 <DIV   id="injectionTimeSpeedChart" class="chart">
 </DIV>
 <c:if test="${cycletime ne null}">
-<DIV   id="cycleTimeChart" style="height:700px" class="chart">
+<DIV   id="cycleTimeChart" class="chart">
 </DIV>
 </c:if>
-<DIV   id="mouldclosingtimechart" style="height:400px" class="chart">
+<DIV   id="mouldclosingtimechart" class="chart">
 </DIV>
-<DIV   id="cycleTimeLineChart" style="height:400px" class="chart">
+<DIV   id="cycleTimeLineChart" class="chart">
 </DIV>
