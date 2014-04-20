@@ -90,7 +90,11 @@ table
 
 <!-- Javascript function to work tabbing -->
 <SCRIPT>
-/*List of HTML divs*/
+//Stop the enter button from submitting the form
+document.onkeypress=stopEnter;
+
+// List of the HTML div to display
+
 var tabs=["info",
           "injection",
           "holding",
@@ -103,26 +107,87 @@ var tabs=["info",
           "ejectors"
           ];
 
-/**
- * To display the select HTML div and hide the rest
- */
+
+// Hide all HTML div except the div the user requested
 function hideInfo(element)
 {
 	console.log(element);
+	//Get the user option form the select element
 	var selectedOption=element.options[element.selectedIndex];
+	//Loop through the HTML divs and hide them except for the requested div
 	for(var i=0;i<tabs.length;i++)
 	{
 		if(tabs[i]!=selectedOption.value)
 		{
-			var elements=document.getElementsByClassName(tabs[i]);
-			elements[0].style.visibility="hidden";
+			var element=document.getElementById(tabs[i]);
+			element.style.visibility="hidden";
 			console.log("Element:"+tabs[i]+" is hidden");	
 		}
 	}
-	var elements=document.getElementsByClassName(selectedOption.value);
-	elements[0].style.visibility="visible";
+	//Make the request HTML div visible
+	var element=document.getElementById(selectedOption.value);
+	element.style.visibility="visible";
 	console.log("Element:"+selectedOption.value+" is visible");
 	
+}
+
+/*
+ * Change focus to the next Input element
+ */
+function nextInput(event,element)
+{
+	var code = (event.keyCode ? event.keyCode : event.which);
+ 	if(code == 13) 
+	{
+		console.log(element);
+		var inputs=document.getElementsByTagName("input");
+		var index;
+		for(var i=0;i<inputs.length;i++)
+		{
+			if(inputs[i]==element)
+			{
+				index=i;
+				break;
+			}
+		}
+		index++;
+		inputs[index].focus();
+		return false;
+	}
+}
+
+/*
+ * When the enter button is pressed change HTML div to the next one and focus on the first element
+ */
+function checkEnterNextPage(event,element)
+{
+	var code = (event.keyCode ? event.keyCode : event.which);
+ 	if(code == 13) 
+	{
+ 		// Get the current HTML div index
+		var selectElement=document.getElementById("pageSelect");
+		var selectedIndex=selectElement.selectedIndex;
+		console.log("Index:"+selectedIndex);
+		//Change to the next HTML div
+		selectElement.selectedIndex=selectedIndex+1;
+		//Cause the next DIV to be displayed
+		hideInfo(selectElement);
+		//Move focus to next Input statement
+		nextInput(event,element);
+	}
+}
+
+/*
+ * Stop the enter key from submitting
+ */
+function stopEnter(event)
+{
+	var code = (event.keyCode ? event.keyCode : event.which);
+ 	if(code == 13) 
+	{
+		return false; 	
+	}
+
 }
 </SCRIPT>
 <div class="title">
