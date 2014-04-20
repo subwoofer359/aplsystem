@@ -34,3 +34,21 @@ body
 	border-color: #345169;
 	font-size:x-large;
 }
+
+.error_message
+{
+	border-style: solid;
+	border-radius: 25px;
+	background-color: red;
+	
+	position:relative;
+	top:200px;
+	width:60%;
+	left:10%;
+	padding: 20px;
+
+	font-size: 20px;
+	
+	text-align: center;		
+	overflow: auto;
+}
