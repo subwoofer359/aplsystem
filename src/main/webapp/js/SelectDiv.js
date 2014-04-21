@@ -2,8 +2,12 @@
  * 
  */
 
-// Hide all HTML div except the div the user requested
-function displayDiv(element)
+/**
+ * Hide all HTML div except the div the user requested
+ * @param element HTML Select element
+ * @param tabs an array of div ids 
+ */ 
+function displayDiv(element,tabs)
 {
 	console.log("HideInfo:"+element);
 	//Get the user option form the select element

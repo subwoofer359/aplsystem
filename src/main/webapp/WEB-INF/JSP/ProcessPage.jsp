@@ -115,7 +115,7 @@ var tabs=["info",
 <%@ include file="NavigationDiv.jspf" %>
 
 <!-- Selection box -->
-<select id="pageSelect" onchange='displayDiv(this)'>
+<select id="pageSelect" onchange='displayDiv(this,tabs)'>
 <option value="info">Information</option>
 <option value="injection">Injection</option>
 <option value="holding">Holding</option>

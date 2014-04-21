@@ -7,7 +7,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
-
+<script src="js/InputFocus.js"></script>
+<script src="js/SelectDiv.js"></script>
 <SCRIPT>
 //An array of Chart IDs
 var charts=[
@@ -16,7 +17,7 @@ var charts=[
 		"mouldclosingtimechart",
 		"cycleTimeLineChart"	
           ];
-
+/*
 //Function to display the correct chart
 function hideInfo(element)
 {
@@ -38,6 +39,7 @@ function hideInfo(element)
 	element.style.visibility="visible";
 	console.log("Element:"+selectedChart+" is visible");
 }
+*/
 </SCRIPT>
 
 <style>
@@ -118,7 +120,7 @@ select
 </TABLE>
 </DIV>
 
-<select id="chartSelect" onchange="hideInfo(this)">
+<select id="chartSelect" onchange="displayDiv(this,charts)">
 	<option value="injectionTimePressureChart" >Injection Time/Pressure</option>
 	<option value="injectionTimeSpeedChart" >Injection Time/Speed</option>
 	<option value="mouldclosingtimechart" >Mould Closing</option>
