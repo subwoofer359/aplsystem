@@ -16,12 +16,12 @@ select,textarea,fieldset legend
 }
 
 
-.float input,.info input
+.float input,#info input
 {
 	width:80%;
 	font-size:xx-large;
 }
-.float td,.info td
+.float td,#info td
 {
 	font-size:xx-large;
 	
@@ -31,16 +31,16 @@ table
 	
 }
 
-.info,
-.injection,
-.holding,
-.injExtOptions,
-.extrusion,
-.barrelTemperatures,
-.mouldOpening,
-.mouldClosing,
-.dme,
-.ejectors
+#info,
+#injection,
+#holding,
+#injExtOptions,
+#extrusion,
+#barrelTemperatures,
+#mouldOpening,
+#mouldClosing,
+#dme,
+#ejectors
 {
 	position:fixed;
 	top:200px;
@@ -50,15 +50,15 @@ table
 	
 }
 /* To make all divs invisible */
-.injection,
-.holding,
-.injExtOptions,
-.extrusion,
-.barrelTemperatures,
-.mouldOpening,
-.mouldClosing,
-.dme,
-.ejectors
+#injection,
+#holding,
+#injExtOptions,
+#extrusion,
+#barrelTemperatures,
+#mouldOpening,
+#mouldClosing,
+#dme,
+#ejectors
 {
 	visibility:hidden;
 }
@@ -93,6 +93,9 @@ table
 //Stop the enter button from submitting the form
 document.onkeypress=stopEnter;
 
+//Add listener to Input elements to control focus
+window.onload=addFocusListenerToTextInput;
+
 // List of the HTML div to display
 
 var tabs=["info",
@@ -101,17 +104,34 @@ var tabs=["info",
           "injExtOptions",
           "extrusion",
           "barrelTemperatures",
-          "mouldOpening",
           "mouldClosing",
-          "dme",
-          "ejectors"
+          "mouldOpening",
+          "ejectors",
+          "dme"
           ];
 
+function addFocusListenerToTextInput()
+{
+	//Get all Input Elements
+	var inputs=document.getElementsByTagName("input");
+	for(var i=0;i<inputs.length;i++)
+	{
+		//add Listener to change focus
+		inputs[i].addEventListener("keypress",function(event,element){nextInput(event,this);});
+		console.log("adding listener to "+inputs[i]);
+
+		//add Listener to change page
+		if(inputs[i].className=="end")
+		{
+			inputs[i].addEventListener("keypress",function(event,element){checkEnterNextPage(event,this);});
+		}
+	}
+}
 
 // Hide all HTML div except the div the user requested
 function hideInfo(element)
 {
-	console.log(element);
+	console.log("HideInfo:"+element);
 	//Get the user option form the select element
 	var selectedOption=element.options[element.selectedIndex];
 	//Loop through the HTML divs and hide them except for the requested div
@@ -141,7 +161,7 @@ function nextInput(event,element)
 	{
 		console.log(element);
 		var inputs=document.getElementsByTagName("input");
-		var index;
+		var index=0;
 		for(var i=0;i<inputs.length;i++)
 		{
 			if(inputs[i]==element)
@@ -203,10 +223,10 @@ function stopEnter(event)
 <option value="injExtOptions">Inejection/Extrusion Options</option>
 <option value="extrusion">Extrusion</option>
 <option value="barrelTemperatures">Barrel Temperatures</option>
-<option value="mouldOpening">Mould Opening</option>
 <option value="mouldClosing">Mould Closing</option>
-<option value="dme">DME</option>
+<option value="mouldOpening">Mould Opening</option>
 <option value="ejectors">Ejectors</option>
+<option value="dme">DME</option>
 </select>
 
 <%-- Display errors if there any --%>
@@ -218,7 +238,7 @@ function stopEnter(event)
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
-<DIV class="info">
+<DIV id="info">
 <fieldset>
 <legend>Basic Information</legend>
 <TABLE>
@@ -240,11 +260,11 @@ function stopEnter(event)
 <TR><TD>MasterBatch:</TD><TD><input type="text" name="masterbatchNo" value='${form.masterbatchNo}'/></TD></TR>
 <TR><TD>Date of Issue</TD><TD><input type="date" name="dateOfIssue" value='${form.dateOfIssue}'/></TD></TR>
 <TR><TD>Sign Off by:</TD><TD><input type="text" name="signOffBy"  value='${form.signOffBy}'/></TD></TR>
-<TR><TD>Notes:</TD><TD><input type="text" name="processNotes"  value='${form.processNotes}'/></TD></TR>
+<TR><TD>Notes:</TD><TD><input class="end" type="text" name="processNotes"  value='${form.processNotes}'/></TD></TR>
 </TABLE>
 </fieldset>
 </DIV>
-<DIV class="injection">
+<DIV id="injection">
 <fieldset>
 <legend>Injection</legend>
 <TABLE class="float">
@@ -253,12 +273,12 @@ function stopEnter(event)
 	 <TR><TD>Speed 3:</TD><TD><input type="text" name="injectionSpeed_3" value='${form.injectionSpeed_3}'/></TD><TD>Position 3:</TD><TD><input type="text" name="injSpeedPosition_3" id="injSpeedPosition_3" value='${form.injSpeedPosition_3}'/></TD></TR>
 	 <TR><TD>Speed 4:</TD><TD><input type="text" name="injectionSpeed_4" value='${form.injectionSpeed_4}'/></TD><TD>Position 4:</TD><TD><input type="text" name="injSpeedPosition_4" id="injSpeedPosition_4" value='${form.injSpeedPosition_4}'/></TD></TR>
 	 <TR><TD>Speed 5:</TD><TD><input type="text" name="injectionSpeed_5" value='${form.injectionSpeed_5}'/></TD><TD>Position 5:</TD><TD><input type="text" name="injSpeedPosition_5" id="injSpeedPosition_5" value='${form.injSpeedPosition_5}'/></TD></TR>
-	 <TR><TD>Speed 6:</TD><TD><input type="text" name="injectionSpeed_6" value='${form.injectionSpeed_6}'/></TD><TD>Position 6:</TD><TD><input type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value='${form.injSpeedPosition_6}'/></TD></TR>
+	 <TR><TD>Speed 6:</TD><TD><input type="text" name="injectionSpeed_6" value='${form.injectionSpeed_6}'/></TD><TD>Position 6:</TD><TD><input class="end" type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value='${form.injSpeedPosition_6}'/></TD></TR>
 </TABLE>
 </fieldset>
 </DIV>
 
-<DIV class="holding">
+<DIV id="holding">
 <fieldset>
 <legend>Holding Phase</legend>
 <TABLE class="float">
@@ -267,11 +287,11 @@ function stopEnter(event)
 	 <TR><TD>Pressure 3:</TD><TD><input type="text" name="holdingPressure_3" value='${form.holdingPressure_3}'/></TD><TD>Time 3:</TD><TD><input type="text" name="holdingTime_3" value='${form.holdingTime_3}'/></TD></TR>
 	 <TR><TD>Pressure 4:</TD><TD><input type="text" name="holdingPressure_4" value='${form.holdingPressure_4}'/></TD><TD>Time 4:</TD><TD><input type="text" name="holdingTime_4" value='${form.holdingTime_4}'/></TD></TR>
 	 <TR><TD>Pressure 5:</TD><TD><input type="text" name="holdingPressure_5" value='${form.holdingPressure_5}'/></TD><TD>Time 5:</TD><TD><input type="text" name="holdingTime_5" value='${form.holdingTime_5}'/></TD></TR>
-	 <TR><TD>Pressure 6:</TD><TD><input type="text" name="holdingPressure_6" value='${form.holdingPressure_6}'/></TD><TD>Time 6:</TD><TD><input type="text" name="holdingTime_6" value='${form.holdingTime_6}'/></TD></TR>
+	 <TR><TD>Pressure 6:</TD><TD><input type="text" name="holdingPressure_6" value='${form.holdingPressure_6}'/></TD><TD>Time 6:</TD><TD><input class="end" type="text" name="holdingTime_6" value='${form.holdingTime_6}'/></TD></TR>
 </TABLE>
 </fieldset>
 </DIV>
-<DIV class="injExtOptions">
+<DIV id="injExtOptions">
 <fieldset>
 <legend>Injection Options</legend>
 <TABLE class="float">
@@ -282,12 +302,12 @@ function stopEnter(event)
 	 <TR><TD>Shot Size(CC):</TD><TD><input type="text" name="shotSize" value='${form.shotSize}'/></TD></TR>
 	 <TR><TD>Decompression Distance:</TD><TD><input type="text" name="decompressionDist" value='${form.decompressionDist}'/></TD></TR>
 	 <TR><TD>Decompression Velocity:</TD><TD><input type="text" name="decompressionVel" value='${form.decompressionVel}'/></TD></TR>
-	 <TR><TD>Cooling Time:</TD><TD><input type="text" name="coolTime" value='${form.coolTime}'/></TD></TR>
+	 <TR><TD>Cooling Time:</TD><TD><input class="end" type="text" name="coolTime" value='${form.coolTime}'/></TD></TR>
 	 
 </TABLE>
 </fieldset>
 </DIV>
-<DIV class="extrusion">
+<DIV id="extrusion">
 <fieldset>
 <legend>Extrusion</legend>
 <TABLE class="float">
@@ -297,13 +317,13 @@ function stopEnter(event)
 	<TR><TD><input type="text" name="backPressure_3" value='${form.backPressure_3}'/></TD><TD><input type="text" name="screwExtSpeed_3" value='${form.screwExtSpeed_3}'/></TD><TD><input type="text" name="extProfilePos_3" value='${form.extProfilePos_3}'/></TD></TR>
 	<TR><TD><input type="text" name="backPressure_4" value='${form.backPressure_4}'/></TD><TD><input type="text" name="screwExtSpeed_4" value='${form.screwExtSpeed_4}'/></TD><TD><input type="text" name="extProfilePos_4" value='${form.extProfilePos_4}'/></TD></TR>
 	<TR><TD><input type="text" name="backPressure_5" value='${form.backPressure_5}'/></TD><TD><input type="text" name="screwExtSpeed_5" value='${form.screwExtSpeed_5}'/></TD><TD><input type="text" name="extProfilePos_5" value='${form.extProfilePos_5}'/></TD></TR>
-	<TR><TD><input type="text" name="backPressure_6" value='${form.backPressure_6}'/></TD><TD><input type="text" name="screwExtSpeed_6" value='${form.screwExtSpeed_6}'/></TD><TD><input type="text" name="extProfilePos_6" value='${form.extProfilePos_6}'/></TD></TR>
+	<TR><TD><input type="text" name="backPressure_6" value='${form.backPressure_6}'/></TD><TD><input type="text" name="screwExtSpeed_6" value='${form.screwExtSpeed_6}'/></TD><TD><input class="end" type="text" name="extProfilePos_6" value='${form.extProfilePos_6}'/></TD></TR>
 	
 </TABLE>
 </fieldset>
 </DIV>
 
-<DIV class="barrelTemperatures">
+<DIV id="barrelTemperatures">
 <fieldset>
 <legend>Barrel Temperatures</legend>
 <TABLE class="float">
@@ -314,12 +334,12 @@ function stopEnter(event)
 <TD><input type="text" name="barrelTemperature_2" value='${form.barrelTemperature_2}'/></TD>
 <TD><input type="text" name="barrelTemperature_3" value='${form.barrelTemperature_3}'/></TD>
 <TD><input type="text" name="barrelTemperature_4" value='${form.barrelTemperature_4}'/></TD>
-<TD><input type="text" name="throatTemperature"   value='${form.throatTemperature}'/></TD>
+<TD><input class="end" type="text" name="throatTemperature" value='${form.throatTemperature}'/></TD>
 </TR>
 </TABLE>
 </fieldset>
 </DIV>
-<DIV class="mouldClosing">
+<DIV id="mouldClosing">
 <fieldset>
 <legend>Mould Closing</legend>
 <TABLE class="float">
@@ -331,13 +351,13 @@ function stopEnter(event)
 <TR><TD>CLS Slow</TD><TD>
 <input type="text" name="clsSlowPos" value='${form.clsSlowPos}'/></TD><TD><input type="text" name="clsSlowSpeed" value='${form.clsSlowSpeed}'/></TD></TR>
 <TR><TD>Close SP</TD><TD>
-<input type="text" name="clsSPPos" value='${form.clsSPPos}'/></TD><TD><input type="text" name="clsSPSpeed" value='${form.clsSPSpeed}'/></TD></TR>
+<input type="text" name="clsSPPos" value='${form.clsSPPos}'/></TD><TD><input class="end" type="text" name="clsSPSpeed" value='${form.clsSPSpeed}'/></TD></TR>
 </TABLE> 
 </fieldset>
 </DIV>
 
 
-<DIV class="mouldOpening">
+<DIV id="mouldOpening">
 <fieldset>
 <legend>Mould Opening</legend>
 <TABLE class="float">
@@ -348,12 +368,12 @@ function stopEnter(event)
 <TR><TD>Open 3 Step:</TD><TD><input type="text" name="mouldOpenStepPos_3" value='${form.mouldOpenStepPos_3}'/></TD><TD><input type="text" name="mouldOpenStepSpeed_3" value='${form.mouldOpenStepSpeed_3}'/></TD></TR>
 <TR></TR>
 <TR><TD>Mould Open Time</TD><TD><input type="text" name="mouldOpenTime" value='${form.mouldOpenTime}'/></TD><TD></TD></TR>
-<TR><TD>Eject Start</TD><TD><input type="text" name="ejectStart" value='${form.ejectStart}'/></TD><TD></TD></TR>
+<TR><TD>Eject Start</TD><TD><input class="end" type="text" name="ejectStart" value='${form.ejectStart}'/></TD><TD></TD></TR>
 </TABLE>
 </fieldset>
 </DIV>
 
-<DIV class="ejectors">
+<DIV id="ejectors">
 <fieldset>
 <legend>Ejectors</legend>
 <TABLE class="float">
@@ -363,12 +383,12 @@ function stopEnter(event)
 	<TR></TR>
 	<TR><TD>FWD</TD><TD><input type="text" name="ejectorsFwdPos" value='${form.ejectorsFwdPos}'/></TD><TD><input type="text" name="ejectorsFwdSpeed" value='${form.ejectorsFwdSpeed}'/></TD><TD><input type="text" name="ejectorsFwdTime" value='${form.ejectorsFwdTime}'/></TD></TR>
 	<TR><TD>STOP</TD><TD><input type="text" name="ejectorsStopPos" value='${form.ejectorsStopPos}'/></TD><TD><input type="text" name="ejectorsStopSpeed" value='${form.ejectorsStopSpeed}'/></TD><TD><input type="text" name="ejectorsStopTime" value='${form.ejectorsStopTime}'/></TD></TR>
-	<TR><TD>REV</TD><TD><input type="text" name="ejectorsRevPos" value='${form.ejectorsRevPos}'/></TD><TD><input type="text" name="ejectorsRevSpeed" value='${form.ejectorsRevSpeed}'/></TD><TD><input type="text" name="ejectorsRevTime" value='${form.ejectorsRevTime}'/></TD></TR>
+	<TR><TD>REV</TD><TD><input type="text" name="ejectorsRevPos" value='${form.ejectorsRevPos}'/></TD><TD><input type="text" name="ejectorsRevSpeed" value='${form.ejectorsRevSpeed}'/></TD><TD><input class="end" type="text" name="ejectorsRevTime" value='${form.ejectorsRevTime}'/></TD></TR>
 </TABLE>
 </fieldset>
 </DIV>
 
-<DIV class="dme">
+<DIV id="dme">
 
 <fieldset>
 <legend>DME and Water temperatures</legend>
