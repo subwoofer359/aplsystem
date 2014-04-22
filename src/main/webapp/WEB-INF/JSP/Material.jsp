@@ -21,7 +21,7 @@ input[type="text"]
 	font-size:x-large;
 }
 </style>
-
+<script src="js/InputFocus.js"></script>
 </head>
 
 <body>

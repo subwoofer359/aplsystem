@@ -48,7 +48,7 @@ input[type="text"]
 }
 
 </STYLE>
-
+<script src="js/InputFocus.js"></script>
 </head>
 <body>
 <DIV class="title">
@@ -67,7 +67,7 @@ input[type="text"]
 <TABLE>
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <TR><TD class="description">Name</TD><TD>
-	<input type='text' name='name' <c:if test='${form ne null}'>value='${form.name}'</c:if> />
+	<input type='text' name='name' <c:if test='${form ne null}'>value='${form.name}'</c:if> autofocus="autofocus"/>
 </TD></TR>
 <TR><TD class="description">Company</TD><TD>
 	<input type='text' name='company' <c:if test='${form ne null}'>value='${form.company}'</c:if> />

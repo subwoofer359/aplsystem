@@ -7,6 +7,41 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>process: ${process.partId}</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
+<script src="js/InputFocus.js"></script>
+<script src="js/SelectDiv.js"></script>
+<SCRIPT>
+//An array of Chart IDs
+var charts=[
+		"injectionTimePressureChart",
+		"injectionTimeSpeedChart",
+		"mouldclosingtimechart",
+		"cycleTimeLineChart"	
+          ];
+/*
+//Function to display the correct chart
+function hideInfo(element)
+{
+
+	console.log(element);
+	var selectedChart=element.options[element.selectedIndex];
+	var id=selectedChart.value;
+	
+	for(var i=0;i<charts.length;i++)
+	{
+		if(charts[i]!=id)
+		{
+			var element=document.getElementById(charts[i]);
+			element.style.visibility="hidden";
+			console.log("Element:"+charts[i]+" is hidden");	
+		}
+	}
+	var element=document.getElementById(id);
+	element.style.visibility="visible";
+	console.log("Element:"+selectedChart+" is visible");
+}
+*/
+</SCRIPT>
+
 <style>
 .title 
 {
@@ -25,32 +60,47 @@
 	border-radius: 25px;
 	background-color: white;
 	margin-top:4px;
-	margin-left:20px;
-	margin-right:auto;
-	top:100px;
+	top:85px;
 	width:50%;
-	left:5%;
-	padding: 20px;
+	left:10px;
+	padding: 10px;
 	overflow:auto;
 	font-size:xx-large;
-}
-
-.information
-{
-	position:relative;
-	top:420px;
-	
 }
 
 .header
 {
 	font-weight: bold;
 }
+
 .chart
 {
- padding-top: 5px;
- padding-bottom: 5px;
- 
+	position:absolute;
+	top:360px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	width:95%;
+	height:45%;
+	min-height:40%;
+	margin-top:40px;
+	margin-right:10px;
+	margin-left:10px;
+	visibility:hidden;
+	
+}
+
+select
+{
+	position:fixed;
+	top:100px;
+	right:5px;
+	font-size:xx-large;
+	z-index:4;
+}
+
+#injectionTimePressureChart
+{
+	visibility: visible;
 }
 </style>
 </head>
@@ -69,7 +119,14 @@
 <TR><TD class="header">Signed of by:</TD><TD>${process.signOffBy}</TD></TR>
 </TABLE>
 </DIV>
-<DIV class="information">
+
+<select id="chartSelect" onchange="displayDiv(this,charts)">
+	<option value="injectionTimePressureChart" >Injection Time/Pressure</option>
+	<option value="injectionTimeSpeedChart" >Injection Time/Speed</option>
+	<option value="mouldclosingtimechart" >Mould Closing</option>
+	<option value="cycleTimeLineChart" >Cycle Time</option>
+</select>
+
 <tags:Chart>
 	<jsp:attribute name="injectiontimespeed">
 		<tags:InjectionTimeSpeed process="${process}"></tags:InjectionTimeSpeed>
@@ -84,6 +141,6 @@
 		<tags:MouldClosing process="${process}"></tags:MouldClosing>
 	</jsp:attribute>
 </tags:Chart>
-</DIV>
+
 </body>
 </html>
