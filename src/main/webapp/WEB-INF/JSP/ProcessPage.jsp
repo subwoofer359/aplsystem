@@ -95,7 +95,8 @@ table
 
 
 // List of the HTML div to display
-
+window.addEventListener("load",
+function(){
 var tabs=["info",
           "injection",
           "holding",
@@ -107,6 +108,10 @@ var tabs=["info",
           "ejectors",
           "dme"
           ];
+//When the last input element in the div is entered the script will display the next div
+addChangePageListenerInput(tabs);
+},true);
+
 </script>
 
 <div class="title">

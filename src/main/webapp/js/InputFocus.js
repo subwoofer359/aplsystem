@@ -7,7 +7,6 @@ document.onkeypress=stopEnter;
 //Add listener to Input elements to control focus
 window.onload=addFocusListenerToTextInput;
 
-
 function addFocusListenerToTextInput()
 {
 	//Get all Input Elements
@@ -16,13 +15,19 @@ function addFocusListenerToTextInput()
 	{
 		//add Listener to change focus
 		inputs[i].addEventListener("keypress",function(event,element){nextInput(event,this);});
-		console.log("adding listener to "+inputs[i]);
-
-		//add Listener to change page
-		if(inputs[i].className=="end")
-		{
-			inputs[i].addEventListener("keypress",function(event,element){checkEnterNextPage(event,this);});
-		}
+		//console.log("adding listener to "+inputs[i]);
+	}
+}
+/**
+ * add Listener to change page on elements with the class="end"
+ */
+function addChangePageListenerInput(tabs)
+{
+	var elements=document.getElementsByClassName("end");
+	console.log("addChangePageListenerInput called: Elements with the class 'end':"+elements.length+" found");
+	for(var i=0;i<elements.length;i++)
+	{
+		elements[i].addEventListener("keypress",function(event,element){checkEnterNextPage(event,this,tabs);});
 	}
 }
 

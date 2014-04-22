@@ -30,11 +30,12 @@ function displayDiv(element,tabs)
 }
 
 
-/*
+/**
  * When the enter button is pressed change HTML div to the next one and focus on the first element
  * SELECT ELEMENT NAME="pageSelect"
+ * @param tabs - HTML divs to  hide or display 
  */
-function checkEnterNextPage(event,element)
+function checkEnterNextPage(event,element,tabs)
 {
 	var SELECTELEMENTNAME="pageSelect";
 	var code = (event.keyCode ? event.keyCode : event.which);
@@ -47,7 +48,7 @@ function checkEnterNextPage(event,element)
 		//Change to the next HTML div
 		selectElement.selectedIndex=selectedIndex+1;
 		//Cause the next DIV to be displayed
-		displayDiv(selectElement);
+		displayDiv(selectElement,tabs);
 		//Move focus to next Input statement
 		nextInput(event,element); //Todo Remove this out of this function
 	}
