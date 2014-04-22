@@ -106,7 +106,10 @@ var tabs=["info",
           "mouldOpening",
           "ejectors",
           "dme"
-          ];
+         ];
+//When the last input element in the div is entered the script will display the next div
+window.addEventListener("load",function(){addChangePageListenerInput(tabs);},true);
+
 </script>
 
 <div class="title">
