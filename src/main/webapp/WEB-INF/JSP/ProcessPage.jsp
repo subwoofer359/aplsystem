@@ -88,8 +88,8 @@ table
 <body>
 
 <!-- Javascript function to work tabbing -->
-<script type="text/javascript" src="js/InputFocus.js"></script>
-<script type="text/javascript" src="js/SelectDiv.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/InputFocus.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/SelectDiv.js"></script>
 <script>
 
 
