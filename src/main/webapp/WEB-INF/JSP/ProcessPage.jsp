@@ -152,7 +152,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <select name="material">
 	<c:forEach items='${materials}' var='material'>
 		<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-				${material.value}
+				<c:out value="${material.value}"/>
 		</option>
 	</c:forEach>
 </select>
