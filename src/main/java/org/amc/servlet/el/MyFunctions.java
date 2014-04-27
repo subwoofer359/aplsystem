@@ -16,6 +16,7 @@ public class MyFunctions
 	
 	public static String toString(MaterialBeanRemote material)
 	{
+		System.out.println("Helper Function:"+material.getName());
 		 return material.getCompany()+" "+material.getName()+" "+material.getType();
 	}
 }

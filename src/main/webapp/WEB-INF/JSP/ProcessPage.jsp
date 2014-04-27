@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -152,7 +153,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <select name="material">
 	<c:forEach items='${materials}' var='material'>
 		<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-				<c:out value="${material.value}"/>
+				<c:out value="${myfunc:toString(material.value)}"/>
 		</option>
 	</c:forEach>
 </select>
