@@ -85,9 +85,9 @@ table
 </td>
 <td>
 	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
-	<a href="${pageContext.request.contextPath}/security">
-	<DIV id="security" class="icon">
-		Security Panel
+	<a href="${pageContext.request.contextPath}/user/Users">
+	<DIV id="users" class="icon">
+		Users
 	</DIV>
 	</a>
 	</c:if>
