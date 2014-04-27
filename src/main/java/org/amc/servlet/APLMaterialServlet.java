@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.SaveMaterialAction;
 import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.servlet.model.Material;
+import org.amc.model.MaterialBeanRemote;
 import org.amc.servlet.model.MaterialForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
 import org.apache.log4j.Logger;
@@ -137,7 +141,7 @@ public class APLMaterialServlet extends HttpServlet
 		{
 		
 			//create model
-			Material material;
+			MaterialBeanRemote material;
 			
 			//String dispatcherURL="";
 			
@@ -212,7 +216,7 @@ public class APLMaterialServlet extends HttpServlet
 			try
 			{
 				SearchMaterialAction spt=materialActionFactory.getSearchMaterialAction();
-				Material process=spt.getMaterial(idValue);
+				MaterialBeanRemote process=spt.getMaterial(idValue);
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
 				rd.forward(request, response);
@@ -252,7 +256,7 @@ public class APLMaterialServlet extends HttpServlet
 					//if the page is to do a search
 					if(mode==null || mode.equals("search"))
 					{
-						Map<Integer,Material> list=null;
+						Map<Integer,MaterialBeanRemote> list=null;
 						//To check to search for all entries or entries where name=searchWord
 						if(searchWord==null||searchWord.equals(""))// search for all entries
 						{
@@ -290,7 +294,7 @@ public class APLMaterialServlet extends HttpServlet
 						{
 							logger.debug(String.format("searchMaterial:Opening Material.jsp"));
 							//open the JobTemplate JSPage in add mode
-							Material material =new Material();
+							MaterialBeanRemote material =getMaterialBean();
 							request.setAttribute("form", material);
 							dispatchURL="/WEB-INF/JSP/Material.jsp";
 						}
@@ -298,7 +302,7 @@ public class APLMaterialServlet extends HttpServlet
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchMaterial:Opening Material.jsp in edit mode"));
-							Material material=spt.getMaterial(idValue);
+							MaterialBeanRemote material=spt.getMaterial(idValue);
 							dispatchURL="/WEB-INF/JSP/Material.jsp";
 							request.setAttribute("form", material);
 							request.setAttribute("mode","edit");
@@ -324,8 +328,28 @@ public class APLMaterialServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-		super.init();
+//		DAOFactory daoFactory=DAOFactory.getInstance();
+//		setMaterialActionFactory(new MaterialActionFactoryImpl(daoFactory.getMaterialDAO()));
+		
 	}
+	
+	private MaterialBeanRemote getMaterialBean()
+	{
+		InitialContext ctx;
+		MaterialBeanRemote material=null;
+		try {
+	    	  Properties props = new Properties();
+	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
+	         ctx = new InitialContext(props);
+	         material=(MaterialBeanRemote)ctx.lookup("MaterialBeanRemote");
+	      } catch (NamingException ex) {
+	         ex.printStackTrace();
+	      }
+		return material;
+	}
+	
 }

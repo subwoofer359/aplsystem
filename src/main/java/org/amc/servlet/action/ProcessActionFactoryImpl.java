@@ -1,15 +1,15 @@
 package org.amc.servlet.action;
 
-import org.amc.servlet.dao.MouldingProcessDAO;
+import org.amc.dao.MouldingProcessDAOBeanRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ProcessActionFactoryImpl implements ProcessActionFactory
 {
 
-	private MouldingProcessDAO mouldingProcessDAO;
+	private MouldingProcessDAOBeanRemote mouldingProcessDAO;
 	
 	@Autowired
-	public ProcessActionFactoryImpl(MouldingProcessDAO mouldingProcessDAO)
+	public ProcessActionFactoryImpl(MouldingProcessDAOBeanRemote mouldingProcessDAO)
 	{
 		this.mouldingProcessDAO=mouldingProcessDAO;
 	}

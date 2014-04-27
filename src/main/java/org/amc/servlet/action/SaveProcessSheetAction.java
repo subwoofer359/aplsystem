@@ -2,16 +2,16 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.MouldingProcessDAO;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MouldingProcessBeanRemote;
+import org.amc.dao.MouldingProcessDAOBeanRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveProcessSheetAction 
 {
-	private MouldingProcessDAO mouldingProcessDAO;
+	private MouldingProcessDAOBeanRemote mouldingProcessDAO;
 	
 	@Autowired
-	public SaveProcessSheetAction(MouldingProcessDAO mouldingProcessDAO)
+	public SaveProcessSheetAction(MouldingProcessDAOBeanRemote mouldingProcessDAO)
 	{
 		this.mouldingProcessDAO=mouldingProcessDAO;
 	}
@@ -20,7 +20,7 @@ public class SaveProcessSheetAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void save(MouldingProcess processSheet) throws SQLException
+	public void save(MouldingProcessBeanRemote processSheet) throws SQLException
 	{
 		mouldingProcessDAO.addProcessSheet(processSheet);
 		
@@ -32,7 +32,7 @@ public class SaveProcessSheetAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void edit(MouldingProcess processSheet) throws SQLException
+	public void edit(MouldingProcessBeanRemote processSheet) throws SQLException
 	{
 		mouldingProcessDAO.updateProcessSheet(processSheet);
 	}

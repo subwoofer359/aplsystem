@@ -1,15 +1,15 @@
 package org.amc.servlet.action;
 
-import org.amc.servlet.dao.MaterialDAO;
+import org.amc.dao.MaterialDAOBeanRemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MaterialActionFactoryImpl implements MaterialActionFactory
 {
 
-	private MaterialDAO materialDAO;
+	private MaterialDAOBeanRemote materialDAO;
 	
 	@Autowired
-	public MaterialActionFactoryImpl(MaterialDAO materialDAO)
+	public MaterialActionFactoryImpl(MaterialDAOBeanRemote materialDAO)
 	{
 		this.materialDAO=materialDAO;
 	}

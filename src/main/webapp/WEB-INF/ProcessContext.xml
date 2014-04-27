@@ -17,8 +17,16 @@
  <bean id="processActionFactory" class="org.amc.servlet.action.ProcessActionFactoryImpl">
   	<constructor-arg ref="mouldingProcessDAO" />
   </bean>
-  
-  <bean id="mouldingProcessDAO" class="org.amc.servlet.dao.MouldingProcessDAOImpl">
- 	<constructor-arg ref="dataSource" />
-  </bean>         
+          
+    <bean id="mouldingProcessDAO" 
+    class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+        <property name="jndiName" value="MouldingProcessDAOBeanRemote"/>
+    	<property name="businessInterface" value="org.amc.dao.MouldingProcessDAOBeanRemote"/>
+    	<property name="jndiEnvironment">
+			     <props>
+			       <prop key="java.naming.factory.initial">org.apache.openejb.client.RemoteInitialContextFactory</prop>
+			       <prop key="java.naming.provider.url">ejbd://127.0.0.1:4201</prop>
+			     </props>
+		</property>
+    </bean>
  </beans>

@@ -1,4 +1,13 @@
 package org.amc.servlet.model;
+
+import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.amc.model.MaterialBeanRemote;
+
 /**
  * POJO to represent a material used for plastic injection moulding
  * @author adrian
@@ -161,30 +170,49 @@ public class MaterialForm
 		return this.getCompany()+" "+this.getName()+" "+this.getType();
 	}
 	
-	public static Material getMaterial(MaterialForm form) throws Exception
+	public static MaterialBeanRemote getMaterial(MaterialForm form) throws Exception
 	{
-		Material material=new Material();
+		MaterialBeanRemote material = null;
+		InitialContext ctx;
 		try
 		{
+			Properties props = new Properties();
+			props.put(Context.INITIAL_CONTEXT_FACTORY,
+					"org.apache.openejb.client.RemoteInitialContextFactory");
+			props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
+			ctx = new InitialContext(props);
+			material = (MaterialBeanRemote) ctx.lookup("MaterialBeanRemote");
+
 			material.setId(Integer.parseInt(form.getId()));
 			material.setCompany(form.getCompany());
 			material.setDensity(Float.parseFloat(form.getDensity()));
-			material.setLinear_expansion(Float.parseFloat(form.getLinear_expansion()));
-			material.setMaterial_drying(Float.parseFloat(form.getMaterial_drying()));
-			material.setMelting_temp_lower(Float.parseFloat(form.getMelting_temp_lower()));
-			material.setMelting_temp_upper(Float.parseFloat(form.getMelting_temp_upper()));
-			material.setMould_shrinkage(Float.parseFloat(form.getMould_shrinkage()));
-			material.setMould_temp_low(Float.parseFloat(form.getMould_temp_low()));
-			material.setMould_temp_upper(Float.parseFloat(form.getMould_temp_upper()));
-			material.setWater_absorption(Float.parseFloat(form.getWater_absorption()));
+			material.setLinear_expansion(Float.parseFloat(form
+					.getLinear_expansion()));
+			material.setMaterial_drying(Float.parseFloat(form
+					.getMaterial_drying()));
+			material.setMelting_temp_lower(Float.parseFloat(form
+					.getMelting_temp_lower()));
+			material.setMelting_temp_upper(Float.parseFloat(form
+					.getMelting_temp_upper()));
+			material.setMould_shrinkage(Float.parseFloat(form
+					.getMould_shrinkage()));
+			material.setMould_temp_low(Float.parseFloat(form
+					.getMould_temp_low()));
+			material.setMould_temp_upper(Float.parseFloat(form
+					.getMould_temp_upper()));
+			material.setWater_absorption(Float.parseFloat(form
+					.getWater_absorption()));
 			material.setType(form.getType());
 			material.setName(form.getName());
-		}
-		catch (NumberFormatException e)
+		} catch (NumberFormatException e)
 		{
-			Exception exception=new Exception("Couldn't parse MouldingProcessForm into MouldingProcess object");
+			Exception exception = new Exception(
+					"Couldn't parse MouldingProcessForm into MouldingProcess object");
 			exception.addSuppressed(e);
 			throw exception;
+		} catch (NamingException ex)
+		{
+			ex.printStackTrace();
 		}
 		return material;
 	}

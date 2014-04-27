@@ -2,15 +2,14 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.PartDAO;
-import org.amc.servlet.model.Part;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.amc.dao.PartDAOBeanRemote;
+import org.amc.model.PartBeanRemote;
 
 public class SavePartAction 
 {
-	private PartDAO partDAO;
+	private PartDAOBeanRemote partDAO;
 	
-	public SavePartAction(PartDAO jobTemplateDAO)
+	public SavePartAction(PartDAOBeanRemote jobTemplateDAO)
 	{
 		this.partDAO=jobTemplateDAO;
 	}
@@ -19,7 +18,7 @@ public class SavePartAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void save(Part job) throws SQLException
+	public void save(PartBeanRemote job) throws SQLException
 	{
 		partDAO.addPart(job);
 		
@@ -31,7 +30,7 @@ public class SavePartAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void edit(Part job) throws SQLException
+	public void edit(PartBeanRemote job) throws SQLException
 	{
 		partDAO.updatePart(job);
 	}

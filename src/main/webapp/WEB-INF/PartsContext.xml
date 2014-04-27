@@ -4,11 +4,11 @@
   xmlns:aop="http://www.springframework.org/schema/aop"
   xmlns:context="http://www.springframework.org/schema/context"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
-           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
            http://www.springframework.org/schema/aop
-           http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
            http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+           http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
   <context:component-scan base-package="org.amc" />
   
@@ -20,7 +20,16 @@
   	<constructor-arg ref="partDAO" />
   </bean>
   
-  <bean id="partDAO" class="org.amc.servlet.dao.PartDAOImpl">
-  	<constructor-arg ref="dataSource" />
-  </bean>
+  
+  <bean id="partDAO" class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+        <property name="jndiName" value="PartDAOBeanRemote"/>
+    	<property name="businessInterface" value="org.amc.dao.PartDAOBeanRemote"/>
+    	<property name="jndiEnvironment">
+			     <props>
+			       <prop key="java.naming.factory.initial">org.apache.openejb.client.RemoteInitialContextFactory</prop>
+			       <prop key="java.naming.provider.url">ejbd://127.0.0.1:4201</prop>
+			     </props>
+		</property>
+    </bean>
+        
 </beans>
