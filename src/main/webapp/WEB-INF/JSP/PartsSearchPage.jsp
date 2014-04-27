@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page errorPage="ErrorPage.jsp" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +24,7 @@
 <TABLE>
 <TR><TH>Id</TH><TH>Company</TH><TH>Name</TH><TH>Version</TH><TH>Colour</TH><TH>QSS no.</TH><TH></TH></TR>
 <c:forEach items="${parts}" var="part">
-<TR  onclick="selected(this)"><TD>${part.id}</TD><TD>${part.company}</TD><TD>${part.name}</TD><TD>${part.version}</TD><TD>${part.colour}</TD><TD>${part.qss_no}</TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
+<TR  onclick="selected(this)"><TD><c:out value="${part.id}"/></TD><TD><c:out value="${part.company}"/></TD><TD><c:out value="${part.name}"/></TD><TD><c:out value="${part.version}"/></TD><TD><c:out value="${part.colour}"/></TD><TD><c:out value="${part.qss_no}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
 <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
 </TABLE>
