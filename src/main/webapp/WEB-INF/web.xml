@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>myservlet</display-name>
-  
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -11,11 +10,19 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
+  <!-- Error page definitions -->
+  
   <error-page>
-  <exception-type>javax.servlet.ServletException</exception-type>
-  <location>/JSP/ErrorPage.jsp</location>
+    <exception-type>javax.servlet.ServletException</exception-type>
+    <location>/WEB-INF/JSP/ErrorPage.jsp</location>
+  </error-page>
+  <error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/WEB-INF/JSP/ErrorPage.jsp</location>
   </error-page>
   
+  <!--  Security -->
+  <!-- Roles -->
   <security-role>
     <role-name>manager</role-name>
   </security-role>
@@ -26,22 +33,15 @@
     <role-name>guest</role-name>
   </security-role>
   
+  <!-- Security Constraints -->
   <security-constraint>
     <web-resource-collection>
       <web-resource-name>JSP Pages</web-resource-name>
       <url-pattern>*.jsp</url-pattern>
     </web-resource-collection>
-    <auth-constraint>
-      <role-name>qc</role-name>
-      <role-name>manager</role-name>
-      <role-name>guest</role-name>
-    </auth-constraint>
-  </security-constraint>
-  
-  <security-constraint>
     <web-resource-collection>
       <web-resource-name>APLSystemServlet</web-resource-name>
-      <url-pattern>/APLSystemServlet</url-pattern>
+      <url-pattern>/</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>qc</role-name>
@@ -49,14 +49,25 @@
       <role-name>guest</role-name>
     </auth-constraint>
   </security-constraint>
-  
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>login</web-resource-name>
+      <url-pattern>*.css</url-pattern>
+      <url-pattern>/Login.jsp</url-pattern>
+      <url-pattern>/Error.html</url-pattern>
+      <url-pattern>/index.html</url-pattern>
+      <url-pattern>/images/*</url-pattern>
+    </web-resource-collection>
+  </security-constraint>
   <login-config>
     <auth-method>FORM</auth-method>
     <form-login-config>
-      <form-login-page>/Login.html</form-login-page>
+      <form-login-page>/Login.jsp</form-login-page>
       <form-error-page>/Error.html</form-error-page>
     </form-login-config>
   </login-config>
+  
+  <!-- DataSource Resource Reference -->
   
   <resource-ref>
     <description>My Database located on virtual machine Fedora19</description>
@@ -65,17 +76,55 @@
     <res-auth>Container</res-auth>
   </resource-ref>
   
-  <!--  Configures a Spring Dependency Injection Listener  -->
+  <!--  Spring settings -->
   <context-param>
-  	<param-name>contextConfigLocation</param-name>
-  	<param-value>WEB-INF/DataSource.xml /WEB-INF/ProcessContext.xml  /WEB-INF/PartsContext.xml /WEB-INF/MaterialContext.xml</param-value>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>WEB-INF/DataSource.xml /WEB-INF/ProcessContext.xml  /WEB-INF/PartsContext.xml /WEB-INF/MaterialContext.xml</param-value>
   </context-param>
-
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  
+  <!--  My listener Classes -->
+  <listener>
+    <listener-class>org.amc.servlet.listener.StartupShutdownListener</listener-class>
+  </listener>
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+  
+  <!-- Global JSP Directives -->
+  
+  <jsp-config>
+    <jsp-property-group>
+      <url-pattern>*.jsp</url-pattern>
+      <trim-directive-whitespaces>true</trim-directive-whitespaces>
+    </jsp-property-group>
+  </jsp-config>
+  
+  <!-- Mapping Servlets to JSP pages so they be accessed by the application -->
+  <servlet>
+    <servlet-name>UserPage</servlet-name>
+    <jsp-file>/WEB-INF/JSP/UserInfo.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserPage</servlet-name>
+    <url-pattern>/UserInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MaterialBean</servlet-name>
+    <jsp-file>/WEB-INF/JSP/MaterialBean.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MaterialBean</servlet-name>
+    <url-pattern>/Processing/MaterialBean</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ProcessSheetBean</servlet-name>
+    <jsp-file>/WEB-INF/JSP/ProcessSheetBean.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ProcessSheetBean</servlet-name>
+    <url-pattern>/Processing/ProcessSheetBean</url-pattern>
+  </servlet-mapping>
 </web-app>

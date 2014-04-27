@@ -20,6 +20,7 @@ import org.amc.servlet.model.Material;
 import org.amc.servlet.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -34,12 +35,14 @@ import org.springframework.web.context.WebApplicationContext;
 				"/ProcessSheet_search",
 				"/ProcessSheet_save", 
 				"/ProcessSheet_analysis"
-			})
+			},loadOnStartup=2)
 
 
 public class APLProcessServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
+	
+	private static Logger logger=Logger.getLogger(APLProcessServlet.class);
        
 	private ProcessActionFactory processActionFactory;
 	
@@ -64,7 +67,7 @@ public class APLProcessServlet extends HttpServlet
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String referal=request.getRequestURI();
-		System.out.println(referal);
+		logger.debug(referal);
 		
 		
 		//Handle JobTemplate Page
@@ -92,23 +95,23 @@ public class APLProcessServlet extends HttpServlet
 //					+ "</BODY>"
 //					+ "</HTML>");
 //			writer.flush();
-			RequestDispatcher rd=request.getRequestDispatcher("/JSP/Main.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
 			rd.forward(request, response);
 		}
 	}
 
 	private void saveProcessSheet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		System.out.println("Context Path:"+request.getContextPath());
+		logger.debug(String.format("Context Path:"+request.getContextPath()));
 		//check if page is in create or edit mode
 		String mode=request.getParameter("mode");
-		System.out.printf("SaveProcessSheet:mode:[%s]%n", mode);//debug
-		System.out.println("SaveProcessSheet:"+request.getParameter("dateOfIssue"));
+		logger.debug(String.format("SaveProcessSheet:mode:[%s]%n", mode));//debug
+		logger.debug(String.format("SaveProcessSheet:"+request.getParameter("dateOfIssue")));
 		//create form
 		
 		//If an ID parameter is passed add it to the form
 		MouldingProcessForm jForm=(MouldingProcessForm)request.getAttribute("processSheet");
-		System.out.println("\nSubmitted Process:"+jForm);
+		logger.debug(String.format("\nSubmitted Process:"+jForm));
 //		String id=request.getParameter("id");
 //		if(id!=null)
 //		{
@@ -133,7 +136,8 @@ public class APLProcessServlet extends HttpServlet
 			//create model
 			MouldingProcess processSheet;
 			
-			String dispatcherURL="";
+			//Default dispatch URL
+			//String dispatcherURL="/ProcessSheet_search";
 			
 			SaveProcessSheetAction action=processActionFactory.getSaveProcessSheetAction();
 			try
@@ -142,29 +146,31 @@ public class APLProcessServlet extends HttpServlet
 				// New JobTemplate to Database
 				if(mode==null||mode.equals("Enter"))
 				{
-					System.out.println("SaveProcessSheet:Entering entry into database");
+					logger.debug(String.format("SaveProcessSheet:Entering entry into database"));
 					action.save(processSheet);
-					dispatcherURL="ProcessSheet_search";
 					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else if(mode.equals("edit"))
 				{
-					System.out.println("SaveProcessSheet:Editing entry into database");
+					logger.debug(String.format("SaveProcessSheet:Editing entry into database"));
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					processSheet.setId(Integer.parseInt(jForm.getId()));
 					action.edit(processSheet);
-					dispatcherURL="ProcessSheet_search";
 					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
+				else
+				{
+					throw new ServletException("Form received can't be processed");
+				}
 
 				//request.removeAttribute("form");
-				request.removeAttribute("errors");
-				RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
+				//request.removeAttribute("errors");
+				//RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
 				
-				rd.forward(request, response);
+				//rd.forward(request, response);
 			}
 			catch(NumberFormatException se)
 			{
@@ -199,7 +205,7 @@ public class APLProcessServlet extends HttpServlet
 				request.setAttribute("errors", errors);
 				request.setAttribute("form", jForm);			
 				
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/ProcessPage.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/ProcessPage.jsp");
 				rd.forward(request, response);
 			}
 			catch(SQLException sqle)
@@ -220,7 +226,7 @@ public class APLProcessServlet extends HttpServlet
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
 				MouldingProcess process=spt.getMouldingProcess(idValue);
 				request.setAttribute("process",process);
-				RequestDispatcher rd=request.getRequestDispatcher("/JSP/DisplayProcess.jsp");
+				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
 			} catch (SQLException e)
 			{
@@ -246,7 +252,7 @@ public class APLProcessServlet extends HttpServlet
 				String idValue=request.getParameter("edit");
 				
 				//Debug
-				System.out.printf("searchProcessSheets:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue);
+				logger.debug(String.format("searchProcessSheets:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
 				
 				
 				
@@ -271,9 +277,9 @@ public class APLProcessServlet extends HttpServlet
 						}
 						request.setAttribute("processSheets", list); //Add the result list to the request object to be used by the JSP page
 						//debug
-						System.out.printf("%d results returned %n",list.size());
+						logger.debug(String.format("%d results returned %n",list.size()));
 					
-						dispatchURL="/JSP/ProcessSheetSearchPage.jsp";
+						dispatchURL="/WEB-INF/JSP/ProcessSheetSearchPage.jsp";
 						
 					}
 //					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
@@ -294,18 +300,18 @@ public class APLProcessServlet extends HttpServlet
 					{
 						if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
-							System.out.println("searchProcessSheets:Opening ProcessPage.jsp");
+							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
 							//open the JobTemplate JSPage in add mode
 							MouldingProcess process =new MouldingProcess();
 							request.setAttribute("form", process);
-							dispatchURL="/JSP/ProcessPage.jsp";
+							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 						}
 						else if(mode.equals("edit")&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
-							System.out.println("searchProcessSheets:Opening ProcessPage.jsp in edit mode");
+							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
 							MouldingProcess process=spt.getMouldingProcess(idValue);
-							dispatchURL="/JSP/ProcessPage.jsp";
+							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 							request.setAttribute("form", process);
 							request.setAttribute("mode","edit");
 						}
@@ -314,7 +320,7 @@ public class APLProcessServlet extends HttpServlet
 					Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
 
 					request.setAttribute("materials", materials);
-					System.out.println("Materials:"+materials);
+					logger.debug(String.format("Materials:"+materials));
 					
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);

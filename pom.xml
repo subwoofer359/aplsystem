@@ -45,7 +45,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.26</version>
+			<version>5.1.30</version>
 		</dependency>
 		<dependency>
 				<groupId>jstl</groupId>
@@ -70,22 +70,29 @@
     	<dependency>
         	<groupId>org.springframework</groupId>
         	<artifactId>spring-context</artifactId>
-        	<version>3.2.5.RELEASE</version>
+        	<version>4.0.3.RELEASE</version>
     	</dependency>
 	<dependency>
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-webmvc</artifactId>
-		<version>3.2.5.RELEASE</version>
+		<version>4.0.3.RELEASE</version>
 	</dependency>
+	<!-- 
 	<dependency>
     	<groupId>com.google.visualization</groupId>
 		<artifactId> visualization-datasource</artifactId>
 		<version>1.1.1</version>
 	</dependency>
+	 -->
 	<dependency>
 		<groupId>c3p0</groupId>
 		<artifactId>c3p0</artifactId>
 		<version>0.9.1.2</version>
+	</dependency> 
+	<dependency>
+		<groupId>log4j</groupId>
+		<artifactId>log4j</artifactId>
+		<version>1.2.17</version>
 	</dependency>
 	</dependencies>
 	<profiles>

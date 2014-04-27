@@ -8,30 +8,33 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 
-@WebListener
+
 public class StartupShutdownListener implements ServletContextListener 
 {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) 
 	{
-		
-		System.out.println("Servlet shut down....");
-		System.out.println(arg0.getServletContext().getServerInfo());
-		System.out.println(System.currentTimeMillis());
+		Logger log=(Logger)org.apache.log4j.Logger.getLogger(StartupShutdownListener.class);
+		log.info("Servlet shut down....");
 		//sendEmail("MyServlet:Has Shut down");
 	}
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) 
 	{
+		//Setting up logger
+		//System.out.println(arg0.getServletContext().getRealPath("/")+"WEB-INF/log4j.properties");
+		//PropertyConfigurator.configure("log4j.properties");
 		
-		System.out.println("Servlet started up....");
-		System.out.println(arg0.getServletContext().getServerInfo());
-		System.out.println(System.currentTimeMillis());
-		//sendEmail("MyServlet:Has Started up");
+		Logger log = Logger.getLogger(StartupShutdownListener.class.toString());
+	
+		log.info("Servlet started up....");
+		
 	}
 
 	public boolean sendEmail(String message)

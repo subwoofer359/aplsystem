@@ -21,6 +21,9 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 
 
+
+import com.sun.security.auth.UserPrincipal;
+
 import static org.mockito.Mockito.*;
 
 public class TestAPLServlet 
