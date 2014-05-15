@@ -1,4 +1,4 @@
-package org.amc.servlet.model;
+package org.amc.servlet.listener;
 
 import java.security.Principal;
 
