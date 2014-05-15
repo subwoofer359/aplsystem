@@ -116,7 +116,12 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <H1>Process Setup Sheet</H1>
 </div>
 <%@ include file="NavigationDiv.jspf" %>
-
+<!--  
+<a href="${pageContext.request.contextPath}/ProcessSheet_search">
+<div class="navbox" style="right:220px;">Search Page</div>
+</a>
+-->
+<tags:Navbox href="${pageContext.request.contextPath}/ProcessSheet_search" value="Search Page" position="220px" ></tags:Navbox>
 <!-- Selection box -->
 <select id="pageSelect" onchange='displayDiv(this,tabs)'>
 <option value="info">Information</option>
