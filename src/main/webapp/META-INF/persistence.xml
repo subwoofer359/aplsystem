@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1">
+<persistence-unit name="myDatabase" transaction-type="JTA">
+<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+<jta-data-source>jdbc/APLSystemTest</jta-data-source>
+<class>org.amc.model.User</class>
+<properties>
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.105/aplsystem"/>
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
+      <property name="openjpa.ConnectionUserName" value="adrian"/>
+      <property name="openjpa.ConnectionPassword" value="cr2032ux"/>
+      <property name="openjpa.Log" value="DefaultLevel=WARN, Tool=INFO"/>
+    </properties>
+</persistence-unit>
+</persistence>
