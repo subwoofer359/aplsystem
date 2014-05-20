@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.SaveMaterialAction;
 import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.model.MaterialBeanRemote;
+import org.amc.model.MaterialRemote;
 import org.amc.servlet.model.MaterialForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
 import org.apache.log4j.Logger;
@@ -141,7 +141,7 @@ public class APLMaterialServlet extends HttpServlet
 		{
 		
 			//create model
-			MaterialBeanRemote material;
+			MaterialRemote material;
 			
 			//String dispatcherURL="";
 			
@@ -216,7 +216,7 @@ public class APLMaterialServlet extends HttpServlet
 			try
 			{
 				SearchMaterialAction spt=materialActionFactory.getSearchMaterialAction();
-				MaterialBeanRemote process=spt.getMaterial(idValue);
+				MaterialRemote process=spt.getMaterial(idValue);
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
 				rd.forward(request, response);
@@ -256,7 +256,7 @@ public class APLMaterialServlet extends HttpServlet
 					//if the page is to do a search
 					if(mode==null || mode.equals("search"))
 					{
-						Map<Integer,MaterialBeanRemote> list=null;
+						Map<Integer,MaterialRemote> list=null;
 						//To check to search for all entries or entries where name=searchWord
 						if(searchWord==null||searchWord.equals(""))// search for all entries
 						{
@@ -294,7 +294,7 @@ public class APLMaterialServlet extends HttpServlet
 						{
 							logger.debug(String.format("searchMaterial:Opening Material.jsp"));
 							//open the JobTemplate JSPage in add mode
-							MaterialBeanRemote material =getMaterialBean();
+							MaterialRemote material =getMaterial();
 							request.setAttribute("form", material);
 							dispatchURL="/WEB-INF/JSP/Material.jsp";
 						}
@@ -302,7 +302,7 @@ public class APLMaterialServlet extends HttpServlet
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchMaterial:Opening Material.jsp in edit mode"));
-							MaterialBeanRemote material=spt.getMaterial(idValue);
+							MaterialRemote material=spt.getMaterial(idValue);
 							dispatchURL="/WEB-INF/JSP/Material.jsp";
 							request.setAttribute("form", material);
 							request.setAttribute("mode","edit");
@@ -336,16 +336,16 @@ public class APLMaterialServlet extends HttpServlet
 		
 	}
 	
-	private MaterialBeanRemote getMaterialBean()
+	private MaterialRemote getMaterial()
 	{
 		InitialContext ctx;
-		MaterialBeanRemote material=null;
+		MaterialRemote material=null;
 		try {
 	    	  Properties props = new Properties();
 	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
 	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
 	         ctx = new InitialContext(props);
-	         material=(MaterialBeanRemote)ctx.lookup("MaterialBeanRemote");
+	         material=(MaterialRemote)ctx.lookup("MaterialRemote");
 	      } catch (NamingException ex) {
 	         ex.printStackTrace();
 	      }

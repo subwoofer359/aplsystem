@@ -4,7 +4,7 @@ package org.amc.model;
 import javax.ejb.Remote;
 
 @Remote
-public interface PartBeanRemote
+public interface PartRemote
 {
 
 	public String getColour();

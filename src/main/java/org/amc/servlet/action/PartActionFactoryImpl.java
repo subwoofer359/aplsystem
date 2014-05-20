@@ -1,14 +1,14 @@
 package org.amc.servlet.action;
 
-import org.amc.dao.PartDAOBeanRemote;
+import org.amc.dao.PartDAORemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class PartActionFactoryImpl implements PartActionFactory
 {
 
-	private PartDAOBeanRemote jobDAO;
+	private PartDAORemote jobDAO;
 	@Autowired
-	public PartActionFactoryImpl(PartDAOBeanRemote jobDAO)
+	public PartActionFactoryImpl(PartDAORemote jobDAO)
 	{
 		this.jobDAO=jobDAO;
 	}

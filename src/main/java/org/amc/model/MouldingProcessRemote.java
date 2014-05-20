@@ -3,7 +3,7 @@ package org.amc.model;
 import javax.ejb.Remote;
 
 @Remote
-public interface MouldingProcessBeanRemote
+public interface MouldingProcessRemote
 {
 	public static String[] fields={
 		 "id",	

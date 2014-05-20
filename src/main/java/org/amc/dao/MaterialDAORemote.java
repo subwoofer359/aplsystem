@@ -6,21 +6,21 @@ import java.util.Map;
 
 import javax.ejb.Remote;
 
-import org.amc.model.MaterialBeanRemote;
+import org.amc.model.MaterialRemote;
 
 
 @Remote
-public interface MaterialDAOBeanRemote
+public interface MaterialDAORemote
 {
-	public abstract void addMaterial(MaterialBeanRemote material) throws SQLException;
+	public abstract void addMaterial(MaterialRemote material) throws SQLException;
 
-	public abstract void updateMaterial(MaterialBeanRemote material) throws SQLException;
+	public abstract void updateMaterial(MaterialRemote material) throws SQLException;
 	
-	public abstract MaterialBeanRemote getMaterial(String materialId) throws SQLException;
+	public abstract MaterialRemote getMaterial(String materialId) throws SQLException;
 
-	public abstract Map<Integer,MaterialBeanRemote> findMaterials(String col, String value) throws SQLException;
+	public abstract Map<Integer,MaterialRemote> findMaterials(String col, String value) throws SQLException;
 	
-	public abstract Map<Integer,MaterialBeanRemote> findMaterials() throws SQLException;
+	public abstract Map<Integer,MaterialRemote> findMaterials() throws SQLException;
 	
 	public abstract Connection getConnection() throws SQLException;
 }

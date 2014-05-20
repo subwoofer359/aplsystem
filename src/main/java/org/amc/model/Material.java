@@ -10,7 +10,7 @@ import javax.ejb.Stateful;
  *
  */
 @Stateful
-public class MaterialBean implements MaterialBeanRemote, Serializable
+public class Material implements MaterialRemote, Serializable
 {
 	/**
 	 * 
@@ -30,13 +30,13 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	private float mould_temp_low;
 	private float mould_temp_upper;
 
-	public MaterialBean()
+	public Material()
 	{
 		
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getId()
+	 * @see org.amc.model.MaterialRemote#getId()
 	 */
 	@Override
 	public int getId()
@@ -45,7 +45,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getCompany()
+	 * @see org.amc.model.MaterialRemote#getCompany()
 	 */
 	@Override
 	public String getCompany()
@@ -54,7 +54,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getName()
+	 * @see org.amc.model.MaterialRemote#getName()
 	 */
 	@Override
 	public String getName()
@@ -63,7 +63,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getType()
+	 * @see org.amc.model.MaterialRemote#getType()
 	 */
 	@Override
 	public String getType()
@@ -72,7 +72,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getDensity()
+	 * @see org.amc.model.MaterialRemote#getDensity()
 	 */
 	@Override
 	public float getDensity()
@@ -81,7 +81,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getLinear_expansion()
+	 * @see org.amc.model.MaterialRemote#getLinear_expansion()
 	 */
 	@Override
 	public float getLinear_expansion()
@@ -90,7 +90,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getWater_absorption()
+	 * @see org.amc.model.MaterialRemote#getWater_absorption()
 	 */
 	@Override
 	public float getWater_absorption()
@@ -99,7 +99,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getMaterial_drying()
+	 * @see org.amc.model.MaterialRemote#getMaterial_drying()
 	 */
 	@Override
 	public float getMaterial_drying()
@@ -108,7 +108,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getMelting_temp_lower()
+	 * @see org.amc.model.MaterialRemote#getMelting_temp_lower()
 	 */
 	@Override
 	public float getMelting_temp_lower()
@@ -117,7 +117,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getMelting_temp_upper()
+	 * @see org.amc.model.MaterialRemote#getMelting_temp_upper()
 	 */
 	@Override
 	public float getMelting_temp_upper()
@@ -126,7 +126,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getMould_shrinkage()
+	 * @see org.amc.model.MaterialRemote#getMould_shrinkage()
 	 */
 	@Override
 	public float getMould_shrinkage()
@@ -135,7 +135,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getMould_temp_low()
+	 * @see org.amc.model.MaterialRemote#getMould_temp_low()
 	 */
 	@Override
 	public float getMould_temp_low()
@@ -144,7 +144,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#getMould_temp_upper()
+	 * @see org.amc.model.MaterialRemote#getMould_temp_upper()
 	 */
 	@Override
 	public float getMould_temp_upper()
@@ -153,7 +153,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setId(int)
+	 * @see org.amc.model.MaterialRemote#setId(int)
 	 */
 	@Override
 	public void setId(int id)
@@ -162,7 +162,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setCompany(java.lang.String)
+	 * @see org.amc.model.MaterialRemote#setCompany(java.lang.String)
 	 */
 	@Override
 	public void setCompany(String company)
@@ -171,7 +171,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setName(java.lang.String)
+	 * @see org.amc.model.MaterialRemote#setName(java.lang.String)
 	 */
 	@Override
 	public void setName(String name)
@@ -180,7 +180,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setType(java.lang.String)
+	 * @see org.amc.model.MaterialRemote#setType(java.lang.String)
 	 */
 	@Override
 	public void setType(String type)
@@ -189,7 +189,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setDensity(float)
+	 * @see org.amc.model.MaterialRemote#setDensity(float)
 	 */
 	@Override
 	public void setDensity(float density)
@@ -198,7 +198,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setLinear_expansion(float)
+	 * @see org.amc.model.MaterialRemote#setLinear_expansion(float)
 	 */
 	@Override
 	public void setLinear_expansion(float linear_expansion)
@@ -207,7 +207,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setWater_absorption(float)
+	 * @see org.amc.model.MaterialRemote#setWater_absorption(float)
 	 */
 	@Override
 	public void setWater_absorption(float water_absorption)
@@ -216,7 +216,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setMaterial_drying(float)
+	 * @see org.amc.model.MaterialRemote#setMaterial_drying(float)
 	 */
 	@Override
 	public void setMaterial_drying(float material_drying)
@@ -225,7 +225,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setMelting_temp_lower(float)
+	 * @see org.amc.model.MaterialRemote#setMelting_temp_lower(float)
 	 */
 	@Override
 	public void setMelting_temp_lower(float melting_temp_lower)
@@ -234,7 +234,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setMelting_temp_upper(float)
+	 * @see org.amc.model.MaterialRemote#setMelting_temp_upper(float)
 	 */
 	@Override
 	public void setMelting_temp_upper(float melting_temp_upper)
@@ -243,7 +243,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setMould_shrinkage(float)
+	 * @see org.amc.model.MaterialRemote#setMould_shrinkage(float)
 	 */
 	@Override
 	public void setMould_shrinkage(float mould_shrinkage)
@@ -252,7 +252,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setMould_temp_low(float)
+	 * @see org.amc.model.MaterialRemote#setMould_temp_low(float)
 	 */
 	@Override
 	public void setMould_temp_low(float mould_temp_low)
@@ -261,7 +261,7 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.model.MaterialBeanRemote#setMould_temp_upper(float)
+	 * @see org.amc.model.MaterialRemote#setMould_temp_upper(float)
 	 */
 	@Override
 	public void setMould_temp_upper(float mould_temp_upper)
@@ -278,9 +278,9 @@ public class MaterialBean implements MaterialBeanRemote, Serializable
 	@Override
 	public boolean equals(Object material)
 	{
-		MaterialBeanRemote m2=(MaterialBeanRemote)material;
+		MaterialRemote m2=(MaterialRemote)material;
 		
-		if(m2 instanceof MaterialBean)
+		if(m2 instanceof Material)
 		{
 			if(this.getName().equals(m2.getName()) && this.getCompany().equals(m2.getCompany()) && getType().equals(m2.getType()))
 			{

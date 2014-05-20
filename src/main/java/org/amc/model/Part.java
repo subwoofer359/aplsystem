@@ -24,7 +24,7 @@ import javax.ejb.Stateful;
  * Represents a job running in the factory
  */
 @Stateful
-public class PartBean implements PartBeanRemote, PartBeanLocal,Serializable
+public class Part implements PartRemote, PartLocal,Serializable
 {
 	/**
 	 * 
@@ -46,7 +46,7 @@ public class PartBean implements PartBeanRemote, PartBeanLocal,Serializable
 	 * 
 	 * Constructor for JobTemplate.java
 	 */
-	public PartBean()
+	public Part()
 	{
 		
 	
@@ -63,7 +63,7 @@ public class PartBean implements PartBeanRemote, PartBeanLocal,Serializable
 	 * @param colour
 	 * @param external
 	 */
-	public PartBean(String name,
+	public Part(String name,
 						String part_id,
 						String company,
 						String version,
@@ -97,112 +97,112 @@ public class PartBean implements PartBeanRemote, PartBeanLocal,Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getColour()
+	 * @see org.amc.servlet.model.PartRemote#getColour()
 	 */
 	@Override
 	public String getColour() {
 		return colour;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setColour(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setColour(java.lang.String)
 	 */
 	@Override
 	public void setColour(String colour) {
 		this.colour = colour;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getCompany()
+	 * @see org.amc.servlet.model.PartRemote#getCompany()
 	 */
 	@Override
 	public String getCompany() {
 		return company;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setCompany(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setCompany(java.lang.String)
 	 */
 	@Override
 	public void setCompany(String company) {
 		this.company = company;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getExternal()
+	 * @see org.amc.servlet.model.PartRemote#getExternal()
 	 */
 	@Override
 	public boolean getExternal() {
 		return external;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setExternal(boolean)
+	 * @see org.amc.servlet.model.PartRemote#setExternal(boolean)
 	 */
 	@Override
 	public void setExternal(boolean external) {
 		this.external = external;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getName()
+	 * @see org.amc.servlet.model.PartRemote#getName()
 	 */
 	@Override
 	public String getName() {
 		return name;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setName(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setName(java.lang.String)
 	 */
 	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getPart_id()
+	 * @see org.amc.servlet.model.PartRemote#getPart_id()
 	 */
 	@Override
 	public String getPart_id() {
 		return part_id;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setPart_id(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setPart_id(java.lang.String)
 	 */
 	@Override
 	public void setPart_id(String part_id) {
 		this.part_id = part_id;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getQss_no()
+	 * @see org.amc.servlet.model.PartRemote#getQss_no()
 	 */
 	@Override
 	public String getQss_no() {
 		return qss_no;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setQss_no(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setQss_no(java.lang.String)
 	 */
 	@Override
 	public void setQss_no(String qss_no) {
 		this.qss_no = qss_no;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getRevision()
+	 * @see org.amc.servlet.model.PartRemote#getRevision()
 	 */
 	@Override
 	public String getRevision() {
 		return revision;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setRevision(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setRevision(java.lang.String)
 	 */
 	@Override
 	public void setRevision(String revision) {
 		this.revision = revision;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getVersion()
+	 * @see org.amc.servlet.model.PartRemote#getVersion()
 	 */
 	@Override
 	public String getVersion() {
 		return version;
 	}
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setVersion(java.lang.String)
+	 * @see org.amc.servlet.model.PartRemote#setVersion(java.lang.String)
 	 */
 	@Override
 	public void setVersion(String version) {
@@ -210,7 +210,7 @@ public class PartBean implements PartBeanRemote, PartBeanLocal,Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#getId()
+	 * @see org.amc.servlet.model.PartRemote#getId()
 	 */
 	@Override
 	public int getId() {
@@ -218,7 +218,7 @@ public class PartBean implements PartBeanRemote, PartBeanLocal,Serializable
 	}
 
 	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.PartBeanRemote#setId(int)
+	 * @see org.amc.servlet.model.PartRemote#setId(int)
 	 */
 	@Override
 	public void setId(int id) {

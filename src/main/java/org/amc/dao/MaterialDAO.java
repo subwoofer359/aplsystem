@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.amc.model.MaterialBeanRemote;
+import org.amc.model.MaterialRemote;
 
 import java.sql.PreparedStatement;
 
@@ -19,7 +19,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 @Stateless
-public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemote, Serializable
+public class MaterialDAO extends BasicDAO implements MaterialDAORemote, Serializable
 {
 
 
@@ -28,14 +28,14 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 	 */
 	private static final long serialVersionUID = -4397260307883862647L;
 
-	public MaterialDAOBean()
+	public MaterialDAO()
 	{
 	}
 
 	private static String tablename="material";
 	
 	@Override
-	public void addMaterial(MaterialBeanRemote material) throws SQLException
+	public void addMaterial(MaterialRemote material) throws SQLException
 	{
 		/*
 		`id` int(11) NOT NULL AUTO_INCREMENT,
@@ -75,7 +75,7 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 	 * @see org.amc.servlet.dao.JobTemplateDAO#updateJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
 	@Override
-	public void updateMaterial(MaterialBeanRemote material) throws SQLException
+	public void updateMaterial(MaterialRemote material) throws SQLException
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("UPDATE "+tablename
@@ -112,14 +112,14 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 	}
 	
 	@Override
-	public MaterialBeanRemote getMaterial(String materialId) throws SQLException
+	public MaterialRemote getMaterial(String materialId) throws SQLException
 	{
 		Connection connection=getConnection();
 		PreparedStatement p=connection.prepareStatement("select * from "+tablename+" where id=?");
 		p.setString(1, materialId);
 		
 		ResultSet rs=p.executeQuery();
-		MaterialBeanRemote m=null;
+		MaterialRemote m=null;
 		if(rs.next())
 		{
 			m=getMaterial(rs);
@@ -129,7 +129,7 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 	}
 
 	@Override
-	public Map<Integer,MaterialBeanRemote> findMaterials(String col, String value)
+	public Map<Integer,MaterialRemote> findMaterials(String col, String value)
 			throws SQLException
 	{
 		Connection connection=getConnection();
@@ -137,11 +137,11 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
-		Map<Integer,MaterialBeanRemote> list=new HashMap<Integer,MaterialBeanRemote>();
+		Map<Integer,MaterialRemote> list=new HashMap<Integer,MaterialRemote>();
 		
 		while(rs.next())
 		{
-			MaterialBeanRemote tempMaterial=getMaterial(rs);
+			MaterialRemote tempMaterial=getMaterial(rs);
 			list.put(tempMaterial.getId(),tempMaterial);
 		}
 		closeDBObjects(rs, statement, connection);
@@ -150,16 +150,16 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 	}
 
 	@Override
-	public Map<Integer,MaterialBeanRemote> findMaterials() throws SQLException
+	public Map<Integer,MaterialRemote> findMaterials() throws SQLException
 	{
 		Connection connection=getConnection();
 		Statement statement=connection.createStatement();
 		ResultSet rs=statement.executeQuery("select * from "+tablename+";");
-		Map<Integer,MaterialBeanRemote> list=new HashMap<Integer,MaterialBeanRemote>();
+		Map<Integer,MaterialRemote> list=new HashMap<Integer,MaterialRemote>();
 		
 		while(rs.next())
 		{
-			MaterialBeanRemote tempMaterial=getMaterial(rs);
+			MaterialRemote tempMaterial=getMaterial(rs);
 			list.put(tempMaterial.getId(),tempMaterial);
 		}
 		
@@ -167,11 +167,11 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 		return list;
 	}
 
-	private MaterialBeanRemote getMaterial(ResultSet rs) throws SQLException
+	private MaterialRemote getMaterial(ResultSet rs) throws SQLException
 	{
-		System.out.println("Creating MaterialBeanRemote");
+		System.out.println("Creating MaterialRemote");
 		InitialContext ctx;
-		MaterialBeanRemote m = null;
+		MaterialRemote m = null;
 		try
 		{
 			Properties props = new Properties();
@@ -179,7 +179,7 @@ public class MaterialDAOBean extends BasicDAOBean implements MaterialDAOBeanRemo
 			props.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.LocalInitialContextFactory");
 			//props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
 			ctx = new InitialContext(props);
-			m = (MaterialBeanRemote) ctx.lookup("MaterialBeanRemote");
+			m = (MaterialRemote) ctx.lookup("MaterialRemote");
 
 			m.setId(rs.getInt("id"));
 			m.setCompany(rs.getString("company"));

@@ -6,9 +6,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.amc.dao.MaterialDAOBeanRemote;
-import org.amc.dao.MouldingProcessDAOBeanRemote;
-import org.amc.dao.PartDAOBeanRemote;
+import org.amc.dao.MaterialDAORemote;
+import org.amc.dao.MouldingProcessDAORemote;
+import org.amc.dao.PartDAORemote;
 
 public class DAOFactory 
 {
@@ -39,13 +39,13 @@ public class DAOFactory
 		return instance;
 	}
 
-	public PartDAOBeanRemote getJobTemplateDAO()
+	public PartDAORemote getJobTemplateDAO()
 	{
-		PartDAOBeanRemote partDAO=null;
+		PartDAORemote partDAO=null;
 		
 		try
 		{
-			partDAO=(PartDAOBeanRemote)ctx.lookup("PartDAOBeanRemote");
+			partDAO=(PartDAORemote)ctx.lookup("PartDAORemote");
 		} 
 		catch (NamingException e)
 		{
@@ -55,13 +55,13 @@ public class DAOFactory
 		return partDAO;
 	}
 	
-	public MouldingProcessDAOBeanRemote getMouldingProcessDAO()
+	public MouldingProcessDAORemote getMouldingProcessDAO()
 	{
-		MouldingProcessDAOBeanRemote mouldingProcessDAO=null;
+		MouldingProcessDAORemote mouldingProcessDAO=null;
 		
 		try
 		{
-			mouldingProcessDAO=(MouldingProcessDAOBeanRemote)ctx.lookup("MouldingProcessDAOBeanRemote");
+			mouldingProcessDAO=(MouldingProcessDAORemote)ctx.lookup("MouldingProcessDAORemote");
 		} 
 		catch (NamingException e)
 		{
@@ -71,13 +71,13 @@ public class DAOFactory
 		return mouldingProcessDAO;
 	}
 	
-	public MaterialDAOBeanRemote getMaterialDAO()
+	public MaterialDAORemote getMaterialDAO()
 	{
-		MaterialDAOBeanRemote materialDAO=null;
+		MaterialDAORemote materialDAO=null;
 		
 		try
 		{
-			materialDAO=(MaterialDAOBeanRemote)ctx.lookup("MaterialDAOBeanRemote");
+			materialDAO=(MaterialDAORemote)ctx.lookup("MaterialDAORemote");
 		} 
 		catch (NamingException e)
 		{

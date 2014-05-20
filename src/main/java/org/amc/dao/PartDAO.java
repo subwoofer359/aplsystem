@@ -14,17 +14,17 @@ import javax.ejb.Stateless;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import org.amc.model.PartBeanRemote;
+import org.amc.model.PartRemote;
 
-@Stateless(mappedName="PartDAOBeanRemote")
-public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Serializable
+@Stateless(mappedName="PartDAORemote")
+public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7746051424830292513L;
-	public PartDAOBean()
+	public PartDAO()
 	{
 	}
 
@@ -34,7 +34,7 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	 * @see org.amc.servlet.dao.JobTemplateDAO#addJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
 	@Override
-	public void addPart(PartBeanRemote job) throws SQLException
+	public void addPart(PartRemote job) throws SQLException
 	{
 		//id,name,company,colour,external,part_id,qss_no, revision,version
 		Connection connection=getConnection();
@@ -56,7 +56,7 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	 * @see org.amc.servlet.dao.JobTemplateDAO#updateJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
 	@Override
-	public void updatePart(PartBeanRemote job) throws SQLException
+	public void updatePart(PartRemote job) throws SQLException
 	{
 		//id,name,company,colour,external,part_id,qss_no, revision,version
 		Connection connection=getConnection();
@@ -88,7 +88,7 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	 * @see org.amc.servlet.dao.JobTemplateDAO#deleteJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
 	@Override
-	public void deletePart(PartBeanRemote job)
+	public void deletePart(PartRemote job)
 	{
 		
 	}
@@ -97,13 +97,13 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	 * @see org.amc.servlet.dao.JobTemplateDAO#getJobTemplate(int)
 	 */
 	@Override
-	public PartBeanRemote getPart(String jobTemplateId) throws SQLException
+	public PartRemote getPart(String jobTemplateId) throws SQLException
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where id=?;");
 		statement.setString(1, jobTemplateId);
 		ResultSet rs=statement.executeQuery();
-		PartBeanRemote tempJob=null;
+		PartRemote tempJob=null;
 		if(rs.next())
 		{
 			tempJob=getPart(rs);
@@ -116,18 +116,18 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	 * @see org.amc.servlet.dao.JobTemplateDAO#findJobTemplates(java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<PartBeanRemote> findParts(String col,String value) throws SQLException
+	public List<PartRemote> findParts(String col,String value) throws SQLException
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+" REGEXP ?;");
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
-		List<PartBeanRemote> list=new ArrayList<PartBeanRemote>();
+		List<PartRemote> list=new ArrayList<PartRemote>();
 		
 		while(rs.next())
 		{
-			PartBeanRemote tempJob=getPart(rs);
+			PartRemote tempJob=getPart(rs);
 			list.add(tempJob);
 		}
 		closeDBObjects(rs, statement, connection);
@@ -137,16 +137,16 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	}
 
 	@Override
-	public List<PartBeanRemote> findParts() throws SQLException 
+	public List<PartRemote> findParts() throws SQLException 
 	{
 		Connection connection=getConnection();
 		Statement statement=connection.createStatement();
 		ResultSet rs=statement.executeQuery("select * from "+tablename+";");
-		List<PartBeanRemote> list=new ArrayList<PartBeanRemote>();
+		List<PartRemote> list=new ArrayList<PartRemote>();
 		
 		while(rs.next())
 		{
-			PartBeanRemote tempJob=getPart(rs);
+			PartRemote tempJob=getPart(rs);
 			list.add(tempJob);
 		}
 		
@@ -156,10 +156,10 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 	
 	
 	//Don't call next or close the ResultSet
-	private PartBeanRemote getPart(ResultSet rs) throws SQLException
+	private PartRemote getPart(ResultSet rs) throws SQLException
 	{
 
-		PartBeanRemote tempPart = getPartBean();
+		PartRemote tempPart = getPart();
 
 		tempPart.setName(rs.getString("name"));
 		tempPart.setPart_id(rs.getString("part_id"));
@@ -173,17 +173,17 @@ public class PartDAOBean extends BasicDAOBean implements PartDAOBeanRemote, Seri
 		return tempPart;
 
 	}
-	private PartBeanRemote getPartBean()
+	private PartRemote getPart()
 	{
 		
 		InitialContext ctx;
-		PartBeanRemote part=null;
+		PartRemote part=null;
 		try {
 	    	  Properties props = new Properties();
 	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.LocalInitialContextFactory");
 	    	  //props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
 	         ctx = new InitialContext(props);
-	         part=(PartBeanRemote)ctx.lookup("PartBeanRemote");
+	         part=(PartRemote)ctx.lookup("PartRemote");
 	      } catch (NamingException ex) {
 	         ex.printStackTrace();
 	      }

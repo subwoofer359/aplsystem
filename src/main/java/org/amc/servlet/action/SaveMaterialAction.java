@@ -2,16 +2,16 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.model.MaterialBeanRemote;
-import org.amc.dao.MaterialDAOBeanRemote;
+import org.amc.model.MaterialRemote;
+import org.amc.dao.MaterialDAORemote;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveMaterialAction 
 {
-	private MaterialDAOBeanRemote materialDAO;
+	private MaterialDAORemote materialDAO;
 	
 	@Autowired
-	public SaveMaterialAction(MaterialDAOBeanRemote materialDAO)
+	public SaveMaterialAction(MaterialDAORemote materialDAO)
 	{
 		this.materialDAO=materialDAO;
 	}
@@ -20,7 +20,7 @@ public class SaveMaterialAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void save(MaterialBeanRemote material) throws SQLException
+	public void save(MaterialRemote material) throws SQLException
 	{
 		this.materialDAO.addMaterial(material);
 		
@@ -32,7 +32,7 @@ public class SaveMaterialAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void edit(MaterialBeanRemote material) throws SQLException
+	public void edit(MaterialRemote material) throws SQLException
 	{
 		this.materialDAO.updateMaterial(material);
 	}

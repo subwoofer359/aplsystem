@@ -5,7 +5,7 @@ import javax.ejb.Local;
 
 
 @Local
-public interface PartBeanLocal
+public interface PartLocal
 {
 
 	public String getColour();

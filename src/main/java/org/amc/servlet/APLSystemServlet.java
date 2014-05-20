@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.amc.model.PartBeanRemote;
+import org.amc.model.PartRemote;
 import org.amc.servlet.action.PartActionFactory;
 
 import org.amc.servlet.action.SavePartAction;
@@ -172,7 +172,7 @@ public class APLSystemServlet extends HttpServlet
 		{
 		
 			//create model
-			PartBeanRemote job=getPartBean();
+			PartRemote job=getPart();
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
@@ -280,7 +280,7 @@ public class APLSystemServlet extends HttpServlet
 			//if the page is to do a search
 			if(mode==null || mode.equals("search"))
 			{
-				List<PartBeanRemote> list=null;
+				List<PartRemote> list=null;
 				//To check to search for all entries or entries where name=searchWord
 				if(searchWord==null||searchWord.equals(""))// search for all entries
 				{
@@ -323,7 +323,7 @@ public class APLSystemServlet extends HttpServlet
 				else if(mode.equals("edit")&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
-					PartBeanRemote job=sjt.getPart(idValue);
+					PartRemote job=sjt.getPart(idValue);
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
 					request.setAttribute("form", job);
 					request.setAttribute("mode","edit");
@@ -390,11 +390,11 @@ public class APLSystemServlet extends HttpServlet
 		
 	}
 
-	private PartBeanRemote getPartBean()
+	private PartRemote getPart()
 	{
 		InitialContext ctx;
       
-		PartBeanRemote part=null;
+		PartRemote part=null;
 		try {
 	    	  Properties props = new Properties();
 	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
@@ -408,7 +408,7 @@ public class APLSystemServlet extends HttpServlet
 	             System.out.println(nc);
 	         }
 	         
-	         part=(PartBeanRemote)ctx.lookup("PartBeanRemote");
+	         part=(PartRemote)ctx.lookup("PartRemote");
 	      } catch (NamingException ex) {
 	         ex.printStackTrace();
 	      }

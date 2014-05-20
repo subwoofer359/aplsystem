@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import javax.ejb.Remote;
 
 
-public interface DAOBeanRemote 
+public interface DAORemote 
 {
 	public Connection getConnection() throws SQLException;
 }

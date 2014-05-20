@@ -7,7 +7,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.junit.*;
-import org.amc.model.MouldingProcessBeanRemote;
+import org.amc.model.MouldingProcessRemote;
 import org.amc.servlet.model.*;
 
 import static org.junit.Assert.*;
@@ -31,8 +31,8 @@ public class TestMouldClosingData
 			int i = 0;
 			while (i < 1000)
 			{
-				MouldingProcessBeanRemote p = (MouldingProcessBeanRemote) ctx
-						.lookup("MouldingProcessBeanRemote");
+				MouldingProcessRemote p = (MouldingProcessRemote) ctx
+						.lookup("MouldingProcessRemote");
 				float openlimit = 420f;
 				float mouldClosingLimitPos = openlimit
 						- (20 * (float) Math.random());

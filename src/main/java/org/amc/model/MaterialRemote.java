@@ -3,7 +3,7 @@ package org.amc.model;
 import javax.ejb.Remote;
 
 @Remote
-public interface MaterialBeanRemote
+public interface MaterialRemote
 {
 
 	public int getId();

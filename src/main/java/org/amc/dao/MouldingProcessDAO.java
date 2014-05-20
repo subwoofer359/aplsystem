@@ -15,18 +15,18 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.amc.dao.MouldingProcessDAOBeanRemote;
-import org.amc.model.MouldingProcessBeanRemote;
+import org.amc.dao.MouldingProcessDAORemote;
+import org.amc.model.MouldingProcessRemote;
 
 @Stateless
-public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProcessDAOBeanRemote,Serializable 
+public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORemote,Serializable 
 {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 7577290113094820714L;
 
-	public MouldingProcessDAOBean()
+	public MouldingProcessDAO()
 	{
 		
 	}
@@ -34,7 +34,7 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 	private static String tablename="processSheets";
 
 	@Override
-	public void addProcessSheet(MouldingProcessBeanRemote process) throws SQLException 
+	public void addProcessSheet(MouldingProcessRemote process) throws SQLException 
 	{
 		System.out.println(process);
 		Connection connection=getConnection();
@@ -175,7 +175,7 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 	}
 
 	@Override
-	public void updateProcessSheet(MouldingProcessBeanRemote process) throws SQLException 
+	public void updateProcessSheet(MouldingProcessRemote process) throws SQLException 
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("UPDATE "+tablename+" set "
@@ -417,18 +417,18 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 	}
 
 	@Override
-	public void deleteProcessSheet(MouldingProcessBeanRemote process) throws SQLException {
+	public void deleteProcessSheet(MouldingProcessRemote process) throws SQLException {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public MouldingProcessBeanRemote getProcessSheet(String processId) throws SQLException {
+	public MouldingProcessRemote getProcessSheet(String processId) throws SQLException {
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where id=?;");
 		statement.setString(1, processId);
 		ResultSet rs=statement.executeQuery();
-		MouldingProcessBeanRemote tempProcess=null;
+		MouldingProcessRemote tempProcess=null;
 		if(rs.next())
 		{
 			tempProcess=getMouldingProcess(rs);
@@ -439,18 +439,18 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 	}
 
 	@Override
-	public List<MouldingProcessBeanRemote> findProcessSheets(String col, String value)throws SQLException 
+	public List<MouldingProcessRemote> findProcessSheets(String col, String value)throws SQLException 
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+" REGEXP ?;");
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
-		List<MouldingProcessBeanRemote> list=new ArrayList<MouldingProcessBeanRemote>();
+		List<MouldingProcessRemote> list=new ArrayList<MouldingProcessRemote>();
 		
 		while(rs.next())
 		{
-			MouldingProcessBeanRemote tempProcess=getMouldingProcess(rs);
+			MouldingProcessRemote tempProcess=getMouldingProcess(rs);
 			list.add(tempProcess);
 		}
 		closeDBObjects(rs, statement, connection);
@@ -459,16 +459,16 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 	}
 
 	@Override
-	public List<MouldingProcessBeanRemote> findProcessSheets() throws SQLException 
+	public List<MouldingProcessRemote> findProcessSheets() throws SQLException 
 	{
 		Connection connection=getConnection();
 		Statement statement=connection.createStatement();
 		ResultSet rs=statement.executeQuery("select * from "+tablename+";");
-		List<MouldingProcessBeanRemote> list=new ArrayList<MouldingProcessBeanRemote>();
+		List<MouldingProcessRemote> list=new ArrayList<MouldingProcessRemote>();
 		
 		while(rs.next())
 		{
-			MouldingProcessBeanRemote tempProcess=getMouldingProcess(rs);
+			MouldingProcessRemote tempProcess=getMouldingProcess(rs);
 			list.add(tempProcess);
 		}
 		
@@ -478,12 +478,12 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 	
 	//Don't call next or close the ResultSet
 	//TODO Replace with a better implementation than using Reflection
-		private MouldingProcessBeanRemote getMouldingProcess(ResultSet rs) throws SQLException
+		private MouldingProcessRemote getMouldingProcess(ResultSet rs) throws SQLException
 		{
 
 			
 		InitialContext ctx;
-		MouldingProcessBeanRemote process = null;
+		MouldingProcessRemote process = null;
 		try
 		{
 			Properties props = new Properties();
@@ -491,10 +491,10 @@ public class MouldingProcessDAOBean extends BasicDAOBean implements MouldingProc
 			props.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.LocalInitialContextFactory");
 			//props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
 			ctx = new InitialContext(props);
-			process = (MouldingProcessBeanRemote) ctx
-					.lookup("MouldingProcessBeanRemote");
+			process = (MouldingProcessRemote) ctx
+					.lookup("MouldingProcessRemote");
 
-			for (String field : MouldingProcessBeanRemote.fields)
+			for (String field : MouldingProcessRemote.fields)
 			{
 				process.setField(field, rs.getObject(field));
 			}

@@ -5,7 +5,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.amc.model.PartBeanRemote;
+import org.amc.model.PartRemote;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -24,19 +24,19 @@ public class TestPart
 	private String version="60g";
 	
 	//private JobTemplate job=mock(JobTemplate.class);
-	private PartBeanRemote job;
+	private PartRemote job;
 	
 	@Before
 	public void init()
 	{
 		InitialContext ctx;
-		PartBeanRemote part=null;
+		PartRemote part=null;
 		try {
 		   	  Properties props = new Properties();
 		   	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
 		   	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
 		      ctx = new InitialContext(props);
-		      part=(PartBeanRemote)ctx.lookup("PartBeanRemote");
+		      part=(PartRemote)ctx.lookup("PartRemote");
 		     } catch (NamingException ex) {
 		         ex.printStackTrace();
 		}

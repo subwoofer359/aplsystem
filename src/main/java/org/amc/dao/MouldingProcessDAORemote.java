@@ -5,21 +5,21 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
-import org.amc.model.MouldingProcessBeanRemote;
+import org.amc.model.MouldingProcessRemote;
 
 @Remote
-public interface MouldingProcessDAOBeanRemote 
+public interface MouldingProcessDAORemote 
 {
 
-	public abstract void addProcessSheet(MouldingProcessBeanRemote process) throws SQLException;
+	public abstract void addProcessSheet(MouldingProcessRemote process) throws SQLException;
 
-	public abstract void updateProcessSheet(MouldingProcessBeanRemote process) throws SQLException;
+	public abstract void updateProcessSheet(MouldingProcessRemote process) throws SQLException;
 
-	public abstract void deleteProcessSheet(MouldingProcessBeanRemote process) throws SQLException;
+	public abstract void deleteProcessSheet(MouldingProcessRemote process) throws SQLException;
 
-	public abstract MouldingProcessBeanRemote getProcessSheet(String processId) throws SQLException;
+	public abstract MouldingProcessRemote getProcessSheet(String processId) throws SQLException;
 
-	public abstract List<MouldingProcessBeanRemote> findProcessSheets(String col, String value) throws SQLException;
+	public abstract List<MouldingProcessRemote> findProcessSheets(String col, String value) throws SQLException;
 	
-	public abstract List<MouldingProcessBeanRemote> findProcessSheets() throws SQLException;
+	public abstract List<MouldingProcessRemote> findProcessSheets() throws SQLException;
 }

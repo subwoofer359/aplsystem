@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.amc.dao.PartDAOBeanRemote;
-import org.amc.model.PartBeanRemote;
+import org.amc.dao.PartDAORemote;
+import org.amc.model.PartRemote;
 import org.amc.servlet.APLSystemServlet;
 import org.amc.servlet.action.PartActionFactoryImpl;
 import org.junit.*;
@@ -176,7 +176,7 @@ public class TestAPLServlet
 		when(request.isUserInRole("qc")).thenReturn(true);
 		
 		when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
-        PartDAOBeanRemote jobDAO=mock(PartDAOBeanRemote.class);
+        PartDAORemote jobDAO=mock(PartDAORemote.class);
         
         try
         {
@@ -186,7 +186,7 @@ public class TestAPLServlet
         	apl.setJobActionFactory(new PartActionFactoryImpl(jobDAO));
         	apl.doGet(request, response);
         	apl.destroy();
-        	verify(request).setAttribute(eq("form"),any(PartBeanRemote.class));
+        	verify(request).setAttribute(eq("form"),any(PartRemote.class));
         	verify(request).setAttribute(eq("result"),anyString());
         	
         }
