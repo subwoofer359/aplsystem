@@ -6,7 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.amc.model.MouldingProcessRemote;
+import org.amc.model.MouldingProcess;
 
 
 public class MouldingProcessForm 
@@ -815,16 +815,16 @@ public class MouldingProcessForm
 	 * @return a MouldingProces object containing the values in jForm but cast to the correct object
 	 * @throws Exception if parsing/casting of the jForm variables fails 
 	 */
-	public static MouldingProcessRemote getMouldingProcess(MouldingProcessForm jForm)throws Exception
+	public static MouldingProcess getMouldingProcess(MouldingProcessForm jForm)throws Exception
 	{
 		InitialContext ctx;
-		MouldingProcessRemote processSheet=null;
+		MouldingProcess processSheet=null;
 		try {
 	    	  Properties props = new Properties();
 	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
 	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
 	         ctx = new InitialContext(props);
-	         processSheet=(MouldingProcessRemote)ctx.lookup("MouldingProcessRemote");
+	         processSheet=(MouldingProcess)ctx.lookup("MouldingProcessRemote");
 	      
 			processSheet.setId(Integer.parseInt(jForm.getId())) ;
 			

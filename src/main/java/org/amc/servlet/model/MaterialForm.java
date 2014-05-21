@@ -6,7 +6,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.amc.model.MaterialRemote;
+import org.amc.model.Material;
 
 /**
  * POJO to represent a material used for plastic injection moulding
@@ -170,9 +170,9 @@ public class MaterialForm
 		return this.getCompany()+" "+this.getName()+" "+this.getType();
 	}
 	
-	public static MaterialRemote getMaterial(MaterialForm form) throws Exception
+	public static Material getMaterial(MaterialForm form) throws Exception
 	{
-		MaterialRemote material = null;
+		Material material = null;
 		InitialContext ctx;
 		try
 		{
@@ -181,7 +181,7 @@ public class MaterialForm
 					"org.apache.openejb.client.RemoteInitialContextFactory");
 			props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
 			ctx = new InitialContext(props);
-			material = (MaterialRemote) ctx.lookup("MaterialRemote");
+			material = (Material) ctx.lookup("Material");
 
 			material.setId(Integer.parseInt(form.getId()));
 			material.setCompany(form.getCompany());

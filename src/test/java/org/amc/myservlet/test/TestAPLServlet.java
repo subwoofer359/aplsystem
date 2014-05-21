@@ -9,23 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.amc.dao.PartDAORemote;
-import org.amc.model.PartRemote;
+import org.amc.dao.PartDAO;
+import org.amc.model.Part;
 import org.amc.servlet.APLSystemServlet;
 import org.amc.servlet.action.PartActionFactoryImpl;
 import org.junit.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-
-
-
-
-
-
-
-
-import com.sun.security.auth.UserPrincipal;
 
 import static org.mockito.Mockito.*;
 
@@ -176,7 +167,7 @@ public class TestAPLServlet
 		when(request.isUserInRole("qc")).thenReturn(true);
 		
 		when(request.getRequestDispatcher("/JSP/Part.jsp")).thenReturn(dispatcher);
-        PartDAORemote jobDAO=mock(PartDAORemote.class);
+        PartDAO jobDAO=mock(PartDAO.class);
         
         try
         {
@@ -186,7 +177,7 @@ public class TestAPLServlet
         	apl.setJobActionFactory(new PartActionFactoryImpl(jobDAO));
         	apl.doGet(request, response);
         	apl.destroy();
-        	verify(request).setAttribute(eq("form"),any(PartRemote.class));
+        	verify(request).setAttribute(eq("form"),any(Part.class));
         	verify(request).setAttribute(eq("result"),anyString());
         	
         }

@@ -8,16 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import org.amc.model.Part;
+import org.amc.model.PartImpl;
 
-import javax.ejb.Stateless;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import org.amc.model.PartRemote;
 
-@Stateless(mappedName="PartDAORemote")
-public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
+public class PartDAO extends BasicDAO implements Serializable
 {
 
 	/**
@@ -33,8 +28,8 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 	/* (non-Javadoc)
 	 * @see org.amc.servlet.dao.JobTemplateDAO#addJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
-	@Override
-	public void addPart(PartRemote job) throws SQLException
+	
+	public void addPart(Part job) throws SQLException
 	{
 		//id,name,company,colour,external,part_id,qss_no, revision,version
 		Connection connection=getConnection();
@@ -55,8 +50,8 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 	/* (non-Javadoc)
 	 * @see org.amc.servlet.dao.JobTemplateDAO#updateJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
-	@Override
-	public void updatePart(PartRemote job) throws SQLException
+	
+	public void updatePart(Part job) throws SQLException
 	{
 		//id,name,company,colour,external,part_id,qss_no, revision,version
 		Connection connection=getConnection();
@@ -87,8 +82,8 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 	/* (non-Javadoc)
 	 * @see org.amc.servlet.dao.JobTemplateDAO#deleteJobTemplate(org.amc.servlet.model.JobTemplate)
 	 */
-	@Override
-	public void deletePart(PartRemote job)
+	
+	public void deletePart(Part job)
 	{
 		
 	}
@@ -96,14 +91,14 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 	/* (non-Javadoc)
 	 * @see org.amc.servlet.dao.JobTemplateDAO#getJobTemplate(int)
 	 */
-	@Override
-	public PartRemote getPart(String jobTemplateId) throws SQLException
+	
+	public Part getPart(String jobTemplateId) throws SQLException
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where id=?;");
 		statement.setString(1, jobTemplateId);
 		ResultSet rs=statement.executeQuery();
-		PartRemote tempJob=null;
+		Part tempJob=null;
 		if(rs.next())
 		{
 			tempJob=getPart(rs);
@@ -115,19 +110,19 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 	/* (non-Javadoc)
 	 * @see org.amc.servlet.dao.JobTemplateDAO#findJobTemplates(java.lang.String, java.lang.String)
 	 */
-	@Override
-	public List<PartRemote> findParts(String col,String value) throws SQLException
+	
+	public List<Part> findParts(String col,String value) throws SQLException
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+" REGEXP ?;");
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
-		List<PartRemote> list=new ArrayList<PartRemote>();
+		List<Part> list=new ArrayList<Part>();
 		
 		while(rs.next())
 		{
-			PartRemote tempJob=getPart(rs);
+			Part tempJob=getPart(rs);
 			list.add(tempJob);
 		}
 		closeDBObjects(rs, statement, connection);
@@ -136,17 +131,17 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 		
 	}
 
-	@Override
-	public List<PartRemote> findParts() throws SQLException 
+	
+	public List<Part> findParts() throws SQLException 
 	{
 		Connection connection=getConnection();
 		Statement statement=connection.createStatement();
 		ResultSet rs=statement.executeQuery("select * from "+tablename+";");
-		List<PartRemote> list=new ArrayList<PartRemote>();
+		List<Part> list=new ArrayList<Part>();
 		
 		while(rs.next())
 		{
-			PartRemote tempJob=getPart(rs);
+			Part tempJob=getPart(rs);
 			list.add(tempJob);
 		}
 		
@@ -156,10 +151,10 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 	
 	
 	//Don't call next or close the ResultSet
-	private PartRemote getPart(ResultSet rs) throws SQLException
+	private Part getPart(ResultSet rs) throws SQLException
 	{
 
-		PartRemote tempPart = getPart();
+		Part tempPart = new PartImpl();
 
 		tempPart.setName(rs.getString("name"));
 		tempPart.setPart_id(rs.getString("part_id"));
@@ -172,21 +167,5 @@ public class PartDAO extends BasicDAO implements PartDAORemote, Serializable
 		tempPart.setId(rs.getInt("ID"));
 		return tempPart;
 
-	}
-	private PartRemote getPart()
-	{
-		
-		InitialContext ctx;
-		PartRemote part=null;
-		try {
-	    	  Properties props = new Properties();
-	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.LocalInitialContextFactory");
-	    	  //props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
-	         ctx = new InitialContext(props);
-	         part=(PartRemote)ctx.lookup("PartRemote");
-	      } catch (NamingException ex) {
-	         ex.printStackTrace();
-	      }
-		return part;
 	}
 }

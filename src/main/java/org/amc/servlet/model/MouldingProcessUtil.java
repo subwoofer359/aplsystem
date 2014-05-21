@@ -1,6 +1,6 @@
 package org.amc.servlet.model;
 
-import org.amc.model.MouldingProcessRemote;
+import org.amc.model.MouldingProcess;
 
 public class MouldingProcessUtil
 {
@@ -8,7 +8,7 @@ public class MouldingProcessUtil
 	private final static float CLAMP_CLOSING_DEACCELERATION=-1000f;
 	
 	
-	public static float getTotalInjectionTime(MouldingProcessRemote process)
+	public static float getTotalInjectionTime(MouldingProcess process)
 	{
 		float totalInjectionTime=0f;
 		float[] position=
@@ -84,7 +84,7 @@ public class MouldingProcessUtil
 		return (finalVelocity-intialVelocity)/acceleration;
 	}
 	
-	public static float getMouldClosingTime(MouldingProcessRemote process)
+	public static float getMouldClosingTime(MouldingProcess process)
 	{
 		float[][] data=getMouldClosingTimeData(process);
 		
@@ -102,7 +102,7 @@ public class MouldingProcessUtil
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
 	@Deprecated
-	public static float[][] getOldMouldClosingTimeData(MouldingProcessRemote process)
+	public static float[][] getOldMouldClosingTimeData(MouldingProcess process)
 	{
 		float[][] data=new float[8][3];
 		float expectedDistance1=process.getMouldClosingOpenLimitPos()-process.getMouldClosedLimitPos();
@@ -219,7 +219,7 @@ public class MouldingProcessUtil
 	 * @param process
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */
-	public static float[][] getMouldClosingTimeData(MouldingProcessRemote process)
+	public static float[][] getMouldClosingTimeData(MouldingProcess process)
 	{
 		float[][] data=new float[8][3];
 		/*

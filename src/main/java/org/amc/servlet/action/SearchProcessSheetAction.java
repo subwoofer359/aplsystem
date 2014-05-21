@@ -3,32 +3,32 @@ package org.amc.servlet.action;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.amc.model.MouldingProcessRemote;
-import org.amc.dao.MouldingProcessDAORemote;;
+import org.amc.model.MouldingProcess;
+import org.amc.dao.MouldingProcessDAO;;
 
 public class SearchProcessSheetAction 
 {
 	
-	private MouldingProcessDAORemote mouldingProcessDAO;
+	private MouldingProcessDAO mouldingProcessDAO;
 	
-	public SearchProcessSheetAction(MouldingProcessDAORemote mouldingProcessDAO)
+	public SearchProcessSheetAction(MouldingProcessDAO mouldingProcessDAO)
 	{
 		this.mouldingProcessDAO=mouldingProcessDAO;
 	}
 	
-	public List<MouldingProcessRemote> search() throws SQLException
+	public List<MouldingProcess> search() throws SQLException
 	{	
 		return mouldingProcessDAO.findProcessSheets();
 		
 	}
 	
-	public List<MouldingProcessRemote> search(String item,String value) throws SQLException
+	public List<MouldingProcess> search(String item,String value) throws SQLException
 	{	
 		return mouldingProcessDAO.findProcessSheets(item, value);
 		
 	}
 	
-	public MouldingProcessRemote getMouldingProcess(String id) throws SQLException
+	public MouldingProcess getMouldingProcess(String id) throws SQLException
 	{
 		return mouldingProcessDAO.getProcessSheet(id);
 	}

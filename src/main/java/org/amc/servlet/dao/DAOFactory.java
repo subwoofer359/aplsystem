@@ -6,9 +6,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.amc.dao.MaterialDAORemote;
-import org.amc.dao.MouldingProcessDAORemote;
-import org.amc.dao.PartDAORemote;
+import org.amc.dao.MaterialDAO;
+import org.amc.dao.MouldingProcessDAO;
+import org.amc.dao.PartDAO;
 
 public class DAOFactory 
 {
@@ -21,7 +21,7 @@ public class DAOFactory
 		try
 		{
 			Properties props = new Properties();
-			props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+			props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.InitialContextFactory");
 			props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
 			ctx = new InitialContext(props);
 		} catch (NamingException e)
@@ -39,13 +39,13 @@ public class DAOFactory
 		return instance;
 	}
 
-	public PartDAORemote getJobTemplateDAO()
+	public PartDAO getJobTemplateDAO()
 	{
-		PartDAORemote partDAO=null;
+		PartDAO partDAO=null;
 		
 		try
 		{
-			partDAO=(PartDAORemote)ctx.lookup("PartDAORemote");
+			partDAO=(PartDAO)ctx.lookup("PartDAO");
 		} 
 		catch (NamingException e)
 		{
@@ -55,13 +55,13 @@ public class DAOFactory
 		return partDAO;
 	}
 	
-	public MouldingProcessDAORemote getMouldingProcessDAO()
+	public MouldingProcessDAO getMouldingProcessDAO()
 	{
-		MouldingProcessDAORemote mouldingProcessDAO=null;
+		MouldingProcessDAO mouldingProcessDAO=null;
 		
 		try
 		{
-			mouldingProcessDAO=(MouldingProcessDAORemote)ctx.lookup("MouldingProcessDAORemote");
+			mouldingProcessDAO=(MouldingProcessDAO)ctx.lookup("MouldingProcessDAO");
 		} 
 		catch (NamingException e)
 		{
@@ -71,13 +71,13 @@ public class DAOFactory
 		return mouldingProcessDAO;
 	}
 	
-	public MaterialDAORemote getMaterialDAO()
+	public MaterialDAO getMaterialDAO()
 	{
-		MaterialDAORemote materialDAO=null;
+		MaterialDAO materialDAO=null;
 		
 		try
 		{
-			materialDAO=(MaterialDAORemote)ctx.lookup("MaterialDAORemote");
+			materialDAO=(MaterialDAO)ctx.lookup("MaterialDAO");
 		} 
 		catch (NamingException e)
 		{

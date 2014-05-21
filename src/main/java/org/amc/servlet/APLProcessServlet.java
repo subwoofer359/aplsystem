@@ -20,8 +20,8 @@ import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
-import org.amc.model.MaterialRemote;
-import org.amc.model.MouldingProcessRemote;
+import org.amc.model.Material;
+import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.apache.log4j.Logger;
@@ -137,7 +137,7 @@ public class APLProcessServlet extends HttpServlet
 		{
 		
 			//create model
-			MouldingProcessRemote processSheet;
+			MouldingProcess processSheet;
 			
 			//Default dispatch URL
 			//String dispatcherURL="/ProcessSheet_search";
@@ -202,7 +202,7 @@ public class APLProcessServlet extends HttpServlet
 					request.setAttribute("mode", mode);
 				}
 			//Get List of Material
-				Map<Integer,MaterialRemote> materials=materialActionFactory.getSearchMaterialAction().search();
+				Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
 
 				request.setAttribute("materials", materials);
 				request.setAttribute("errors", errors);
@@ -227,7 +227,7 @@ public class APLProcessServlet extends HttpServlet
 			try
 			{
 				SearchProcessSheetAction spt=processActionFactory.getSearchProcessSheetAction();
-				MouldingProcessRemote process=spt.getMouldingProcess(idValue);
+				MouldingProcess process=spt.getMouldingProcess(idValue);
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/DisplayProcess.jsp");
 				rd.forward(request, response);
@@ -267,7 +267,7 @@ public class APLProcessServlet extends HttpServlet
 					//if the page is to do a search
 					if(mode==null || mode.equals("search"))
 					{
-						List<MouldingProcessRemote> list=null;
+						List<MouldingProcess> list=null;
 						//To check to search for all entries or entries where name=searchWord
 						if(searchWord==null||searchWord.equals(""))// search for all entries
 						{
@@ -305,7 +305,7 @@ public class APLProcessServlet extends HttpServlet
 						{
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
 							//open the JobTemplate JSPage in add mode
-							MouldingProcessRemote process =getMouldingProcess();
+							MouldingProcess process =getMouldingProcess();
 							request.setAttribute("form", process);
 							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 						}
@@ -313,14 +313,14 @@ public class APLProcessServlet extends HttpServlet
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
-							MouldingProcessRemote process=spt.getMouldingProcess(idValue);
+							MouldingProcess process=spt.getMouldingProcess(idValue);
 							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 							request.setAttribute("form", process);
 							request.setAttribute("mode","edit");
 						}
 					}
 					//Get List of Material
-					Map<Integer,MaterialRemote> materials=materialActionFactory.getSearchMaterialAction().search();
+					Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
 
 					request.setAttribute("materials", materials);
 					logger.debug(String.format("Materials:"+materials));
@@ -364,16 +364,16 @@ public class APLProcessServlet extends HttpServlet
 		
 	}
 	
-	private MouldingProcessRemote getMouldingProcess()
+	private MouldingProcess getMouldingProcess()
 	{
 		InitialContext ctx;
-		MouldingProcessRemote process=null;
+		MouldingProcess process=null;
 		try {
 	    	  Properties props = new Properties();
 	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
 	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
 	         ctx = new InitialContext(props);
-	         process=(MouldingProcessRemote)ctx.lookup("MouldingProcessRemote");
+	         process=(MouldingProcess)ctx.lookup("MouldingProcess");
 	      } catch (NamingException ex) {
 	         ex.printStackTrace();
 	      }

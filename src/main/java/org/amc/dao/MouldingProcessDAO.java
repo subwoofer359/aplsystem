@@ -8,18 +8,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
+import org.amc.dao.MouldingProcessDAO;
+import org.amc.model.MouldingProcess;
+import org.amc.model.MouldingProcessImpl;
 
-import javax.ejb.Stateless;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import org.amc.dao.MouldingProcessDAORemote;
-import org.amc.model.MouldingProcessRemote;
-
-@Stateless
-public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORemote,Serializable 
+public class MouldingProcessDAO extends BasicDAO implements Serializable 
 {
 	/**
 	 * 
@@ -33,8 +26,8 @@ public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORe
 
 	private static String tablename="processSheets";
 
-	@Override
-	public void addProcessSheet(MouldingProcessRemote process) throws SQLException 
+	
+	public void addProcessSheet(MouldingProcess process) throws SQLException 
 	{
 		System.out.println(process);
 		Connection connection=getConnection();
@@ -174,8 +167,8 @@ public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORe
 
 	}
 
-	@Override
-	public void updateProcessSheet(MouldingProcessRemote process) throws SQLException 
+	
+	public void updateProcessSheet(MouldingProcess process) throws SQLException 
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("UPDATE "+tablename+" set "
@@ -416,19 +409,19 @@ public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORe
 
 	}
 
-	@Override
-	public void deleteProcessSheet(MouldingProcessRemote process) throws SQLException {
+	
+	public void deleteProcessSheet(MouldingProcess process) throws SQLException {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public MouldingProcessRemote getProcessSheet(String processId) throws SQLException {
+	
+	public MouldingProcess getProcessSheet(String processId) throws SQLException {
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where id=?;");
 		statement.setString(1, processId);
 		ResultSet rs=statement.executeQuery();
-		MouldingProcessRemote tempProcess=null;
+		MouldingProcess tempProcess=null;
 		if(rs.next())
 		{
 			tempProcess=getMouldingProcess(rs);
@@ -438,19 +431,19 @@ public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORe
 		
 	}
 
-	@Override
-	public List<MouldingProcessRemote> findProcessSheets(String col, String value)throws SQLException 
+	
+	public List<MouldingProcess> findProcessSheets(String col, String value)throws SQLException 
 	{
 		Connection connection=getConnection();
 		PreparedStatement statement=connection.prepareStatement("select * from "+tablename+" where "+col+" REGEXP ?;");
 		
 		statement.setString(1, value);
 		ResultSet rs=statement.executeQuery();
-		List<MouldingProcessRemote> list=new ArrayList<MouldingProcessRemote>();
+		List<MouldingProcess> list=new ArrayList<MouldingProcess>();
 		
 		while(rs.next())
 		{
-			MouldingProcessRemote tempProcess=getMouldingProcess(rs);
+			MouldingProcess tempProcess=getMouldingProcess(rs);
 			list.add(tempProcess);
 		}
 		closeDBObjects(rs, statement, connection);
@@ -458,17 +451,17 @@ public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORe
 		return list;
 	}
 
-	@Override
-	public List<MouldingProcessRemote> findProcessSheets() throws SQLException 
+	
+	public List<MouldingProcess> findProcessSheets() throws SQLException 
 	{
 		Connection connection=getConnection();
 		Statement statement=connection.createStatement();
 		ResultSet rs=statement.executeQuery("select * from "+tablename+";");
-		List<MouldingProcessRemote> list=new ArrayList<MouldingProcessRemote>();
+		List<MouldingProcess> list=new ArrayList<MouldingProcess>();
 		
 		while(rs.next())
 		{
-			MouldingProcessRemote tempProcess=getMouldingProcess(rs);
+			MouldingProcess tempProcess=getMouldingProcess(rs);
 			list.add(tempProcess);
 		}
 		
@@ -478,32 +471,15 @@ public class MouldingProcessDAO extends BasicDAO implements MouldingProcessDAORe
 	
 	//Don't call next or close the ResultSet
 	//TODO Replace with a better implementation than using Reflection
-		private MouldingProcessRemote getMouldingProcess(ResultSet rs) throws SQLException
+		private MouldingProcess getMouldingProcess(ResultSet rs) throws SQLException
 		{
-
-			
-		InitialContext ctx;
-		MouldingProcessRemote process = null;
-		try
-		{
-			Properties props = new Properties();
-			//props.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.RemoteInitialContextFactory");
-			props.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.LocalInitialContextFactory");
-			//props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
-			ctx = new InitialContext(props);
-			process = (MouldingProcessRemote) ctx
-					.lookup("MouldingProcessRemote");
-
-			for (String field : MouldingProcessRemote.fields)
+			MouldingProcess process = null;
+			process = new MouldingProcessImpl();
+			for (String field : MouldingProcess.fields)
 			{
 				process.setField(field, rs.getObject(field));
 			}
-		} catch (NamingException ex)
-		{
-			ex.printStackTrace();
-		}
-
-		return process;
+			return process;
 		}
 
 }

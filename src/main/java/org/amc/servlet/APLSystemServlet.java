@@ -18,13 +18,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.amc.model.PartRemote;
+import org.amc.model.Part;
 import org.amc.servlet.action.PartActionFactory;
-
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
-import org.amc.servlet.model.PartForm;
-import org.amc.servlet.validator.Part_Validator;
+import org.amc.servlet.model.*;
+import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
@@ -172,7 +171,7 @@ public class APLSystemServlet extends HttpServlet
 		{
 		
 			//create model
-			PartRemote job=getPart();
+			Part job=getPart();
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
@@ -280,7 +279,7 @@ public class APLSystemServlet extends HttpServlet
 			//if the page is to do a search
 			if(mode==null || mode.equals("search"))
 			{
-				List<PartRemote> list=null;
+				List<Part> list=null;
 				//To check to search for all entries or entries where name=searchWord
 				if(searchWord==null||searchWord.equals(""))// search for all entries
 				{
@@ -323,7 +322,7 @@ public class APLSystemServlet extends HttpServlet
 				else if(mode.equals("edit")&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
-					PartRemote job=sjt.getPart(idValue);
+					Part job=sjt.getPart(idValue);
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
 					request.setAttribute("form", job);
 					request.setAttribute("mode","edit");
@@ -390,11 +389,11 @@ public class APLSystemServlet extends HttpServlet
 		
 	}
 
-	private PartRemote getPart()
+	private Part getPart()
 	{
 		InitialContext ctx;
       
-		PartRemote part=null;
+		Part part=null;
 		try {
 	    	  Properties props = new Properties();
 	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
@@ -408,7 +407,7 @@ public class APLSystemServlet extends HttpServlet
 	             System.out.println(nc);
 	         }
 	         
-	         part=(PartRemote)ctx.lookup("PartRemote");
+	         part=(Part)ctx.lookup("Part");
 	      } catch (NamingException ex) {
 	         ex.printStackTrace();
 	      }

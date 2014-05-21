@@ -13,7 +13,7 @@ import javax.sql.DataSource;
  * @author Adrian McLaughlin
  * @version $REV$
  */
-public class BasicDAO implements DAORemote, Serializable
+public class BasicDAO implements Serializable
 {
 	private static final long serialVersionUID = 2637719986763223271L;
 	

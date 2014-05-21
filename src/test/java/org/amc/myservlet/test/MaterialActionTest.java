@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.dao.MaterialDAORemote;
-import org.amc.model.MaterialRemote;
+import org.amc.dao.MaterialDAO;
+import org.amc.model.Material;
 import org.junit.*;
 
 import java.sql.PreparedStatement;
@@ -22,8 +22,8 @@ import static org.junit.Assert.*;
 public class MaterialActionTest
 {
 	private static final String DATABASE="test_myservlet";
-	private static MaterialRemote material_1;
-	private static MaterialRemote material_2;
+	private static Material material_1;
+	private static Material material_2;
 	
 	@BeforeClass
 	public static void setUpDatabase() throws SQLException
@@ -171,7 +171,7 @@ public class MaterialActionTest
 							+ " index material (material),"
 							+ " CONSTRAINT fk_material FOREIGN KEY (material) REFERENCES material (id)) ENGINE=InnoDB;");
 
-			material_1 = (MaterialRemote)ctx.lookup("MaterialRemote");
+			material_1 = (Material)ctx.lookup("Material");
 			material_1.setCompany("ACME");
 			material_1.setName("ll6201");
 			material_1.setDensity(0.5f);
@@ -185,7 +185,7 @@ public class MaterialActionTest
 			material_1.setType("Resin");
 			material_1.setWater_absorption(2.3f);
 
-			material_2 = (MaterialRemote)ctx.lookup("MaterialRemote");
+			material_2 = (Material)ctx.lookup("Material");
 			material_2.setCompany("TT");
 			material_2.setName("PPDE");
 			material_2.setDensity(0.2f);
@@ -273,20 +273,20 @@ public class MaterialActionTest
 					"org.apache.openejb.client.RemoteInitialContextFactory");
 			props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
 			ctx = new InitialContext(props);
-			MaterialDAORemote materialDAO = (MaterialDAORemote) ctx
-					.lookup("MaterialDAORemote");
+			MaterialDAO materialDAO = (MaterialDAO) ctx
+					.lookup("MaterialDAO");
 			SearchMaterialAction search = new SearchMaterialAction(materialDAO);
 
-			Map<Integer, MaterialRemote> list = search.search();
+			Map<Integer, Material> list = search.search();
 			assertEquals(list.size(), 2);
 
-			MaterialRemote m = search.getMaterial("1");
+			Material m = search.getMaterial("1");
 			assertTrue(m.equals(material_1));
 
 			list = search.search("material_drying", "60");
 			assertEquals(list.size(), 1);
-			Iterator<MaterialRemote> i = list.values().iterator();
-			MaterialRemote m2 = i.next();
+			Iterator<Material> i = list.values().iterator();
+			Material m2 = i.next();
 			assertTrue(m2.equals(material_2));
 
 		} catch (SQLException e)

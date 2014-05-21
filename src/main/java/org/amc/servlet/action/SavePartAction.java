@@ -2,14 +2,14 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.dao.PartDAORemote;
-import org.amc.model.PartRemote;
+import org.amc.dao.PartDAO;
+import org.amc.model.Part;
 
 public class SavePartAction 
 {
-	private PartDAORemote partDAO;
+	private PartDAO partDAO;
 	
-	public SavePartAction(PartDAORemote jobTemplateDAO)
+	public SavePartAction(PartDAO jobTemplateDAO)
 	{
 		this.partDAO=jobTemplateDAO;
 	}
@@ -18,7 +18,7 @@ public class SavePartAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void save(PartRemote job) throws SQLException
+	public void save(Part job) throws SQLException
 	{
 		partDAO.addPart(job);
 		
@@ -30,7 +30,7 @@ public class SavePartAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void edit(PartRemote job) throws SQLException
+	public void edit(Part job) throws SQLException
 	{
 		partDAO.updatePart(job);
 	}
