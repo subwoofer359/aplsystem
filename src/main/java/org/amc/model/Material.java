@@ -192,11 +192,20 @@ public class Material implements Serializable
 		this.mould_temp_upper = mould_temp_upper;
 	}
 
+	@Override
+	/**
+	 * @returns String representation of this material
+	 */
 	public String toString()
 	{
 		return this.getCompany()+" "+this.getName()+" "+this.getType();
 	}
 	
+	
+	@Override
+	/**
+	 * @returns true if the this material and other material have the same values for instance variables 
+	 */
 	public boolean equals(Object material)
 	{
 		Material m2=(Material)material;
