@@ -1,1797 +1,1526 @@
 package org.amc.model;
+
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Date;
 
-import javax.ejb.Stateful;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Stateful
-public class MouldingProcess implements MouldingProcessRemote , Serializable
+@Entity
+@Table(name = "processSheets")
+public class MouldingProcess implements Serializable
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -2782845506401132766L;
-	
-	private int id;//Database ID
-	//Top Header
+	@Id
+	private int id;// Database ID
+	// Top Header
+	@Column(nullable=false)
 	private String partId;
+	@Column(nullable=false)
 	private int machineSize;
+	@Column(nullable=false)
 	private String machineNo;
+	@Column(nullable=false)
 	private int material;
+	@Column
 	private String masterbatchNo;
+	@Column(nullable=false)
 	private Date dateOfIssue;
+	@Column(nullable=false)
 	private String signOffBy;
+	@Column
 	private String processNotes;
-	
-	//Injection section
+
+	// Injection section
+	@Column
 	private float injectionSpeed_1;
+	@Column
 	private float injectionSpeed_2;
+	@Column
 	private float injectionSpeed_3;
+	@Column
 	private float injectionSpeed_4;
+	@Column
 	private float injectionSpeed_5;
+	@Column
 	private float injectionSpeed_6;
-	
+
+	@Column
 	private float injSpeedPosition_1;
+	@Column
 	private float injSpeedPosition_2;
+	@Column
 	private float injSpeedPosition_3;
+	@Column
 	private float injSpeedPosition_4;
+	@Column
 	private float injSpeedPosition_5;
+	@Column
 	private float injSpeedPosition_6;
-	
-	//Holding pressure
-	
+
+	// Holding pressure
+	@Column
 	private float holdingPressure_1;
+	@Column
 	private float holdingPressure_2;
+	@Column
 	private float holdingPressure_3;
+	@Column
 	private float holdingPressure_4;
+	@Column
 	private float holdingPressure_5;
+	@Column
 	private float holdingPressure_6;
-	
-	//Holding Time
+
+	// Holding Time
+	@Column
 	private float holdingTime_1;
+	@Column
 	private float holdingTime_2;
+	@Column
 	private float holdingTime_3;
+	@Column
 	private float holdingTime_4;
+	@Column
 	private float holdingTime_5;
+	@Column
 	private float holdingTime_6;
-	
-	//Injection and Holding variables
+
+	// Injection and Holding variables
+	@Column
 	private float maxPackVel;
+	@Column
 	private float posTran;
+	@Column
 	private float maxInjPre;
+	@Column
 	private float maxInjTime;
+	@Column
 	private float shotSize;
+	@Column
 	private float decompressionDist;
+	@Column
 	private float decompressionVel;
+	@Column
 	private float coolTime;
-	
-	//Extruding
-	
+
+	// Extruding
+	@Column
 	private float backPressure_1;
+	@Column
 	private float backPressure_2;
+	@Column
 	private float backPressure_3;
+	@Column
 	private float backPressure_4;
+	@Column
 	private float backPressure_5;
+	@Column
 	private float backPressure_6;
-	
+
+	@Column
 	private float screwExtSpeed_1;
+	@Column
 	private float screwExtSpeed_2;
+	@Column
 	private float screwExtSpeed_3;
+	@Column
 	private float screwExtSpeed_4;
+	@Column
 	private float screwExtSpeed_5;
+	@Column
 	private float screwExtSpeed_6;
-	
+
+	@Column
 	private float extProfilePos_1;
+	@Column
 	private float extProfilePos_2;
+	@Column
 	private float extProfilePos_3;
+	@Column
 	private float extProfilePos_4;
+	@Column
 	private float extProfilePos_5;
+	@Column
 	private float extProfilePos_6;
-	
-	
-	//Barrel Temperature
-	
+
+	// Barrel Temperature
+	@Column
 	private float nozzelTemperature;
+	@Column
 	private float barrelTemperature_1;
+	@Column
 	private float barrelTemperature_2;
+	@Column
 	private float barrelTemperature_3;
+	@Column
 	private float barrelTemperature_4;
+	@Column
 	private float throatTemperature;
-	
-	//mouldClosing
+
+	// mouldClosing
+	@Column
 	private float mouldClosingOpenLimitPos;
+	@Column
 	private float mouldClosingOpenLimitSpeed;
-	
+	@Column
 	private float mouldClosedLimitPos;
+	@Column
 	private float mouldClosedLimitSpeed;
-	
+
+	@Column
 	private float clsSlowPos;
+	@Column
 	private float clsSlowSpeed;
-	
+	@Column
 	private float clsSPPos;
+	@Column
 	private float clsSPSpeed;
-	//mould opening
-	
+
+	// mould opening
+	@Column
 	private float mouldOpenBreakAwaySpeed;
+	@Column
 	private float mouldOpenStepPos_1;
+	@Column
 	private float mouldOpenStepSpeed_1;
+	@Column
 	private float mouldOpenStepPos_2;
+	@Column
 	private float mouldOpenStepSpeed_2;
+	@Column
 	private float mouldOpenStepPos_3;
+	@Column
 	private float mouldOpenStepSpeed_3;
-	
+
+	@Column
 	private float mouldOpenTime;
+	@Column
 	private String ejectStart;
-	
-	
-	//Ejectors
+
+	// Ejectors
+	@Column
 	private String ejectMode;
+	@Column
 	private float ejectPulse;
+	@Column
 	private float ejectDelay;
-	
+	@Column
 	private float ejectorsFwdPos;
+	@Column
 	private float ejectorsFwdSpeed;
+	@Column
 	private float ejectorsFwdTime;
-	
+	@Column
 	private float ejectorsStopPos;
+	@Column
 	private float ejectorsStopSpeed;
+	@Column
 	private float ejectorsStopTime;
-	
+	@Column
 	private float ejectorsRevPos;
+	@Column
 	private float ejectorsRevSpeed;
+	@Column
 	private float ejectorsRevTime;
-	
+
 	// DMEs
-	
+	@Column
 	private float dme_1;
+	@Column
 	private float dme_2;
+	@Column
 	private float dme_3;
+	@Column
 	private float dme_4;
+	@Column
 	private float dme_5;
+	@Column
 	private float dme_6;
+	@Column
 	private float dme_7;
+	@Column
 	private float dme_8;
-	
-	//Water
+
+	// Water
+	@Column
 	private float waterTempFixedHalf;
+	@Column
 	private float waterTempMovingHalf;
+	@Column
 	private String waterTempNotes;
-	
-	
+
 	public MouldingProcess()
 	{
 
 	}
-	
-	//Getters/Setters
-	
-	
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setField(java.lang.String, java.lang.Float)
-	 */
-	@Override
-	public void setField(String field,Float f)
+
+	// Getters/Setters
+	public void setField(String field, Float f)
 	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
+		try
+		{
+			Field refField = this.getClass().getDeclaredField(field);
 			refField.setFloat(this, f);
-		} catch (NoSuchFieldException e) {
-	
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
+		} catch (NoSuchFieldException e)
+		{
 
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
+		} catch (IllegalArgumentException e)
+		{
+
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setField(String field, java.sql.Date s)
+	{
+		try
+		{
+			Field refField = this.getClass().getDeclaredField(field);
+			refField.set(this, s);
+		} catch (NoSuchFieldException e)
+		{
+
+			e.printStackTrace();
+		} catch (IllegalArgumentException e)
+		{
+
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void setField(String field, String s)
+	{
+		try
+		{
+			Field refField = this.getClass().getDeclaredField(field);
+			refField.set(this, s);
+		} 
+		catch (NoSuchFieldException e)
+		{
 
 			e.printStackTrace();
 		} 
-		
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setField(java.lang.String, java.sql.Date)
-	 */
-	@Override
-	public void setField(String field,java.sql.Date s)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.set(this, s);
-		} catch (NoSuchFieldException e) {
-	
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-		
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-		
+		catch (IllegalArgumentException e)
+		{
+
 			e.printStackTrace();
 		} 
-		
+		catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setField(java.lang.String, java.lang.String)
-	 */
-	@Override
-	public void setField(String field,String s)
+
+	public void setField(String field, Integer s)
 	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
-			refField.set(this, s);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setField(java.lang.String, java.lang.Integer)
-	 */
-	@Override
-	public void setField(String field,Integer s)
-	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
+		try
+		{
+			Field refField = this.getClass().getDeclaredField(field);
 			refField.setInt(this, s);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (NoSuchFieldException e)
+		{
 			e.printStackTrace();
 		} 
-		
+		catch (IllegalArgumentException e)
+		{
+			e.printStackTrace();
+		} 
+		catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
+
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setField(java.lang.String, java.lang.Object)
-	 */
-	@Override
-	public void setField(String field,Object obj)
+
+	public void setField(String field, Object obj)
 	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
+		try
+		{
+			Field refField = this.getClass().getDeclaredField(field);
 			refField.set(this, obj);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (NoSuchFieldException e)
+		{
+			
 			e.printStackTrace();
 		} 
-		
+		catch (IllegalArgumentException e)
+		{
+			
+			e.printStackTrace();
+		} 
+		catch (IllegalAccessException e)
+		{
+			
+			e.printStackTrace();
+		}
+
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getField(java.lang.String)
-	 */
-	@Override
+
 	public Object getField(String field)
 	{
-		try {
-			Field refField=this.getClass().getDeclaredField(field);
+		try
+		{
+			Field refField = this.getClass().getDeclaredField(field);
 			return refField.get(this);
-		} catch (NoSuchFieldException e) {
-			// TODO Auto-generated catch block
+		} catch (NoSuchFieldException e)
+		{
+			
 			e.printStackTrace();
-		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
+		} catch (SecurityException e)
+		{
+			
 			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
+		} catch (IllegalArgumentException e)
+		{
+			
 			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+		} catch (IllegalAccessException e)
+		{
+			
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	
-	
 
-	
-	
-	
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getPartId()
-	 */
-	@Override
-	public String getPartId() {
+	public String getPartId()
+	{
 		return this.partId;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMachineSize()
-	 */
-	@Override
-	public int getMachineSize() {
+
+	public int getMachineSize()
+	{
 		return this.machineSize;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMachineNo()
-	 */
-	@Override
-	public String getMachineNo() {
+
+	public String getMachineNo()
+	{
 		return this.machineNo;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMaterial()
-	 */
-	@Override
-	public int getMaterial() {
+
+	public int getMaterial()
+	{
 		return this.material;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMasterbatchNo()
-	 */
-	@Override
-	public String getMasterbatchNo() {
+
+	public String getMasterbatchNo()
+	{
 		return this.masterbatchNo;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDateOfIssue()
-	 */
-	@Override
-	public java.sql.Date getDateOfIssue() {
-		return (java.sql.Date)this.dateOfIssue;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getSignOffBy()
-	 */
-	@Override
-	public String getSignOffBy() {
-		return this.signOffBy;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getProcessNotes()
-	 */
-	@Override
-	public String getProcessNotes() {
-		return this.processNotes;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjectionSpeed_1()
-	 */
-	@Override
-	public float getInjectionSpeed_1() {
-		return this.injectionSpeed_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjectionSpeed_2()
-	 */
-	@Override
-	public float getInjectionSpeed_2() {
-		return this.injectionSpeed_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjectionSpeed_3()
-	 */
-	@Override
-	public float getInjectionSpeed_3() {
-		return this.injectionSpeed_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjectionSpeed_4()
-	 */
-	@Override
-	public float getInjectionSpeed_4() {
-		return this.injectionSpeed_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjectionSpeed_5()
-	 */
-	@Override
-	public float getInjectionSpeed_5() {
-		return this.injectionSpeed_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjectionSpeed_6()
-	 */
-	@Override
-	public float getInjectionSpeed_6() {
-		return this.injectionSpeed_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjSpeedPosition_1()
-	 */
-	@Override
-	public float getInjSpeedPosition_1() {
-		return this.injSpeedPosition_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjSpeedPosition_2()
-	 */
-	@Override
-	public float getInjSpeedPosition_2() {
-		return this.injSpeedPosition_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjSpeedPosition_3()
-	 */
-	@Override
-	public float getInjSpeedPosition_3() {
-		return this.injSpeedPosition_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjSpeedPosition_4()
-	 */
-	@Override
-	public float getInjSpeedPosition_4() {
-		return this.injSpeedPosition_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjSpeedPosition_5()
-	 */
-	@Override
-	public float getInjSpeedPosition_5() {
-		return this.injSpeedPosition_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getInjSpeedPosition_6()
-	 */
-	@Override
-	public float getInjSpeedPosition_6() {
-		return this.injSpeedPosition_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingPressure_1()
-	 */
-	@Override
-	public float getHoldingPressure_1() {
-		return this.holdingPressure_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingPressure_2()
-	 */
-	@Override
-	public float getHoldingPressure_2() {
-		return this.holdingPressure_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingPressure_3()
-	 */
-	@Override
-	public float getHoldingPressure_3() {
-		return this.holdingPressure_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingPressure_4()
-	 */
-	@Override
-	public float getHoldingPressure_4() {
-		return this.holdingPressure_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingPressure_5()
-	 */
-	@Override
-	public float getHoldingPressure_5() {
-		return this.holdingPressure_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingPressure_6()
-	 */
-	@Override
-	public float getHoldingPressure_6() {
-		return this.holdingPressure_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingTime_1()
-	 */
-	@Override
-	public float getHoldingTime_1() {
-		return this.holdingTime_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingTime_2()
-	 */
-	@Override
-	public float getHoldingTime_2() {
-		return this.holdingTime_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingTime_3()
-	 */
-	@Override
-	public float getHoldingTime_3() {
-		return this.holdingTime_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingTime_4()
-	 */
-	@Override
-	public float getHoldingTime_4() {
-		return this.holdingTime_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingTime_5()
-	 */
-	@Override
-	public float getHoldingTime_5() {
-		return this.holdingTime_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getHoldingTime_6()
-	 */
-	@Override
-	public float getHoldingTime_6() {
-		return this.holdingTime_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMaxPackVel()
-	 */
-	@Override
-	public float getMaxPackVel() {
-		return this.maxPackVel;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getPosTran()
-	 */
-	@Override
-	public float getPosTran() {
-		return this.posTran;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMaxInjPre()
-	 */
-	@Override
-	public float getMaxInjPre() {
-		return this.maxInjPre;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMaxInjTime()
-	 */
-	@Override
-	public float getMaxInjTime() {
-		return this.maxInjTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getShotSize()
-	 */
-	@Override
-	public float getShotSize() {
-		return this.shotSize;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDecompressionVel()
-	 */
-	@Override
-	public float getDecompressionVel() {
-		return this.decompressionVel;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getCoolTime()
-	 */
-	@Override
-	public float getCoolTime() {
-		return this.coolTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBackPressure_1()
-	 */
-	@Override
-	public float getBackPressure_1() {
-		return this.backPressure_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBackPressure_2()
-	 */
-	@Override
-	public float getBackPressure_2() {
-		return this.backPressure_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBackPressure_3()
-	 */
-	@Override
-	public float getBackPressure_3() {
-		return this.backPressure_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBackPressure_4()
-	 */
-	@Override
-	public float getBackPressure_4() {
-		return this.backPressure_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBackPressure_5()
-	 */
-	@Override
-	public float getBackPressure_5() {
-		return this.backPressure_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBackPressure_6()
-	 */
-	@Override
-	public float getBackPressure_6() {
-		return this.backPressure_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getScrewExtSpeed_1()
-	 */
-	@Override
-	public float getScrewExtSpeed_1() {
-		return this.screwExtSpeed_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getScrewExtSpeed_2()
-	 */
-	@Override
-	public float getScrewExtSpeed_2() {
-		return this.screwExtSpeed_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getScrewExtSpeed_3()
-	 */
-	@Override
-	public float getScrewExtSpeed_3() {
-		return this.screwExtSpeed_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getScrewExtSpeed_4()
-	 */
-	@Override
-	public float getScrewExtSpeed_4() {
-		return this.screwExtSpeed_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getScrewExtSpeed_5()
-	 */
-	@Override
-	public float getScrewExtSpeed_5() {
-		return this.screwExtSpeed_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getScrewExtSpeed_6()
-	 */
-	@Override
-	public float getScrewExtSpeed_6() {
-		return this.screwExtSpeed_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getExtProfilePos_1()
-	 */
-	@Override
-	public float getExtProfilePos_1() {
-		return this.extProfilePos_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getExtProfilePos_2()
-	 */
-	@Override
-	public float getExtProfilePos_2() {
-		return this.extProfilePos_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getExtProfilePos_3()
-	 */
-	@Override
-	public float getExtProfilePos_3() {
-		return this.extProfilePos_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getExtProfilePos_4()
-	 */
-	@Override
-	public float getExtProfilePos_4() {
-		return this.extProfilePos_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getExtProfilePos_5()
-	 */
-	@Override
-	public float getExtProfilePos_5() {
-		return this.extProfilePos_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getExtProfilePos_6()
-	 */
-	@Override
-	public float getExtProfilePos_6() {
-		return this.extProfilePos_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getNozzelTemperature()
-	 */
-	@Override
-	public float getNozzelTemperature() {
-		return this.nozzelTemperature;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBarrelTemperature_1()
-	 */
-	@Override
-	public float getBarrelTemperature_1() {
-		return this.barrelTemperature_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBarrelTemperature_2()
-	 */
-	@Override
-	public float getBarrelTemperature_2() {
-		return this.barrelTemperature_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBarrelTemperature_3()
-	 */
-	@Override
-	public float getBarrelTemperature_3() {
-		return this.barrelTemperature_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getBarrelTemperature_4()
-	 */
-	@Override
-	public float getBarrelTemperature_4() {
-		return this.barrelTemperature_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getThroatTemperature()
-	 */
-	@Override
-	public float getThroatTemperature() {
-		return this.throatTemperature;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldClosingOpenLimitPos()
-	 */
-	@Override
-	public float getMouldClosingOpenLimitPos() {
-		return this.mouldClosingOpenLimitPos;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldClosingOpenLimitSpeed()
-	 */
-	@Override
-	public float getMouldClosingOpenLimitSpeed() {
-		return this.mouldClosingOpenLimitSpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldClosedLimitPos()
-	 */
-	@Override
-	public float getMouldClosedLimitPos() {
-		return this.mouldClosedLimitPos;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldClosedLimitSpeed()
-	 */
-	@Override
-	public float getMouldClosedLimitSpeed() {
-		return this.mouldClosedLimitSpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getClsSlowPos()
-	 */
-	@Override
-	public float getClsSlowPos() {
-		return this.clsSlowPos;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getClsSlowSpeed()
-	 */
-	@Override
-	public float getClsSlowSpeed() {
-		return this.clsSlowSpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenBreakAwaySpeed()
-	 */
-	@Override
-	public float getMouldOpenBreakAwaySpeed() {
-		return this.mouldOpenBreakAwaySpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenStepPos_1()
-	 */
-	@Override
-	public float getMouldOpenStepPos_1() {
-		return this.mouldOpenStepPos_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenStepSpeed_1()
-	 */
-	@Override
-	public float getMouldOpenStepSpeed_1() {
-		return this.mouldOpenStepSpeed_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenStepPos_2()
-	 */
-	@Override
-	public float getMouldOpenStepPos_2() {
-		return this.mouldOpenStepPos_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenStepSpeed_2()
-	 */
-	@Override
-	public float getMouldOpenStepSpeed_2() {
-		return this.mouldOpenStepSpeed_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenStepPos_3()
-	 */
-	@Override
-	public float getMouldOpenStepPos_3() {
-		return this.mouldOpenStepPos_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenStepSpeed_3()
-	 */
-	@Override
-	public float getMouldOpenStepSpeed_3() {
-		return this.mouldOpenStepSpeed_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getMouldOpenTime()
-	 */
-	@Override
-	public float getMouldOpenTime() {
-		return this.mouldOpenTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectStart()
-	 */
-	@Override
-	public String getEjectStart() {
-		return this.ejectStart;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectMode()
-	 */
-	@Override
-	public String getEjectMode() {
-		return this.ejectMode;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectPulse()
-	 */
-	@Override
-	public float getEjectPulse() {
-		return this.ejectPulse;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectDelay()
-	 */
-	@Override
-	public float getEjectDelay() {
-		return this.ejectDelay;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsFwdPos()
-	 */
-	@Override
-	public float getEjectorsFwdPos() {
-		return this.ejectorsFwdPos;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsFwdSpeed()
-	 */
-	@Override
-	public float getEjectorsFwdSpeed() {
-		return this.ejectorsFwdSpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsFwdTime()
-	 */
-	@Override
-	public float getEjectorsFwdTime() {
-		return this.ejectorsFwdTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsStopPos()
-	 */
-	@Override
-	public float getEjectorsStopPos() {
-		return this.ejectorsStopPos;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsStopSpeed()
-	 */
-	@Override
-	public float getEjectorsStopSpeed() {
-		return this.ejectorsStopSpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsStopTime()
-	 */
-	@Override
-	public float getEjectorsStopTime() {
-		return this.ejectorsStopTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsRevPos()
-	 */
-	@Override
-	public float getEjectorsRevPos() {
-		return this.ejectorsRevPos;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsRevSpeed()
-	 */
-	@Override
-	public float getEjectorsRevSpeed() {
-		return this.ejectorsRevSpeed;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getEjectorsRevTime()
-	 */
-	@Override
-	public float getEjectorsRevTime() {
-		return this.ejectorsRevTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_1()
-	 */
-	@Override
-	public float getDme_1() {
-		return this.dme_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_2()
-	 */
-	@Override
-	public float getDme_2() {
-		return this.dme_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_3()
-	 */
-	@Override
-	public float getDme_3() {
-		return this.dme_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_4()
-	 */
-	@Override
-	public float getDme_4() {
-		return this.dme_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_5()
-	 */
-	@Override
-	public float getDme_5() {
-		return this.dme_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_6()
-	 */
-	@Override
-	public float getDme_6() {
-		return this.dme_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_7()
-	 */
-	@Override
-	public float getDme_7() {
-		return this.dme_7;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDme_8()
-	 */
-	@Override
-	public float getDme_8() {
-		return this.dme_8;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getWaterTempFixedHalf()
-	 */
-	@Override
-	public float getWaterTempFixedHalf() {
-		return this.waterTempFixedHalf;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getWaterTempMovingHalf()
-	 */
-	@Override
-	public float getWaterTempMovingHalf() {
-		return this.waterTempMovingHalf;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getWaterTempNotes()
-	 */
-	@Override
-	public String getWaterTempNotes() {
-		return this.waterTempNotes;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setPartId(java.lang.String)
-	 */
-	@Override
-	public void setPartId(String partId) {
-		this.partId=partId;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMachineSize(int)
-	 */
-	@Override
-	public void setMachineSize(int machineSize) {
-		this.machineSize=machineSize;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMachineNo(java.lang.String)
-	 */
-	@Override
-	public void setMachineNo(String machineNo) {
-		this.machineNo=machineNo;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMaterial(int)
-	 */
-	@Override
-	public void setMaterial(int material) {
-		this.material=material;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMasterbatchNo(java.lang.String)
-	 */
-	@Override
-	public void setMasterbatchNo(String masterbatchNo) {
-		this.masterbatchNo=masterbatchNo;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDateOfIssue(java.sql.Date)
-	 */
-	@Override
-	public void setDateOfIssue(java.sql.Date dateOfIssue) {
-		this.dateOfIssue=dateOfIssue;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setSignOffBy(java.lang.String)
-	 */
-	@Override
-	public void setSignOffBy(String signOffBy) {
-		this.signOffBy=signOffBy;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setProcessNotes(java.lang.String)
-	 */
-	@Override
-	public void setProcessNotes(String processNotes) {
-		this.processNotes=processNotes;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjectionSpeed_1(float)
-	 */
-	@Override
-	public void setInjectionSpeed_1(float injectionSpeed_1) {
-		this.injectionSpeed_1=injectionSpeed_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjectionSpeed_2(float)
-	 */
-	@Override
-	public void setInjectionSpeed_2(float injectionSpeed_2) {
-		this.injectionSpeed_2=injectionSpeed_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjectionSpeed_3(float)
-	 */
-	@Override
-	public void setInjectionSpeed_3(float injectionSpeed_3) {
-		this.injectionSpeed_3=injectionSpeed_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjectionSpeed_4(float)
-	 */
-	@Override
-	public void setInjectionSpeed_4(float injectionSpeed_4) {
-		this.injectionSpeed_4=injectionSpeed_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjectionSpeed_5(float)
-	 */
-	@Override
-	public void setInjectionSpeed_5(float injectionSpeed_5) {
-		this.injectionSpeed_5=injectionSpeed_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjectionSpeed_6(float)
-	 */
-	@Override
-	public void setInjectionSpeed_6(float injectionSpeed_6) {
-		this.injectionSpeed_6=injectionSpeed_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjSpeedPosition_1(float)
-	 */
-	@Override
-	public void setInjSpeedPosition_1(float injSpeedPosition_1) {
-		this.injSpeedPosition_1=injSpeedPosition_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjSpeedPosition_2(float)
-	 */
-	@Override
-	public void setInjSpeedPosition_2(float injSpeedPosition_2) {
-		this.injSpeedPosition_2=injSpeedPosition_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjSpeedPosition_3(float)
-	 */
-	@Override
-	public void setInjSpeedPosition_3(float injSpeedPosition_3) {
-		this.injSpeedPosition_3=injSpeedPosition_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjSpeedPosition_4(float)
-	 */
-	@Override
-	public void setInjSpeedPosition_4(float injSpeedPosition_4) {
-		this.injSpeedPosition_4=injSpeedPosition_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjSpeedPosition_5(float)
-	 */
-	@Override
-	public void setInjSpeedPosition_5(float injSpeedPosition_5) {
-		this.injSpeedPosition_5=injSpeedPosition_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setInjSpeedPosition_6(float)
-	 */
-	@Override
-	public void setInjSpeedPosition_6(float injSpeedPosition_6) {
-		this.injSpeedPosition_6=injSpeedPosition_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingPressure_1(float)
-	 */
-	@Override
-	public void setHoldingPressure_1(float holdingPressure_1) {
-		this.holdingPressure_1=holdingPressure_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingPressure_2(float)
-	 */
-	@Override
-	public void setHoldingPressure_2(float holdingPressure_2) {
-		this.holdingPressure_2=holdingPressure_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingPressure_3(float)
-	 */
-	@Override
-	public void setHoldingPressure_3(float holdingPressure_3) {
-		this.holdingPressure_3=holdingPressure_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingPressure_4(float)
-	 */
-	@Override
-	public void setHoldingPressure_4(float holdingPressure_4) {
-		this.holdingPressure_4=holdingPressure_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingPressure_5(float)
-	 */
-	@Override
-	public void setHoldingPressure_5(float holdingPressure_5) {
-		this.holdingPressure_5=holdingPressure_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingPressure_6(float)
-	 */
-	@Override
-	public void setHoldingPressure_6(float holdingPressure_6) {
-		this.holdingPressure_6=holdingPressure_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingTime_1(float)
-	 */
-	@Override
-	public void setHoldingTime_1(float holdingTime_1) {
-		this.holdingTime_1=holdingTime_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingTime_2(float)
-	 */
-	@Override
-	public void setHoldingTime_2(float holdingTime_2) {
-		this.holdingTime_2=holdingTime_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingTime_3(float)
-	 */
-	@Override
-	public void setHoldingTime_3(float holdingTime_3) {
-		this.holdingTime_3=holdingTime_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingTime_4(float)
-	 */
-	@Override
-	public void setHoldingTime_4(float holdingTime_4) {
-		this.holdingTime_4=holdingTime_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingTime_5(float)
-	 */
-	@Override
-	public void setHoldingTime_5(float holdingTime_5) {
-		this.holdingTime_5=holdingTime_5;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setHoldingTime_6(float)
-	 */
-	@Override
-	public void setHoldingTime_6(float holdingTime_6) {
-		this.holdingTime_6=holdingTime_6;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMaxPackVel(float)
-	 */
-	@Override
-	public void setMaxPackVel(float maxPackVel) {
-		this.maxPackVel=maxPackVel;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setPosTran(float)
-	 */
-	@Override
-	public void setPosTran(float posTran) {
-		this.posTran=posTran;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMaxInjPre(float)
-	 */
-	@Override
-	public void setMaxInjPre(float maxInjPre) {
-		this.maxInjPre=maxInjPre;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMaxInjTime(float)
-	 */
-	@Override
-	public void setMaxInjTime(float maxInjTime) {
-		this.maxInjTime=maxInjTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setShotSize(float)
-	 */
-	@Override
-	public void setShotSize(float shotSize) {
-		this.shotSize=shotSize;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDecompressionVel(float)
-	 */
-	@Override
-	public void setDecompressionVel(float decompressionVel) {
-		this.decompressionVel=decompressionVel;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setCoolTime(float)
-	 */
-	@Override
-	public void setCoolTime(float coolTime) {
-		this.coolTime=coolTime;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBackPressure_1(float)
-	 */
-	@Override
-	public void setBackPressure_1(float backPressure_1) {
-		this.backPressure_1=backPressure_1;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBackPressure_2(float)
-	 */
-	@Override
-	public void setBackPressure_2(float backPressure_2) {
-		this.backPressure_2=backPressure_2;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBackPressure_3(float)
-	 */
-	@Override
-	public void setBackPressure_3(float backPressure_3) {
-		this.backPressure_3=backPressure_3;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBackPressure_4(float)
-	 */
-	@Override
-	public void setBackPressure_4(float backPressure_4) {
-		this.backPressure_4=backPressure_4;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBackPressure_5(float)
-	 */
-	@Override
-	public void setBackPressure_5(float backPressure_5) {
-		this.backPressure_5=backPressure_5;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBackPressure_6(float)
-	 */
-	@Override
-	public void setBackPressure_6(float backPressure_6) {
-		this.backPressure_6=backPressure_6;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setScrewExtSpeed_1(float)
-	 */
-	@Override
-	public void setScrewExtSpeed_1(float screwExtSpeed_1) {
-		this.screwExtSpeed_1=screwExtSpeed_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setScrewExtSpeed_2(float)
-	 */
-	@Override
-	public void setScrewExtSpeed_2(float screwExtSpeed_2) {
-		this.screwExtSpeed_2=screwExtSpeed_2;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setScrewExtSpeed_3(float)
-	 */
-	@Override
-	public void setScrewExtSpeed_3(float screwExtSpeed_3) {
-		this.screwExtSpeed_3=screwExtSpeed_3;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setScrewExtSpeed_4(float)
-	 */
-	@Override
-	public void setScrewExtSpeed_4(float screwExtSpeed_4) {
-		this.screwExtSpeed_4=screwExtSpeed_4;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setScrewExtSpeed_5(float)
-	 */
-	@Override
-	public void setScrewExtSpeed_5(float screwExtSpeed_5) {
-		this.screwExtSpeed_5=screwExtSpeed_5;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setScrewExtSpeed_6(float)
-	 */
-	@Override
-	public void setScrewExtSpeed_6(float screwExtSpeed_6) {
-		this.screwExtSpeed_6=screwExtSpeed_6;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setExtProfilePos_1(float)
-	 */
-	@Override
-	public void setExtProfilePos_1(float extProfilePos_1) {
-		this.extProfilePos_1=extProfilePos_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setExtProfilePos_2(float)
-	 */
-	@Override
-	public void setExtProfilePos_2(float extProfilePos_2) {
-		this.extProfilePos_2=extProfilePos_2;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setExtProfilePos_3(float)
-	 */
-	@Override
-	public void setExtProfilePos_3(float extProfilePos_3) {
-		this.extProfilePos_3=extProfilePos_3;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setExtProfilePos_4(float)
-	 */
-	@Override
-	public void setExtProfilePos_4(float extProfilePos_4) {
-		this.extProfilePos_4=extProfilePos_4;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setExtProfilePos_5(float)
-	 */
-	@Override
-	public void setExtProfilePos_5(float extProfilePos_5) {
-		this.extProfilePos_5=extProfilePos_5;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setExtProfilePos_6(float)
-	 */
-	@Override
-	public void setExtProfilePos_6(float extProfilePos_6) {
-		this.extProfilePos_6=extProfilePos_6;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setNozzelTemperature(float)
-	 */
-	@Override
-	public void setNozzelTemperature(float nozzelTemperature) {
-		this.nozzelTemperature=nozzelTemperature;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBarrelTemperature_1(float)
-	 */
-	@Override
-	public void setBarrelTemperature_1(float barrelTemperature_1) {
-		this.barrelTemperature_1=barrelTemperature_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBarrelTemperature_2(float)
-	 */
-	@Override
-	public void setBarrelTemperature_2(float barrelTemperature_2) {
-		this.barrelTemperature_2=barrelTemperature_2;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBarrelTemperature_3(float)
-	 */
-	@Override
-	public void setBarrelTemperature_3(float barrelTemperature_3) {
-		this.barrelTemperature_3=barrelTemperature_3;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setBarrelTemperature_4(float)
-	 */
-	@Override
-	public void setBarrelTemperature_4(float barrelTemperature_4) {
-		this.barrelTemperature_4=barrelTemperature_4;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setThroatTemperature(float)
-	 */
-	@Override
-	public void setThroatTemperature(float throatTemperature) {
-		this.throatTemperature=throatTemperature;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldClosingOpenLimitPos(float)
-	 */
-	@Override
-	public void setMouldClosingOpenLimitPos(float mouldClosingOpenLimitPos) {
-		this.mouldClosingOpenLimitPos=mouldClosingOpenLimitPos;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldClosingOpenLimitSpeed(float)
-	 */
-	@Override
-	public void setMouldClosingOpenLimitSpeed(float mouldClosingOpenLimitSpeed) {
-		this.mouldClosingOpenLimitSpeed=mouldClosingOpenLimitSpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldClosedLimitPos(float)
-	 */
-	@Override
-	public void setMouldClosedLimitPos(float mouldClosedLimitPos) {
-		this.mouldClosedLimitPos=mouldClosedLimitPos;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldClosedLimitSpeed(float)
-	 */
-	@Override
-	public void setMouldClosedLimitSpeed(float mouldClosedLimitSpeed) {
-		this.mouldClosedLimitSpeed=mouldClosedLimitSpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setClsSlowPos(float)
-	 */
-	@Override
-	public void setClsSlowPos(float clsSlowPos) {
-		this.clsSlowPos=clsSlowPos;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setClsSlowSpeed(float)
-	 */
-	@Override
-	public void setClsSlowSpeed(float clsSlowSpeed) {
-		this.clsSlowSpeed=clsSlowSpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenBreakAwaySpeed(float)
-	 */
-	@Override
-	public void setMouldOpenBreakAwaySpeed(float mouldOpenBreakAwaySpeed) {
-		this.mouldOpenBreakAwaySpeed=mouldOpenBreakAwaySpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenStepPos_1(float)
-	 */
-	@Override
-	public void setMouldOpenStepPos_1(float mouldOpenStepPos_1) {
-		this.mouldOpenStepPos_1=mouldOpenStepPos_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenStepSpeed_1(float)
-	 */
-	@Override
-	public void setMouldOpenStepSpeed_1(float mouldOpenStepSpeed_1) {
-		this.mouldOpenStepSpeed_1=mouldOpenStepSpeed_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenStepPos_2(float)
-	 */
-	@Override
-	public void setMouldOpenStepPos_2(float mouldOpenStepPos_2) {
-		this.mouldOpenStepPos_2=mouldOpenStepPos_2;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenStepSpeed_2(float)
-	 */
-	@Override
-	public void setMouldOpenStepSpeed_2(float mouldOpenStepSpeed_2) {
-		this.mouldOpenStepSpeed_2=mouldOpenStepSpeed_2;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenStepPos_3(float)
-	 */
-	@Override
-	public void setMouldOpenStepPos_3(float mouldOpenStepPos_3) {
-		this.mouldOpenStepPos_3=mouldOpenStepPos_3;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenStepSpeed_3(float)
-	 */
-	@Override
-	public void setMouldOpenStepSpeed_3(float mouldOpenStepSpeed_3) {
-		this.mouldOpenStepSpeed_3=mouldOpenStepSpeed_3;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setMouldOpenTime(float)
-	 */
-	@Override
-	public void setMouldOpenTime(float mouldOpenTime) {
-		this.mouldOpenTime=mouldOpenTime;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectStart(java.lang.String)
-	 */
-	@Override
-	public void setEjectStart(String ejectStart) {
-		this.ejectStart=ejectStart;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectMode(java.lang.String)
-	 */
-	@Override
-	public void setEjectMode(String ejectMode) {
-		this.ejectMode=ejectMode;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectPulse(float)
-	 */
-	@Override
-	public void setEjectPulse(float ejectPulse) {
-		this.ejectPulse=ejectPulse;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectDelay(float)
-	 */
-	@Override
-	public void setEjectDelay(float ejectDelay) {
-		this.ejectDelay=ejectDelay;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsFwdPos(float)
-	 */
-	@Override
-	public void setEjectorsFwdPos(float ejectorsFwdPos) {
-		this.ejectorsFwdPos=ejectorsFwdPos;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsFwdSpeed(float)
-	 */
-	@Override
-	public void setEjectorsFwdSpeed(float ejectorsFwdSpeed) {
-		this.ejectorsFwdSpeed=ejectorsFwdSpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsFwdTime(float)
-	 */
-	@Override
-	public void setEjectorsFwdTime(float ejectorsFwdTime) {
-		this.ejectorsFwdTime=ejectorsFwdTime;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsStopPos(float)
-	 */
-	@Override
-	public void setEjectorsStopPos(float ejectorsStopPos) {
-		this.ejectorsStopPos=ejectorsStopPos;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsStopSpeed(float)
-	 */
-	@Override
-	public void setEjectorsStopSpeed(float ejectorsStopSpeed) {
-		this.ejectorsStopSpeed=ejectorsStopSpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsStopTime(float)
-	 */
-	@Override
-	public void setEjectorsStopTime(float ejectorsStopTime) {
-		this.ejectorsStopTime=ejectorsStopTime;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsRevPos(float)
-	 */
-	@Override
-	public void setEjectorsRevPos(float ejectorsRevPos) {
-		this.ejectorsRevPos=ejectorsRevPos;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsRevSpeed(float)
-	 */
-	@Override
-	public void setEjectorsRevSpeed(float ejectorsRevSpeed) {
-		this.ejectorsRevSpeed=ejectorsRevSpeed;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setEjectorsRevTime(float)
-	 */
-	@Override
-	public void setEjectorsRevTime(float ejectorsRevTime) {
-		this.ejectorsRevTime=ejectorsRevTime;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_1(float)
-	 */
-	@Override
-	public void setDme_1(float dme_1) {
-		this.dme_1=dme_1;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_2(float)
-	 */
-	@Override
-	public void setDme_2(float dme_2) {
-		this.dme_2=dme_2;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_3(float)
-	 */
-	@Override
-	public void setDme_3(float dme_3) {
-		this.dme_3=dme_3;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_4(float)
-	 */
-	@Override
-	public void setDme_4(float dme_4) {
-		this.dme_4=dme_4;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_5(float)
-	 */
-	@Override
-	public void setDme_5(float dme_5) {
-		this.dme_5=dme_5;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_6(float)
-	 */
-	@Override
-	public void setDme_6(float dme_6) {
-		this.dme_6=dme_6;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_7(float)
-	 */
-	@Override
-	public void setDme_7(float dme_7) {
-		this.dme_7=dme_7;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDme_8(float)
-	 */
-	@Override
-	public void setDme_8(float dme_8) {
-		this.dme_8=dme_8;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setWaterTempFixedHalf(float)
-	 */
-	@Override
-	public void setWaterTempFixedHalf(float waterTempFixedHalf) {
-		this.waterTempFixedHalf=waterTempFixedHalf;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setWaterTempMovingHalf(float)
-	 */
-	@Override
-	public void setWaterTempMovingHalf(float waterTempMovingHalf) {
-		this.waterTempMovingHalf=waterTempMovingHalf;;
-	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setWaterTempNotes(java.lang.String)
-	 */
-	@Override
-	public void setWaterTempNotes(String waterTempNotes) {
-		this.waterTempNotes=waterTempNotes;;
+
+	public java.sql.Date getDateOfIssue()
+	{
+		return (java.sql.Date) this.dateOfIssue;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getClsSPPos()
-	 */
-	@Override
-	public float getClsSPPos() {
+	public String getSignOffBy()
+	{
+		return this.signOffBy;
+	}
+
+	public String getProcessNotes()
+	{
+		return this.processNotes;
+	}
+
+	public float getInjectionSpeed_1()
+	{
+		return this.injectionSpeed_1;
+	}
+
+	public float getInjectionSpeed_2()
+	{
+		return this.injectionSpeed_2;
+	}
+
+	public float getInjectionSpeed_3()
+	{
+		return this.injectionSpeed_3;
+	}
+
+	public float getInjectionSpeed_4()
+	{
+		return this.injectionSpeed_4;
+	}
+
+	public float getInjectionSpeed_5()
+	{
+		return this.injectionSpeed_5;
+	}
+
+	public float getInjectionSpeed_6()
+	{
+		return this.injectionSpeed_6;
+	}
+
+	public float getInjSpeedPosition_1()
+	{
+		return this.injSpeedPosition_1;
+	}
+
+	public float getInjSpeedPosition_2()
+	{
+		return this.injSpeedPosition_2;
+	}
+
+	public float getInjSpeedPosition_3()
+	{
+		return this.injSpeedPosition_3;
+	}
+
+	public float getInjSpeedPosition_4()
+	{
+		return this.injSpeedPosition_4;
+	}
+
+	public float getInjSpeedPosition_5()
+	{
+		return this.injSpeedPosition_5;
+	}
+
+	public float getInjSpeedPosition_6()
+	{
+		return this.injSpeedPosition_6;
+	}
+
+	public float getHoldingPressure_1()
+	{
+		return this.holdingPressure_1;
+	}
+
+	public float getHoldingPressure_2()
+	{
+		return this.holdingPressure_2;
+	}
+
+	public float getHoldingPressure_3()
+	{
+		return this.holdingPressure_3;
+	}
+
+	public float getHoldingPressure_4()
+	{
+		return this.holdingPressure_4;
+	}
+
+	public float getHoldingPressure_5()
+	{
+		return this.holdingPressure_5;
+	}
+
+	public float getHoldingPressure_6()
+	{
+		return this.holdingPressure_6;
+	}
+
+	public float getHoldingTime_1()
+	{
+		return this.holdingTime_1;
+	}
+
+	public float getHoldingTime_2()
+	{
+		return this.holdingTime_2;
+	}
+
+	public float getHoldingTime_3()
+	{
+		return this.holdingTime_3;
+	}
+
+	public float getHoldingTime_4()
+	{
+		return this.holdingTime_4;
+	}
+
+	public float getHoldingTime_5()
+	{
+		return this.holdingTime_5;
+	}
+
+	public float getHoldingTime_6()
+	{
+		return this.holdingTime_6;
+	}
+
+	public float getMaxPackVel()
+	{
+		return this.maxPackVel;
+	}
+
+	public float getPosTran()
+	{
+		return this.posTran;
+	}
+
+	public float getMaxInjPre()
+	{
+		return this.maxInjPre;
+	}
+
+	public float getMaxInjTime()
+	{
+		return this.maxInjTime;
+	}
+
+	public float getShotSize()
+	{
+		return this.shotSize;
+	}
+
+	public float getDecompressionVel()
+	{
+		return this.decompressionVel;
+	}
+
+	public float getCoolTime()
+	{
+		return this.coolTime;
+	}
+
+	public float getBackPressure_1()
+	{
+		return this.backPressure_1;
+	}
+
+	public float getBackPressure_2()
+	{
+		return this.backPressure_2;
+	}
+
+	public float getBackPressure_3()
+	{
+		return this.backPressure_3;
+	}
+
+	public float getBackPressure_4()
+	{
+		return this.backPressure_4;
+	}
+
+	public float getBackPressure_5()
+	{
+		return this.backPressure_5;
+	}
+
+	public float getBackPressure_6()
+	{
+		return this.backPressure_6;
+	}
+
+	public float getScrewExtSpeed_1()
+	{
+		return this.screwExtSpeed_1;
+	}
+
+	public float getScrewExtSpeed_2()
+	{
+		return this.screwExtSpeed_2;
+	}
+
+	public float getScrewExtSpeed_3()
+	{
+		return this.screwExtSpeed_3;
+	}
+
+	public float getScrewExtSpeed_4()
+	{
+		return this.screwExtSpeed_4;
+	}
+
+	public float getScrewExtSpeed_5()
+	{
+		return this.screwExtSpeed_5;
+	}
+
+	public float getScrewExtSpeed_6()
+	{
+		return this.screwExtSpeed_6;
+	}
+
+	public float getExtProfilePos_1()
+	{
+		return this.extProfilePos_1;
+	}
+
+	public float getExtProfilePos_2()
+	{
+		return this.extProfilePos_2;
+	}
+
+	public float getExtProfilePos_3()
+	{
+		return this.extProfilePos_3;
+	}
+
+	public float getExtProfilePos_4()
+	{
+		return this.extProfilePos_4;
+	}
+
+	public float getExtProfilePos_5()
+	{
+		return this.extProfilePos_5;
+	}
+
+	public float getExtProfilePos_6()
+	{
+		return this.extProfilePos_6;
+	}
+
+	public float getNozzelTemperature()
+	{
+		return this.nozzelTemperature;
+	}
+
+	public float getBarrelTemperature_1()
+	{
+		return this.barrelTemperature_1;
+	}
+
+	public float getBarrelTemperature_2()
+	{
+		return this.barrelTemperature_2;
+	}
+
+	public float getBarrelTemperature_3()
+	{
+		return this.barrelTemperature_3;
+	}
+
+	public float getBarrelTemperature_4()
+	{
+		return this.barrelTemperature_4;
+	}
+
+	public float getThroatTemperature()
+	{
+		return this.throatTemperature;
+	}
+
+	public float getMouldClosingOpenLimitPos()
+	{
+		return this.mouldClosingOpenLimitPos;
+	}
+
+	public float getMouldClosingOpenLimitSpeed()
+	{
+		return this.mouldClosingOpenLimitSpeed;
+	}
+
+	public float getMouldClosedLimitPos()
+	{
+		return this.mouldClosedLimitPos;
+	}
+
+	public float getMouldClosedLimitSpeed()
+	{
+		return this.mouldClosedLimitSpeed;
+	}
+
+	public float getClsSlowPos()
+	{
+		return this.clsSlowPos;
+	}
+
+	public float getClsSlowSpeed()
+	{
+		return this.clsSlowSpeed;
+	}
+
+	public float getMouldOpenBreakAwaySpeed()
+	{
+		return this.mouldOpenBreakAwaySpeed;
+	}
+
+	public float getMouldOpenStepPos_1()
+	{
+		return this.mouldOpenStepPos_1;
+	}
+
+	public float getMouldOpenStepSpeed_1()
+	{
+		return this.mouldOpenStepSpeed_1;
+	}
+
+	public float getMouldOpenStepPos_2()
+	{
+		return this.mouldOpenStepPos_2;
+	}
+
+	public float getMouldOpenStepSpeed_2()
+	{
+		return this.mouldOpenStepSpeed_2;
+	}
+
+	public float getMouldOpenStepPos_3()
+	{
+		return this.mouldOpenStepPos_3;
+	}
+
+	public float getMouldOpenStepSpeed_3()
+	{
+		return this.mouldOpenStepSpeed_3;
+	}
+
+	public float getMouldOpenTime()
+	{
+		return this.mouldOpenTime;
+	}
+
+	public String getEjectStart()
+	{
+		return this.ejectStart;
+	}
+
+	public String getEjectMode()
+	{
+		return this.ejectMode;
+	}
+
+	public float getEjectPulse()
+	{
+		return this.ejectPulse;
+	}
+
+	public float getEjectDelay()
+	{
+		return this.ejectDelay;
+	}
+
+	public float getEjectorsFwdPos()
+	{
+		return this.ejectorsFwdPos;
+	}
+
+	public float getEjectorsFwdSpeed()
+	{
+		return this.ejectorsFwdSpeed;
+	}
+
+	public float getEjectorsFwdTime()
+	{
+		return this.ejectorsFwdTime;
+	}
+
+	public float getEjectorsStopPos()
+	{
+		return this.ejectorsStopPos;
+	}
+
+	public float getEjectorsStopSpeed()
+	{
+		return this.ejectorsStopSpeed;
+	}
+
+	public float getEjectorsStopTime()
+	{
+		return this.ejectorsStopTime;
+	}
+
+	public float getEjectorsRevPos()
+	{
+		return this.ejectorsRevPos;
+	}
+
+	public float getEjectorsRevSpeed()
+	{
+		return this.ejectorsRevSpeed;
+	}
+
+	public float getEjectorsRevTime()
+	{
+		return this.ejectorsRevTime;
+	}
+
+	public float getDme_1()
+	{
+		return this.dme_1;
+	}
+
+	public float getDme_2()
+	{
+		return this.dme_2;
+	}
+
+	public float getDme_3()
+	{
+		return this.dme_3;
+	}
+
+	public float getDme_4()
+	{
+		return this.dme_4;
+	}
+
+	public float getDme_5()
+	{
+		return this.dme_5;
+	}
+
+	public float getDme_6()
+	{
+		return this.dme_6;
+	}
+
+	public float getDme_7()
+	{
+		return this.dme_7;
+	}
+
+	public float getDme_8()
+	{
+		return this.dme_8;
+	}
+
+	public float getWaterTempFixedHalf()
+	{
+		return this.waterTempFixedHalf;
+	}
+
+	public float getWaterTempMovingHalf()
+	{
+		return this.waterTempMovingHalf;
+	}
+
+	public String getWaterTempNotes()
+	{
+		return this.waterTempNotes;
+	}
+
+	public void setPartId(String partId)
+	{
+		this.partId = partId;
+	}
+
+	public void setMachineSize(int machineSize)
+	{
+		this.machineSize = machineSize;
+	}
+
+	public void setMachineNo(String machineNo)
+	{
+		this.machineNo = machineNo;
+	}
+
+	public void setMaterial(int material)
+	{
+		this.material = material;
+	}
+
+	public void setMasterbatchNo(String masterbatchNo)
+	{
+		this.masterbatchNo = masterbatchNo;
+	}
+
+	public void setDateOfIssue(java.sql.Date dateOfIssue)
+	{
+		this.dateOfIssue = dateOfIssue;
+	}
+
+	public void setSignOffBy(String signOffBy)
+	{
+		this.signOffBy = signOffBy;
+	}
+
+	public void setProcessNotes(String processNotes)
+	{
+		this.processNotes = processNotes;
+	}
+
+	public void setInjectionSpeed_1(float injectionSpeed_1)
+	{
+		this.injectionSpeed_1 = injectionSpeed_1;
+		;
+	}
+
+	public void setInjectionSpeed_2(float injectionSpeed_2)
+	{
+		this.injectionSpeed_2 = injectionSpeed_2;
+	}
+
+	public void setInjectionSpeed_3(float injectionSpeed_3)
+	{
+		this.injectionSpeed_3 = injectionSpeed_3;
+	}
+
+	public void setInjectionSpeed_4(float injectionSpeed_4)
+	{
+		this.injectionSpeed_4 = injectionSpeed_4;
+	}
+
+	public void setInjectionSpeed_5(float injectionSpeed_5)
+	{
+		this.injectionSpeed_5 = injectionSpeed_5;
+	}
+
+	public void setInjectionSpeed_6(float injectionSpeed_6)
+	{
+		this.injectionSpeed_6 = injectionSpeed_6;
+	}
+
+	public void setInjSpeedPosition_1(float injSpeedPosition_1)
+	{
+		this.injSpeedPosition_1 = injSpeedPosition_1;
+	}
+
+	public void setInjSpeedPosition_2(float injSpeedPosition_2)
+	{
+		this.injSpeedPosition_2 = injSpeedPosition_2;
+	}
+
+	public void setInjSpeedPosition_3(float injSpeedPosition_3)
+	{
+		this.injSpeedPosition_3 = injSpeedPosition_3;
+	}
+
+	public void setInjSpeedPosition_4(float injSpeedPosition_4)
+	{
+		this.injSpeedPosition_4 = injSpeedPosition_4;
+	}
+
+	public void setInjSpeedPosition_5(float injSpeedPosition_5)
+	{
+		this.injSpeedPosition_5 = injSpeedPosition_5;
+	}
+
+	public void setInjSpeedPosition_6(float injSpeedPosition_6)
+	{
+		this.injSpeedPosition_6 = injSpeedPosition_6;
+	}
+
+	public void setHoldingPressure_1(float holdingPressure_1)
+	{
+		this.holdingPressure_1 = holdingPressure_1;
+	}
+
+	public void setHoldingPressure_2(float holdingPressure_2)
+	{
+		this.holdingPressure_2 = holdingPressure_2;
+	}
+
+	public void setHoldingPressure_3(float holdingPressure_3)
+	{
+		this.holdingPressure_3 = holdingPressure_3;
+	}
+
+	public void setHoldingPressure_4(float holdingPressure_4)
+	{
+		this.holdingPressure_4 = holdingPressure_4;
+	}
+
+	public void setHoldingPressure_5(float holdingPressure_5)
+	{
+		this.holdingPressure_5 = holdingPressure_5;
+	}
+
+	public void setHoldingPressure_6(float holdingPressure_6)
+	{
+		this.holdingPressure_6 = holdingPressure_6;
+	}
+
+	public void setHoldingTime_1(float holdingTime_1)
+	{
+		this.holdingTime_1 = holdingTime_1;
+	}
+
+	public void setHoldingTime_2(float holdingTime_2)
+	{
+		this.holdingTime_2 = holdingTime_2;
+	}
+
+	public void setHoldingTime_3(float holdingTime_3)
+	{
+		this.holdingTime_3 = holdingTime_3;
+	}
+
+	public void setHoldingTime_4(float holdingTime_4)
+	{
+		this.holdingTime_4 = holdingTime_4;
+	}
+
+	public void setHoldingTime_5(float holdingTime_5)
+	{
+		this.holdingTime_5 = holdingTime_5;
+	}
+
+	public void setHoldingTime_6(float holdingTime_6)
+	{
+		this.holdingTime_6 = holdingTime_6;
+	}
+
+	public void setMaxPackVel(float maxPackVel)
+	{
+		this.maxPackVel = maxPackVel;
+	}
+
+	public void setPosTran(float posTran)
+	{
+		this.posTran = posTran;
+	}
+
+	public void setMaxInjPre(float maxInjPre)
+	{
+		this.maxInjPre = maxInjPre;
+	}
+
+	public void setMaxInjTime(float maxInjTime)
+	{
+		this.maxInjTime = maxInjTime;
+	}
+
+	public void setShotSize(float shotSize)
+	{
+		this.shotSize = shotSize;
+	}
+
+	public void setDecompressionVel(float decompressionVel)
+	{
+		this.decompressionVel = decompressionVel;
+	}
+
+	public void setCoolTime(float coolTime)
+	{
+		this.coolTime = coolTime;
+	}
+
+	public void setBackPressure_1(float backPressure_1)
+	{
+		this.backPressure_1 = backPressure_1;
+	}
+
+	public void setBackPressure_2(float backPressure_2)
+	{
+		this.backPressure_2 = backPressure_2;
+	}
+
+	public void setBackPressure_3(float backPressure_3)
+	{
+		this.backPressure_3 = backPressure_3;
+	}
+
+	public void setBackPressure_4(float backPressure_4)
+	{
+		this.backPressure_4 = backPressure_4;
+	}
+
+	public void setBackPressure_5(float backPressure_5)
+	{
+		this.backPressure_5 = backPressure_5;
+		;
+	}
+
+	public void setBackPressure_6(float backPressure_6)
+	{
+		this.backPressure_6 = backPressure_6;
+		;
+	}
+
+	public void setScrewExtSpeed_1(float screwExtSpeed_1)
+	{
+		this.screwExtSpeed_1 = screwExtSpeed_1;
+		;
+	}
+
+	public void setScrewExtSpeed_2(float screwExtSpeed_2)
+	{
+		this.screwExtSpeed_2 = screwExtSpeed_2;
+		;
+	}
+
+	public void setScrewExtSpeed_3(float screwExtSpeed_3)
+	{
+		this.screwExtSpeed_3 = screwExtSpeed_3;
+		;
+	}
+
+	public void setScrewExtSpeed_4(float screwExtSpeed_4)
+	{
+		this.screwExtSpeed_4 = screwExtSpeed_4;
+		;
+	}
+
+	public void setScrewExtSpeed_5(float screwExtSpeed_5)
+	{
+		this.screwExtSpeed_5 = screwExtSpeed_5;
+		;
+	}
+
+	public void setScrewExtSpeed_6(float screwExtSpeed_6)
+	{
+		this.screwExtSpeed_6 = screwExtSpeed_6;
+		;
+	}
+
+	public void setExtProfilePos_1(float extProfilePos_1)
+	{
+		this.extProfilePos_1 = extProfilePos_1;
+		;
+	}
+
+	public void setExtProfilePos_2(float extProfilePos_2)
+	{
+		this.extProfilePos_2 = extProfilePos_2;
+		;
+	}
+
+	public void setExtProfilePos_3(float extProfilePos_3)
+	{
+		this.extProfilePos_3 = extProfilePos_3;
+		;
+	}
+
+	public void setExtProfilePos_4(float extProfilePos_4)
+	{
+		this.extProfilePos_4 = extProfilePos_4;
+		;
+	}
+
+	public void setExtProfilePos_5(float extProfilePos_5)
+	{
+		this.extProfilePos_5 = extProfilePos_5;
+		;
+	}
+
+	public void setExtProfilePos_6(float extProfilePos_6)
+	{
+		this.extProfilePos_6 = extProfilePos_6;
+		;
+	}
+
+	public void setNozzelTemperature(float nozzelTemperature)
+	{
+		this.nozzelTemperature = nozzelTemperature;
+		;
+	}
+
+	public void setBarrelTemperature_1(float barrelTemperature_1)
+	{
+		this.barrelTemperature_1 = barrelTemperature_1;
+		;
+	}
+
+	public void setBarrelTemperature_2(float barrelTemperature_2)
+	{
+		this.barrelTemperature_2 = barrelTemperature_2;
+		;
+	}
+
+	public void setBarrelTemperature_3(float barrelTemperature_3)
+	{
+		this.barrelTemperature_3 = barrelTemperature_3;
+		;
+	}
+
+	public void setBarrelTemperature_4(float barrelTemperature_4)
+	{
+		this.barrelTemperature_4 = barrelTemperature_4;
+		;
+	}
+
+	public void setThroatTemperature(float throatTemperature)
+	{
+		this.throatTemperature = throatTemperature;
+		;
+	}
+
+	public void setMouldClosingOpenLimitPos(float mouldClosingOpenLimitPos)
+	{
+		this.mouldClosingOpenLimitPos = mouldClosingOpenLimitPos;
+		;
+	}
+
+	public void setMouldClosingOpenLimitSpeed(float mouldClosingOpenLimitSpeed)
+	{
+		this.mouldClosingOpenLimitSpeed = mouldClosingOpenLimitSpeed;
+		;
+	}
+
+	public void setMouldClosedLimitPos(float mouldClosedLimitPos)
+	{
+		this.mouldClosedLimitPos = mouldClosedLimitPos;
+		;
+	}
+
+	public void setMouldClosedLimitSpeed(float mouldClosedLimitSpeed)
+	{
+		this.mouldClosedLimitSpeed = mouldClosedLimitSpeed;
+		;
+	}
+
+	public void setClsSlowPos(float clsSlowPos)
+	{
+		this.clsSlowPos = clsSlowPos;
+		;
+	}
+
+	public void setClsSlowSpeed(float clsSlowSpeed)
+	{
+		this.clsSlowSpeed = clsSlowSpeed;
+		;
+	}
+
+	public void setMouldOpenBreakAwaySpeed(float mouldOpenBreakAwaySpeed)
+	{
+		this.mouldOpenBreakAwaySpeed = mouldOpenBreakAwaySpeed;
+		;
+	}
+
+	public void setMouldOpenStepPos_1(float mouldOpenStepPos_1)
+	{
+		this.mouldOpenStepPos_1 = mouldOpenStepPos_1;
+		;
+	}
+
+	public void setMouldOpenStepSpeed_1(float mouldOpenStepSpeed_1)
+	{
+		this.mouldOpenStepSpeed_1 = mouldOpenStepSpeed_1;
+		;
+	}
+
+	public void setMouldOpenStepPos_2(float mouldOpenStepPos_2)
+	{
+		this.mouldOpenStepPos_2 = mouldOpenStepPos_2;
+		;
+	}
+
+	public void setMouldOpenStepSpeed_2(float mouldOpenStepSpeed_2)
+	{
+		this.mouldOpenStepSpeed_2 = mouldOpenStepSpeed_2;
+		;
+	}
+
+	public void setMouldOpenStepPos_3(float mouldOpenStepPos_3)
+	{
+		this.mouldOpenStepPos_3 = mouldOpenStepPos_3;
+		;
+	}
+
+	public void setMouldOpenStepSpeed_3(float mouldOpenStepSpeed_3)
+	{
+		this.mouldOpenStepSpeed_3 = mouldOpenStepSpeed_3;
+		;
+	}
+
+	public void setMouldOpenTime(float mouldOpenTime)
+	{
+		this.mouldOpenTime = mouldOpenTime;
+		;
+	}
+
+	public void setEjectStart(String ejectStart)
+	{
+		this.ejectStart = ejectStart;
+		;
+	}
+
+	public void setEjectMode(String ejectMode)
+	{
+		this.ejectMode = ejectMode;
+		;
+	}
+
+	public void setEjectPulse(float ejectPulse)
+	{
+		this.ejectPulse = ejectPulse;
+		;
+	}
+
+	public void setEjectDelay(float ejectDelay)
+	{
+		this.ejectDelay = ejectDelay;
+		;
+	}
+
+	public void setEjectorsFwdPos(float ejectorsFwdPos)
+	{
+		this.ejectorsFwdPos = ejectorsFwdPos;
+		;
+	}
+
+	public void setEjectorsFwdSpeed(float ejectorsFwdSpeed)
+	{
+		this.ejectorsFwdSpeed = ejectorsFwdSpeed;
+		;
+	}
+
+	public void setEjectorsFwdTime(float ejectorsFwdTime)
+	{
+		this.ejectorsFwdTime = ejectorsFwdTime;
+		;
+	}
+
+	public void setEjectorsStopPos(float ejectorsStopPos)
+	{
+		this.ejectorsStopPos = ejectorsStopPos;
+		;
+	}
+
+	public void setEjectorsStopSpeed(float ejectorsStopSpeed)
+	{
+		this.ejectorsStopSpeed = ejectorsStopSpeed;
+		;
+	}
+
+	public void setEjectorsStopTime(float ejectorsStopTime)
+	{
+		this.ejectorsStopTime = ejectorsStopTime;
+		;
+	}
+
+	public void setEjectorsRevPos(float ejectorsRevPos)
+	{
+		this.ejectorsRevPos = ejectorsRevPos;
+		;
+	}
+
+	public void setEjectorsRevSpeed(float ejectorsRevSpeed)
+	{
+		this.ejectorsRevSpeed = ejectorsRevSpeed;
+		;
+	}
+
+	public void setEjectorsRevTime(float ejectorsRevTime)
+	{
+		this.ejectorsRevTime = ejectorsRevTime;
+		;
+	}
+
+	public void setDme_1(float dme_1)
+	{
+		this.dme_1 = dme_1;
+		;
+	}
+
+	public void setDme_2(float dme_2)
+	{
+		this.dme_2 = dme_2;
+		;
+	}
+
+	public void setDme_3(float dme_3)
+	{
+		this.dme_3 = dme_3;
+		;
+	}
+
+	public void setDme_4(float dme_4)
+	{
+		this.dme_4 = dme_4;
+		;
+	}
+
+	public void setDme_5(float dme_5)
+	{
+		this.dme_5 = dme_5;
+		;
+	}
+
+	public void setDme_6(float dme_6)
+	{
+		this.dme_6 = dme_6;
+		;
+	}
+
+	public void setDme_7(float dme_7)
+	{
+		this.dme_7 = dme_7;
+		;
+	}
+
+	public void setDme_8(float dme_8)
+	{
+		this.dme_8 = dme_8;
+		;
+	}
+
+	public void setWaterTempFixedHalf(float waterTempFixedHalf)
+	{
+		this.waterTempFixedHalf = waterTempFixedHalf;
+		;
+	}
+
+	public void setWaterTempMovingHalf(float waterTempMovingHalf)
+	{
+		this.waterTempMovingHalf = waterTempMovingHalf;
+		;
+	}
+
+	public void setWaterTempNotes(String waterTempNotes)
+	{
+		this.waterTempNotes = waterTempNotes;
+		;
+	}
+
+	public float getClsSPPos()
+	{
 		return this.clsSPPos;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getClsSPSpeed()
-	 */
-	@Override
-	public float getClsSPSpeed() {
+	public float getClsSPSpeed()
+	{
 		return this.clsSPSpeed;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setClsSPPos(float)
-	 */
-	@Override
-	public void setClsSPPos(float clsSPPos) {
-		this.clsSPPos=clsSPPos;;
+	public void setClsSPPos(float clsSPPos)
+	{
+		this.clsSPPos = clsSPPos;
+		;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setClsSPSpeed(float)
-	 */
-	@Override
-	public void setClsSPSpeed(float clsSPSpeed) {
-		this.clsSPSpeed=clsSPSpeed;;
+	public void setClsSPSpeed(float clsSPSpeed)
+	{
+		this.clsSPSpeed = clsSPSpeed;
+		;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getId()
-	 */
-	@Override
-	public int getId() {
+
+	public int getId()
+	{
 		return this.id;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setId(int)
-	 */
-	@Override
-	public void setId(int id) {
-		this.id=id;
+	public void setId(int id)
+	{
+		this.id = id;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#getDecompressionDist()
-	 */
-	@Override
-	public float getDecompressionDist() {
+
+	public float getDecompressionDist()
+	{
 		return decompressionDist;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.amc.model.MouldProcessRemote#setDecompressionDist(float)
-	 */
-	@Override
-	public void setDecompressionDist(float decompressionDist) {
+	public void setDecompressionDist(float decompressionDist)
+	{
 		this.decompressionDist = decompressionDist;
 	}
-	
-	@Override
+
 	public String toString()
 	{
-		String result="ProcessSheet:(";
-		for(String field:fields)
+		String result = "ProcessSheet:(";
+		for (String field : fields)
 		{
-			result+=",("+field+":"+getField(field)+")\n";
+			result += ",(" + field + ":" + getField(field) + ")\n";
 		}
-		result+=")";
+		result += ")";
 		return result;
 	}
-		
+
 }
