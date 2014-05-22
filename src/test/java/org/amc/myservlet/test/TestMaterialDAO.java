@@ -25,7 +25,9 @@ public class TestMaterialDAO
 
 	private EntityManager em;
 	private EntityManagerFactory factory;
-	
+	private final String NAME="Moplen550";
+	private final String COMPANY="TOSARA";
+	private final String TYPE="ABS";
 	@Before
 	public void setUp()
 	{
@@ -52,9 +54,9 @@ public class TestMaterialDAO
 	{
 		Material m=new Material();
 		
-		m.setCompany("Tosara");
-		m.setName("Moplen550");
-		m.setType("PP");
+		m.setCompany(COMPANY);
+		m.setName(NAME);
+		m.setType(TYPE);
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
 		d.addMaterial(m);
@@ -65,9 +67,9 @@ public class TestMaterialDAO
 	{
 		//Create material
 		Material m=new Material();
-		m.setCompany("Tosara");
-		m.setName("Moplen550");
-		m.setType("PP");
+		m.setCompany(COMPANY);
+		m.setName(NAME);
+		m.setType(TYPE);
 		//Create Material DAO
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
@@ -75,7 +77,7 @@ public class TestMaterialDAO
 		d.addMaterial(m);
 		
 		//Check Material has been added and retrived
-		Map<Integer,Material> list=d.findMaterials("name", "Moplen550");
+		Map<Integer,Material> list=d.findMaterials("name", NAME);
 		Collection<Material> c=list.values();
 		for(Material tm:c)
 		{
@@ -100,14 +102,17 @@ public class TestMaterialDAO
 	{
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
-		Map<Integer,Material> mp=d.findMaterials();
+		Map<Integer,Material> mp=d.findMaterials("name",NAME);
 		assertNotSame(mp.size(),0);
 	}
 
 	@Test
 	public void testFindMaterials()
 	{
-		fail("Not yet implemented");
+		MaterialDAO d=new MaterialDAO();
+		d.setEm(em);
+		Map<Integer,Material> mp=d.findMaterials();
+		assertNotSame(mp.size(),0);
 	}
 
 }
