@@ -1,32 +1,121 @@
 package org.amc.model;
 
+
+import java.io.Serializable;
 import java.util.List;
 
-public interface User
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="users")
+public class User implements Serializable
 {
+	private static final long serialVersionUID = 261123044422857580L;
+	@Column(name="fullname")
+	String fullName="";
+	@Column(name="user_name",updatable=true)
+	String userName="";
+	@Column(name="email",nullable=false)
+	String emailAddress="";
+	@Column(name="user_pass",nullable=false,updatable=true)
+	char[] password;
+	@Column(name="active",updatable=true)
+	boolean active=true;
+	@Transient
+	@Column(name="role_name",table="user_roles",updatable=true)
+	List<String> roles;
+	
+	public User()
+	{
+		;;
+	}
 
-	public String getFullName();
+	
+	
+	public String getFullName()
+	{
+		return fullName;
+	}
 
-	public String getUserName();
+	
+	
+	public String getUserName()
+	{
+		return userName;
+	}
 
-	public String getEmailAddress();
+	
+	
+	public String getEmailAddress()
+	{
+		return emailAddress;
+	}
 
-	public char[] getPassword();
+	
+	
+	public char[] getPassword()
+	{
+		return password;
+	}
 
-	public boolean isActive();
+	
+	
+	public boolean isActive()
+	{
+		return active;
+	}
 
-	public List<String> getRoles();
+	
+	
+	public List<String> getRoles()
+	{
+		return roles;
+	}
 
-	public void setFullName(String fullName);
+	
+	
+	public void setFullName(String fullName)
+	{
+		this.fullName = fullName;
+	}
 
-	public void setUserName(String userName);
+	
+	
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
+	}
 
-	public void setEmailAddress(String emailAddress);
+	
+	
+	public void setEmailAddress(String emailAddress)
+	{
+		this.emailAddress = emailAddress;
+	}
 
-	public void setPassword(char[] password);
+	
+	
+	public void setPassword(char[] password)
+	{
+		this.password = password;
+	}
 
-	public void setActive(boolean active);
+	
+	
+	public void setActive(boolean active)
+	{
+		this.active = active;
+	}
 
-	public void setRoles(List<String> roles);
-
+	
+	
+	public void setRoles(List<String> roles)
+	{
+		this.roles = roles;
+	}
+	
+	
 }

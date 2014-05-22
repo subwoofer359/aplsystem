@@ -1,42 +1,195 @@
 package org.amc.model;
 
-public interface Part
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * <p>
+ * Project: APL_Problem_Database
+ * </p>
+ * <p>
+ * file: $URL:
+ * file:///home/adrian/Documents/SVNRepository/Java/APL_Problem_Database
+ * /trunk/APL_Problem_Database/src/apl_problem_database/JobTemplate.java $
+ * <p>
+ * <p>
+ * Created on May 4, 2006
+ * </p>
+ * 
+ * @author adrian
+ * @version $Revision: 888 $ Represents a job running in the factory
+ */
+@Entity
+@Table(name = "jobtemplate")
+public class Part implements Serializable
 {
+	
+	private static final long serialVersionUID = -8498315270583017514L;
 
-	public String getColour();
+	@Id
+	private int id;
+	@Column
+	private String colour;
+	@Column(nullable = false)
+	private String company;
+	@Column(nullable = false)
+	private boolean external;
+	@Column(nullable = false)
+	private String name;
+	@Column(nullable = false)
+	private String part_id;
+	@Column(nullable = false)
+	private String qss_no;
+	@Column
+	private String revision;
+	@Column
+	private String version;
 
-	public void setColour(String colour);
+	/**
+	 * 
+	 * Constructor for JobTemplate.java
+	 */
+	public Part()
+	{
+		;
+		;
+	}
 
-	public String getCompany();
+	/**
+	 * 
+	 * Constructor for JobTemplate.java
+	 * 
+	 * @param name
+	 * @param part_id
+	 * @param company
+	 * @param version
+	 * @param revision
+	 * @param colour
+	 * @param external
+	 */
+	public Part(
+			String name, 
+			String part_id, 
+			String company, 
+			String version,
+			String revision, 
+			String colour, 
+			boolean external, 
+			String qss_no)
+	{
 
-	public void setCompany(String company);
+		this.name = name;
+		this.part_id = part_id;
+		this.company = company;
+		this.version = version;
+		this.revision = revision;
+		this.colour = colour;
+		this.external = external;
+		this.qss_no = qss_no;
 
-	public boolean getExternal();
+	}
 
-	public void setExternal(boolean external);
+	public String toString()
+	{
+		String value = String.valueOf(getName()) + " ";
+		value = value + String.valueOf(getVersion()) + " ";
+		value = value + String.valueOf(getRevision()) + " ";
+		value = value + String.valueOf(getColour());
+		return value;
+	}
 
-	public String getName();
+	public String getColour()
+	{
+		return colour;
+	}
 
-	public void setName(String name);
+	public void setColour(String colour)
+	{
+		this.colour = colour;
+	}
 
-	public String getPart_id();
+	public String getCompany()
+	{
+		return company;
+	}
 
-	public void setPart_id(String part_id);
+	public void setCompany(String company)
+	{
+		this.company = company;
+	}
 
-	public String getQss_no();
+	public boolean getExternal()
+	{
+		return external;
+	}
 
-	public void setQss_no(String qss_no);
+	public void setExternal(boolean external)
+	{
+		this.external = external;
+	}
 
-	public String getRevision();
+	public String getName()
+	{
+		return name;
+	}
 
-	public void setRevision(String revision);
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 
-	public String getVersion();
+	public String getPart_id()
+	{
+		return part_id;
+	}
 
-	public void setVersion(String version);
+	public void setPart_id(String part_id)
+	{
+		this.part_id = part_id;
+	}
 
-	public int getId();
+	public String getQss_no()
+	{
+		return qss_no;
+	}
 
-	public void setId(int id);
+	public void setQss_no(String qss_no)
+	{
+		this.qss_no = qss_no;
+	}
+
+	public String getRevision()
+	{
+		return revision;
+	}
+
+	public void setRevision(String revision)
+	{
+		this.revision = revision;
+	}
+
+	public String getVersion()
+	{
+		return version;
+	}
+
+	public void setVersion(String version)
+	{
+		this.version = version;
+	}
+
+	public int getId()
+	{
+		return id;
+	}
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
 }
