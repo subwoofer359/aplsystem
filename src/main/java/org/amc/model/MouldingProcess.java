@@ -10,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "processSheets")
 public class MouldingProcess implements Serializable
 {
+	@Transient
 	public static String[] fields={
 		 "id",	
 		 "partId",
@@ -366,7 +368,7 @@ public class MouldingProcess implements Serializable
 
 	public MouldingProcess()
 	{
-
+		;;
 	}
 
 	// Getters/Setters
@@ -1622,6 +1624,7 @@ public class MouldingProcess implements Serializable
 		this.decompressionDist = decompressionDist;
 	}
 
+	@Override
 	public String toString()
 	{
 		String result = "ProcessSheet:(";
