@@ -12,7 +12,7 @@ import org.amc.dao.MouldingProcessDAO;
 import org.amc.model.MouldingProcess;
 import org.amc.model.MouldingProcessImpl;
 
-public class MouldingProcessDAO extends BasicDAO implements Serializable 
+public class MouldingProcessDAO implements Serializable 
 {
 	/**
 	 * 

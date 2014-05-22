@@ -12,7 +12,7 @@ import org.amc.model.Part;
 import org.amc.model.PartImpl;
 
 
-public class PartDAO extends BasicDAO implements Serializable
+public class PartDAO implements Serializable
 {
 
 	/**

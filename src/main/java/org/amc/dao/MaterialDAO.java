@@ -13,7 +13,7 @@ import org.amc.model.Material;
 
 import java.sql.PreparedStatement;
 
-public class MaterialDAO extends BasicDAO implements Serializable
+public class MaterialDAO implements Serializable
 {
 
 	/**
