@@ -39,7 +39,6 @@ public class MaterialDAO implements Serializable
 	public Material getMaterial(String materialId)
 	{
 		Query q=em.createQuery("Select x from Material x where x.id="+materialId+"");
-		List<Material> l=q.getResultList();
 		Material m = (Material)q.getSingleResult();
 		return m;
 	}
