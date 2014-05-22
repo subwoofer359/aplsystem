@@ -3,13 +3,6 @@ package org.amc.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NameClassPair;
-import javax.naming.NamingEnumeration;
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -171,7 +164,7 @@ public class APLSystemServlet extends HttpServlet
 		{
 		
 			//create model
-			Part job=getPart();
+			Part job=new Part();
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
@@ -380,39 +373,6 @@ public class APLSystemServlet extends HttpServlet
 		ApplicationContext context2=(ApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
 		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
-		
-		//DAOFactory daoFactory=DAOFactory.getInstance();
-		
-		//setJobActionFactory(new PartActionFactoryImpl(daoFactory.getJobTemplateDAO()));
-		
-		
-		
+
 	}
-
-	private Part getPart()
-	{
-		InitialContext ctx;
-      
-		Part part=null;
-		try {
-	    	  Properties props = new Properties();
-	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
-	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
-	         ctx = new InitialContext(props);
-	         
-	         NamingEnumeration<NameClassPair> list = ctx.list("global/MyServletModel");
-
-	         while (list.hasMore()) {
-	             NameClassPair nc = (NameClassPair)list.next();
-	             System.out.println(nc);
-	         }
-	         
-	         part=(Part)ctx.lookup("Part");
-	      } catch (NamingException ex) {
-	         ex.printStackTrace();
-	      }
-		return part;
-	}
-
-	
 }

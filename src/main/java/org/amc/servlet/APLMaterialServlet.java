@@ -4,11 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -294,7 +289,7 @@ public class APLMaterialServlet extends HttpServlet
 						{
 							logger.debug(String.format("searchMaterial:Opening Material.jsp"));
 							//open the JobTemplate JSPage in add mode
-							Material material =getMaterial();
+							Material material =new Material();
 							request.setAttribute("form", material);
 							dispatchURL="/WEB-INF/JSP/Material.jsp";
 						}
@@ -331,25 +326,7 @@ public class APLMaterialServlet extends HttpServlet
 		super.init();
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-//		DAOFactory daoFactory=DAOFactory.getInstance();
-//		setMaterialActionFactory(new MaterialActionFactoryImpl(daoFactory.getMaterialDAO()));
-		
 	}
-	
-	private Material getMaterial()
-	{
-		InitialContext ctx;
-		Material material=null;
-		try {
-	    	  Properties props = new Properties();
-	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
-	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
-	         ctx = new InitialContext(props);
-	         material=(Material)ctx.lookup("Material");
-	      } catch (NamingException ex) {
-	         ex.printStackTrace();
-	      }
-		return material;
-	}
+
 	
 }

@@ -4,11 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -305,7 +300,7 @@ public class APLProcessServlet extends HttpServlet
 						{
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
 							//open the JobTemplate JSPage in add mode
-							MouldingProcess process =getMouldingProcess();
+							MouldingProcess process =new MouldingProcess();
 							request.setAttribute("form", process);
 							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 						}
@@ -358,25 +353,5 @@ public class APLProcessServlet extends HttpServlet
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-//		DAOFactory daoFactory=DAOFactory.getInstance();
-//		setProcessActionFactory(new ProcessActionFactoryImpl(daoFactory.getMouldingProcessDAO()));
-//		setMaterialActionFactory(new MaterialActionFactoryImpl(daoFactory.getMaterialDAO()));
-		
-	}
-	
-	private MouldingProcess getMouldingProcess()
-	{
-		InitialContext ctx;
-		MouldingProcess process=null;
-		try {
-	    	  Properties props = new Properties();
-	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
-	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
-	         ctx = new InitialContext(props);
-	         process=(MouldingProcess)ctx.lookup("MouldingProcess");
-	      } catch (NamingException ex) {
-	         ex.printStackTrace();
-	      }
-		return process;
 	}
 }
