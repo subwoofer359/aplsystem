@@ -25,14 +25,7 @@
   </bean>
   
   
-    <bean id="MaterialDAO"  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
-        <property name="jndiName" value="MaterialDAOBeanRemote"/>
-    	<property name="businessInterface" value="org.amc.dao.MaterialDAOBeanRemote"/>
-    	<property name="jndiEnvironment">
-			     <props>
-			       <prop key="java.naming.factory.initial">org.apache.openejb.client.RemoteInitialContextFactory</prop>
-			       <prop key="java.naming.provider.url">ejbd://127.0.0.1:4201</prop>
-			     </props>
-		</property>
+    <bean id="MaterialDAO"  class="org.amc.dao.MaterialDAO">
+       
     </bean>
 </beans>
