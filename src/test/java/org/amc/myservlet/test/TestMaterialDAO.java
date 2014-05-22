@@ -31,13 +31,6 @@ public class TestMaterialDAO
 	@Before
 	public void setUp()
 	{
-		Map<String,String> props=new HashMap<>();
-		//props.put("openjpa.ConnectionURL", "jdbc:mysql://192.168.1.105/aplsystem");
-		//props.put("openjpa.ConnectionDriverName", "com.mysql.jdbc.Driver");
-		//props.put("openjpa.ConnectionUserName", "adrian");
-		//props.put("openjpa.ConnectionPassword", "cr2032ux");
-		//props.put("openjpa.Log","DefaultLevel=DEBUG, Tool=INFO");
-		
 		factory=Persistence.createEntityManagerFactory("myDataSource");
 		em=factory.createEntityManager();
 	}
