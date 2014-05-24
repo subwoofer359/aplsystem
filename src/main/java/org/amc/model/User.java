@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -14,6 +17,10 @@ import javax.persistence.Transient;
 public class User implements Serializable
 {
 	private static final long serialVersionUID = 261123044422857580L;
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	@Column(name="fullname")
 	String fullName="";
 	@Column(name="user_name",updatable=true)

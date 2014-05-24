@@ -1,21 +1,16 @@
 package org.amc.dao;
 
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
-
-import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
 
-public class PartDAO implements Serializable
+public class PartDAO extends DAO implements Serializable
 {
 	private static final long serialVersionUID = -7746051424830292513L;
-	private EntityManager em;
+	
+
 
 	public PartDAO()
 	{
@@ -24,6 +19,7 @@ public class PartDAO implements Serializable
 
 	public void addPart(Part job)
 	{
+		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
 		em.persist(job);
 		em.getTransaction().commit();
@@ -31,7 +27,10 @@ public class PartDAO implements Serializable
 
 	public void updatePart(Part job)
 	{
+		EntityManager em=getEntityManager();
+		em.getTransaction().begin();
 		em.merge(job);
+		em.getTransaction().commit();
 	}
 
 	public void deletePart(Part job)
@@ -41,7 +40,7 @@ public class PartDAO implements Serializable
 
 	public Part getPart(String jobTemplateId)
 	{
-		Query q = em.createQuery("Select x from Part x where x.id="
+		Query q = getEntityManager().createQuery("Select x from Part x where x.id="
 				+ jobTemplateId + "");
 		Part part = (Part) q.getSingleResult();
 		return part;
@@ -49,7 +48,7 @@ public class PartDAO implements Serializable
 
 	public List<Part> findParts(String col, String value)
 	{
-		Query q = em.createQuery("Select x from Part x where x." + col + "='"
+		Query q = getEntityManager().createQuery("Select x from Part x where x." + col + "='"
 				+ value + "'");
 		List<Part> resultList = (List<Part>) q.getResultList();
 		return resultList;
@@ -57,15 +56,11 @@ public class PartDAO implements Serializable
 
 	public List<Part> findParts()
 	{
-		Query q = em.createQuery("Select x from Part x where x");
+		Query q = getEntityManager().createQuery("Select x from Part x");
 		List<Part> resultList = (List<Part>) q.getResultList();
 		return resultList;
 	}
 
-	@PersistenceUnit(name = "myDatabase")
-	public void setEm(EntityManager em)
-	{
-		this.em = em;
-	}
+	
 
 }
