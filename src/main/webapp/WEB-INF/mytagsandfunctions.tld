@@ -14,6 +14,6 @@
  <function>
  	<name>toString</name>
  	<function-class>org.amc.servlet.el.MyFunctions</function-class>
- 	<function-signature>java.lang.String toString(org.amc.model.MaterialBeanRemote)</function-signature>
+ 	<function-signature>java.lang.String toString(org.amc.model.Material)</function-signature>
  </function>
 </taglib>
