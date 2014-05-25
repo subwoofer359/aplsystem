@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.amc.dao.MouldingProcessDAO;
@@ -18,9 +19,9 @@ public class MouldingProcessDAO extends DAO implements Serializable
 {
 	private static final long serialVersionUID = 7577290113094820714L;
 
-	public MouldingProcessDAO()
+	public MouldingProcessDAO(EntityManagerFactory emf)
 	{
-		;;
+		super(emf);
 	}
 
 	public void addProcessSheet(MouldingProcess process)

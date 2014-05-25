@@ -22,6 +22,7 @@
   	<constructor-arg ref="mouldingProcessDAO" />
   </bean>
           
-    <bean id="mouldingProcessDAO" class="org.amc.dao.MouldingProcessDAO">     
+    <bean id="mouldingProcessDAO" class="org.amc.dao.MouldingProcessDAO">
+    	<constructor-arg ref="entityManagerFactory"/>     
     </bean>
  </beans>

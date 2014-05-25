@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import org.amc.model.Material;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 /**
@@ -20,9 +21,9 @@ public class MaterialDAO extends DAO implements Serializable
 {
 	private static final long serialVersionUID = -4397260307883862647L;
 
-	public MaterialDAO()
+	public MaterialDAO(EntityManagerFactory emf)
 	{
-		;;
+		super(emf);
 	}
 
 	public void addMaterial(Material material) 
@@ -30,8 +31,7 @@ public class MaterialDAO extends DAO implements Serializable
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
 		em.persist(material);
-		em.getTransaction().commit();
-	
+		em.getTransaction().commit();	
 	}
 
 	public void updateMaterial(Material material)

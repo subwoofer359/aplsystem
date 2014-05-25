@@ -21,9 +21,10 @@ public abstract class DAO
 	
 	private final String PERSISTENCE_UNIT_NAME="myDatabase";
 	
-	public DAO()
+	public DAO(EntityManagerFactory emf)
 	{
-		emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		//emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+		this.emf=emf;
 		em=emf.createEntityManager();
 	}
 	

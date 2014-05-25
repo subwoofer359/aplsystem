@@ -2,8 +2,11 @@ package org.amc.dao;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+
 import org.amc.model.Part;
 
 /**
@@ -17,9 +20,9 @@ public class PartDAO extends DAO implements Serializable
 	
 
 
-	public PartDAO()
+	public PartDAO(EntityManagerFactory emf)
 	{
-		;;
+		super(emf);
 	}
 	public void addPart(Part product)
 	{

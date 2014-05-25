@@ -30,6 +30,6 @@
   
   
     <bean id="MaterialDAO"  class="org.amc.dao.MaterialDAO">
-       
+       <constructor-arg ref="entityManagerFactory"/>
     </bean>
 </beans>
