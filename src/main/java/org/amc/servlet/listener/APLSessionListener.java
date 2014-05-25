@@ -9,11 +9,8 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-
-import com.sun.security.auth.UserPrincipal;
 
 @WebListener
 public class APLSessionListener implements HttpSessionListener
