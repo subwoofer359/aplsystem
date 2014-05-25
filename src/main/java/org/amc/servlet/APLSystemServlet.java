@@ -345,7 +345,6 @@ public class APLSystemServlet extends HttpServlet
 		}
 		request.logout();
 		
-		//request.authenticate(response);
 		response.sendRedirect(getServletConfig().getServletContext().getContextPath());
 	}
 	
@@ -359,21 +358,7 @@ public class APLSystemServlet extends HttpServlet
 	public void init() throws ServletException
 	{
 		super.init();
-//		ServletContext sc=getServletContext();
-//		Enumeration<String> list=sc.getInitParameterNames();
-//		System.out.println("----------INIT---------");
-//		while(list.hasMoreElements())
-//		{
-//			System.out.println(list.nextElement());
-//		}
-//		Enumeration<String> list2=sc.getAttributeNames();
-//		System.out.println("----------Attibutes---------");
-//		while(list2.hasMoreElements())
-//		{
-//			System.out.println(list2.nextElement());
-////		}
 		ApplicationContext context2=(ApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
-		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
 		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
 
 	}

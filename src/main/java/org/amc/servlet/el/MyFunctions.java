@@ -7,11 +7,14 @@ package org.amc.servlet.el;
  */
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.amc.model.Material;
+import org.amc.servlet.APLMaterialServlet;
 
 public class MyFunctions
 {
 
+	private static Logger logger=Logger.getLogger(MyFunctions.class);
 	
 	public static boolean isUserInRole(HttpServletRequest request,String role)
 	{
@@ -20,7 +23,7 @@ public class MyFunctions
 	
 	public static String toString(Material material)
 	{
-		System.out.println("Helper Function:"+material.getName());
+		 logger.info("Helper Function:"+material.getName());
 		 return material.getCompany()+" "+material.getName()+" "+material.getType();
 	}
 }

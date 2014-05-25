@@ -64,7 +64,6 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         			{
         				Principal user=(Principal)temp;	
         				log.info("User:"+user.getName()+" has logged in from "+REMOTE_ADDRESS);
-        			//	System.out.println("User:"+user.getName()+" has logged in");
         			}
         		}
         		else

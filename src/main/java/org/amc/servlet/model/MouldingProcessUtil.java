@@ -1,6 +1,8 @@
 package org.amc.servlet.model;
 
 import org.amc.model.MouldingProcess;
+import org.amc.servlet.APLMaterialServlet;
+import org.apache.log4j.Logger;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -8,6 +10,7 @@ import org.amc.model.MouldingProcess;
  */
 public class MouldingProcessUtil
 {
+	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
 	private final static float CLAMP_CLOSING_ACCELERATION=1250f;
 	private final static float CLAMP_CLOSING_DEACCELERATION=-1000f;
 	
@@ -207,7 +210,7 @@ public class MouldingProcessUtil
 		
 		for(int i=0;i<data.length;i++)
 		{
-			System.out.println("("+data[i][1]+","+data[i][0]+")");
+			logger.debug("("+data[i][1]+","+data[i][0]+")");
 		}
 		return data;
 }
@@ -215,11 +218,7 @@ public class MouldingProcessUtil
 
 	
 	/**
-<<<<<<< HEAD
 	 * todo Fix the problem when acceleration/deceleration distance is greater than the pre-set distance
-=======
-	 * 
->>>>>>> 55411e149705a908978dd4d338261b2b3a0696e4
 	 * @param process
 	 * @return an array of floats [[time_1,distance_1],...]
 	 */

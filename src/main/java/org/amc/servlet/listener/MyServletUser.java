@@ -1,7 +1,7 @@
 package org.amc.servlet.listener;
 
 import java.security.Principal;
-
+import org.apache.log4j.Logger;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
 /**
@@ -13,6 +13,7 @@ public class MyServletUser implements HttpSessionBindingListener
 {
 
 	private Principal user;
+	private static Logger logger=Logger.getLogger(MyServletUser.class);
 	
 	public MyServletUser(Principal user)
 	{
@@ -35,13 +36,13 @@ public class MyServletUser implements HttpSessionBindingListener
 	public void valueBound(HttpSessionBindingEvent arg0)
 	{
 		
-		System.out.println("User "+getName()+" has logged in");
+		logger.info("User "+getName()+" has logged in");
 	}
 
 	@Override
 	public void valueUnbound(HttpSessionBindingEvent arg0)
 	{
-		System.out.println("User "+getName()+" has logged out");
+		logger.info("User "+getName()+" has logged out");
 		
 	}
 	
