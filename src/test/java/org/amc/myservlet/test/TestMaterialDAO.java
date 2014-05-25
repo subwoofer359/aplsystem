@@ -3,19 +3,14 @@ package org.amc.myservlet.test;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceUnitUtil;
 
 import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
-import org.apache.openjpa.conf.OpenJPAConfiguration;
-import org.apache.openjpa.conf.OpenJPAConfigurationImpl;
-import org.apache.openjpa.persistence.OpenJPAPersistence;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
