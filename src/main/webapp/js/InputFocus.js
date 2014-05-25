@@ -1,3 +1,7 @@
+/**  
+*	@author Adrian Mclaughlin
+* 	@version 1
+*/
 /**
  * To move focus to the next input statement after the carriage return key is pressed
  */

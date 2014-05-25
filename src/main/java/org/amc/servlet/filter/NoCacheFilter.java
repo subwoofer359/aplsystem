@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class NoCacheFilter
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebFilter("/*")
 public class NoCacheFilter implements Filter {

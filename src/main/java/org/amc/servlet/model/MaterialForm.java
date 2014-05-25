@@ -9,10 +9,11 @@ import javax.naming.NamingException;
 import org.amc.model.Material;
 
 /**
- * POJO to represent a material used for plastic injection moulding
- * @author adrian
- *
+ * POJO containing Web form information to represent a material used for plastic injection moulding 
+ * @author Adrian Mclaughlin
+ * @version 1
  */
+ 
 public class MaterialForm
 {
 	private String id;

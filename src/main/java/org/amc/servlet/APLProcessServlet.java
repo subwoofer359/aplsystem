@@ -24,6 +24,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Servlet implementation class APLProcessServlet
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebServlet(description = "To serve up Process Sheet Data", 
 			urlPatterns = 

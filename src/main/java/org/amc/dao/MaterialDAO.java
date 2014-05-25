@@ -8,6 +8,11 @@ import org.amc.model.Material;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class MaterialDAO extends DAO implements Serializable
 {
 	private static final long serialVersionUID = -4397260307883862647L;

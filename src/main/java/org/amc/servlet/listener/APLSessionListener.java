@@ -1,5 +1,10 @@
 package org.amc.servlet.listener;
 
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 import org.apache.log4j.Logger; 
 
 import javax.servlet.ServletContext;

@@ -1,3 +1,7 @@
+/**  
+*	@author Adrian Mclaughlin
+* 	@version 1
+*/
 /**
  * Javascript Functions required by the JSP search pages
  */

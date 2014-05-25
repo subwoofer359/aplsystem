@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class UserFilter
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebFilter(description = "Save the logged in user", urlPatterns = { "/*" })
 public class UserFilter implements Filter {

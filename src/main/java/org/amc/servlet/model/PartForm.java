@@ -1,5 +1,9 @@
 package org.amc.servlet.model;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class PartForm 
 {
 	String id;

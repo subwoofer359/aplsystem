@@ -4,7 +4,11 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionBindingListener;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class MyServletUser implements HttpSessionBindingListener
 {
 

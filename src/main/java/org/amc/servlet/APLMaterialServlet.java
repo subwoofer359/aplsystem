@@ -23,6 +23,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Servlet implementation class APLMaterialServlet
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebServlet(
 		description = "To Process Material Requests", 

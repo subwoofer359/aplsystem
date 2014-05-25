@@ -1,6 +1,10 @@
 package org.amc.servlet.el;
 
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 import javax.servlet.http.HttpServletRequest;
 
 import org.amc.model.Material;

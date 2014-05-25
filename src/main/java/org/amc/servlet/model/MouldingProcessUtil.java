@@ -1,7 +1,11 @@
 package org.amc.servlet.model;
 
 import org.amc.model.MouldingProcess;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class MouldingProcessUtil
 {
 	private final static float CLAMP_CLOSING_ACCELERATION=1250f;

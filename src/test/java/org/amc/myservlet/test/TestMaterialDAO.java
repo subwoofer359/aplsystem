@@ -19,7 +19,11 @@ import org.apache.openjpa.persistence.OpenJPAPersistence;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class TestMaterialDAO
 {
 

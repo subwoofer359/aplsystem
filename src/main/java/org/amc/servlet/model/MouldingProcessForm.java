@@ -8,7 +8,11 @@ import javax.naming.NamingException;
 
 import org.amc.model.MouldingProcess;
 
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class MouldingProcessForm 
 {
 	public String id;//Database ID

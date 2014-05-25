@@ -10,9 +10,11 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
-
-
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class StartupShutdownListener implements ServletContextListener 
 {
 

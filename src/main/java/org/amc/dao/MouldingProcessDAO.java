@@ -9,7 +9,11 @@ import javax.persistence.Query;
 import org.amc.dao.MouldingProcessDAO;
 import org.amc.model.MouldingProcess;
 
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class MouldingProcessDAO extends DAO implements Serializable
 {
 	private static final long serialVersionUID = 7577290113094820714L;

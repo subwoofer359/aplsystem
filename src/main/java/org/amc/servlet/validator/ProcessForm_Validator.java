@@ -6,7 +6,11 @@ import java.util.List;
 
 import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class ProcessForm_Validator 
 {
 	public List<String> validate(MouldingProcessForm form)

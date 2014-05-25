@@ -1,5 +1,9 @@
 package org.amc.servlet.action;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 import java.sql.SQLException;
 
 import org.amc.model.Material;

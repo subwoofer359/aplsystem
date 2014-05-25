@@ -9,7 +9,8 @@ import org.apache.log4j.Logger;
 
 /**
  * Fetches and holds a reference to the Persistence EntityManager
- * @author adrian
+ * @author Adrian Mclaughlin
+ * @version 1
  *
  */
 public abstract class DAO

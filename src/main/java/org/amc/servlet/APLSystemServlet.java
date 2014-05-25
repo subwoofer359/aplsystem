@@ -21,7 +21,9 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
 /**
- * Servlet implementation class APLSystemServlet
+ * Servlet implementation class APLSystemServlet 
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebServlet(
 		description = "Dispatching Servlet for the Problem Database", 

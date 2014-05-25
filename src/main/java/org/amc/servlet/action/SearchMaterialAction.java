@@ -5,7 +5,11 @@ import java.util.Map;
 import org.amc.model.Material;
 import org.amc.dao.MaterialDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class SearchMaterialAction
 {
 

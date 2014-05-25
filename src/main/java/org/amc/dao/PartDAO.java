@@ -6,6 +6,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.amc.model.Part;
 
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class PartDAO extends DAO implements Serializable
 {
 	private static final long serialVersionUID = -7746051424830292513L;

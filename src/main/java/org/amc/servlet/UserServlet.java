@@ -5,6 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 @Controller
 public class UserServlet
 {

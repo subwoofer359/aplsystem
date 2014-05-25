@@ -1,12 +1,15 @@
 package org.amc.servlet.listener;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 import java.security.Principal;
-import java.util.logging.Level;
 import org.apache.log4j.Logger;
 
 /**

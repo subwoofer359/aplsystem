@@ -1,6 +1,7 @@
-/**
- * 
- */
+/**  
+*	@author Adrian Mclaughlin
+* 	@version 1
+*/
 
 /**
  * Hide all HTML div except the div the user requested

@@ -12,6 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 @Entity
 @Table(name = "processSheets")
 public class MouldingProcess implements Serializable

@@ -11,12 +11,11 @@ import javax.persistence.Table;
 
 /**
  * POJO to represent a material used for plastic injection moulding
- * @author adrian
- *
+ * @author Adrian Mclaughlin
+ * @version 1
  */
+
 @Entity
-
-
 @Table(name="material")
 public class Material implements Serializable
 {
