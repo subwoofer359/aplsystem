@@ -1,11 +1,5 @@
 package org.amc.servlet.model;
 
-import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.amc.model.Material;
 
 /**
@@ -174,15 +168,9 @@ public class MaterialForm
 	public static Material getMaterial(MaterialForm form) throws Exception
 	{
 		Material material = null;
-		InitialContext ctx;
 		try
 		{
-			Properties props = new Properties();
-			props.put(Context.INITIAL_CONTEXT_FACTORY,
-					"org.apache.openejb.client.RemoteInitialContextFactory");
-			props.put(Context.PROVIDER_URL, "ejbd://127.0.0.1:4201");
-			ctx = new InitialContext(props);
-			material = (Material) ctx.lookup("Material");
+			material = new Material();
 
 			material.setId(Integer.parseInt(form.getId()));
 			material.setCompany(form.getCompany());
@@ -211,9 +199,6 @@ public class MaterialForm
 					"Couldn't parse MouldingProcessForm into MouldingProcess object");
 			exception.addSuppressed(e);
 			throw exception;
-		} catch (NamingException ex)
-		{
-			ex.printStackTrace();
 		}
 		return material;
 	}
