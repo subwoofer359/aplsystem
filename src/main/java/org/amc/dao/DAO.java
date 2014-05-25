@@ -39,6 +39,22 @@ public abstract class DAO
 	 */
 	protected EntityManager getEntityManager()
 	{
+		//Reopen the EntityManager if closed
+		if(em!=null && !em.isOpen())
+		{
+			em=emf.createEntityManager();
+		}
 		return em;
+	}
+	
+	@Override
+	public void finalize()
+	{
+		//close EntityManager
+		if(em!=null && em.isOpen())
+			em.close();
+		//close EntityManagerFactory
+		if(emf!=null && emf.isOpen())
+			emf.close();
 	}
 }
