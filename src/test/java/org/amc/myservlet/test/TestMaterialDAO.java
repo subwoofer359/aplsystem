@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
@@ -27,11 +28,28 @@ public class TestMaterialDAO
 	private final String NAME="Moplen550";
 	private final String COMPANY="TOSARA";
 	private final String TYPE="ABS";
+	
+	private Material testMaterial;
 	@Before
 	public void setUp()
 	{
+		//Set up test Material
+		testMaterial=new Material();
+		
+		testMaterial.setCompany(COMPANY);
+		testMaterial.setName(NAME);
+		testMaterial.setType(TYPE);
+		
 		factory=Persistence.createEntityManagerFactory("myDataSource");
 		em=factory.createEntityManager();
+		
+		//Clear the table
+		Query q=em.createNativeQuery("DELETE FROM material");
+		em.getTransaction().begin();
+		q.executeUpdate();
+		em.getTransaction().commit();
+		
+		
 	}
 	
 	@After
@@ -40,33 +58,28 @@ public class TestMaterialDAO
 		em.close();
 		factory.close();
 	}
-	
+	/**
+	 * Test getMaterial method as well as addMaterial
+	 */
 	@Test
 	public void testAddMaterial()
 	{
-		Material m=new Material();
-		
-		m.setCompany(COMPANY);
-		m.setName(NAME);
-		m.setType(TYPE);
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
-		d.addMaterial(m);
+		d.addMaterial(testMaterial);
+		
+		Material actual=d.getMaterial(String.valueOf(testMaterial.getId()));
+		assertEquals(testMaterial, actual);
 	}
 
 	@Test
 	public void testUpdateMaterial()
-	{
-		//Create material
-		Material m=new Material();
-		m.setCompany(COMPANY);
-		m.setName(NAME);
-		m.setType(TYPE);
+	{	
 		//Create Material DAO
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
 		//Add Material Database
-		d.addMaterial(m);
+		d.addMaterial(testMaterial);
 		
 		//Check Material has been added and retrived
 		Map<Integer,Material> list=d.findMaterials("name", NAME);
@@ -74,19 +87,14 @@ public class TestMaterialDAO
 		for(Material tm:c)
 		{
 			System.out.println(tm);
+			if(tm.getName().equals(NAME))
+			{
+				tm.setType(("TEST"));
+				d.updateMaterial(tm);
+			}
 		}
 		assertNotSame(c.size(),0);
 		
-	}
-
-	@Test
-	public void testGetMaterial()
-	{
-		MaterialDAO d=new MaterialDAO();
-		d.setEm(em);
-		
-		Material m=d.getMaterial("1");
-		assertNotNull(m);
 	}
 
 	@Test
@@ -94,8 +102,9 @@ public class TestMaterialDAO
 	{
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
+		d.addMaterial(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials("name",NAME);
-		assertNotSame(mp.size(),0);
+		assertEquals(mp.size(),1);
 	}
 
 	@Test
@@ -103,8 +112,9 @@ public class TestMaterialDAO
 	{
 		MaterialDAO d=new MaterialDAO();
 		d.setEm(em);
+		d.addMaterial(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials();
-		assertNotSame(mp.size(),0);
+		assertEquals(mp.size(),1);
 	}
 
 }
