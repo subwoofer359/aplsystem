@@ -2,9 +2,8 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.PartDAO;
-import org.amc.servlet.model.Part;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.amc.dao.PartDAO;
+import org.amc.model.Part;
 
 public class SavePartAction 
 {

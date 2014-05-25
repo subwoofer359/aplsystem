@@ -3,7 +3,6 @@ package org.amc.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,15 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.amc.model.Part;
 import org.amc.servlet.action.PartActionFactory;
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
-import org.amc.servlet.model.Part;
-import org.amc.servlet.model.PartForm;
-import org.amc.servlet.validator.Part_Validator;
+import org.amc.servlet.model.*;
+import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+
 /**
  * Servlet implementation class APLSystemServlet
  */
@@ -160,7 +159,7 @@ public class APLSystemServlet extends HttpServlet
 			errors.add("User has no permissions to alter Part definitions!");
 		}
 				
-		//If form validates with no errorts
+		//If form validates with no errors
 		if(errors.isEmpty())
 		{
 		
@@ -348,7 +347,6 @@ public class APLSystemServlet extends HttpServlet
 		response.sendRedirect(getServletConfig().getServletContext().getContextPath());
 	}
 	
-	@Autowired
 	public void setJobActionFactory(PartActionFactory aJobActionFactory)
 	{
 		this.partActionFactory=aJobActionFactory;
@@ -358,6 +356,7 @@ public class APLSystemServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 //		ServletContext sc=getServletContext();
 //		Enumeration<String> list=sc.getInitParameterNames();
 //		System.out.println("----------INIT---------");
@@ -370,14 +369,10 @@ public class APLSystemServlet extends HttpServlet
 //		while(list2.hasMoreElements())
 //		{
 //			System.out.println(list2.nextElement());
-//		}
+////		}
 		ApplicationContext context2=(ApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		//ApplicationContext context= new ClassPathXmlApplicationContext("PartsContext.xml");
 		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
-		
-		super.init();
-	}
 
-	
-	
+	}
 }

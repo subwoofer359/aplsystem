@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 
 public class ProcessForm_Validator 

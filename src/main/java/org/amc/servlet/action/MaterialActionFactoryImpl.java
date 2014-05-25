@@ -1,6 +1,6 @@
 package org.amc.servlet.action;
 
-import org.amc.servlet.dao.MaterialDAO;
+import org.amc.dao.MaterialDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MaterialActionFactoryImpl implements MaterialActionFactory

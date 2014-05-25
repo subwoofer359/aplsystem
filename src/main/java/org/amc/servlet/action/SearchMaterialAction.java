@@ -2,8 +2,8 @@ package org.amc.servlet.action;
 import java.sql.SQLException;
 import java.util.Map;
 
-import org.amc.servlet.dao.MaterialDAO;
-import org.amc.servlet.model.Material;
+import org.amc.model.Material;
+import org.amc.dao.MaterialDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SearchMaterialAction

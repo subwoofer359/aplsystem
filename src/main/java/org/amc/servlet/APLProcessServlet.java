@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +15,11 @@ import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
-import org.amc.servlet.model.Material;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.Material;
+import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -336,13 +334,13 @@ public class APLProcessServlet extends HttpServlet
 	/*
 	 * Required by Spring
 	 */
-	@Autowired
+
 	public void setProcessActionFactory(ProcessActionFactory processActionFactory)
 	{
 		this.processActionFactory = processActionFactory;
 	}
 	
-	@Autowired
+	
 	public void setMaterialActionFactory(MaterialActionFactory materialActionFactory)
 	{
 		this.materialActionFactory = materialActionFactory;
@@ -351,10 +349,9 @@ public class APLProcessServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-		super.init();
 	}
-	
 }

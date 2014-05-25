@@ -1,5 +1,13 @@
 package org.amc.servlet.model;
 
+import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
+import org.amc.model.MouldingProcess;
+
 
 public class MouldingProcessForm 
 {
@@ -809,8 +817,15 @@ public class MouldingProcessForm
 	 */
 	public static MouldingProcess getMouldingProcess(MouldingProcessForm jForm)throws Exception
 	{
-		MouldingProcess processSheet=new MouldingProcess();
+		InitialContext ctx;
+		MouldingProcess processSheet=null;
 		try {
+	    	  Properties props = new Properties();
+	    	  props.put(Context.INITIAL_CONTEXT_FACTORY, "org.apache.openejb.client.RemoteInitialContextFactory");
+	    	  props.put(Context.PROVIDER_URL,"ejbd://127.0.0.1:4201");
+	         ctx = new InitialContext(props);
+	         processSheet=(MouldingProcess)ctx.lookup("MouldingProcessRemote");
+	      
 			processSheet.setId(Integer.parseInt(jForm.getId())) ;
 			
 			processSheet.setPartId(jForm.getPartId()); 
@@ -925,6 +940,10 @@ public class MouldingProcessForm
 			Exception exception=new Exception("Couldn't parse MouldingProcessForm into MouldingProcess object");
 			exception.addSuppressed(e);
 			throw exception;
+		}
+		catch (NamingException ex) 
+		{
+			ex.printStackTrace();
 		}
 		return processSheet;
 	}

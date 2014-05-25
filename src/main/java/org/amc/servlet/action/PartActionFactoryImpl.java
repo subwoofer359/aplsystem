@@ -1,6 +1,6 @@
 package org.amc.servlet.action;
 
-import org.amc.servlet.dao.PartDAO;
+import org.amc.dao.PartDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class PartActionFactoryImpl implements PartActionFactory

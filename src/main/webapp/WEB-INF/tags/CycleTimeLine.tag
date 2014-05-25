@@ -1,7 +1,7 @@
 <%@tag import="org.amc.servlet.model.MouldingProcessUtil"%>
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess" import="org.amc.servlet.model.MouldingProcessUtil" %>
-<%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
+<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.model.MouldingProcess" import="org.amc.servlet.model.MouldingProcessUtil" %>
+<%@ attribute name="process" required="true" type="org.amc.model.MouldingProcess" %>
 <%!
 
 private float timeStart=0.f;

@@ -2,8 +2,8 @@ package org.amc.servlet.action;
 
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.MouldingProcessDAO;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MouldingProcess;
+import org.amc.dao.MouldingProcessDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveProcessSheetAction 

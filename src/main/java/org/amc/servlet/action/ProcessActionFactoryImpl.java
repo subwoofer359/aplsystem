@@ -1,6 +1,6 @@
 package org.amc.servlet.action;
 
-import org.amc.servlet.dao.MouldingProcessDAO;
+import org.amc.dao.MouldingProcessDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ProcessActionFactoryImpl implements ProcessActionFactory

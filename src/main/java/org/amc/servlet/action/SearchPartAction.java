@@ -3,8 +3,8 @@ package org.amc.servlet.action;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.amc.servlet.dao.PartDAO;
-import org.amc.servlet.model.Part;
+import org.amc.dao.PartDAO;
+import org.amc.model.Part;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SearchPartAction 

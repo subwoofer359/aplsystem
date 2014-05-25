@@ -1,5 +1,7 @@
 package org.amc.servlet.model;
 
+import org.amc.model.MouldingProcess;
+
 public class MouldingProcessUtil
 {
 	private final static float CLAMP_CLOSING_ACCELERATION=1250f;
@@ -355,25 +357,7 @@ public class MouldingProcessUtil
 	}
 	
 	
-	public static void main(String[] args)
-	{
-		
-		MouldingProcess p=new MouldingProcess();
-		p.setMouldClosingOpenLimitPos(388);
-		p.setMouldClosedLimitPos(250);
-		p.setClsSlowPos(190);
-		p.setClsSPPos(68.9f);
-		p.setMouldClosingOpenLimitSpeed(415);
-		p.setMouldClosedLimitSpeed(250);
-		p.setClsSPSpeed(200);
-		
-		//System.out.println(getMouldClosingTime(p));
-		getMouldClosingTimeData(p);
-		getOldMouldClosingTimeData(p);
-		
-		
-		
-	}
+
 }
 
 

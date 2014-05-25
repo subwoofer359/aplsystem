@@ -3,8 +3,8 @@ package org.amc.servlet.action;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.amc.servlet.dao.MouldingProcessDAO;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MouldingProcess;
+import org.amc.dao.MouldingProcessDAO;;
 
 public class SearchProcessSheetAction 
 {

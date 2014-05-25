@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<%@ taglib uri="/WEB-INF/tags/mytagsandfunctions.tld" prefix="my"  %>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="my"  %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,9 +85,9 @@ table
 </td>
 <td>
 	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
-	<a href="${pageContext.request.contextPath}/security">
-	<DIV id="security" class="icon">
-		Security Panel
+	<a href="${pageContext.request.contextPath}/user/Users">
+	<DIV id="users" class="icon">
+		Users
 	</DIV>
 	</a>
 	</c:if>

@@ -17,8 +17,7 @@
  <bean id="processActionFactory" class="org.amc.servlet.action.ProcessActionFactoryImpl">
   	<constructor-arg ref="mouldingProcessDAO" />
   </bean>
-  
-  <bean id="mouldingProcessDAO" class="org.amc.servlet.dao.MouldingProcessDAOImpl">
- 	<constructor-arg ref="dataSource" />
-  </bean>         
+          
+    <bean id="mouldingProcessDAO" class="org.amc.dao.MouldingProcessDAO">     
+    </bean>
  </beans>
