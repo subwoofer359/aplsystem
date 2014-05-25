@@ -23,6 +23,8 @@ public class PartDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.persist(job);
 		em.getTransaction().commit();
+		
+		em.close();
 	}
 
 	public void updatePart(Part job)
@@ -31,6 +33,8 @@ public class PartDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.merge(job);
 		em.getTransaction().commit();
+		
+		em.close();
 	}
 
 	public void deletePart(Part job)
