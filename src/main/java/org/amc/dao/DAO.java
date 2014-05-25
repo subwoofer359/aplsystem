@@ -26,7 +26,7 @@ public abstract class DAO
 		em=emf.createEntityManager();
 	}
 	
-	@PersistenceUnit(name = "myDatabase")
+	@PersistenceUnit(name = PERSISTENCE_UNIT_NAME)
 	public void setEm(EntityManager em)
 	{
 		logger.info("EntityManager set to "+em.toString());
