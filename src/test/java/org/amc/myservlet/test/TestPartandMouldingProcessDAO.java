@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import org.amc.dao.MaterialDAO;
 import org.amc.dao.MouldingProcessDAO;
@@ -33,23 +34,49 @@ public class TestPartandMouldingProcessDAO
 	private EntityManager em;
 	private EntityManagerFactory factory;
 	
+	//Material Constants
+	private final String NAME="Moplen550";
+	private final String COMPANY="TOSARA";
+	private final String TYPE="ABS";
+	
 	@Before
 	public void setUp()
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
 		em=factory.createEntityManager();
+		
+		//Clear the table
+		Query q=em.createNativeQuery("DELETE FROM processSheets");
+		Query q1=em.createNativeQuery("DELETE FROM material");
+		em.getTransaction().begin();
+		q.executeUpdate();
+		q1.executeUpdate();
+		em.getTransaction().commit();
 	}
 	
 	@After
 	public void tearDown()
 	{
-		em.close();
-		factory.close();
+		if(em.isOpen())
+		{
+			em.close();
+		}
+		if(factory.isOpen())
+		{
+			factory.close();
+		}
 	}
 	
 	@Test
 	public void testAdd()
 	{
+		Material m=new Material();
+		m.setCompany(COMPANY);
+		m.setName(NAME);
+		m.setType(TYPE);
+		MaterialDAO daoMaterial=new MaterialDAO();
+		daoMaterial.setEm(em);
+		daoMaterial.addMaterial(m);
 		
 		//Create a process sheet and part and add them to the database
 		String testSheetName="Test Product 123";
@@ -60,7 +87,7 @@ public class TestPartandMouldingProcessDAO
 		mp.setSignOffBy("John");
 		mp.setMachineNo("San 2");
 		mp.setMachineSize(320);
-		mp.setMaterial(1);
+		mp.setMaterial(m.getId());
 	
 		MouldingProcessDAO d=new MouldingProcessDAO();
 		d.setEm(em);
