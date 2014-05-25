@@ -266,6 +266,7 @@ public class APLMaterialServlet extends HttpServlet
 						}
 						request.setAttribute("materials", list); //Add the result list to the request object to be used by the JSP page
 						//debug
+						logger.debug(list.keySet());
 						logger.debug(String.format("%d results returned %n",list.size()));
 					
 						dispatchURL="/WEB-INF/JSP/MaterialSearchPage.jsp";

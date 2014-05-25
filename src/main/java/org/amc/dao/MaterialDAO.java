@@ -4,7 +4,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+
 import org.amc.model.Material;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -60,8 +63,8 @@ public class MaterialDAO extends DAO implements Serializable
 
 	public Map<Integer, Material> findMaterials()
 	{
-		Query q=getEntityManager().createQuery("Select x from Material x");
-		Map<Integer, Material> list = new HashMap<Integer, Material>();
+		Query q=getEntityManager().createQuery("Select x from Material x ORDER BY x.id");
+		Map<Integer, Material> list = new TreeMap<Integer, Material>();
 		List<Material> resultList=(List<Material>)q.getResultList();
 		for(Material m:resultList)
 		{
