@@ -16,22 +16,21 @@ public class PartDAO extends DAO implements Serializable
 	{
 		;;
 	}
-
-	public void addPart(Part job)
+	public void addPart(Part product)
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
-		em.persist(job);
+		em.persist(product);
 		em.getTransaction().commit();
 		
 		em.close();
 	}
 
-	public void updatePart(Part job)
+	public void updatePart(Part product)
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
-		em.merge(job);
+		em.merge(product);
 		em.getTransaction().commit();
 		
 		em.close();
@@ -42,10 +41,10 @@ public class PartDAO extends DAO implements Serializable
 
 	}
 
-	public Part getPart(String jobTemplateId)
+	public Part getPart(String productId)
 	{
 		Query q = getEntityManager().createQuery("Select x from Part x where x.id="
-				+ jobTemplateId + "");
+				+ productId + "");
 		Part part = (Part) q.getSingleResult();
 		return part;
 	}
