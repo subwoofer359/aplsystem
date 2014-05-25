@@ -74,8 +74,8 @@ public class TestPartandMouldingProcessDAO
 		m.setCompany(COMPANY);
 		m.setName(NAME);
 		m.setType(TYPE);
-		MaterialDAO daoMaterial=new MaterialDAO();
-		daoMaterial.setEm(em);
+		MaterialDAO daoMaterial=new MaterialDAO(factory);
+		//daoMaterial.setEm(em);
 		daoMaterial.addMaterial(m);
 		
 		//Create a process sheet and part and add them to the database
@@ -89,8 +89,8 @@ public class TestPartandMouldingProcessDAO
 		mp.setMachineSize(320);
 		mp.setMaterial(m.getId());
 	
-		MouldingProcessDAO d=new MouldingProcessDAO();
-		d.setEm(em);
+		MouldingProcessDAO d=new MouldingProcessDAO(factory);
+		//d.setEm(em);
 		d.addProcessSheet(mp);
 		
 		Part p=new Part();
@@ -102,8 +102,8 @@ public class TestPartandMouldingProcessDAO
 		p.setPart_id("TS23");
 		p.setVersion("1");
 		
-		PartDAO pd=new PartDAO();
-		pd.setEm(em);
+		PartDAO pd=new PartDAO(factory);
+		//pd.setEm(em);
 		pd.addPart(p);
 		
 		//Check to see if they are in the database

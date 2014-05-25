@@ -44,9 +44,11 @@ public class TestMaterialDAO
 		em=factory.createEntityManager();
 		
 		//Clear the table
-		Query q=em.createNativeQuery("DELETE FROM material");
+		Query q=em.createNativeQuery("DELETE FROM processSheets");
+		Query q1=em.createNativeQuery("DELETE FROM material");
 		em.getTransaction().begin();
 		q.executeUpdate();
+		q1.executeUpdate();
 		em.getTransaction().commit();
 		
 		
@@ -64,8 +66,7 @@ public class TestMaterialDAO
 	@Test
 	public void testAddMaterial()
 	{
-		MaterialDAO d=new MaterialDAO();
-		d.setEm(em);
+		MaterialDAO d=new MaterialDAO(factory);
 		d.addMaterial(testMaterial);
 		
 		Material actual=d.getMaterial(String.valueOf(testMaterial.getId()));
@@ -76,8 +77,8 @@ public class TestMaterialDAO
 	public void testUpdateMaterial()
 	{	
 		//Create Material DAO
-		MaterialDAO d=new MaterialDAO();
-		d.setEm(em);
+		MaterialDAO d=new MaterialDAO(factory);
+		//d.setEm(em);
 		//Add Material Database
 		d.addMaterial(testMaterial);
 		
@@ -100,8 +101,8 @@ public class TestMaterialDAO
 	@Test
 	public void testFindMaterialsStringString()
 	{
-		MaterialDAO d=new MaterialDAO();
-		d.setEm(em);
+		MaterialDAO d=new MaterialDAO(factory);
+		//d.setEm(em);
 		d.addMaterial(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials("name",NAME);
 		assertEquals(mp.size(),1);
@@ -110,8 +111,8 @@ public class TestMaterialDAO
 	@Test
 	public void testFindMaterials()
 	{
-		MaterialDAO d=new MaterialDAO();
-		d.setEm(em);
+		MaterialDAO d=new MaterialDAO(factory);
+		//d.setEm(em);
 		d.addMaterial(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials();
 		assertEquals(mp.size(),1);
