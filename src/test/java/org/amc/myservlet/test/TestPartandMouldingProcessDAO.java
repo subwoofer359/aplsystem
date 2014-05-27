@@ -2,23 +2,17 @@ package org.amc.myservlet.test;
 
 import static org.junit.Assert.*;
 
-import java.util.Collection;
 import java.util.List;
 import java.sql.Date;
-import java.util.Map;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-
 import org.amc.dao.MaterialDAO;
 import org.amc.dao.MouldingProcessDAO;
 import org.amc.dao.PartDAO;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
-import org.amc.model.MouldingProcess;
-import org.amc.model.Part;
 import org.amc.model.Part;
 import org.junit.After;
 import org.junit.Before;
