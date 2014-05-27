@@ -1,7 +1,7 @@
-<!--  
-	@author Adrian Mclaughlin
- 	@version 1
--->
+<%--  
+  @author Adrian Mclaughlin
+  @version 1
+--%>
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ attribute name="value" rtexprvalue="true" required="true" %>

@@ -1,7 +1,7 @@
-<!--  
-	@author Adrian Mclaughlin
- 	@version 1
--->
+<%--  
+  @author Adrian Mclaughlin
+  @version 1
+--%>
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ attribute name="injectiontimespeed" required="true" fragment="true" %>
