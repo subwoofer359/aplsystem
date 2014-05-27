@@ -4,11 +4,15 @@ package org.amc.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -34,11 +38,12 @@ public class User implements Serializable
 	String emailAddress="";
 	@Column(name="user_pass",nullable=false,updatable=true)
 	char[] password;
-	@Column(name="active",updatable=true)
+	@Column(name="activate",updatable=true)
 	boolean active=true;
-	@Transient
-	@Column(name="role_name",table="user_roles",updatable=true)
-	List<String> roles;
+	
+
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+	List<UserRoles> roles;
 	
 	public User()
 	{
@@ -82,7 +87,7 @@ public class User implements Serializable
 
 	
 	
-	public List<String> getRoles()
+	public List<UserRoles> getRoles()
 	{
 		return roles;
 	}
@@ -124,10 +129,46 @@ public class User implements Serializable
 
 	
 	
-	public void setRoles(List<String> roles)
+	public void setRoles(List<UserRoles> roles)
 	{
 		this.roles = roles;
 	}
-	
+
+
+
+	public int getId()
+	{
+		return id;
+	}
+
+
+
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(obj instanceof User)
+		{
+			User otherUser=(User)obj;
+			if(this.getUserName().equals(otherUser.getUserName()) && (this.id == otherUser.id))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
 	
 }

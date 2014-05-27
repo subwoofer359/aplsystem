@@ -10,6 +10,7 @@ import org.amc.model.Material;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 /**
@@ -42,10 +43,23 @@ public class MaterialDAO extends DAO implements Serializable
 		em.getTransaction().commit();
 	}
 
+	/**
+	 * 
+	 * @param materialId
+	 * @return Material or null if no material with id is found
+	 */
 	public Material getMaterial(String materialId)
 	{
+		Material m=null;
 		Query q=getEntityManager().createQuery("Select x from Material x where x.id="+materialId+"");
-		Material m = (Material)q.getSingleResult();
+		try
+		{
+			m = (Material)q.getSingleResult();
+		}
+		catch(NoResultException nre)
+		{
+			//do nothing
+		}
 		return m;
 	}
 
@@ -73,6 +87,15 @@ public class MaterialDAO extends DAO implements Serializable
 		return list;
 	}
 
+	public void deleteMaterial(Material m)
+	{
+		EntityManager em=getEntityManager();
+		em.getTransaction().begin();
+		Material u=em.merge(m);
+		em.remove(u);
+		em.getTransaction().commit();
+		em.close();
+	}
 
 }
 

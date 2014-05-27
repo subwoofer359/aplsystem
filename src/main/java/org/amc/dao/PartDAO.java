@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.amc.model.Part;
@@ -44,16 +45,34 @@ public class PartDAO extends DAO implements Serializable
 		em.close();
 	}
 
-	public void deletePart(Part job)
+	public void deletePart(Part part)
 	{
-
+		EntityManager em=getEntityManager();
+		em.getTransaction().begin();
+		Part u=em.merge(part);
+		em.remove(u);
+		em.getTransaction().commit();
+		em.close();
 	}
 
+	/**
+	 * 
+	 * @param productId
+	 * @return Part or null if part not found
+	 */
 	public Part getPart(String productId)
 	{
+		Part part=null;
 		Query q = getEntityManager().createQuery("Select x from Part x where x.id="
 				+ productId + "");
-		Part part = (Part) q.getSingleResult();
+		try
+		{
+			part = (Part) q.getSingleResult();
+		}
+		catch(NoResultException nre)
+		{
+			//do nothing
+		}
 		return part;
 	}
 

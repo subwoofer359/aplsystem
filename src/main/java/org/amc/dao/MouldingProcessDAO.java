@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.amc.dao.MouldingProcessDAO;
@@ -42,14 +43,31 @@ public class MouldingProcessDAO extends DAO implements Serializable
 
 	public void deleteProcessSheet(MouldingProcess process)
 	{
-
+		EntityManager em=getEntityManager();
+		em.getTransaction().begin();
+		MouldingProcess u=em.merge(process);
+		em.remove(u);
+		em.getTransaction().commit();
+		em.close();
 	}
 
+	/**
+	 * 
+	 * @param processId
+	 * @return MouldingProcess or null if not found
+	 */
 	public MouldingProcess getProcessSheet(String processId)
 	{
-
+		MouldingProcess mp=null;
 		Query q=getEntityManager().createQuery("Select x from MouldingProcess x where x.id="+processId+"");
-		MouldingProcess mp = (MouldingProcess)q.getSingleResult();
+		try
+		{
+			mp = (MouldingProcess)q.getSingleResult();
+		}
+		catch(NoResultException nre)
+		{
+			//Do nothing
+		}
 		return mp;
 
 	}
