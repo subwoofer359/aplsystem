@@ -3,9 +3,14 @@ package org.amc.servlet.listener;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Enumeration;
+import java.util.Set;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
 import org.apache.log4j.Logger;
+
+import com.mysql.jdbc.AbandonedConnectionCleanupThread;
 
 /**
  * 
@@ -46,11 +51,33 @@ public class StartupShutdownListener implements ServletContextListener
 			try
 			{
 				DriverManager.deregisterDriver(driver);
+				log.debug(driver.toString()+" deregistered");
 			}
 			catch(Exception e)
 			{
 				log.debug("In attempt to deregister driver:"+driver+" an exception has thrown:"+e.getMessage());
 			}
+		}
+		/*
+		 * Force closing down of the MySQL Abandoned connection cleanup thread
+		 * solution found on website: http://stackoverflow.com/questions/11872316/tomcat-guice-jdbc-memory-leak
+		 */
+		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
+		for(Thread t:threadArray) {
+		    if(t.getName().contains("Abandoned connection cleanup thread")) {
+		        synchronized(t) {
+		        	try
+		        	{
+		        		AbandonedConnectionCleanupThread.shutdown();
+		        	}
+		        	catch(InterruptedException ie)
+		        	{
+		        		log.warn("Problem stopping AbandonedConnectionCleanupThread:"+ie.getMessage());
+		        	}
+		        	
+		        }
+		    }
 		}
 	}
 }
