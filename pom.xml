@@ -102,7 +102,7 @@
         	<version>2.3.0</version>
         	<configuration>
         		<persistenceXmlFile>src/main/resources/META-INF/persistence.xml</persistenceXmlFile>
-        		<includes>src/main/java/org.amc.model</includes>
+        		<includes>src/main/resources/org.amc.model</includes>
             	<addDefaultConstructor>true</addDefaultConstructor>               
             	<enforcePropertyRestrictions>true</enforcePropertyRestrictions>
         	</configuration>

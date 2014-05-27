@@ -23,21 +23,4 @@
       <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/> 
  </properties>
 </persistence-unit>     
-         
-<persistence-unit name="myLocalDatabase" transaction-type="RESOURCE_LOCAL">
-<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-<class>org.amc.model.Part</class>
-<class>org.amc.model.Material</class>
-<class>org.amc.model.MouldingProcess</class>
-<class>org.amc.model.User</class>
-<properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.105/aplsystem"/>
-      <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
-      <property name="openjpa.ConnectionUserName" value="adrian"/>
-      <property name="openjpa.ConnectionPassword" value="cr2032ux"></property>
-      <!-- Turn off OpenJPA bytecode Enhancer -->
-      <!-- causing a lot of problems -->
-      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/> 
- </properties>
-</persistence-unit>
 </persistence>
