@@ -83,7 +83,12 @@
   <!--  Spring settings -->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value> /WEB-INF/EntityManagerFactory.xml /WEB-INF/ProcessContext.xml  /WEB-INF/PartsContext.xml  /WEB-INF/MaterialContext.xml</param-value>
+    <param-value>	/WEB-INF/EntityManagerFactory.xml 
+    				/WEB-INF/ProcessContext.xml  
+    				/WEB-INF/PartsContext.xml  
+    				/WEB-INF/MaterialContext.xml
+    				/WEB-INF/UserContext.xml
+  </param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

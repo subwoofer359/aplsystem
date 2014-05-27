@@ -10,6 +10,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>Users</title>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 </head>
 <body>
 <DIV class="title"><H1>Users</H1></DIV>
@@ -19,11 +20,11 @@
 <div class="results">
 <table>
 <thead>
-<tr><th>UserName</th><th>Full Name</th><th>Email</th><th>Active</th></tr>
+<tr><th>UserName</th><th>Full Name</th><th>Email</th><th>Active</th><th></th></tr>
 </thead>
 <tbody>
 <c:forEach var="user" items="${users}">
-<tr><td><c:out value="${user.userName}" /></td><td><c:out value="${user.fullName}"/></td><td><c:out value="${user.emailAddress}"/></td><td><c:out value="${user.active}"/></td></tr>
+<tr  onclick="selected(this)"><td><c:out value="${user.userName}" /></td><td><c:out value="${user.fullName}"/></td><td><c:out value="${user.emailAddress}"/></td><td><c:out value="${user.active}"/></td><td  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></td></tr>
 </c:forEach>
 </tbody>
 </table>
