@@ -13,6 +13,24 @@
 <class>org.amc.model.MouldingProcess</class>
 <class>org.amc.model.User</class>
 <properties>
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://127.12.78.130:3306/myservlet"/>
+      <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
+      <property name="openjpa.ConnectionUserName" value="adminYTspVIn"/>
+      <property name="openjpa.ConnectionPassword" value="iDwuSCz7GaUK"></property>
+      <property name="openjpa.ConnectionProperties" value="validationQuery=select 1"/>
+      <!-- Turn off OpenJPA bytecode Enhancer -->
+      <!-- causing a lot of problems -->
+      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/> 
+ </properties>
+</persistence-unit>     
+         
+<persistence-unit name="myLocalDatabase" transaction-type="RESOURCE_LOCAL">
+<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+<class>org.amc.model.Part</class>
+<class>org.amc.model.Material</class>
+<class>org.amc.model.MouldingProcess</class>
+<class>org.amc.model.User</class>
+<properties>
       <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.105/aplsystem"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
       <property name="openjpa.ConnectionUserName" value="adrian"/>
