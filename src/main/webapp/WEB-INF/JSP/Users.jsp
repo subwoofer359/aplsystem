@@ -16,7 +16,7 @@
 <DIV class="title"><H1>Users</H1></DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<form>
+<form method="post" action="${pageContext.request.contextPath}/user/Users_edit">
 <div class="results">
 <table>
 <thead>
@@ -24,11 +24,12 @@
 </thead>
 <tbody>
 <c:forEach var="user" items="${users}">
-<tr  onclick="selected(this)"><td><c:out value="${user.userName}" /></td><td><c:out value="${user.fullName}"/></td><td><c:out value="${user.emailAddress}"/></td><td><c:out value="${user.active}"/></td><td  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></td></tr>
+<tr  onclick="selected(this)"><td><c:out value="${user.userName}" /></td><td><c:out value="${user.fullName}"/></td><td><c:out value="${user.emailAddress}"/></td><td><c:out value="${user.active}"/></td><td  class="checkbox"><input type="checkbox" name="edit" value="${user.id}"/></td></tr>
 </c:forEach>
 </tbody>
 </table>
 </div>
+<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
 </form>
 </body>
 </html>
