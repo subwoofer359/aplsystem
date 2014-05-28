@@ -54,8 +54,9 @@ public class UserDAO extends DAO
 	 */
 	public User getUser(String userId)
 	{
+		EntityManager em=getEntityManager();
 		User user=null;
-		Query q = getEntityManager().createQuery("Select x from User x where x.id="
+		Query q = em.createQuery("Select x from User x where x.id="
 				+ userId + "");
 		try
 		{
@@ -70,7 +71,8 @@ public class UserDAO extends DAO
 
 	public List<User> findUsers(String col, String value)
 	{
-		Query q = getEntityManager().createQuery("Select x from User x where x." + col + "='"
+		EntityManager em=getEntityManager();
+		Query q = em.createQuery("Select x from User x where x." + col + "='"
 				+ value + "'");
 		List<User> resultList = (List<User>) q.getResultList();
 		return resultList;
@@ -78,7 +80,8 @@ public class UserDAO extends DAO
 
 	public List<User> findUsers()
 	{
-		Query q = getEntityManager().createQuery("Select x from User x");
+		EntityManager em=getEntityManager();
+		Query q = em.createQuery("Select x from User x");
 		List<User> resultList = (List<User>) q.getResultList();
 		return resultList;
 	}

@@ -31,6 +31,7 @@ public class MouldingProcessDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.persist(process);
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	public void updateProcessSheet(MouldingProcess process)
@@ -39,6 +40,7 @@ public class MouldingProcessDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.merge(process);
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	public void deleteProcessSheet(MouldingProcess process)
@@ -58,8 +60,9 @@ public class MouldingProcessDAO extends DAO implements Serializable
 	 */
 	public MouldingProcess getProcessSheet(String processId)
 	{
+		EntityManager em=getEntityManager();
 		MouldingProcess mp=null;
-		Query q=getEntityManager().createQuery("Select x from MouldingProcess x where x.id="+processId+"");
+		Query q=em.createQuery("Select x from MouldingProcess x where x.id="+processId+"");
 		try
 		{
 			mp = (MouldingProcess)q.getSingleResult();
@@ -68,22 +71,26 @@ public class MouldingProcessDAO extends DAO implements Serializable
 		{
 			//Do nothing
 		}
+		em.close();
 		return mp;
 
 	}
 
 	public List<MouldingProcess> findProcessSheets(String col, String value)
 	{
-
-		Query q=getEntityManager().createQuery("Select x from MouldingProcess x where x."+col+"='"+value+"'");
+		EntityManager em=getEntityManager();
+		Query q=em.createQuery("Select x from MouldingProcess x where x."+col+"='"+value+"'");
 		List<MouldingProcess> resultList=(List<MouldingProcess>)q.getResultList();
+		em.close();
 		return resultList;
 	}
 
 	public List<MouldingProcess> findProcessSheets() 
 	{
+		EntityManager em=getEntityManager();
 		Query q=getEntityManager().createQuery("Select x from MouldingProcess x");
 		List<MouldingProcess> resultList=(List<MouldingProcess>)q.getResultList();
+		em.close();
 		return resultList;
 	}
 }

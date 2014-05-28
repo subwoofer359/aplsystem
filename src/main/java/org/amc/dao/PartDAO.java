@@ -2,7 +2,6 @@ package org.amc.dao;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -31,7 +30,6 @@ public class PartDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.persist(product);
 		em.getTransaction().commit();
-		
 		em.close();
 	}
 
@@ -41,7 +39,6 @@ public class PartDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.merge(product);
 		em.getTransaction().commit();
-		
 		em.close();
 	}
 
@@ -62,9 +59,9 @@ public class PartDAO extends DAO implements Serializable
 	 */
 	public Part getPart(String productId)
 	{
+		EntityManager em=getEntityManager();
 		Part part=null;
-		Query q = getEntityManager().createQuery("Select x from Part x where x.id="
-				+ productId + "");
+		Query q = em.createQuery("Select x from Part x where x.id="+ productId + "");
 		try
 		{
 			part = (Part) q.getSingleResult();
@@ -73,21 +70,30 @@ public class PartDAO extends DAO implements Serializable
 		{
 			//do nothing
 		}
+		em.close();
+
 		return part;
 	}
 
 	public List<Part> findParts(String col, String value)
 	{
-		Query q = getEntityManager().createQuery("Select x from Part x where x." + col + "='"
+		EntityManager em=getEntityManager();
+		List<Part> resultList=null;
+		Query q = em.createQuery("Select x from Part x where x." + col + "='"
 				+ value + "'");
-		List<Part> resultList = (List<Part>) q.getResultList();
+		resultList = (List<Part>) q.getResultList();
+		em.close();
 		return resultList;
 	}
 
 	public List<Part> findParts()
 	{
-		Query q = getEntityManager().createQuery("Select x from Part x");
-		List<Part> resultList = (List<Part>) q.getResultList();
+		
+		List<Part> resultList=null;
+		EntityManager em=getEntityManager();
+		Query q = em.createQuery("Select x from Part x");
+		resultList = (List<Part>) q.getResultList();
+		em.close();
 		return resultList;
 	}
 

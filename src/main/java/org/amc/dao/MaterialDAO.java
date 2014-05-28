@@ -32,7 +32,8 @@ public class MaterialDAO extends DAO implements Serializable
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
 		em.persist(material);
-		em.getTransaction().commit();	
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	public void updateMaterial(Material material)
@@ -41,6 +42,7 @@ public class MaterialDAO extends DAO implements Serializable
 		em.getTransaction().begin();
 		em.merge(material);
 		em.getTransaction().commit();
+		em.close();
 	}
 
 	/**
@@ -50,8 +52,9 @@ public class MaterialDAO extends DAO implements Serializable
 	 */
 	public Material getMaterial(String materialId)
 	{
+		EntityManager em=getEntityManager();
 		Material m=null;
-		Query q=getEntityManager().createQuery("Select x from Material x where x.id="+materialId+"");
+		Query q=em.createQuery("Select x from Material x where x.id="+materialId+"");
 		try
 		{
 			m = (Material)q.getSingleResult();
@@ -60,30 +63,36 @@ public class MaterialDAO extends DAO implements Serializable
 		{
 			//do nothing
 		}
+		em.close();
+
 		return m;
 	}
 
 	public Map<Integer, Material> findMaterials(String col, String value)
 	{
-		Query q=getEntityManager().createQuery("Select x from Material x where x."+col+"='"+value+"'");
+		EntityManager em=getEntityManager();
+		Query q=em.createQuery("Select x from Material x where x."+col+"='"+value+"'");
 		Map<Integer, Material> list = new HashMap<Integer, Material>();
 		List<Material> resultList=(List<Material>)q.getResultList();
 		for(Material m:resultList)
 		{
 			list.put(m.getId(),m);
 		}
+		em.close();
 		return list;
 	}
 
 	public Map<Integer, Material> findMaterials()
 	{
-		Query q=getEntityManager().createQuery("Select x from Material x ORDER BY x.id");
+		EntityManager em=getEntityManager();
+		Query q=em.createQuery("Select x from Material x ORDER BY x.id");
 		Map<Integer, Material> list = new TreeMap<Integer, Material>();
 		List<Material> resultList=(List<Material>)q.getResultList();
 		for(Material m:resultList)
 		{
 			list.put(m.getId(),m);
 		}
+		em.close();
 		return list;
 	}
 
