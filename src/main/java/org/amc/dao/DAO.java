@@ -2,7 +2,6 @@ package org.amc.dao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
 import org.apache.log4j.Logger;
@@ -17,7 +16,7 @@ public abstract class DAO
 {
 	private static Logger logger=Logger.getLogger(DAO.class);
 	private EntityManagerFactory emf;
-	private EntityManager em;
+
 	
 	private final String PERSISTENCE_UNIT_NAME="myDatabase";
 	
@@ -25,38 +24,30 @@ public abstract class DAO
 	{
 		//emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		this.emf=emf;
-		em=emf.createEntityManager();
+	
 	}
 	
 	@PersistenceUnit(name = PERSISTENCE_UNIT_NAME)
-	public void setEm(EntityManager em)
+	public void setEm(EntityManagerFactory emf)
 	{
-		logger.info("EntityManager set to "+em.toString());
-		this.em = em;
+		logger.info("EntityManagerFactory set to "+emf.toString());
+		this.emf = emf;
 	}
 	
 	/**
 	 * 
 	 * @return EntityManager for subclass to use
 	 */
-	protected EntityManager getEntityManager()
+	protected synchronized EntityManager getEntityManager()
 	{
-		//Reopen the EntityManager if closed
-		if(em!=null && !em.isOpen())
-		{
-			em=emf.createEntityManager();
-		}
-		return em;
+		return emf.createEntityManager();
 	}
 	
 	@Override
 	public void finalize()
 	{
-		//close EntityManager
-		if(em!=null && em.isOpen())
-			em.close();
-		//close EntityManagerFactory
 		if(emf!=null && emf.isOpen())
 			emf.close();
 	}
+	
 }
