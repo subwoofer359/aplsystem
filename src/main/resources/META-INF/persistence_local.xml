@@ -13,6 +13,7 @@
 <class>org.amc.model.Material</class>
 <class>org.amc.model.MouldingProcess</class>
 <class>org.amc.model.User</class>
+<class>org.amc.model.UserRoles</class>
 <properties>
       <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.105/aplsystem"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
