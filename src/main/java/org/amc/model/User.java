@@ -31,19 +31,19 @@ public class User implements Serializable
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Column(name="fullname")
-	String fullName="";
+	private String fullName="";
 	@Column(name="user_name",updatable=true)
-	String userName="";
+	private String userName="";
 	@Column(name="email",nullable=false)
-	String emailAddress="";
+	private String emailAddress="";
 	@Column(name="user_pass",nullable=false,updatable=true)
-	char[] password;
+	private char[] password;
 	@Column(name="activate",updatable=true)
 	boolean active=true;
 	
 
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
-	List<UserRoles> roles;
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
+	private List<UserRoles> roles;
 	
 	public User()
 	{
@@ -171,4 +171,27 @@ public class User implements Serializable
 		}
 	}
 	
+	@Override
+	public String toString()
+	{
+		StringBuffer sb=new StringBuffer();
+		sb.append("UserName("+this.getId()+"):"+this.getUserName());
+		sb.append("\n");
+		sb.append("FullName:"+this.getFullName());
+		sb.append("\n");
+		sb.append("Email address:"+this.getEmailAddress());
+		sb.append("\n");
+		sb.append("active:"+this.isActive());
+		sb.append("\n");
+		List<UserRoles> roles=this.getRoles();
+		if(roles!=null && roles.size()!=0)
+		{
+			sb.append("Roles:\n");
+			for(UserRoles role:roles)
+			{
+				sb.append(role+"\n");
+			}
+		}
+		return sb.toString();
+	}
 }
