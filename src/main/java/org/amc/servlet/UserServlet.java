@@ -1,12 +1,12 @@
 package org.amc.servlet;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.amc.dao.UserDAO;
 import org.amc.dao.UserRolesDAO;
@@ -26,6 +26,7 @@ import org.apache.log4j.Logger;
 @Controller
 public class UserServlet
 {
+	private final static String MANAGER="manager";//Super User of the system
 	private static UserRolesDAO userRolesDAO;
 	private static UserDAO userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
@@ -44,13 +45,19 @@ public class UserServlet
 	@RequestMapping("/Users")
 	public ModelAndView getUsersPage(ModelAndView model,HttpServletRequest request)
 	{
-		
-		model.setViewName("Users");
-		if(request.isUserInRole("manager"))
+		if(request.isUserInRole(MANAGER))
 		{
 			List<User> list=userDAO.findUsers();
 			model.getModel().put("users", list);
+			model.setViewName("Users");
 		}
+		else
+		{
+			//Not Manager so return to Main.jsp
+			model.setViewName("Main");
+		}
+		
+		
 		
 		return model;
 	}
@@ -64,11 +71,18 @@ public class UserServlet
 	 * @return
 	 */
 	@RequestMapping("/User_Save")
-	public String saveUser(ModelAndView model,@ModelAttribute("user") User user, 
+	public String saveUser(ModelAndView model,
+						 @ModelAttribute("user") User user, 
 						 @RequestParam("mode") String mode,
-						 @RequestParam(value="role",required=false) String[] roles
+						 @RequestParam(value="role",required=false) String[] roles,
+						 HttpServletRequest request
 						 )
 	{
+		if(!request.isUserInRole(MANAGER))
+		{
+			//Return to the Main page
+			return "Main";
+		}
 		//Get the roles currently assigned to the user
 		List<UserRoles> currentListOfRoles=userRolesDAO.getUserRoles(user);
 		//Create a new list of roles
@@ -101,7 +115,7 @@ public class UserServlet
 				newListOfRoles.add(newRole);
 			}
 		}
-		
+		//Check to see what roles are no longer required and delete them
 		for(int i=0;i<currentListOfRoles.size();i++)
 		{
 			boolean exists=false;
@@ -143,9 +157,21 @@ public class UserServlet
 	 * @return ModelAndView containing the user to edit and setting view to User.jsp
 	 */
 	@RequestMapping("/Users_edit")
-	public ModelAndView editUsers(@RequestParam("mode") String mode, @RequestParam(value="edit",required=false)  Integer id,ModelAndView model)
+	public ModelAndView editUsers(
+			@RequestParam("mode") String mode, 
+			@RequestParam(value="edit",required=false)  Integer id,
+			ModelAndView model,
+			HttpServletRequest request
+			
+			)
 	{
-		
+		//If not in role manager return the Main.jsp
+		if(!request.isUserInRole(MANAGER))
+		{
+			model.setViewName("Main");
+			return model;
+			
+		}
 		//logger.debug("UserServlet:In mode "+mode+" for ID "+id);
 		User u=null;
 		model.getModel().put("mode", mode);
