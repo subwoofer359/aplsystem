@@ -14,16 +14,18 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <style type="text/css">
-TD
+
+.entry td
 {
 	font-size: x-large;
 	line-height: 50px;
 }
-input[type="text"]
+.entry input[type="text"]
 {
 	width:70%;
 	font-size:x-large;
 }
+
 </style>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
@@ -39,9 +41,8 @@ input[type="text"]
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
 <FORM method="post" action="${pageContext.request.contextPath}/Processing/MaterialBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
+<div class="entry">
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
-
-
 <TABLE>
 <TR><TD class="description">Company:</TD><TD><input type="text" name="company"  value="<c:out value='${form.company}' />" autofocus="autofocus"/></TD></TR>
 <TR><TD class="description">Name:</TD><TD><input type="text" name="name" value="<c:out value='${form.name}' />" /></TD></TR>
@@ -65,6 +66,7 @@ input[type="text"]
 	<input type='submit'  name="mode" value='edit'/>
 </c:if>
 </span>
+</div>
 </FORM>
 
 </body>

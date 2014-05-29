@@ -65,14 +65,14 @@
 	overflow: auto;
 }
 
-TABLE
+.results table
 {
 	top:150px;
 	background-color:white;
 	width:100%;	
 }
 
-TD
+.results TD,.entry TD
 {
 	text-align:left;
 	font-size:x-large;
@@ -80,22 +80,22 @@ TD
 	white-space: nowrap;
 }
 
-TR:nth-child(even)
+.results TR:nth-child(even),.entry TR:nth-child(even)
 {
 	background-color: gray;
 }
-TR:nth-child(even)
+.results TR:nth-child(even),.entry TR:nth-child(even)
 {
 	border-style: solid;
 	border-color: gray;
 }
-TH
+.results TH
 {
 	text-align:left;
 	font-size:x-large;
 }
 
-INPUT[type="checkbox"]
+.results INPUT[type="checkbox"]
 {
 
 }
