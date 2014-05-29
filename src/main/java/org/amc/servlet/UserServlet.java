@@ -107,7 +107,7 @@ public class UserServlet
 		user.setRoles(newListOfRoles);
 		logger.info(user);
 		//If in Edit mode update user otherwise add user
-		if(mode.equals("Edit"))
+		if(mode.equals("edit"))
 		{
 			userDAO.updateUser(user);
 		}
@@ -129,6 +129,7 @@ public class UserServlet
 	@RequestMapping("/Users_edit")
 	public ModelAndView editUsers(@RequestParam("mode") String mode, @RequestParam(value="edit",required=false)  Integer id,ModelAndView model)
 	{
+		
 		//logger.debug("UserServlet:In mode "+mode+" for ID "+id);
 		User u=null;
 		model.getModel().put("mode", mode);
@@ -144,10 +145,19 @@ public class UserServlet
 				u=new User();
 				
 			}
-			else
-			{
-				logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
-			}
+		else if(mode.equals("delete"))
+		{
+			u=userDAO.getUser(String.valueOf(id));
+			userDAO.deleteUser(u);
+			model.setViewName("Users");
+			return model;
+			
+		}
+		else
+		{
+			logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+		}
+		
 		model.setViewName("User");
 		model.getModel().put("user", u);
 		

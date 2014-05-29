@@ -29,7 +29,7 @@
 </tbody>
 </table>
 </div>
-<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit"/><input type="submit" name="mode" value="delete"/></SPAN>
 </form>
 </body>
 </html>
