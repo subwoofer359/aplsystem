@@ -18,7 +18,7 @@ public class UserRoles
 	private int id;
 	
 	@Column(name="user_name")
-	String userName;
+	private String userName;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
@@ -73,5 +73,10 @@ public class UserRoles
 	{
 		this.userName = userName;
 	}
-	
+	public String toString()
+	{
+		StringBuffer sb=new StringBuffer();
+		sb.append("Role name:"+this.getRoleName());
+		return sb.toString();
+	}
 }
