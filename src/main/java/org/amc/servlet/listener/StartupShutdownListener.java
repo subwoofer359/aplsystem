@@ -19,6 +19,11 @@ import com.mysql.jdbc.AbandonedConnectionCleanupThread;
  */
 public class StartupShutdownListener implements ServletContextListener 
 {
+	/**
+	 * Roles defined here must be the same as the roles defined in the deployment descriptor
+	 */
+	private final String[] roles={"qc","manager","guest"}; 
+	private final String ROLES="SECURITY_ROLES";
 
 	public static Logger log = Logger.getLogger(StartupShutdownListener.class.toString());
 	@Override
@@ -36,6 +41,9 @@ public class StartupShutdownListener implements ServletContextListener
 		//System.out.println(arg0.getServletContext().getRealPath("/")+"WEB-INF/log4j.properties");
 		//PropertyConfigurator.configure("log4j.properties");
 		log.info("Servlet started up....");
+		
+		//adding security roles to the servlet context for use by User.jsp
+		arg0.getServletContext().setAttribute(ROLES,roles);
 		
 	}
 	
