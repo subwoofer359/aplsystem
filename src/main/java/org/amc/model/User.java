@@ -36,7 +36,7 @@ public class User implements Serializable
 	private String userName="";
 	@Column(name="email",nullable=false)
 	private String emailAddress="";
-	@Column(name="user_pass",nullable=false,updatable=true)
+	@Column(name="user_pass",nullable=true,updatable=true)
 	private char[] password;
 	@Column(name="activate",updatable=true)
 	boolean active=true;
