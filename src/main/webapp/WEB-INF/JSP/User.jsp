@@ -101,7 +101,7 @@ input[type="text"]
 <span class="buttons">
 <!-- <button type="button" value="home" onclick="home()">Home</button>  -->
 <%-- To tell the servlet which mode the page is submitting in --%>
-<c:if test="${mode eq null }">
+<c:if test="${not(mode eq 'edit') }">
 	<input type='submit'  name="mode" value='Enter'/>
 </c:if>
 <c:if test="${mode eq 'edit' }">
