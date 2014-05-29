@@ -60,9 +60,10 @@ input[type="text"]
 	background-color: cornflowerblue;
 	padding: 15px;
 	font-size: x-large;
-	top: 450px;
+	top: 518px;
 	left: 25px;
 }
+
 </STYLE>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
@@ -79,7 +80,7 @@ input[type="text"]
 </c:if>
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
-<FORM method='get' action='${pageContext.request.contextPath}/user/User_Save'>
+<FORM method="post" action='${pageContext.request.contextPath}/user/User_Save'>
 <div class="entry">
 <input type="hidden" name='id' <c:if test='${user ne null}'>value='${user.id}'</c:if>/>
 <TABLE>
@@ -90,6 +91,9 @@ input[type="text"]
 <TR><TD class="description">Username</TD><TD>
 	<input type='text' name='userName' <c:if test='${user ne null}'>value="<c:out value='${user.userName}' />"</c:if> />
 </TD></TR>
+<TR><TD class="description">Password</TD><TD>
+	<input type='password' name='password' <c:if test='${user ne null}'>value="<c:forEach items='${user.password}'  var='letter'/>${letter }</forEach>"</c:if> />
+</TD></TR>
 <TR><TD class="description">Email Address</TD><TD>
 	<input type='text' name='emailAddress' <c:if test='${user ne null}'>value="<c:out value='${user.emailAddress}' />"</c:if> />
 </TD></TR>
@@ -97,15 +101,13 @@ input[type="text"]
 	<input type='checkbox' name='active' <c:if test='${user ne null and user.active eq true}'>checked='checked'</c:if> />
 </TD></TR>
 
-
 <span class="buttons">
-<!-- <button type="button" value="home" onclick="home()">Home</button>  -->
 <%-- To tell the servlet which mode the page is submitting in --%>
 <c:if test="${not(mode eq 'edit') }">
-	<input type='submit'  name="mode" value='Enter'/>
+	<input type='submit'  name="mode" value='enter'/>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<input type='submit'  name="mode" value='Edit'/>
+	<input type='submit'  name="mode" value='edit'/>
 </c:if>
 </span>
 </TABLE>
