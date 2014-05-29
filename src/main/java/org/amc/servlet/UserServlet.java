@@ -5,6 +5,9 @@ import java.util.List;
 
 
 
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.amc.dao.UserDAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
@@ -39,15 +42,15 @@ public class UserServlet
 	 * @return ModelAndView containing list of users from the database
 	 */
 	@RequestMapping("/Users")
-	public ModelAndView getUsersPage(ModelAndView model)
+	public ModelAndView getUsersPage(ModelAndView model,HttpServletRequest request)
 	{
 		
-		//if(request.isUserInRole("Manager"))
-		//{
-			model.setViewName("Users");
+		model.setViewName("Users");
+		if(request.isUserInRole("manager"))
+		{
 			List<User> list=userDAO.findUsers();
 			model.getModel().put("users", list);
-		//}
+		}
 		
 		return model;
 	}
@@ -61,16 +64,21 @@ public class UserServlet
 	 * @return
 	 */
 	@RequestMapping("/User_Save")
-	public ModelAndView saveUser(ModelAndView model,@ModelAttribute("user") User user, 
+	public String saveUser(ModelAndView model,@ModelAttribute("user") User user, 
 						 @RequestParam("mode") String mode,
-						 @RequestParam("role") String[] roles
+						 @RequestParam(value="role",required=false) String[] roles
 						 )
 	{
 		//Get the roles currently assigned to the user
 		List<UserRoles> currentListOfRoles=userRolesDAO.getUserRoles(user);
 		//Create a new list of roles
 		List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
+		//Check if roles equals null or no roles selected
 		
+		if(roles==null)
+		{
+			roles=new String[0];
+		}
 		//Check to see if the User's role already exists
 		for(int i=0;i<roles.length;i++)
 		{
@@ -108,7 +116,7 @@ public class UserServlet
 			userDAO.addUser(user);
 		}
 		//Return to the search page
-		return getUsersPage(model);
+		return "forward:/user/Users";
 	}
 	
 	/**
