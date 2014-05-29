@@ -42,7 +42,7 @@ public class User implements Serializable
 	boolean active=true;
 	
 
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<UserRoles> roles;
 	
 	public User()

@@ -102,6 +102,22 @@ public class UserServlet
 			}
 		}
 		
+		for(int i=0;i<currentListOfRoles.size();i++)
+		{
+			boolean exists=false;
+			for(int t=0;t<roles.length;t++)
+			{
+				if(currentListOfRoles.get(i).getRoleName().equals(roles[t]))
+				{
+					exists=true;
+				}
+			}
+			if(exists==false)
+			{
+				userRolesDAO.deleteUserRole(currentListOfRoles.get(i));
+			}
+		}
+		
 		logger.info(newListOfRoles);
 		//Set the user's roles
 		user.setRoles(newListOfRoles);
@@ -148,6 +164,7 @@ public class UserServlet
 		else if(mode.equals("delete"))
 		{
 			u=userDAO.getUser(String.valueOf(id));
+			logger.debug("User about to be deleted "+u);
 			userDAO.deleteUser(u);
 			model.setViewName("Users");
 			return model;
