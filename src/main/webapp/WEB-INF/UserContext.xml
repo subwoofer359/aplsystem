@@ -18,10 +18,14 @@
   
   <bean id="userServlet" class="org.amc.servlet.UserServlet">
   <property name="userDAO" ref="myUserDAO"/>
+  <property name="userRolesDAO" ref="myUserRolesDAO"/>
   </bean>
   
   <bean id="myUserDAO" class="org.amc.dao.UserDAO">
      <constructor-arg ref="entityManagerFactory"/>
   </bean>
-        
+  
+  <bean id="myUserRolesDAO" class="org.amc.dao.UserRolesDAO">
+     <constructor-arg ref="entityManagerFactory"/>
+  </bean>      
 </beans>
