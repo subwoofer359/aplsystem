@@ -79,7 +79,7 @@ input[type="text"]
 </c:if>
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
-<FORM method='post' action='${pageContext.request.contextPath}/user/User_Save'>
+<FORM method='get' action='${pageContext.request.contextPath}/user/User_Save'>
 <div class="entry">
 <input type="hidden" name='id' <c:if test='${user ne null}'>value='${user.id}'</c:if>/>
 <TABLE>
@@ -110,12 +110,12 @@ input[type="text"]
 </span>
 </TABLE>
 </div>
-</FORM>
+
 
 <div class="roles">
 	<table>
 		<c:forEach items="${SECURITY_ROLES}" var="roleName">
-			<tr><td><c:out value="${roleName}"></c:out></td><td><input type="checkbox"
+			<tr><td><c:out value="${roleName}"></c:out></td><td><input name="role" value="${roleName}" type="checkbox"
 			<c:forEach items="${user.roles}" var="userRole"> 
 			<c:if test="${roleName == userRole.roleName}">checked='checked'</c:if>
 			</c:forEach> 
@@ -123,5 +123,6 @@ input[type="text"]
 		</c:forEach>
 	</table>
 </div>
+</FORM>
 </body>
 </html>
