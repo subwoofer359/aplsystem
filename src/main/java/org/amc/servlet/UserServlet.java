@@ -3,19 +3,17 @@ package org.amc.servlet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+
 
 import org.amc.dao.UserDAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.tags.Param;
 import org.apache.log4j.Logger;
 /**
  * 
@@ -35,6 +33,11 @@ public class UserServlet
 		return "UserInfo";
 	}
 	
+	/**
+	 * 
+	 * @param model
+	 * @return ModelAndView containing list of users from the database
+	 */
 	@RequestMapping("/Users")
 	public ModelAndView getUsersPage(ModelAndView model)
 	{
@@ -49,13 +52,23 @@ public class UserServlet
 		return model;
 	}
 	
+	/**
+	 * Saves the user to the database
+	 * @param model 
+	 * @param user User created by Spring from the request parameters
+	 * @param mode The mode the page was in: Edit or add
+	 * @param roles The roles select on the JSP
+	 * @return
+	 */
 	@RequestMapping("/User_Save")
 	public ModelAndView saveUser(ModelAndView model,@ModelAttribute("user") User user, 
 						 @RequestParam("mode") String mode,
 						 @RequestParam("role") String[] roles
 						 )
 	{
+		//Get the roles currently assigned to the user
 		List<UserRoles> currentListOfRoles=userRolesDAO.getUserRoles(user);
+		//Create a new list of roles
 		List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
 		
 		//Check to see if the User's role already exists
@@ -73,7 +86,7 @@ public class UserServlet
 			}
 			if(!exists)
 			{
-				//If the role doesn't exist then create a new role for the user
+				//If the role doesn't exist then create a new role for the user and add to new list
 				UserRoles newRole=new UserRoles();
 				newRole.setRoleName(roles[i]);
 				newRole.setUser(user);
@@ -82,21 +95,38 @@ public class UserServlet
 		}
 		
 		logger.info(newListOfRoles);
+		//Set the user's roles
 		user.setRoles(newListOfRoles);
 		logger.info(user);
-		userDAO.updateUser(user);
+		//If in Edit mode update user otherwise add user
+		if(mode.equals("Edit"))
+		{
+			userDAO.updateUser(user);
+		}
+		else
+		{
+			userDAO.addUser(user);
+		}
+		//Return to the search page
 		return getUsersPage(model);
 	}
 	
+	/**
+	 * 
+	 * @param mode The mode the page is in: Edit or add
+	 * @param id The database id of the User from page
+	 * @param model 
+	 * @return ModelAndView containing the user to edit and setting view to User.jsp
+	 */
 	@RequestMapping("/Users_edit")
-	public ModelAndView editUsers(@RequestParam("mode") String mode,@RequestParam("edit") String id,ModelAndView model)
+	public ModelAndView editUsers(@RequestParam("mode") String mode, @RequestParam(value="edit",required=false)  Integer id,ModelAndView model)
 	{
-		logger.debug("UserServlet:In mode "+mode+" for ID "+id);
+		//logger.debug("UserServlet:In mode "+mode+" for ID "+id);
 		User u=null;
 		model.getModel().put("mode", mode);
 		if(mode.equals("edit"))
 		{
-			u=userDAO.getUser(id);
+			u=userDAO.getUser(String.valueOf(id));
 			logger.debug("Users_edit: User retrieved"+u);
 			
 		}
