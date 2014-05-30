@@ -21,37 +21,6 @@ function home()
 }
 </SCRIPT>
 <STYLE>
-/*
-TABLE
-{
-	position:fixed;
-	top:110px;
-	background-color:white;
-	width:95%;	
-	margin-left:2%;
-	margin-right:auto;
-
-}
-
-TD
-{
-	text-align:left;
-	font-size:xx-large;
-	line-height: 77px;
-}
-
-TH
-{
-	text-align:left;
-	font-size:xx-large;
-}
-
-input[type="text"]
-{
-	width:70%;
-	font-size:xx-large;
-}
-*/
 .roles
 {
 	position: absolute;
@@ -80,7 +49,7 @@ input[type="text"]
 </c:if>
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
-<FORM method="post" action='${pageContext.request.contextPath}/user/User_Save'>
+<FORM method="post" action='${pageContext.request.contextPath}/user/User_Save' autocomplete="off">
 <div class="entry">
 <input type="hidden" name='id' <c:if test='${user ne null}'>value='${user.id}'</c:if>/>
 <TABLE>
@@ -88,13 +57,13 @@ input[type="text"]
 <TR><TD class="description">Name</TD><TD>
 	<input type='text' name='fullName' <c:if test='${user ne null}'>value="<c:out value='${user.fullName}' />"</c:if> autofocus="autofocus"/>
 </TD></TR>
-<TR><TD class="description">Username</TD><TD><input type='text'  name='userName' value="<c:if test='${user ne null}'> <c:out value='${user.userName}' /></c:if>" <c:if test="${mode eq 'edit'}">readonly='readonly'</c:if> />
+<TR><TD class="description">Username</TD><TD><input type='text'  name='userName'  value="<c:if test='${user ne null}'> <c:out value='${user.userName}' /></c:if>" <c:if test="${mode eq 'edit'}">readonly='readonly'</c:if>  autocomplete='off'/>
 </TD></TR>
 <TR><TD class="description">Password</TD><TD>
-	<input type='password' name='password' <c:if test='${user ne null}'>value="<c:forEach items='${user.password}'  var='letter'/>${letter }</forEach>"</c:if> />
+	<input type='password' name='password' <c:if test='${user ne null}'> value="<c:forEach items='${user.password}' var='letter'>${letter}</c:forEach>" </c:if> autocomplete='off' />
 </TD></TR>
 <TR><TD class="description">Confirm Password</TD><TD>
-	<input type='password' name='confirm_password' value='' />
+	<input type='password' name='confirm_password' value='' autocomplete='off'/>
 </TD></TR>
 <TR><TD class="description">Email Address</TD><TD>
 	<input type='text' name='emailAddress' <c:if test='${user ne null}'>value="<c:out value='${user.emailAddress}' />"</c:if> />
