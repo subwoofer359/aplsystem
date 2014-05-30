@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 /**
  * 
@@ -30,18 +32,24 @@ public class User implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(name="fullname")
 	private String fullName="";
-	@Column(name="user_name",updatable=true)
+	
+	@NotNull(message="User name is required")
+	@Column(name="user_name",updatable=false)
 	private String userName="";
+	
+	@Pattern(regexp="\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}\\b",message="Email not in correct format")
 	@Column(name="email",nullable=false)
 	private String emailAddress="";
+	
 	@Column(name="user_pass",nullable=true,updatable=true)
 	private char[] password;
+	
 	@Column(name="activate",updatable=true)
 	boolean active=true;
 	
-
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<UserRoles> roles;
 	
