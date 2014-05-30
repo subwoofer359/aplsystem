@@ -1,12 +1,8 @@
 package org.amc.servlet;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.amc.dao.UserDAO;
 import org.amc.dao.UserRolesDAO;
@@ -49,7 +45,7 @@ public class UserServlet
 		{
 			List<User> list=userDAO.findUsers();
 			model.getModel().put("users", list);
-			model.setViewName("Users");
+			model.setViewName("UsersSearchPage");
 		}
 		else
 		{
@@ -74,6 +70,7 @@ public class UserServlet
 	public String saveUser(ModelAndView model,
 						 @ModelAttribute("user") User user, 
 						 @RequestParam("mode") String mode,
+						 @RequestParam(value="active",required=false) String active,
 						 @RequestParam(value="role",required=false) String[] roles,
 						 HttpServletRequest request
 						 )
@@ -83,6 +80,13 @@ public class UserServlet
 			//Return to the Main page
 			return "Main";
 		}
+		//Set the user's active state
+		if(active==null)
+			user.setActive(false);
+		else
+			user.setActive(true);
+		
+		
 		//Get the roles currently assigned to the user
 		List<UserRoles> currentListOfRoles=userRolesDAO.getUserRoles(user);
 		//Create a new list of roles
@@ -192,8 +196,7 @@ public class UserServlet
 			u=userDAO.getUser(String.valueOf(id));
 			logger.debug("User about to be deleted "+u);
 			userDAO.deleteUser(u);
-			model.setViewName("Users");
-			return model;
+			return getUsersPage(new ModelAndView(), request);
 			
 		}
 		else
@@ -201,7 +204,7 @@ public class UserServlet
 			logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
 		}
 		
-		model.setViewName("User");
+		model.setViewName("UserAddOrEdit");
 		model.getModel().put("user", u);
 		
 		return model; 
