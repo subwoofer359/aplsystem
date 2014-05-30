@@ -60,7 +60,7 @@ input[type="text"]
 	background-color: cornflowerblue;
 	padding: 15px;
 	font-size: x-large;
-	top: 518px;
+	top: 599px;
 	left: 25px;
 }
 
@@ -88,11 +88,13 @@ input[type="text"]
 <TR><TD class="description">Name</TD><TD>
 	<input type='text' name='fullName' <c:if test='${user ne null}'>value="<c:out value='${user.fullName}' />"</c:if> autofocus="autofocus"/>
 </TD></TR>
-<TR><TD class="description">Username</TD><TD>
-	<input type='text' name='userName' <c:if test='${user ne null}'>value="<c:out value='${user.userName}' />"</c:if> />
+<TR><TD class="description">Username</TD><TD><input type='text'  name='userName' value="<c:if test='${user ne null}'> <c:out value='${user.userName}' /></c:if>" <c:if test="${mode eq 'edit'}">readonly='readonly'</c:if> />
 </TD></TR>
 <TR><TD class="description">Password</TD><TD>
 	<input type='password' name='password' <c:if test='${user ne null}'>value="<c:forEach items='${user.password}'  var='letter'/>${letter }</forEach>"</c:if> />
+</TD></TR>
+<TR><TD class="description">Confirm Password</TD><TD>
+	<input type='password' name='confirm_password' value='' />
 </TD></TR>
 <TR><TD class="description">Email Address</TD><TD>
 	<input type='text' name='emailAddress' <c:if test='${user ne null}'>value="<c:out value='${user.emailAddress}' />"</c:if> />
