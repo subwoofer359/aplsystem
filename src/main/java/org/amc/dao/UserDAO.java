@@ -39,21 +39,11 @@ public class UserDAO extends DAO
 	public void deleteUser(User user)
 	{
 		EntityManager em=getEntityManager();
-		try
-		{
-			em.getTransaction().begin();
-			User u=em.merge(user);
-			em.remove(u);
-			em.getTransaction().commit();
-		}
-		catch(RollbackException rbe)
-		{
-			rbe.printStackTrace();
-		}
-		finally
-		{
-			em.close();
-		}
+		em.getTransaction().begin();
+		User u=em.merge(user);
+		em.remove(u);
+		em.getTransaction().commit();
+		em.close();
 	}
 
 	/**
