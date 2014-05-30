@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -37,11 +38,11 @@ public class UserServlet
 	private static UserDAO userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
 	
-	@InitBinder("user")
-	protected void initBinder(WebDataBinder binder)
-	{
-		binder.addValidators(new UserValidator());
-	}
+//	@InitBinder("user")
+//	protected void initBinder(WebDataBinder binder)
+//	{
+//		binder.addValidators(new UserValidator());
+//	}
 	
 	
 	@RequestMapping("/User")
@@ -165,6 +166,8 @@ public class UserServlet
 		
 		
 		//Check validation if fails return to page to get correct information
+		Validator v=new UserValidator();//@ToDo to be Injected
+		v.validate(user, result);
 		if(result.hasErrors())
 		{
 			logger.debug("Errors in Model User found:"+result);
@@ -209,7 +212,7 @@ public class UserServlet
 			return model;
 			
 		}
-		//logger.debug("UserServlet:In mode "+mode+" for ID "+id);
+		logger.debug("UserServlet:In mode "+mode);
 		User u=null;
 		model.getModel().put("mode", mode);
 		if(mode.equals("edit"))
