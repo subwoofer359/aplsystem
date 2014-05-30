@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.dao.PartDAO;
 import org.amc.dao.UserDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
@@ -190,9 +191,36 @@ public class TestUser
 		
 		assertTrue(t1==null);
 		
+	}
+	@Test
+	public void testDeleteUser()
+	{
+		User u1=getTestUser();
 		
+		UserRoles role1=new UserRoles();
+		role1.setRoleName("QC");
+		role1.setUser(u1);
+		UserRoles role2=new UserRoles();
+		role2.setRoleName("MANAGER");
+		role2.setUser(u1);
+		List<UserRoles> rolesList=new ArrayList<UserRoles>();
+		rolesList.add(role1);
+		rolesList.add(role2);
+		u1.setRoles(rolesList);
+		UserDAO ud=new UserDAO(factory);
 		
+		ud.addUser(u1);
 		
+		//Test user had persisted
+		User ru1=ud.getUser(String.valueOf(u1.getId()));
+		assertTrue(ru1.equals(u1));
+		
+		//Delete user
+		ud.deleteUser(ru1);
+		
+		//Test user has been deleted
+		ru1=ud.getUser(String.valueOf(u1.getId()));
+		assertNull(ru1);
 	}
 
 }
