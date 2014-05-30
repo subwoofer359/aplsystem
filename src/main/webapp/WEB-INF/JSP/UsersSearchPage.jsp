@@ -27,7 +27,7 @@ function isEditChecked(id)
 	}
 	if(checked)
 	{
-		id.formAction="${pageContext.request.contextPath}/user/User_Edit";
+		id.formAction="${pageContext.request.contextPath}/user/Users_edit";
 	}
 	else
 	{
