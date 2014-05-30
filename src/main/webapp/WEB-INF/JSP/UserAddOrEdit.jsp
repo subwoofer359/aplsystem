@@ -4,7 +4,8 @@
  --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <!DOCTYPE html>
 
 <html>
@@ -35,18 +36,20 @@ function home()
 
 </STYLE>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
+
 </head>
 <body>
 <DIV class="title">
-<H1> Part Description</H1>
+<H1>Users</H1>
 </DIV>
 
 <%@ include file="NavigationDiv.jspf" %>
 <tags:Navbox href="${pageContext.request.contextPath}/user/Users" value="Search Page" position="220px"></tags:Navbox>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
-<SCRIPT>alert("${errors}");</SCRIPT>
+<SCRIPT>alert("<c:forEach items='${errors}' var='error'>${error.defaultMessage}\n</c:forEach>");</SCRIPT> 
 </c:if>
+
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
 <FORM method="post" action='${pageContext.request.contextPath}/user/User_Save' autocomplete="off">
@@ -66,7 +69,7 @@ function home()
 	<input type='password' name='confirm_password' value='' autocomplete='off'/>
 </TD></TR>
 <TR><TD class="description">Email Address</TD><TD>
-	<input type='text' name='emailAddress' <c:if test='${user ne null}'>value="<c:out value='${user.emailAddress}' />"</c:if> />
+	<input type='text' name='emailAddress' <c:if test='${user ne null}'>value="<c:out value='${user.emailAddress}' />"</c:if> pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b" />
 </TD></TR>
 <TR><TD class="description">Active</TD><TD>
 	<input type='checkbox' name='active' <c:if test='${user ne null and user.active eq true}'>checked='checked'</c:if> />
