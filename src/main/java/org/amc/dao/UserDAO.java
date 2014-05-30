@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.RollbackException;
 
 import org.amc.model.User;
 
@@ -37,14 +38,22 @@ public class UserDAO extends DAO
 
 	public void deleteUser(User user)
 	{
-
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		User u=em.merge(user);
-		em.remove(u);
-		em.getTransaction().commit();
-		
-		em.close();
+		try
+		{
+			em.getTransaction().begin();
+			User u=em.merge(user);
+			em.remove(u);
+			em.getTransaction().commit();
+		}
+		catch(RollbackException rbe)
+		{
+			rbe.printStackTrace();
+		}
+		finally
+		{
+			em.close();
+		}
 	}
 
 	/**
