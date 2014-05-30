@@ -2,13 +2,23 @@ package org.amc.servlet;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.amc.dao.UserDAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
+import org.amc.servlet.validator.UserValidator;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,6 +36,13 @@ public class UserServlet
 	private static UserRolesDAO userRolesDAO;
 	private static UserDAO userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
+	
+	@InitBinder("user")
+	protected void initBinder(WebDataBinder binder)
+	{
+		binder.addValidators(new UserValidator());
+	}
+	
 	
 	@RequestMapping("/User")
 	public String getUserPage()
@@ -67,8 +84,9 @@ public class UserServlet
 	 * @return
 	 */
 	@RequestMapping("/User_Save")
-	public String saveUser(ModelAndView model,
-						 @ModelAttribute("user") User user, 
+	public String saveUser(Model model,
+						 @Valid @ModelAttribute("user") User user,
+						 BindingResult result, 
 						 @RequestParam("mode") String mode,
 						 @RequestParam(value="active",required=false) String active,
 						 @RequestParam(value="role",required=false) String[] roles,
@@ -85,6 +103,8 @@ public class UserServlet
 			user.setActive(false);
 		else
 			user.setActive(true);
+		
+		
 		
 		
 		//Get the roles currently assigned to the user
@@ -119,6 +139,8 @@ public class UserServlet
 				newListOfRoles.add(newRole);
 			}
 		}
+		
+		
 		//Check to see what roles are no longer required and delete them
 		for(int i=0;i<currentListOfRoles.size();i++)
 		{
@@ -140,6 +162,17 @@ public class UserServlet
 		//Set the user's roles
 		user.setRoles(newListOfRoles);
 		logger.info(user);
+		
+		
+		//Check validation if fails return to page to get correct information
+		if(result.hasErrors())
+		{
+			logger.debug("Errors in Model User found:"+result);
+			model.addAttribute("errors", result.getAllErrors());
+			model.addAttribute("user", user);
+			return "UserAddOrEdit";
+		}
+				
 		//If in Edit mode update user otherwise add user
 		if(mode.equals("edit"))
 		{
@@ -193,7 +226,7 @@ public class UserServlet
 			}
 		else if(mode.equals("delete"))
 		{
-			u=userDAO.getUser(String.valueOf(id));
+			u=userDAO.getUser(String.valueOf(id)); 
 			logger.debug("User about to be deleted "+u);
 			userDAO.deleteUser(u);
 			return getUsersPage(new ModelAndView(), request);
@@ -209,6 +242,18 @@ public class UserServlet
 		
 		return model; 
 	}
+	
+	@ExceptionHandler(PersistenceException.class)
+	public ModelAndView handleJPAException(PersistenceException exception)
+	{
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("ErrorPage");
+		mv.getModel().put("exception", exception);
+		return mv;
+	}
+	
+	
+	
 	/*
 	 * Spring injected
 	 */
