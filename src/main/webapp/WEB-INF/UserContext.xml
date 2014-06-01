@@ -21,11 +21,11 @@
   <property name="userRolesDAO" ref="myUserRolesDAO"/>
   </bean>
   
-  <bean id="myUserDAO" class="org.amc.dao.UserDAO">
+  <bean id="myUserDAO" class="org.amc.dao.UserDAO" scope="prototype">
      <constructor-arg ref="entityManagerFactory"/>
   </bean>
   
-  <bean id="myUserRolesDAO" class="org.amc.dao.UserRolesDAO">
+  <bean id="myUserRolesDAO" class="org.amc.dao.UserRolesDAO" scope="prototype">
      <constructor-arg ref="entityManagerFactory"/>
   </bean>      
 </beans>

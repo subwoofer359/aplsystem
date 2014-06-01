@@ -12,6 +12,7 @@ import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
 import org.amc.servlet.validator.UserValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,8 +35,8 @@ import org.apache.log4j.Logger;
 public class UserServlet
 {
 	private final static String MANAGER="manager";//Super User of the system
-	private static UserRolesDAO userRolesDAO;
-	private static UserDAO userDAO;
+	private  UserRolesDAO userRolesDAO;
+	private  UserDAO userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
 	
 //	@InitBinder("user")
@@ -260,7 +261,8 @@ public class UserServlet
 	/*
 	 * Spring injected
 	 */
-	public static void setUserDAO(UserDAO ud)
+	@Autowired
+	public void setUserDAO(UserDAO ud)
 	{
 		userDAO=ud;
 		logger.debug("UserDAO added to UserServlet:"+userDAO);
@@ -268,9 +270,9 @@ public class UserServlet
 	/*
 	 * Spring injected
 	 */
-	public static void setUserRolesDAO(UserRolesDAO ud)
+	@Autowired
+	public void setUserRolesDAO(UserRolesDAO ud)
 	{
 		userRolesDAO=ud;
-		logger.debug("UserDAO added to UserServlet:"+userDAO);
 	}
 }
