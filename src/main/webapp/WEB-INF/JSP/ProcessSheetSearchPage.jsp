@@ -56,7 +56,7 @@ function isDisplayChecked(id)
 <%@ include file="NavigationDiv.jspf" %>
 
 
-<FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post">
+<FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post" onsubmit="return isChecked(this,'Process Sheet')">
 <DIV class="results">
 <TABLE>
 <thead><tr><TH>Date Of Issue</TH><TH>Product</TH><TH>Machine Size</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></tr></thead>
@@ -70,7 +70,7 @@ function isDisplayChecked(id)
 <SPAN class="search">
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>
 </SPAN>
-<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /><input type="submit" name="mode" value="display" onclick="isDisplayChecked(this)" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
 </FORM>
 
 </body>

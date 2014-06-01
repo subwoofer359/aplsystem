@@ -20,6 +20,25 @@ function home()
 {
 	location="user/Users";
 }
+
+function checkPassword(element)
+{
+	console.log("Check Password function called");
+	var password1=document.getElementById("passwordOne");
+	var password2=document.getElementById("passwordTwo");
+	
+	if(password1.value != password2.value)
+	{
+		console.log("Passwords aren't the same");
+		alert("Passwords aren't the same");
+		return false
+	}
+	else
+	{
+		console.log("Passwords are the same");
+		return true;
+	}
+}
 </SCRIPT>
 <STYLE>
 .roles
@@ -52,7 +71,7 @@ function home()
 
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
-<FORM method="post" action='${pageContext.request.contextPath}/user/User_Save' autocomplete="off">
+<FORM method="post" action='${pageContext.request.contextPath}/user/User_Save' onsubmit="return checkPassword(this)" autocomplete="off">
 <div class="entry">
 <input type="hidden" name='id' <c:if test='${user ne null}'>value='${user.id}'</c:if>/>
 <TABLE>
@@ -63,10 +82,10 @@ function home()
 <TR><TD class="description">Username</TD><TD><input type='text'  name='userName'  value="<c:if test='${user ne null}'> <c:out value='${user.userName}' /></c:if>" <c:if test="${mode eq 'edit'}">readonly='readonly'</c:if>  autocomplete='off'/>
 </TD></TR>
 <TR><TD class="description">Password</TD><TD>
-	<input type='password' name='password' <c:if test='${user ne null}'> value="<c:forEach items='${user.password}' var='letter'>${letter}</c:forEach>" </c:if> autocomplete='off' />
+	<input id="passwordOne" type='password' name='password' <c:if test='${user ne null}'> value="<c:forEach items='${user.password}' var='letter'>${letter}</c:forEach>" </c:if> autocomplete='off' />
 </TD></TR>
-<TR><TD class="description">Confirm Password</TD><TD>
-	<input type='password' name='confirm_password' value='' autocomplete='off'/>
+<TR><TD  class="description">Confirm Password</TD><TD>
+	<input id="passwordTwo" type='password' name='confirm_password' <c:if test='${user ne null}'> value="<c:forEach items='${user.password}' var='letter'>${letter}</c:forEach>" </c:if> autocomplete='off'/>
 </TD></TR>
 <TR><TD class="description">Email Address</TD><TD>
 	<input type='text' name='emailAddress' <c:if test='${user ne null}'>value="<c:out value='${user.emailAddress}' />"</c:if> pattern="\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b" />

@@ -23,7 +23,7 @@
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<FORM action="${pageContext.request.contextPath}/Part_search" method="post">
+<FORM action="${pageContext.request.contextPath}/Part_search" method="post" onsubmit="return isChecked(this,'part')">
 <DIV class="results">
 <TABLE>
 <TR><TH>Id</TH><TH>Company</TH><TH>Name</TH><TH>Version</TH><TH>Colour</TH><TH>QSS no.</TH><TH></TH></TR>
@@ -36,7 +36,7 @@
 <SPAN class="search">
 <input type="text" name="search"/><input type="submit" name="mode" value="search"/>
 </SPAN>
-<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit"/></SPAN>
 </FORM>
 </body>
 </html>
