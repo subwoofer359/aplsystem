@@ -131,7 +131,7 @@ public class TestUser
 	@Test
 	public void testUpdateUser()
 	{
-		String emailAddress="Test Email Address";
+		String emailAddress="chris@eircom.net";
 		UserDAO ud=new UserDAO(factory);
 		User u=getTestUser();
 		
