@@ -35,21 +35,21 @@ public class Part implements Serializable
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	@Column
+	@Column(length=20)
 	private String colour;
-	@Column(nullable = false)
+	@Column(nullable = false,length=50)
 	private String company;
 	@Column(nullable = false)
 	private boolean external;
-	@Column(nullable = false)
+	@Column(nullable = false,length=50)
 	private String name;
-	@Column(nullable = false)
+	@Column(nullable = false,length=50)
 	private String part_id;
-	@Column(nullable = false)
+	@Column(nullable = false,length=10)
 	private String qss_no;
-	@Column
+	@Column(length=20)
 	private String revision;
-	@Column
+	@Column(length=20)
 	private String version;
 
 	/**
