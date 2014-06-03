@@ -3,6 +3,7 @@ package org.amc.servlet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -214,6 +215,7 @@ public class UserServlet
 			
 		}
 		logger.debug("UserServlet:In mode "+mode);
+		logger.debug("UserServlet:UserDAO is "+userDAO);
 		User u=null;
 		model.getModel().put("mode", mode);
 		if(mode.equals("edit"))
@@ -261,7 +263,7 @@ public class UserServlet
 	/*
 	 * Spring injected
 	 */
-	@Autowired
+	@Resource(name="myUserDAO")
 	public void setUserDAO(DAO<User> ud)
 	{
 		userDAO=ud;
