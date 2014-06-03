@@ -14,6 +14,8 @@
 <class>org.amc.model.MouldingProcess</class>
 <class>org.amc.model.User</class>
 <class>org.amc.model.UserRoles</class>
+<class>org.amc.model.spc.SPCMeasurement</class>
+<class>org.amc.model.spc.SPCData</class>
 <properties>
       <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.105/test"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
@@ -21,7 +23,8 @@
       <property name="openjpa.ConnectionPassword" value="cr2032ux"></property>
       <!-- Turn off OpenJPA bytecode Enhancer -->
       <!-- causing a lot of problems -->
-      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/> 
+      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+       <property name="jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
  </properties>
 </persistence-unit>
 </persistence>
