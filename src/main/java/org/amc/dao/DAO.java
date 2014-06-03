@@ -30,6 +30,7 @@ public class DAO<T extends WorkEntity>
 		//emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		this.emf=emf;
 		this.entityClass=entityClass;
+		this.em=emf.createEntityManager();
 	
 	}
 	
@@ -44,13 +45,13 @@ public class DAO<T extends WorkEntity>
 	 * 
 	 * @return EntityManager for subclass to use
 	 */
-	protected synchronized EntityManager getEntityManager()
+	public synchronized EntityManager getEntityManager()
 	{
 		if(emf!=null)
 		{
 			if(em==null || (!em.isOpen()))
 			{
-				em= emf.createEntityManager();
+				this.em= emf.createEntityManager();
 			}
 		}
 		return em;
@@ -60,7 +61,10 @@ public class DAO<T extends WorkEntity>
 	public void finalize()
 	{
 		if(emf!=null && emf.isOpen())
+		{
+			em.close();
 			emf.close();
+		}
 	}
 	
 	public void addEntity(T entity)
@@ -69,7 +73,7 @@ public class DAO<T extends WorkEntity>
 		em.getTransaction().begin();
 		em.persist(entity);
 		em.getTransaction().commit();
-		em.close();
+		//em.close();
 	}
 
 	public void updateEntity(T entity)
@@ -78,17 +82,17 @@ public class DAO<T extends WorkEntity>
 		em.getTransaction().begin();
 		em.merge(entity);
 		em.getTransaction().commit();
-		em.close();
+		//em.close();
 	}
 
 	public void deleteEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
-		WorkEntity u=em.merge(entity);
+		T u=em.merge(entity);
 		em.remove(u);
 		em.getTransaction().commit();
-		em.close();
+		//em.close();
 	}
 
 	/**
@@ -131,5 +135,7 @@ public class DAO<T extends WorkEntity>
 		//em.close();
 		return resultList;
 	}
+	
+
 	
 }

@@ -42,9 +42,15 @@ public class TestSPCMeasurment
 		{
 			part=parts.get(0);
 		}
-		measurement.setPart(part);
 		
+		//Forcing the EntityManager to manage Part entity
+		EntityManager em=dao.getEntityManager();
+		em.getTransaction().begin();
+		part=em.merge(part);
+		em.getTransaction().commit();
+		measurement.setPart(part);
 		//Save SPCMeasurement entity to database
+		
 		dao.addEntity(measurement);
 	
 		//Retrieve SPCMeasurement entity from database
@@ -60,7 +66,7 @@ public class TestSPCMeasurment
 	 * Creates a Part entity
 	 * @param factory
 	 */
-	private static void createPartFromDataBase(EntityManagerFactory factory)
+	static Part createPartFromDataBase(EntityManagerFactory factory)
 	{
 		Part part =new Part();
 		part.setCompany("tosara");
@@ -73,6 +79,7 @@ public class TestSPCMeasurment
 		part.setColour("grey");
 		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
 		partDAO.addEntity(part);
+		return part;
 	}
 	
 	@BeforeClass
@@ -110,6 +117,12 @@ public class TestSPCMeasurment
 	@After
 	public void tearDown()
 	{
+		if(em!=null && em.isOpen())
+		{
+			em.getTransaction().begin();
+			em.flush();
+			em.getTransaction().commit();
+		}
 		em.close();
 		factory.close();
 	}
