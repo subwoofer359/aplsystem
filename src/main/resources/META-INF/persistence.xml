@@ -21,7 +21,9 @@
       <property name="openjpa.ConnectionProperties" value="validationQuery=select 1"/>
       <!-- Turn off OpenJPA bytecode Enhancer -->
       <!-- causing a lot of problems -->
-      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/> 
+      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+      <property name="jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+      <property name="openjpa.Log" value="log4j"/>
  </properties>
 </persistence-unit>     
 </persistence>
