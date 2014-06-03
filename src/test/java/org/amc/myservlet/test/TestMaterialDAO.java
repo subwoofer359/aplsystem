@@ -67,9 +67,9 @@ public class TestMaterialDAO
 	public void testAddMaterial()
 	{
 		MaterialDAO d=new MaterialDAO(factory);
-		d.addMaterial(testMaterial);
+		d.addEntity(testMaterial);
 		
-		Material actual=d.getMaterial(String.valueOf(testMaterial.getId()));
+		Material actual=d.getEntity(String.valueOf(testMaterial.getId()));
 		assertEquals(testMaterial, actual);
 	}
 
@@ -80,7 +80,7 @@ public class TestMaterialDAO
 		MaterialDAO d=new MaterialDAO(factory);
 		//d.setEm(em);
 		//Add Material Database
-		d.addMaterial(testMaterial);
+		d.addEntity(testMaterial);
 		
 		//Check Material has been added and retrived
 		Map<Integer,Material> list=d.findMaterials("name", NAME);
@@ -91,7 +91,7 @@ public class TestMaterialDAO
 			if(tm.getName().equals(NAME))
 			{
 				tm.setType(("TEST"));
-				d.updateMaterial(tm);
+				d.updateEntity(tm);
 			}
 		}
 		assertNotSame(c.size(),0);
@@ -103,7 +103,7 @@ public class TestMaterialDAO
 	{
 		MaterialDAO d=new MaterialDAO(factory);
 		//d.setEm(em);
-		d.addMaterial(testMaterial);
+		d.addEntity(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials("name",NAME);
 		assertEquals(mp.size(),1);
 	}
@@ -113,7 +113,7 @@ public class TestMaterialDAO
 	{
 		MaterialDAO d=new MaterialDAO(factory);
 		//d.setEm(em);
-		d.addMaterial(testMaterial);
+		d.addEntity(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials();
 		assertEquals(mp.size(),1);
 	}

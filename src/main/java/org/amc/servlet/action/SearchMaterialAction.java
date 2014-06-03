@@ -36,7 +36,7 @@ public class SearchMaterialAction
 	
 	public Material getMaterial(String id) throws SQLException
 	{
-		return materialDAO.getMaterial(id);
+		return materialDAO.getEntity(id);
 	}
 
 }

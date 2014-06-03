@@ -25,7 +25,7 @@ import javax.validation.constraints.Pattern;
  */
 @Entity
 @Table(name="users")
-public class User implements Serializable
+public class User implements Serializable,WorkEntity
 {
 	private static final long serialVersionUID = 261123044422857580L;
 	

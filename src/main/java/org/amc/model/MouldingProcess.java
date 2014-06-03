@@ -19,7 +19,7 @@ import javax.persistence.Transient;
  */
 @Entity
 @Table(name = "processSheets")
-public class MouldingProcess implements Serializable
+public class MouldingProcess implements Serializable,WorkEntity
 {
 	@Transient
 	public static String[] fields={

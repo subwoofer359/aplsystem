@@ -17,6 +17,7 @@ import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.amc.model.Part;
+import org.amc.model.WorkEntity;
 
 
 /**
@@ -28,7 +29,7 @@ import org.amc.model.Part;
  */
 @Entity
 @Table(name="SPCMeasurements")
-public class SPCMeasurement implements Serializable
+public class SPCMeasurement implements Serializable, WorkEntity
 {
 
 	private static final long serialVersionUID = 5160093236226158094L;
@@ -40,6 +41,7 @@ public class SPCMeasurement implements Serializable
 	/**
 	 * The part the SPC measurements will be taken from
 	 */
+	@NotNull
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="part_id",nullable=false)
 	private Part part;

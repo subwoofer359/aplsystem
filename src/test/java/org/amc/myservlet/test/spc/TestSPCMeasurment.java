@@ -8,8 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import org.amc.dao.PartDAO;
-import org.amc.dao.SPCDAO;
+import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
 import org.junit.After;
@@ -25,7 +24,7 @@ public class TestSPCMeasurment
 	@Test
 	public void testSPCMeasurement()
 	{
-		SPCDAO dao=new SPCDAO(factory);
+		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(factory,SPCMeasurement.class);
 		
 		SPCMeasurement measurement=new SPCMeasurement();
 		measurement.setActive(true);
@@ -36,8 +35,8 @@ public class TestSPCMeasurment
 		measurement.setNoOfMeasurements(5);
 		
 		//Retrieve Part entity from the database
-		PartDAO partDAO=new PartDAO(factory);
-		List<Part> parts=partDAO.findParts();
+		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
+		List<Part> parts=partDAO.findEntities();
 		Part part=null;
 		if(parts.size()>0)
 		{
@@ -46,10 +45,10 @@ public class TestSPCMeasurment
 		measurement.setPart(part);
 		
 		//Save SPCMeasurement entity to database
-		dao.addSPCMeasurement(measurement);
+		dao.addEntity(measurement);
 	
 		//Retrieve SPCMeasurement entity from database
-		SPCMeasurement spc=dao.getSPCMeasurement(String.valueOf(measurement.getId()));
+		SPCMeasurement spc=(SPCMeasurement)dao.getEntity(String.valueOf(measurement.getId()));
 		
 		//Check some properties 
 		assertEquals(spc.getDimension(),measurement.getDimension());
@@ -72,8 +71,8 @@ public class TestSPCMeasurment
 		part.setVersion("3");
 		part.setPart_id("300r30");
 		part.setColour("grey");
-		PartDAO partDAO=new PartDAO(factory);
-		partDAO.addPart(part);
+		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
+		partDAO.addEntity(part);
 	}
 	
 	@BeforeClass

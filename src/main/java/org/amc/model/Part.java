@@ -27,7 +27,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "jobtemplate")
-public class Part implements Serializable
+public class Part implements Serializable,WorkEntity
 {
 	
 	private static final long serialVersionUID = -8498315270583017514L;

@@ -26,7 +26,7 @@ public class SaveMaterialAction
 	 */
 	public void save(Material material) throws SQLException
 	{
-		this.materialDAO.addMaterial(material);
+		this.materialDAO.addEntity(material);
 		
 		
 	}
@@ -38,6 +38,6 @@ public class SaveMaterialAction
 	 */
 	public void edit(Material material) throws SQLException
 	{
-		this.materialDAO.updateMaterial(material);
+		this.materialDAO.updateEntity(material);
 	}
 }

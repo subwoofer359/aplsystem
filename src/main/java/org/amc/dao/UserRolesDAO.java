@@ -5,19 +5,18 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
-import javax.persistence.RollbackException;
 
 import org.amc.model.User;
 import org.amc.model.UserRoles;
 
-public class UserRolesDAO extends DAO
+public class UserRolesDAO extends DAO<UserRoles>
 {
 	public UserRolesDAO(EntityManagerFactory emf)
 	{
-		super(emf);
+		super(emf,UserRoles.class);
 	}
 	
-	public List<UserRoles> getUserRoles(User user)
+	public List<UserRoles> getEntities(User user)
 	{
 		EntityManager em=getEntityManager();
 		List<UserRoles> roles=null;
@@ -27,25 +26,4 @@ public class UserRolesDAO extends DAO
 		em.close();
 		return roles;
 	}
-	
-	public void deleteUserRole(UserRoles role)
-	{
-		EntityManager em=getEntityManager();
-		try
-		{
-			em.getTransaction().begin();
-			UserRoles u=em.merge(role);
-			em.remove(u);
-			em.getTransaction().commit();
-		}
-		catch(RollbackException rbe)
-		{
-			rbe.printStackTrace();
-		}
-		finally
-		{
-			em.close();
-		}
-	}
-
 }

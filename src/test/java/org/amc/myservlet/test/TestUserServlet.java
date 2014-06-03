@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.amc.dao.UserDAO;
+import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
@@ -65,7 +65,7 @@ public class TestUserServlet
 	public void testGetUsersPage()
 	{
 		//Mock DAO object
-		UserDAO dao=mock(UserDAO.class);
+		DAO<User> dao=mock(DAO.class);
 		
 		//A User 
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
@@ -74,7 +74,7 @@ public class TestUserServlet
 		List<User> list=new ArrayList<User>();
 		list.add(u1);
 		//Mock object to return this list of objects
-		when(dao.findUsers()).thenReturn(list);
+		when(dao.findEntities()).thenReturn(list);
 		userServlet.setUserDAO(dao);
 		
 		//Empty model to pass to getUsersPage
@@ -106,9 +106,9 @@ public class TestUserServlet
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 		
 		//Create DAO objects
-		UserDAO dao=mock(UserDAO.class);
+		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
-		when(roleDao.getUserRoles(u1)).thenReturn(getUserRoles(2, u1));
+		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -161,9 +161,9 @@ public class TestUserServlet
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 		
 		//Create DAO objects
-		UserDAO dao=mock(UserDAO.class);
+		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
-		when(roleDao.getUserRoles(u1)).thenReturn(getUserRoles(2, u1));
+		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -178,7 +178,7 @@ public class TestUserServlet
 		String returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		
 		//Verify add user was called on UserDao object
-		verify(dao).addUser(any(User.class));
+		verify(dao).addEntity(any(User.class));
 		//Verify the correct view String was returned.
 		assertEquals("forward:/user/Users",returnedResult);
 		
@@ -190,11 +190,11 @@ public class TestUserServlet
 		
 		//Case 2: User has current 2 Roles but has no roles selected in page
 		roles=new String[]{};
-		dao=mock(UserDAO.class);
+		dao=mock(DAO.class);
 		userServlet.setUserDAO(dao);
 		returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		//Verify add user was called on UserDao object
-		verify(dao).addUser(any(User.class));
+		verify(dao).addEntity(any(User.class));
 		//Verify the correct view String was returned.
 		assertEquals("forward:/user/Users",returnedResult);
 				
@@ -221,9 +221,9 @@ public class TestUserServlet
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 			
 		//Create DAO objects
-		UserDAO dao=mock(UserDAO.class);
+		DAO dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
-		when(roleDao.getUserRoles(u1)).thenReturn(getUserRoles(2, u1));
+		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -237,7 +237,7 @@ public class TestUserServlet
 				
 		String returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		
-		verify(dao).updateUser(any(User.class));
+		verify(dao).updateEntity(any(User.class));
 		//Verify the correct view String was returned.
 		assertEquals("forward:/user/Users",returnedResult);
 				
@@ -262,9 +262,9 @@ public class TestUserServlet
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 			
 		//Create DAO objects
-		UserDAO dao=mock(UserDAO.class);
+		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
-		when(roleDao.getUserRoles(u1)).thenReturn(getUserRoles(2, u1));
+		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -297,8 +297,8 @@ public class TestUserServlet
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 			
 		//Create DAO objects
-		UserDAO dao=mock(UserDAO.class);
-		when(dao.getUser(anyString())).thenReturn(u1);
+		DAO<User> dao=mock(DAO.class);
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		
@@ -309,7 +309,7 @@ public class TestUserServlet
 		
 		ModelAndView mav=userServlet.editUsers(mode, id, model, request);
 		
-		verify(dao).deleteUser(any(User.class));
+		verify(dao).deleteEntity(any(User.class));
 		//Verify the correct view String was returned.
 		ModelAndViewAssert.assertViewName(mav,"UsersSearchPage");
 		
@@ -328,8 +328,8 @@ public class TestUserServlet
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 			
 		//Create DAO objects
-		UserDAO dao=mock(UserDAO.class);
-		when(dao.getUser(anyString())).thenReturn(u1);
+		DAO<User> dao=mock(DAO.class);
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		
@@ -341,7 +341,7 @@ public class TestUserServlet
 		ModelAndView mav=userServlet.editUsers(mode, id, modelView, request);
 		
 		//verify UserDAO method getUser was called
-		verify(dao).getUser(anyString());
+		verify(dao).getEntity(anyString());
 		//Verify the correct view String was returned and Model attribute "user" was set.
 		ModelAndViewAssert.assertViewName(mav,"UserAddOrEdit");
 		ModelAndViewAssert.assertModelAttributeAvailable(mav,"user");

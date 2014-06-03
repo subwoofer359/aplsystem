@@ -10,8 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
-import org.amc.dao.PartDAO;
-import org.amc.dao.UserDAO;
+import org.amc.dao.DAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
 import org.junit.After;
@@ -80,10 +79,10 @@ public class TestUser
 //		listOfRoles.add(roles);
 //		listOfRoles.add(roles2);
 //		u.setRoles(listOfRoles);
-		UserDAO ud=new UserDAO(factory);
-		ud.addUser(u);
+		DAO<User> ud=new DAO<User>(factory,User.class);
+		ud.addEntity(u);
 		
-		User tu=ud.getUser(String.valueOf(u.getId()));
+		User tu=ud.getEntity(String.valueOf(u.getId()));
 		
 		assertTrue(tu.equals(u));
 	}
@@ -91,15 +90,15 @@ public class TestUser
 	@Test
 	public void testFindUsers()
 	{
-		UserDAO ud=new UserDAO(factory);
+		DAO<User> ud=new DAO<User>(factory,User.class);
 		User[] users={getTestUser(),getTestUser(),getTestUser(),getTestUser()};
 		
 		for(User u:users)
 		{
-			ud.addUser(u);
+			ud.addEntity(u);
 			
 		}
-		List<User> list=ud.findUsers();
+		List<User> list=ud.findEntities();
 		assertEquals(users.length, list.size());
 		
 		
@@ -109,19 +108,19 @@ public class TestUser
 	{
 		String userName="Bunny";
 		
-		UserDAO ud=new UserDAO(factory);
+		DAO<User> ud=new DAO<User>(factory,User.class);
 		
 		User u1=getTestUser();
 		User u2=getTestUser();
 		u2.setUserName(userName);
 		User u3=getTestUser();
 		User u4=getTestUser();
-		ud.addUser(u1);
-		ud.addUser(u2);
-		ud.addUser(u3);
-		ud.addUser(u4);
+		ud.addEntity(u1);
+		ud.addEntity(u2);
+		ud.addEntity(u3);
+		ud.addEntity(u4);
 		
-		List<User> list=ud.findUsers("userName", userName);
+		List<User> list=ud.findEntities("userName", userName);
 		assertEquals(list.size(), 1);
 		User actualUser=list.get(0);
 		assertEquals(actualUser.getUserName(),userName);
@@ -132,16 +131,16 @@ public class TestUser
 	public void testUpdateUser()
 	{
 		String emailAddress="chris@eircom.net";
-		UserDAO ud=new UserDAO(factory);
+		DAO<User> ud=new DAO<User>(factory,User.class);
 		User u=getTestUser();
 		
-		ud.addUser(u);
+		ud.addEntity(u);
 		
 		u.setEmailAddress(emailAddress);
 		
-		ud.updateUser(u);
+		ud.updateEntity(u);
 		
-		User tu=ud.getUser(String.valueOf(u.getId()));
+		User tu=ud.getEntity(String.valueOf(u.getId()));
 		
 		assertEquals(tu.getEmailAddress(), emailAddress);
 	}
@@ -152,7 +151,7 @@ public class TestUser
 		String userName="Bunny";
 		String[] roles={"QC","MANAGER"};
 		
-		UserDAO ud=new UserDAO(factory);
+		DAO<User> ud=new DAO<User>(factory,User.class);
 		
 		User u1=getTestUser();
 		User u2=getTestUser();
@@ -180,14 +179,14 @@ public class TestUser
 		u1.setRoles(u1_roles);
 		u2.setRoles(u2_roles);
 		
-		ud.addUser(u1);
-		ud.addUser(u2);
+		ud.addEntity(u1);
+		ud.addEntity(u2);
 		
-		User t1=ud.getUser(String.valueOf(u1.getId()));
+		User t1=ud.getEntity(String.valueOf(u1.getId()));
 		assertTrue(t1!=null);
 		
-		ud.deleteUser(u1);
-		t1=ud.getUser(String.valueOf(u1.getId()));
+		ud.deleteEntity(u1);
+		t1=ud.getEntity(String.valueOf(u1.getId()));
 		
 		assertTrue(t1==null);
 		
@@ -207,19 +206,19 @@ public class TestUser
 		rolesList.add(role1);
 		rolesList.add(role2);
 		u1.setRoles(rolesList);
-		UserDAO ud=new UserDAO(factory);
+		DAO<User> ud=new DAO<User>(factory,User.class);
 		
-		ud.addUser(u1);
+		ud.addEntity(u1);
 		
 		//Test user had persisted
-		User ru1=ud.getUser(String.valueOf(u1.getId()));
+		User ru1=ud.getEntity(String.valueOf(u1.getId()));
 		assertTrue(ru1.equals(u1));
 		
 		//Delete user
-		ud.deleteUser(ru1);
+		ud.deleteEntity(ru1);
 		
 		//Test user has been deleted
-		ru1=ud.getUser(String.valueOf(u1.getId()));
+		ru1=ud.getEntity(String.valueOf(u1.getId()));
 		assertNull(ru1);
 	}
 

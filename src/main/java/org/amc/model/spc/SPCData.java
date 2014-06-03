@@ -3,6 +3,7 @@ package org.amc.model.spc;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
 import org.amc.model.User;
+import org.amc.model.WorkEntity;
 
 /**
  * @author Adrian McLaughlin
@@ -21,8 +24,8 @@ import org.amc.model.User;
  * Represents saved SPC data
  */
 @Entity
-//@Table not sure what to put for this value
-public class SPCData implements Serializable
+@Table //not sure what to put for this value
+public class SPCData implements Serializable, WorkEntity
 {
 	private static final long serialVersionUID = 5840756393419920613L;
 	
@@ -47,7 +50,8 @@ public class SPCData implements Serializable
 	 * The user that took the measurement
 	 */
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="user_id",nullable=false)
 	private User user;
 	
 	/**
@@ -68,8 +72,8 @@ public class SPCData implements Serializable
 	 * The SPCMeasure object this SPCData is reference by
 	 */
 	@NotNull
-	@ManyToOne
-	@JoinColumn
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="measurement_id",nullable=false)
 	private SPCMeasurement spcMeasurement;
 
 	public int getId()

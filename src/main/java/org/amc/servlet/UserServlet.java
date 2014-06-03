@@ -7,7 +7,7 @@ import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.amc.dao.UserDAO;
+import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
@@ -36,7 +36,7 @@ public class UserServlet
 {
 	private final static String MANAGER="manager";//Super User of the system
 	private  UserRolesDAO userRolesDAO;
-	private  UserDAO userDAO;
+	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
 	
 //	@InitBinder("user")
@@ -62,7 +62,7 @@ public class UserServlet
 	{
 		if(request.isUserInRole(MANAGER))
 		{
-			List<User> list=userDAO.findUsers();
+			List<User> list=userDAO.findEntities();
 			model.getModel().put("users", list);
 			model.setViewName("UsersSearchPage");
 		}
@@ -110,7 +110,7 @@ public class UserServlet
 		
 		
 		//Get the roles currently assigned to the user
-		List<UserRoles> currentListOfRoles=userRolesDAO.getUserRoles(user);
+		List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);
 		//Create a new list of roles
 		List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
 		//Check if roles equals null or no roles selected
@@ -156,7 +156,7 @@ public class UserServlet
 			}
 			if(exists==false)
 			{
-				userRolesDAO.deleteUserRole(currentListOfRoles.get(i));
+				userRolesDAO.deleteEntity(currentListOfRoles.get(i));
 			}
 		}
 		
@@ -180,11 +180,11 @@ public class UserServlet
 		//If in Edit mode update user otherwise add user
 		if(mode.equals("edit"))
 		{
-			userDAO.updateUser(user);
+			userDAO.updateEntity(user);
 		}
 		else
 		{
-			userDAO.addUser(user);
+			userDAO.addEntity(user);
 		}
 		//Return to the search page
 		return "forward:/user/Users";
@@ -218,7 +218,7 @@ public class UserServlet
 		model.getModel().put("mode", mode);
 		if(mode.equals("edit"))
 		{
-			u=userDAO.getUser(String.valueOf(id));
+			u=userDAO.getEntity(String.valueOf(id));
 			logger.debug("Users_edit: User retrieved"+u);
 			
 		}
@@ -230,9 +230,9 @@ public class UserServlet
 			}
 		else if(mode.equals("delete"))
 		{
-			u=userDAO.getUser(String.valueOf(id)); 
+			u=userDAO.getEntity(String.valueOf(id)); 
 			logger.debug("User about to be deleted "+u);
-			userDAO.deleteUser(u);
+			userDAO.deleteEntity(u);
 			return getUsersPage(new ModelAndView(), request);
 			
 		}
@@ -262,7 +262,7 @@ public class UserServlet
 	 * Spring injected
 	 */
 	@Autowired
-	public void setUserDAO(UserDAO ud)
+	public void setUserDAO(DAO<User> ud)
 	{
 		userDAO=ud;
 		logger.debug("UserDAO added to UserServlet:"+userDAO);
