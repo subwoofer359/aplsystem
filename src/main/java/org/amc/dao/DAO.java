@@ -100,7 +100,7 @@ public class DAO<T extends WorkEntity>
 	{
 		EntityManager em=getEntityManager();
 		T mp=null;
-		Query q=em.createQuery("Select x from "+entityClass.getName()+" x where x.id="+workEntityId+"");
+		Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
 		try
 		{
 			mp = (T)q.getSingleResult();
@@ -109,7 +109,7 @@ public class DAO<T extends WorkEntity>
 		{
 			//Do nothing
 		}
-		em.close();
+		//em.close();
 		return mp;
 
 	}
@@ -117,18 +117,18 @@ public class DAO<T extends WorkEntity>
 	public List<T> findEntities(String col, String value)
 	{
 		EntityManager em=getEntityManager();
-		Query q=em.createQuery("Select x from "+entityClass.getName()+" x where x."+col+"='"+value+"'");
+		Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+"='"+value+"'");
 		List<T> resultList=(List<T>)q.getResultList();
-		em.close();
+		//em.close();
 		return resultList;
 	}
 
 	public List<T> findEntities() 
 	{
 		EntityManager em=getEntityManager();
-		Query q=getEntityManager().createQuery("Select x from "+entityClass.getName()+" x");
+		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
 		List<T> resultList=(List<T>)q.getResultList();
-		em.close();
+		//em.close();
 		return resultList;
 	}
 	
