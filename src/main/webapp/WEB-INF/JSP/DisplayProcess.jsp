@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,7 +120,7 @@ select
 <TABLE>
 <TR><TD class="header">Machine Size:</TD><TD>${process.machineSize}</TD></TR>
 <TR><TD class="header">Machine No.</TD><TD>${process.machineNo}</TD></TR>
-<TR><TD class="header">Material:</TD><TD>${process.material}</TD></TR>
+<TR><TD class="header">Material:</TD><TD><c:out value='${myfunc:toString(materials[process.material])}'></c:out></TD></TR>
 <TR><TD class="header">Masterbatch:</TD><TD>${process.masterbatchNo}</TD></TR>
 <TR><TD class="header">Date of Issue:</TD><TD>${process.dateOfIssue}</TD></TR>
 <TR><TD class="header">Signed of by:</TD><TD>${process.signOffBy}</TD></TR>

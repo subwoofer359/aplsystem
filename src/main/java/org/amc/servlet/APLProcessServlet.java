@@ -227,6 +227,11 @@ public class APLProcessServlet extends HttpServlet
 				MouldingProcess process=spt.getMouldingProcess(idValue);
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/DisplayProcess.jsp");
+				
+				//Get List of Material and add to the request for DisplayProcess.jsp to use.
+				Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
+				request.setAttribute("materials", materials);
+				
 				rd.forward(request, response);
 			} catch (SQLException e)
 			{
