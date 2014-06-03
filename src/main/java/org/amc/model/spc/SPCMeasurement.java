@@ -2,13 +2,16 @@ package org.amc.model.spc;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -29,7 +32,7 @@ public class SPCMeasurement implements Serializable
 {
 
 	private static final long serialVersionUID = 5160093236226158094L;
-
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -37,43 +40,43 @@ public class SPCMeasurement implements Serializable
 	/**
 	 * The part the SPC measurements will be taken from
 	 */
-	@ManyToOne
-	@JoinColumn(name="part_id")
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="part_id",nullable=false)
 	private Part part;
-	
 	
 	/**
 	 * The dimension of the part to be measured
 	 */
 	@NotNull
+	@Column(nullable=false,length=100)
 	private String dimension;
 	
 	/**
 	 * The desired value of the measurement taken from the part
 	 */
 	@NotNull
-	@Column
+	@Column(nullable=false)
 	private float nominal;
 	
 	/**
 	 * The upper tolerance 
 	 */
 	@NotNull
-	@Column
+	@Column(nullable=false)
 	private float upperLimit;
 	
 	/**
 	 * The lower tolerance 
 	 */
 	@NotNull
-	@Column
+	@Column(nullable=false)
 	private float lowerLimit;
 	
 	/**
 	 * The number of parts that have to be measured 
 	 */
 	@NotNull
-	@Column
+	@Column(nullable=false)
 	private int noOfMeasurements;
 	
 	
@@ -81,7 +84,7 @@ public class SPCMeasurement implements Serializable
 	 * Is the SPC data still needed to be taken?
 	 */
 	@NotNull
-	@Column
+	@Column(nullable=false)
 	private boolean active;
 
 	/**
