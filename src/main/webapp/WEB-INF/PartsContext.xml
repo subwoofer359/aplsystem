@@ -25,8 +25,12 @@
   </bean>
   
   
-  <bean id="partDAO" class="org.amc.dao.PartDAO">
+  <bean id="partDAO" class="org.amc.dao.DAO">
      <constructor-arg ref="entityManagerFactory"/>
+     <constructor-arg>  	
+     	<value type="java.lang.Class">org.amc.model.Part</value>
+     </constructor-arg>
+     
   </bean>
         
 </beans>
