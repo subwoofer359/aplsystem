@@ -9,7 +9,7 @@ import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
-import org.amc.servlet.UserServlet;
+import org.amc.servlet.APLUserController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,19 +22,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.*;
 
-public class TestUserServlet
+public class TestAPLUserController
 {
 
 	//Availible roles
 	private static String[] ROLES ={"manager","guest","user","qc"};
 	//Test Fixture
-	private UserServlet userServlet;
+	private APLUserController userServlet;
 	
 
 	@Before
 	public void setUp() throws Exception
 	{
-		userServlet=new UserServlet();
+		userServlet=new APLUserController();
 	}
 
 	@After

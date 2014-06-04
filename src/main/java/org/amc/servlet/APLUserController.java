@@ -33,12 +33,12 @@ import org.apache.log4j.Logger;
  * @version 1
  */
 @Controller
-public class UserServlet
+public class APLUserController
 {
 	private final static String MANAGER="manager";//Super User of the system
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
-	private static Logger logger=Logger.getLogger(UserServlet.class);
+	private static Logger logger=Logger.getLogger(APLUserController.class);
 	
 //	@InitBinder("user")
 //	protected void initBinder(WebDataBinder binder)
