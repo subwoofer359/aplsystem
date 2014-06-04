@@ -68,7 +68,7 @@ function isDisplayChecked(id)
 </TABLE>
 </DIV>
 <SPAN class="search">
-<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
+<input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
 <SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
 </FORM>
