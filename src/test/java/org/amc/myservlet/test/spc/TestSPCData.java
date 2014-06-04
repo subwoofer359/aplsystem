@@ -25,7 +25,7 @@ public class TestSPCData
 
 	private EntityManager em;
 	private EntityManagerFactory factory;
-	
+	private TestSPCFixture fixture;
 	
 	@BeforeClass
 	public static void setTables()
@@ -35,14 +35,12 @@ public class TestSPCData
 		EntityManager em=factory.createEntityManager();
 
 		Query q=em.createNativeQuery("delete from SPCMeasurements");
-		Query q1=em.createNativeQuery("delete from users");
 		em.getTransaction().begin();
 		q.executeUpdate();
-		q1.executeUpdate();
 		em.getTransaction().commit();
 		
 		//Create part in table to use in test
-		TestSPCMeasurment.createPartFromDataBase(factory);
+		//TestSPCMeasurment.createPartFromDataBase(factory);
 		
 		//Create SPCMeasurement in table to use in test
 		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(factory,SPCMeasurement.class);
@@ -68,18 +66,7 @@ public class TestSPCData
 		em.getTransaction().commit();
 		measurement.setPart(part);
 		measurementDao.addEntity(measurement);
-		
-		//Create user
-		User u=new User();
-		u.setActive(true);
-		u.setUserName("ann");
-		u.setFullName("Ann Barker");
-		u.setEmailAddress("ann@automaticplastics.com");
-		u.setPassword("password".toCharArray());
-		DAO<User> userDao=new DAO<User>(factory,User.class);
-		userDao.addEntity(u);
-		
-		
+	
 		em.close();
 		factory.close();
 		
@@ -90,11 +77,17 @@ public class TestSPCData
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
 		em=factory.createEntityManager();
+		fixture=new TestSPCFixture();
+		fixture.setUp();
+		fixture.setupPartTable();
+		fixture.setUpUserTable();
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
+		fixture.tearDown();
+		fixture=null;
 		em.close();
 		factory.close();
 	}

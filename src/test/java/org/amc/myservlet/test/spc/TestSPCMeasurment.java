@@ -20,6 +20,7 @@ public class TestSPCMeasurment
 {
 	private EntityManager em;
 	private EntityManagerFactory factory;
+	private TestSPCFixture fixture;
 	
 	@Test
 	public void testSPCMeasurement()
@@ -66,21 +67,21 @@ public class TestSPCMeasurment
 	 * Creates a Part entity
 	 * @param factory
 	 */
-	static Part createPartFromDataBase(EntityManagerFactory factory)
-	{
-		Part part =new Part();
-		part.setCompany("tosara");
-		part.setExternal(true);
-		part.setName("125g pot");
-		part.setQss_no("TA 001");
-		part.setRevision("1");
-		part.setVersion("3");
-		part.setPart_id("300r30");
-		part.setColour("grey");
-		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
-		partDAO.addEntity(part);
-		return part;
-	}
+//	static Part createPartFromDataBase(EntityManagerFactory factory)
+//	{
+//		Part part =new Part();
+//		part.setCompany("tosara");
+//		part.setExternal(true);
+//		part.setName("125g pot");
+//		part.setQss_no("TA 001");
+//		part.setRevision("1");
+//		part.setVersion("3");
+//		part.setPart_id("300r30");
+//		part.setColour("grey");
+//		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
+//		partDAO.addEntity(part);
+//		return part;
+//	}
 	
 	@BeforeClass
 	public static void setTables()
@@ -98,10 +99,7 @@ public class TestSPCMeasurment
 			q.executeUpdate();
 		}
 		em.getTransaction().commit();
-		
-		//Create part in table to use in test
-		createPartFromDataBase(factory);
-		
+	
 		em.close();
 		factory.close();
 		
@@ -111,12 +109,17 @@ public class TestSPCMeasurment
 	public void setUp()
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();	
+		em=factory.createEntityManager();
+		fixture=new TestSPCFixture();
+		fixture.setUp();
+		fixture.setupPartTable();
 	}
 	
 	@After
 	public void tearDown()
 	{
+		fixture.tearDown();
+		fixture=null;
 		if(em!=null && em.isOpen())
 		{
 			em.getTransaction().begin();
