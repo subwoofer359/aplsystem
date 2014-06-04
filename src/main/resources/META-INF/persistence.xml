@@ -13,6 +13,8 @@
 <class>org.amc.model.MouldingProcess</class>
 <class>org.amc.model.User</class>
 <class>org.amc.model.UserRoles</class>
+<class>org.amc.model.spc.SPCMeasurement</class>
+<class>org.amc.model.spc.SPCData</class>
 <properties>
       <property name="openjpa.ConnectionURL" value="jdbc:mysql://127.12.78.130:3306/myservlet"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
