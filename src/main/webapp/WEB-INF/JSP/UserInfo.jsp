@@ -73,8 +73,8 @@ Session count: ${session_count}<br/>
 <form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
 </form>
 <span class="buttons">
-<button onclick="goHome(this)">Go Home</button>
-<button form="logout" type="submit">Log Out</button>
+<button id="home" onclick="goHome(this)">Go Home</button>
+<button id="logout" form="logout" type="submit">Log Out</button>
 </span>
 </body>
 </html>
