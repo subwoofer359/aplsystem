@@ -16,7 +16,7 @@
 
   <context:component-scan base-package="org.amc" />
   
-  <bean id="userServlet" class="org.amc.servlet.UserServlet">
+  <bean id="userServlet" class="org.amc.servlet.APLUserController">
   <property name="userDAO" ref="myUserDAO"/>
   <property name="userRolesDAO" ref="myUserRolesDAO"/>
   </bean>
