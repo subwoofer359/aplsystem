@@ -113,14 +113,18 @@ public class UserServlet
 			user.setActive(true);
 		
 		//Check for new password
-		
-		//If the user's password doesn't equal the DEFAULT password then hash and save the password
+		//Get old password
+		User tempUser =userDAO.getEntity(String.valueOf(user.getId()));
+		//If the user's password doesn't equals the DEFAULT password then hash and save the password
 		if(!user.getPassword().equals(PASSWORD_DEFAULT))
 		{
 			user.setPassword(hash(user.getPassword()));
 		}
-		
-		
+		// Save the old password
+		else
+		{
+			user.setPassword(tempUser.getPassword());
+		}
 		
 		//Get the roles currently assigned to the user
 		List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);

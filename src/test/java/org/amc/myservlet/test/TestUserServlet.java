@@ -223,9 +223,11 @@ public class TestUserServlet
 		String[] roles={ROLES[0],ROLES[1],ROLES[2]};
 		String mode="edit";//Save new user mode
 		String active="true";
+		String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 		//Create User
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
-			
+		String oldPassword=u1.getPassword();
+		u1.setPassword(PASSWORD_DEFAULT);
 		//Create DAO objects
 		DAO dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
@@ -245,6 +247,10 @@ public class TestUserServlet
 		String returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		
 		verify(dao).updateEntity(any(User.class));
+		
+		
+		
+		assertTrue(u1.getPassword().equals(oldPassword));
 		//Verify the correct view String was returned.
 		assertEquals("forward:/user/Users",returnedResult);
 				
