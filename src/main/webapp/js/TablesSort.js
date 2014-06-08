@@ -29,7 +29,7 @@ function tableSort(/*html table dom element */table,/* integer or string*/ colum
 				var rlen=row.cells.length;
 				for(i=0;i<rlen;i++)
 				{
-					if(row.cells[i].innerHTML.contains(columnToSortBy))
+					if(row.cells[i].innerHTML.indexOf(columnToSortBy)!=-1)
 					{
 						columnToSortBy=i;	
 						break;
@@ -86,6 +86,11 @@ function tableSort(/*html table dom element */table,/* integer or string*/ colum
 
 	for (var i = 0; i < rowLen; i++) 
 	{
-                rows[i].innerHTML = "<td>" + arr[i].join("</td><td>") + "</td>";
-       	}
+                //rows[i].innerHTML = "<td>" + arr[i].join("</td><td>") + "</td>";
+				for(var t=0;t < rlen;t++)
+				{
+					cell=rows[i].cells[t];
+					cell.innerHTML=arr[i][t];
+				}
+     }
 }
