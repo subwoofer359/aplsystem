@@ -148,9 +148,7 @@ public class User implements Serializable,WorkEntity
 		{
 			this.password = password;
 		}
-	}
-
-	
+	}  
 	
 	public void setActive(boolean active)
 	{
