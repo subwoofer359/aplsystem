@@ -232,7 +232,7 @@ public class TestAPLUserController
 		DAO dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
-		when(dao.getEntity(anyString())).thenReturn(u1);
+		when(dao.getEntity(anyString())).thenReturn(getTestUser("adrian", "Adrian McLaughlin"));
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
