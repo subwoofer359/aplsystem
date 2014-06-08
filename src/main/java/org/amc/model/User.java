@@ -18,6 +18,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.mysql.jdbc.log.Log;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -28,6 +32,7 @@ import javax.validation.constraints.Pattern;
 public class User implements Serializable,WorkEntity
 {
 	private static final long serialVersionUID = 261123044422857580L;
+	private final String DIGEST="SHA1";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -125,7 +130,24 @@ public class User implements Serializable,WorkEntity
 	
 	public void setPassword(char[] password)
 	{
-		this.password = password;
+		byte[] hash=null;
+		try
+		{
+			MessageDigest digest=MessageDigest.getInstance(DIGEST);
+			hash=digest.digest(new String(password).getBytes());
+		}
+		catch(NoSuchAlgorithmException nae)
+		{
+			//to implement
+		}
+		if(hash!=null)
+		{
+			this.password=new String(hash).toCharArray();
+		}
+		else
+		{
+			this.password = password;
+		}
 	}
 
 	
