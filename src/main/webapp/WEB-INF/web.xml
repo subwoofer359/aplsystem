@@ -52,6 +52,7 @@
       <role-name>manager</role-name>
       <role-name>guest</role-name>
     </auth-constraint>
+    <user-data-constraint><transport-guarantee>CONFIDENTIAL</transport-guarantee></user-data-constraint>
   </security-constraint>
   <security-constraint>
     <web-resource-collection>
