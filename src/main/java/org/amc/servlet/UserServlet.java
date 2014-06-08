@@ -3,7 +3,6 @@ package org.amc.servlet;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,11 +38,12 @@ import org.apache.log4j.Logger;
 public class UserServlet
 {
 	private final static String MANAGER="manager";//Super User of the system
+	private final String DIGEST="SHA-256";
+	private final String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
 	
-	private final String DIGEST="SHA-256";
 	
 //	@InitBinder("user")
 //	protected void initBinder(WebDataBinder binder)
@@ -113,12 +113,9 @@ public class UserServlet
 			user.setActive(true);
 		
 		//Check for new password
-		//Retrieve User's current hashed password
-		User tempUser=userDAO.getEntity(String.valueOf(user.getId()));
 		
-		
-		//If the user's password doesn't equal the db retrieved hashed password then hash and save the password
-		if(!user.getPassword().equals(tempUser.getPassword()))
+		//If the user's password doesn't equal the DEFAULT password then hash and save the password
+		if(!user.getPassword().equals(PASSWORD_DEFAULT))
 		{
 			user.setPassword(hash(user.getPassword()));
 		}
@@ -176,10 +173,10 @@ public class UserServlet
 			}
 		}
 		
-		logger.info(newListOfRoles);
+		logger.debug(newListOfRoles);
 		//Set the user's roles
 		user.setRoles(newListOfRoles);
-		logger.info(user);
+		logger.debug(user);
 		
 		
 		//Check validation if fails return to page to get correct information
@@ -259,6 +256,8 @@ public class UserServlet
 		}
 		
 		model.setViewName("UserAddOrEdit");
+		//Blank password
+		u.setPassword(PASSWORD_DEFAULT);
 		model.getModel().put("user", u);
 		
 		return model; 
@@ -293,6 +292,11 @@ public class UserServlet
 		userRolesDAO=ud;
 	}
 	
+	/**
+	 * To hash the password
+	 * @param password
+	 * @return hashed password
+	 */
 	private String hash(String password)
 	{
 		if(password==null)
@@ -312,11 +316,15 @@ public class UserServlet
 		if(hash!=null)
 		{
 			password=hexEncode(hash);
-			logger.debug("Password:"+password);
 		}
 		return password;
 	}
 	
+	/**
+	 * 
+	 * @param aInput
+	 * @return Password in hexidecimal format
+	 */
 	private String hexEncode( byte[] aInput)
 	{
 	    StringBuffer result = new StringBuffer();
