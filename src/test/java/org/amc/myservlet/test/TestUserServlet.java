@@ -196,6 +196,7 @@ public class TestUserServlet
 		//Case 2: User has current 2 Roles but has no roles selected in page
 		roles=new String[]{};
 		dao=mock(DAO.class);
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		userServlet.setUserDAO(dao);
 		returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		//Verify add user was called on UserDao object
