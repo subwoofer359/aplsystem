@@ -9,7 +9,9 @@
 			dataSourceName="jdbc/APLSystem"
 			userTable="users" userNameCol="user_name" userCredCol="user_pass"
 			userRoleTable="user_roles" roleNameCol="role_name"
-			localDataSource="true"/>
+			localDataSource="true"
+			digest="SHA-256"
+			/>
 	
 	<Resource name="jdbc/APLSystem"
 				auth="Container"

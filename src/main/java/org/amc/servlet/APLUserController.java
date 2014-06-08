@@ -1,5 +1,7 @@
 package org.amc.servlet;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,9 +38,12 @@ import org.apache.log4j.Logger;
 public class APLUserController
 {
 	private final static String MANAGER="manager";//Super User of the system
+	private final String DIGEST="SHA-256";
+	private final String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(APLUserController.class);
+	
 	
 //	@InitBinder("user")
 //	protected void initBinder(WebDataBinder binder)
@@ -107,8 +112,19 @@ public class APLUserController
 		else
 			user.setActive(true);
 		
-		
-		
+		//Check for new password
+		//Get old password
+		User tempUser =userDAO.getEntity(String.valueOf(user.getId()));
+		//If the user's password doesn't equals the DEFAULT password then hash and save the password
+		if(!user.getPassword().equals(PASSWORD_DEFAULT))
+		{
+			user.setPassword(hash(user.getPassword()));
+		}
+		// Save the old password
+		else
+		{
+			user.setPassword(tempUser.getPassword());
+		}
 		
 		//Get the roles currently assigned to the user
 		List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);
@@ -161,10 +177,10 @@ public class APLUserController
 			}
 		}
 		
-		logger.info(newListOfRoles);
+		logger.debug(newListOfRoles);
 		//Set the user's roles
 		user.setRoles(newListOfRoles);
-		logger.info(user);
+		logger.debug(user);
 		
 		
 		//Check validation if fails return to page to get correct information
@@ -244,6 +260,8 @@ public class APLUserController
 		}
 		
 		model.setViewName("UserAddOrEdit");
+		//Blank password
+		u.setPassword(PASSWORD_DEFAULT);
 		model.getModel().put("user", u);
 		
 		return model; 
@@ -277,4 +295,50 @@ public class APLUserController
 	{
 		userRolesDAO=ud;
 	}
+	
+	/**
+	 * To hash the password
+	 * @param password
+	 * @return hashed password
+	 */
+	private String hash(String password)
+	{
+		if(password==null)
+		{
+			return "";
+		}
+		byte[] hash=null;
+		try
+		{
+			MessageDigest digest=MessageDigest.getInstance(DIGEST);
+			hash=digest.digest(new String(password).getBytes());
+		}
+		catch(NoSuchAlgorithmException nae)
+		{
+			//to implement
+		}
+		if(hash!=null)
+		{
+			password=hexEncode(hash);
+		}
+		return password;
+	}
+	
+	/**
+	 * 
+	 * @param aInput
+	 * @return Password in hexidecimal format
+	 */
+	private String hexEncode( byte[] aInput)
+	{
+	    StringBuffer result = new StringBuffer();
+	    char[] digits = {'0', '1', '2', '3', '4','5','6','7','8','9','a','b','c','d','e','f'};
+	    for (int idx = 0; idx < aInput.length; ++idx) 
+	    {
+	    	byte b = aInput[idx];
+	    	result.append( digits[ (b&0xf0) >> 4 ] );
+	    	result.append( digits[ b&0x0f] );
+	    }
+	    return result.toString();
+	  } 
 }

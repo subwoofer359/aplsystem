@@ -55,6 +55,7 @@ public class TestAPLUserController
 		u1.setFullName(fullname);
 		u1.setUserName(username);
 		u1.setEmailAddress("adrian@adrianmclaughlin.ie");
+		u1.setPassword("84983c60f7daadc1cb8698621f802c0d9f9a3c3c295c810748fb048115c186ec");
 		return u1;
 	}
 	
@@ -109,6 +110,7 @@ public class TestAPLUserController
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -164,6 +166,7 @@ public class TestAPLUserController
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -172,6 +175,8 @@ public class TestAPLUserController
 		request.addUserRole("manager");
 		BindingResult result=mock(BindingResult.class);
 		when(result.hasErrors()).thenReturn(false);
+		
+		
 		
 		Model m=mock(Model.class);
 		
@@ -191,6 +196,7 @@ public class TestAPLUserController
 		//Case 2: User has current 2 Roles but has no roles selected in page
 		roles=new String[]{};
 		dao=mock(DAO.class);
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		userServlet.setUserDAO(dao);
 		returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		//Verify add user was called on UserDao object
@@ -217,13 +223,16 @@ public class TestAPLUserController
 		String[] roles={ROLES[0],ROLES[1],ROLES[2]};
 		String mode="edit";//Save new user mode
 		String active="true";
+		String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 		//Create User
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
-			
+		String oldPassword=u1.getPassword();
+		u1.setPassword(PASSWORD_DEFAULT);
 		//Create DAO objects
 		DAO dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -238,6 +247,10 @@ public class TestAPLUserController
 		String returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		
 		verify(dao).updateEntity(any(User.class));
+		
+		
+		
+		assertTrue(u1.getPassword().equals(oldPassword));
 		//Verify the correct view String was returned.
 		assertEquals("forward:/user/Users",returnedResult);
 				
@@ -265,6 +278,7 @@ public class TestAPLUserController
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);

@@ -18,6 +18,10 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import com.mysql.jdbc.log.Log;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -28,7 +32,7 @@ import javax.validation.constraints.Pattern;
 public class User implements Serializable,WorkEntity
 {
 	private static final long serialVersionUID = 261123044422857580L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -44,8 +48,8 @@ public class User implements Serializable,WorkEntity
 	@Column(name="email",nullable=false)
 	private String emailAddress="";
 	
-	@Column(name="user_pass",nullable=true,updatable=true)
-	private char[] password;
+	@Column(name="user_pass",nullable=true,updatable=true,length=70)
+	private String password="";
 	
 	@Column(name="activate",updatable=true)
 	boolean active=true;
@@ -81,7 +85,7 @@ public class User implements Serializable,WorkEntity
 
 	
 	
-	public char[] getPassword()
+	public String getPassword()
 	{
 		return password;
 	}
@@ -123,12 +127,12 @@ public class User implements Serializable,WorkEntity
 
 	
 	
-	public void setPassword(char[] password)
+	public void setPassword(String password)
 	{
-		this.password = password;
+		
+		this.password=password;
 	}
-
-	
+		
 	
 	public void setActive(boolean active)
 	{

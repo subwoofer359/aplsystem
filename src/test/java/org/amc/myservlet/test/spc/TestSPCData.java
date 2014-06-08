@@ -2,7 +2,6 @@ package org.amc.myservlet.test.spc;
 
 import static org.junit.Assert.*;
 
-import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -66,7 +65,6 @@ public class TestSPCData
 		em.getTransaction().commit();
 		measurement.setPart(part);
 		measurementDao.addEntity(measurement);
-	
 		em.close();
 		factory.close();
 		

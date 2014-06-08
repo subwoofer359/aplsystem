@@ -15,6 +15,7 @@ import org.amc.model.User;
 import org.amc.model.UserRoles;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class TestUser
@@ -55,7 +56,7 @@ public class TestUser
 		u.setFullName("Adrian McLaughlin");
 		u.setUserName("subwoofer359");
 		u.setEmailAddress("subwoofer359@gmail.com");
-		u.setPassword("orororo03".toCharArray());
+		u.setPassword("orororo03");
 		u.setActive(true);
 		return u;
 	}
@@ -103,6 +104,7 @@ public class TestUser
 		
 		
 	}
+	
 	@Test
 	public void testFindUsersByValue()
 	{
@@ -191,6 +193,7 @@ public class TestUser
 		assertTrue(t1==null);
 		
 	}
+	
 	@Test
 	public void testDeleteUser()
 	{
@@ -220,6 +223,18 @@ public class TestUser
 		//Test user has been deleted
 		ru1=ud.getEntity(String.valueOf(u1.getId()));
 		assertNull(ru1);
+	}
+	
+	@Test
+	public void testSetPassword()
+	{
+		User u =new User();
+		User u2 =new User();
+		String password="helloworld";
+		
+		u.setPassword(password);
+		u2.setPassword(password);
+		assertTrue(new String(u.getPassword()).equals(new String(u2.getPassword())));
 	}
 
 }

@@ -108,7 +108,7 @@ public class TestSPCFixture
 			user.setEmailAddress(emailAddresses[i]);
 			user.setFullName(fullnames[i]);
 			user.setUserName(userNames[i]);
-			user.setPassword(passwords[i].toCharArray());
+			user.setPassword(passwords[i]);
 			userDAO.addEntity(user);
 		}
 		//Set it to be garbage collected
