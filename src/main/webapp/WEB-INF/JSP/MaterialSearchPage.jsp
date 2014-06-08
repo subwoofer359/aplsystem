@@ -15,6 +15,7 @@
 
 </STYLE>
 <script src="js/SearchPage.js"></script>
+<script src="js/TablesSort.js"></script>
 </head>
 <body>
 <DIV class="title">
@@ -26,11 +27,19 @@
 <FORM action="${pageContext.request.contextPath}/Material_search" method="post" onsubmit="return isChecked(this,'material')">
 <DIV class="results">
 <TABLE>
-<TR><TH>Company</TH><TH>Name</TH><TH>Type</TH><TH></TH></TR>
+<thead>
+<TR><TH onclick="tableSort(this, 'Company');selected(null);">Company</TH>
+	<TH onclick="tableSort(this, 'Name');selected(null);">Name</TH>
+	<TH onclick="tableSort(this, 'Type')selected(null);">Type</TH>
+	<TH></TH>
+</TR>
+</thead>
+<tbody>
 <c:forEach items="${materials}" var="material">
 <TR  onclick="selected(this)"><TD><c:out value="${material.value.company}"/></TD><TD><c:out value="${material.value.name}"/></TD><TD><c:out value="${material.value.type}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
 </c:forEach>
-<TR><TD></TD><TD></TD><TD></TD></TR>
+<!-- <TR><TD></TD><TD></TD><TD></TD></TR>--> 
+</tbody>
 </TABLE>
 </DIV>
 <SPAN class="search">
