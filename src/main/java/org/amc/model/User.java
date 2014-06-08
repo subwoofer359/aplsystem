@@ -32,8 +32,7 @@ import java.security.NoSuchAlgorithmException;
 public class User implements Serializable,WorkEntity
 {
 	private static final long serialVersionUID = 261123044422857580L;
-	private final String DIGEST="SHA1";
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -49,8 +48,8 @@ public class User implements Serializable,WorkEntity
 	@Column(name="email",nullable=false)
 	private String emailAddress="";
 	
-	@Column(name="user_pass",nullable=true,updatable=true)
-	private char[] password;
+	@Column(name="user_pass",nullable=true,updatable=true,length=70)
+	private String password="";
 	
 	@Column(name="activate",updatable=true)
 	boolean active=true;
@@ -86,7 +85,7 @@ public class User implements Serializable,WorkEntity
 
 	
 	
-	public char[] getPassword()
+	public String getPassword()
 	{
 		return password;
 	}
@@ -128,27 +127,12 @@ public class User implements Serializable,WorkEntity
 
 	
 	
-	public void setPassword(char[] password)
+	public void setPassword(String password)
 	{
-		byte[] hash=null;
-		try
-		{
-			MessageDigest digest=MessageDigest.getInstance(DIGEST);
-			hash=digest.digest(new String(password).getBytes());
-		}
-		catch(NoSuchAlgorithmException nae)
-		{
-			//to implement
-		}
-		if(hash!=null)
-		{
-			this.password=new String(hash).toCharArray();
-		}
-		else
-		{
-			this.password = password;
-		}
-	}  
+		
+		this.password=password;
+	}
+		
 	
 	public void setActive(boolean active)
 	{
