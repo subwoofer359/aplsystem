@@ -12,7 +12,7 @@
 function selected(element)
 {
 	var elementsArray=document.getElementsByTagName("input");
-	for(var i=0;i<elementsArray.length;i++)
+	for(var i=0,elen=elementsArray.length;i<elen;i++)
 	{
 		if(elementsArray[i].type=="checkbox")
 		{
@@ -23,16 +23,19 @@ function selected(element)
 	}
 	
 	console.log(element);
-	var checkbox=element.getElementsByTagName("input");
-	if(checkbox != null || checkbox.length>0)
+	if(element!=null)
 	{
-		console.log(checkbox[0]);
-		checkbox[0].checked=true;
-		element.style.backgroundColor="red";
-	}
-	else
-	{
-		console.log("Checkbox element not found");
+		var checkbox=element.getElementsByTagName("input");
+		if(checkbox != null || checkbox.length>0)
+		{
+			console.log(checkbox[0]);
+			checkbox[0].checked=true;
+			element.style.backgroundColor="red";
+		}
+		else
+		{
+			console.log("Checkbox element not found");
+		}
 	}
 	
 }
