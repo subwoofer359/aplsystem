@@ -55,6 +55,7 @@ public class TestUserServlet
 		u1.setFullName(fullname);
 		u1.setUserName(username);
 		u1.setEmailAddress("adrian@adrianmclaughlin.ie");
+		u1.setPassword("84983c60f7daadc1cb8698621f802c0d9f9a3c3c295c810748fb048115c186ec");
 		return u1;
 	}
 	
@@ -109,6 +110,7 @@ public class TestUserServlet
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -164,6 +166,7 @@ public class TestUserServlet
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -172,6 +175,8 @@ public class TestUserServlet
 		request.addUserRole("manager");
 		BindingResult result=mock(BindingResult.class);
 		when(result.hasErrors()).thenReturn(false);
+		
+		
 		
 		Model m=mock(Model.class);
 		
@@ -224,6 +229,7 @@ public class TestUserServlet
 		DAO dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -265,6 +271,7 @@ public class TestUserServlet
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
+		when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);

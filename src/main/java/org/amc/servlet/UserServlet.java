@@ -1,6 +1,9 @@
 package org.amc.servlet;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -39,6 +42,8 @@ public class UserServlet
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(UserServlet.class);
+	
+	private final String DIGEST="SHA-256";
 	
 //	@InitBinder("user")
 //	protected void initBinder(WebDataBinder binder)
@@ -107,6 +112,16 @@ public class UserServlet
 		else
 			user.setActive(true);
 		
+		//Check for new password
+		//Retrieve User's current hashed password
+		User tempUser=userDAO.getEntity(String.valueOf(user.getId()));
+		
+		
+		//If the user's password doesn't equal the db retrieved hashed password then hash and save the password
+		if(!user.getPassword().equals(tempUser.getPassword()))
+		{
+			user.setPassword(hash(user.getPassword()));
+		}
 		
 		
 		
@@ -277,4 +292,41 @@ public class UserServlet
 	{
 		userRolesDAO=ud;
 	}
+	
+	private String hash(String password)
+	{
+		if(password==null)
+		{
+			return "";
+		}
+		byte[] hash=null;
+		try
+		{
+			MessageDigest digest=MessageDigest.getInstance(DIGEST);
+			hash=digest.digest(new String(password).getBytes());
+		}
+		catch(NoSuchAlgorithmException nae)
+		{
+			//to implement
+		}
+		if(hash!=null)
+		{
+			password=hexEncode(hash);
+			logger.debug("Password:"+password);
+		}
+		return password;
+	}
+	
+	private String hexEncode( byte[] aInput)
+	{
+	    StringBuffer result = new StringBuffer();
+	    char[] digits = {'0', '1', '2', '3', '4','5','6','7','8','9','a','b','c','d','e','f'};
+	    for (int idx = 0; idx < aInput.length; ++idx) 
+	    {
+	    	byte b = aInput[idx];
+	    	result.append( digits[ (b&0xf0) >> 4 ] );
+	    	result.append( digits[ b&0x0f] );
+	    }
+	    return result.toString();
+	  } 
 }

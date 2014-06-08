@@ -75,7 +75,7 @@ public class TestSPCData
 		u.setUserName("ann");
 		u.setFullName("Ann Barker");
 		u.setEmailAddress("ann@automaticplastics.com");
-		u.setPassword("password".toCharArray());
+		u.setPassword("password");
 		DAO<User> userDao=new DAO<User>(factory,User.class);
 		userDao.addEntity(u);
 		
