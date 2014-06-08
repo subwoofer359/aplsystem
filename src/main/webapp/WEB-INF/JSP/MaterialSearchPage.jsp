@@ -30,7 +30,7 @@
 <thead>
 <TR><TH onclick="tableSort(this, 'Company');selected(null);">Company</TH>
 	<TH onclick="tableSort(this, 'Name');selected(null);">Name</TH>
-	<TH onclick="tableSort(this, 'Type')selected(null);">Type</TH>
+	<TH onclick="tableSort(this, 'Type');selected(null);">Type</TH>
 	<TH></TH>
 </TR>
 </thead>

@@ -16,6 +16,7 @@
 
 </style>
 <script src="js/SearchPage.js"></script>
+<script src="js/TablesSort.js"></script>
 <script type="text/javascript">
 /**
  * Needs to be in JSP. Contains EL Expression 
@@ -59,12 +60,22 @@ function isDisplayChecked(id)
 <FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post" onsubmit="return isChecked(this,'Process Sheet')">
 <DIV class="results">
 <TABLE>
-<thead><tr><TH>Date Of Issue</TH><TH>Product</TH><TH>Machine Size</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></tr></thead>
+<thead>
+	<tr>
+		<TH onclick="tableSort(this, 'Date Of Issue');selected(null);">Date Of Issue</TH>
+		<TH onclick="tableSort(this, 'Product');selected(null);">Product</TH>
+		<TH onclick="tableSort(this, 'Machine Size');selected(null);">Machine Size</TH>
+		<TH onclick="tableSort(this, 'Machine No.');selected(null);">Machine No.</TH>
+		<TH onclick="tableSort(this, 'Material');selected(null);">Material</TH>
+		<TH></TH>
+	</tr>
+</thead>
 <tbody>
 <c:forEach items="${processSheets}" var="part">
 <TR onclick="selected(this)"><TD><c:out value="${part.dateOfIssue}"/></TD><TD><c:out value="${part.partId}"/></TD><TD><c:out value="${part.machineSize}"/></TD><TD><c:out value="${part.machineNo}"/></TD><TD><c:out value='${myfunc:toString(materials[part.material])}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
-<TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<!-- <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR> -->
+<tbody>
 </TABLE>
 </DIV>
 <SPAN class="search">
