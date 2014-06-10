@@ -63,7 +63,7 @@ public class DAO<T extends WorkEntity>
 		if(emf!=null && emf.isOpen())
 		{
 			em.close();
-			emf.close();
+			//emf.close();
 		}
 	}
 	
@@ -111,7 +111,7 @@ public class DAO<T extends WorkEntity>
 		}
 		catch(NoResultException nre)
 		{
-			//Do nothing
+	
 		}
 		//em.close();
 		return mp;
