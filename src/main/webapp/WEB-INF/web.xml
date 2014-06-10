@@ -89,6 +89,7 @@
     				/WEB-INF/PartsContext.xml  
     				/WEB-INF/MaterialContext.xml
     				/WEB-INF/UserContext.xml
+    				/WEB-INF/SPCContext.xml
   </param-value>
   </context-param>
   <listener>
@@ -148,5 +149,6 @@
     <servlet-mapping>
         <servlet-name>User</servlet-name>
         <url-pattern>/user/*</url-pattern>
+        <url-pattern>/spc/*</url-pattern>
     </servlet-mapping>
 </web-app>
