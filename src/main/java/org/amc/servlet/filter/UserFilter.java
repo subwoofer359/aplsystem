@@ -90,7 +90,7 @@ public class UserFilter implements Filter {
 		List<User> listOfUser=userDAO.findEntities("userName", userName);
 		if(listOfUser!=null && listOfUser.size()==1)
 		{
-			synchronized(sContext)
+			synchronized(session)
 			{
 				session.setAttribute("USER", listOfUser.get(0));
 				logger.debug("User added to Session:"+listOfUser.get(0));
