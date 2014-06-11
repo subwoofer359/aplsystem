@@ -14,13 +14,13 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-  <context:component-scan base-package="org.amc" />
-  
+<!-- 
+ 
   <bean id="userServlet" class="org.amc.servlet.APLUserController">
   <property name="userDAO" ref="myUserDAO"/>
   <property name="userRolesDAO" ref="myUserRolesDAO"/>
   </bean>
-  
+   -->
   <bean id="myUserDAO" class="org.amc.dao.DAO" scope="prototype">
      <constructor-arg ref="entityManagerFactory"/>
      <constructor-arg>  	
