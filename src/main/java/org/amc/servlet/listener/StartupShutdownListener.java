@@ -42,7 +42,8 @@ public class StartupShutdownListener implements ServletContextListener
 		log.info("Servlet started up....");
 		
 		//adding security roles to the servlet context for use by User.jsp
-		arg0.getServletContext().setAttribute(ROLES,roles.values());
+		
+		arg0.getServletContext().setAttribute(ROLES,roles.getStringValues());
 		
 	}
 	
