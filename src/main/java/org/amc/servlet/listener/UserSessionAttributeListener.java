@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 import java.security.Principal;
+
+import org.amc.model.User;
 import org.apache.log4j.Logger;
 
 /**
@@ -33,8 +35,8 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         	{
         		if(temp!=null)
         		{
-        			Principal user=(Principal)temp;
-        			log.info("User:"+user.getName()+" has logged out");
+        			User user=(User)temp;
+        			log.info("User:"+user.getUserName()+" has logged out");
         		}
         	}
         	catch(ClassCastException cce)
@@ -62,8 +64,8 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         			
         			if(temp!=null)
         			{
-        				Principal user=(Principal)temp;	
-        				log.info("User:"+user.getName()+" has logged in from "+REMOTE_ADDRESS);
+        				User user=(User)temp;	
+        				log.info("User:"+user.getUserName()+" has logged in from "+REMOTE_ADDRESS);
         			}
         		}
         		else
