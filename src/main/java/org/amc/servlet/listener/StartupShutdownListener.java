@@ -11,7 +11,7 @@ import javax.servlet.ServletContextListener;
 import org.apache.log4j.Logger;
 
 import com.mysql.jdbc.AbandonedConnectionCleanupThread;
-
+import org.amc.Constants.roles;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -21,8 +21,7 @@ public class StartupShutdownListener implements ServletContextListener
 {
 	/**
 	 * Roles defined here must be the same as the roles defined in the deployment descriptor
-	 */
-	private final String[] roles={"qc","manager","guest"}; 
+	 */ 
 	private final String ROLES="SECURITY_ROLES";
 
 	public static Logger log = Logger.getLogger(StartupShutdownListener.class.toString());
@@ -43,7 +42,7 @@ public class StartupShutdownListener implements ServletContextListener
 		log.info("Servlet started up....");
 		
 		//adding security roles to the servlet context for use by User.jsp
-		arg0.getServletContext().setAttribute(ROLES,roles);
+		arg0.getServletContext().setAttribute(ROLES,roles.values());
 		
 	}
 	

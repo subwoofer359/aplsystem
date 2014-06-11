@@ -7,10 +7,12 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
+
 import org.amc.model.WorkEntity;
 import org.apache.log4j.Logger;
 
-/**
+import static org.amc.Constants.PERSISTENCE_UNIT_NAME;
+/*
  * Fetches and holds a reference to the Persistence EntityManager
  * @author Adrian Mclaughlin
  * @version 1
@@ -23,7 +25,6 @@ public class DAO<T extends WorkEntity>
 	private EntityManager em;
 	private Class<? extends WorkEntity> entityClass;
 	
-	private final String PERSISTENCE_UNIT_NAME="myDatabase";
 	
 	public DAO(EntityManagerFactory emf,Class<? extends WorkEntity> entityClass)
 	{

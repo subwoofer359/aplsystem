@@ -21,12 +21,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.*;
+import org.amc.Constants.roles;
 
 public class TestAPLUserController
 {
 
 	//Availible roles
-	private static String[] ROLES ={"manager","guest","user","qc"};
+	private static String[] ROLES ={roles.MANAGER.toString(),roles.GUEST.toString(),"user",roles.QC.toString()};
 	//Test Fixture
 	private APLUserController userServlet;
 	

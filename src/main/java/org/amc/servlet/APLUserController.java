@@ -29,6 +29,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
+
+import static org.amc.Constants.PASSWORD_DIGEST;
+import static org.amc.Constants.PASSWORD_DEFAULT;
+import static org.amc.Constants.roles;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -37,9 +41,6 @@ import org.apache.log4j.Logger;
 @Controller
 public class APLUserController
 {
-	private final static String MANAGER="manager";//Super User of the system
-	private final String DIGEST="SHA-256";
-	private final String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(APLUserController.class);
@@ -66,7 +67,7 @@ public class APLUserController
 	@RequestMapping("/Users")
 	public ModelAndView getUsersPage(ModelAndView model,HttpServletRequest request)
 	{
-		if(request.isUserInRole(MANAGER))
+		if(request.isUserInRole(roles.MANAGER.toString()))
 		{
 			List<User> list=userDAO.findEntities();
 			model.getModel().put("users", list);
@@ -101,7 +102,7 @@ public class APLUserController
 						 HttpServletRequest request
 						 )
 	{
-		if(!request.isUserInRole(MANAGER))
+		if(!request.isUserInRole(org.amc.Constants.roles.MANAGER.toString()))
 		{
 			//Return to the Main page
 			return "Main";
@@ -224,7 +225,7 @@ public class APLUserController
 			)
 	{
 		//If not in role manager return the Main.jsp
-		if(!request.isUserInRole(MANAGER))
+		if(!request.isUserInRole(roles.MANAGER.toString()))
 		{
 			model.setViewName("Main");
 			return model;
@@ -310,7 +311,7 @@ public class APLUserController
 		byte[] hash=null;
 		try
 		{
-			MessageDigest digest=MessageDigest.getInstance(DIGEST);
+			MessageDigest digest=MessageDigest.getInstance(PASSWORD_DEFAULT);
 			hash=digest.digest(new String(password).getBytes());
 		}
 		catch(NoSuchAlgorithmException nae)

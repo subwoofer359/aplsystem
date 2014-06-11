@@ -3,6 +3,8 @@ package org.amc.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +20,7 @@ import org.amc.servlet.action.SearchPartAction;
 import org.amc.servlet.model.*;
 import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -348,9 +351,10 @@ public class APLSystemServlet extends HttpServlet
 		response.sendRedirect(getServletConfig().getServletContext().getContextPath());
 	}
 	
-	public void setJobActionFactory(PartActionFactory aJobActionFactory)
+	
+	public void setJobActionFactory(PartActionFactory partActionFactory)
 	{
-		this.partActionFactory=aJobActionFactory;
+		this.partActionFactory=partActionFactory;
 	}
 	
 
