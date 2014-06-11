@@ -3,8 +3,9 @@
  	@version 1
 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <!DOCTYPE html>
 <html>

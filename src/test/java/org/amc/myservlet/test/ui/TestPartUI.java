@@ -48,7 +48,7 @@ public class TestPartUI
 		WebElement userName=driver.findElement(By.name("j_username"));
 		WebElement password=driver.findElement(By.name("j_password"));
 		userName.sendKeys("jody");
-		password.sendKeys("xwlin98");
+		password.sendKeys("cr2032ux");
 		userName.submit();
 	}
 	

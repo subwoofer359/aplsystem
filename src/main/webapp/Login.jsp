@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page session="false" %>
 <!--  
 	@author Adrian Mclaughlin
  	@version 1
