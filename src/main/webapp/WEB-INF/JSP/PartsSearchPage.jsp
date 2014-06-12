@@ -50,7 +50,11 @@
 <SPAN class="search">
 <input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
-<SPAN class="buttons"><input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/><input id="edit" type="submit" name="mode" value="edit"/></SPAN>
+<SPAN class="buttons">
+	<input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
+	<input id="edit" type="submit" name="mode" value="edit"/>
+	<input id="edit" type="submit" value="add To SPC" formaction="${pageContext.request.contextPath}/spc/AddToSPC"/>
+</SPAN>
 </FORM>
 </body>
 </html>

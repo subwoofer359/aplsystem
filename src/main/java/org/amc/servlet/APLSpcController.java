@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.amc.dao.DAO;
+import org.amc.model.Part;
 import org.amc.model.spc.SPCPartsList;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class APLSpcController
 {
 	private static Logger logger=Logger.getLogger(APLSpcController.class);
 	private DAO<SPCPartsList> spcListPartDAO;
+	private DAO<Part> partDAO;
 	
 	/**
 	 * Retrieve and return SPC Part List
@@ -49,6 +51,19 @@ public class APLSpcController
 		mav.getModel().put("parts", list);
 		mav.setViewName("spc/SPCPartList");
 		return mav;
+	}
+	
+	@RequestMapping("/AddToSPC")
+	public String addToSPC(@RequestParam("edit") Integer id)
+	{
+		Part part=this.partDAO.getEntity(String.valueOf(id));
+		if(part!=null)
+		{
+			SPCPartsList spcPart=new SPCPartsList();
+			spcPart.setPart(part);
+			this.spcListPartDAO.addEntity(spcPart);
+		}
+		return "APLSystemServlet";
 	}
 	
 	@RequestMapping("/SPC/removePart")
@@ -78,4 +93,12 @@ public class APLSpcController
 		this.spcListPartDAO=spcListPartDAO;
 		logger.debug("spcPartsListDAO:"+this.spcListPartDAO);
 	}
+	
+	@Resource(name="partDAO")
+	public void setPartDAO(DAO<Part> partDAO)
+	{
+		this.partDAO=partDAO;
+		logger.debug("partDAO:"+this.partDAO);
+	}
+	
 }
