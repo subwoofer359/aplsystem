@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.*;
+import org.amc.Constants;
 import org.amc.Constants.roles;
 
 public class TestAPLUserController
@@ -224,7 +225,7 @@ public class TestAPLUserController
 		String[] roles={ROLES[0],ROLES[1],ROLES[2]};
 		String mode="edit";//Save new user mode
 		String active="true";
-		String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
+		String PASSWORD_DEFAULT=Constants.PASSWORD_DEFAULT;
 		//Create User
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
 		String oldPassword=u1.getPassword();

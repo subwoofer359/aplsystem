@@ -66,7 +66,7 @@ public class TestMaterialDAO
 	@Test
 	public void testAddMaterial()
 	{
-		MaterialDAO d=new MaterialDAO(factory);
+		MaterialDAO d=new MaterialDAO(em);
 		d.addEntity(testMaterial);
 		
 		Material actual=d.getEntity(String.valueOf(testMaterial.getId()));
@@ -77,7 +77,7 @@ public class TestMaterialDAO
 	public void testUpdateMaterial()
 	{	
 		//Create Material DAO
-		MaterialDAO d=new MaterialDAO(factory);
+		MaterialDAO d=new MaterialDAO(em);
 		//d.setEm(em);
 		//Add Material Database
 		d.addEntity(testMaterial);
@@ -101,7 +101,7 @@ public class TestMaterialDAO
 	@Test
 	public void testFindMaterialsStringString()
 	{
-		MaterialDAO d=new MaterialDAO(factory);
+		MaterialDAO d=new MaterialDAO(em);
 		//d.setEm(em);
 		d.addEntity(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials("name",NAME);
@@ -111,7 +111,7 @@ public class TestMaterialDAO
 	@Test
 	public void testFindMaterials()
 	{
-		MaterialDAO d=new MaterialDAO(factory);
+		MaterialDAO d=new MaterialDAO(em);
 		//d.setEm(em);
 		d.addEntity(testMaterial);
 		Map<Integer,Material> mp=d.findMaterials();

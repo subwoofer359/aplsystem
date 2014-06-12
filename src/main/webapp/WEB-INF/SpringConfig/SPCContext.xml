@@ -16,7 +16,7 @@
   
  
   <bean id="spcPartsListDAO" class="org.amc.dao.DAO" scope="prototype">
-     <constructor-arg ref="entityManagerFactory"/>
+     <constructor-arg ref="entityManager"/>
      <constructor-arg>  	
      	<value type="java.lang.Class">org.amc.model.spc.SPCPartsList</value>
      </constructor-arg>

@@ -25,7 +25,7 @@ public class TestSPCMeasurment
 	@Test
 	public void testSPCMeasurement()
 	{
-		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(factory,SPCMeasurement.class);
+		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
 		
 		SPCMeasurement measurement=new SPCMeasurement();
 		measurement.setActive(true);
@@ -36,7 +36,7 @@ public class TestSPCMeasurment
 		measurement.setNoOfMeasurements(5);
 		
 		//Retrieve Part entity from the database
-		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
 		List<Part> parts=partDAO.findEntities();
 		Part part=null;
 		if(parts.size()>0)

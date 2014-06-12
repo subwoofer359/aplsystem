@@ -19,6 +19,7 @@ import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 /**
  * 
@@ -73,7 +74,7 @@ public class TestPartandMouldingProcessDAO
 		m.setCompany(COMPANY);
 		m.setName(NAME);
 		m.setType(TYPE);
-		MaterialDAO daoMaterial=new MaterialDAO(factory);
+		MaterialDAO daoMaterial=new MaterialDAO(em);
 		//daoMaterial.setEm(em);
 		daoMaterial.addEntity(m);
 		
@@ -88,13 +89,13 @@ public class TestPartandMouldingProcessDAO
 		mp.setMachineSize(320);
 		mp.setMaterial(m.getId());
 	
-		DAO<MouldingProcess> d=new DAO<MouldingProcess>(factory,MouldingProcess.class);
+		DAO<MouldingProcess> d=new DAO<MouldingProcess>(em,MouldingProcess.class);
 		//d.setEm(em);
 		d.addEntity(mp);
 		
 		Part p=getPart(testPartName);
 		
-		DAO<Part> pd=new DAO<Part>(factory,Part.class);
+		DAO<Part> pd=new DAO<Part>(em,Part.class);
 		//pd.setEm(em);
 		pd.addEntity(p);
 		
@@ -106,19 +107,18 @@ public class TestPartandMouldingProcessDAO
 		List<Part> plist=pd.findEntities("name", testPartName);
 		assertTrue(plist.size()>=1);
 	}
-	
 	@Test
 	public void testConcurrency()
 	{
 		int NO_OF_THREADS=12;
 		CountDownLatch latch=new CountDownLatch(NO_OF_THREADS);
 		List<UpdateThread> threads=new ArrayList<TestPartandMouldingProcessDAO.UpdateThread>();
-		DAO<Part> pd=new DAO<Part>(factory,Part.class);
+		DAO<Part> pd=new DAO<Part>(factory.createEntityManager(),Part.class);
 		//Add Parts to database
 		for(int i=0;i<NO_OF_THREADS;i++)
 		{
 			pd.addEntity(getPart("Part:"+i));
-			threads.add(new UpdateThread(latch,new DAO<Part>(factory,Part.class)));
+			threads.add(new UpdateThread(latch,new DAO<Part>(factory.createEntityManager(),Part.class)));
 		}
 		
 		for(UpdateThread thread:threads)

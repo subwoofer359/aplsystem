@@ -22,37 +22,45 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 {
 	private static final long serialVersionUID = -4397260307883862647L;
 
-	public MaterialDAO(EntityManagerFactory emf)
+	public MaterialDAO(EntityManager em)
 	{
-		super(emf,Material.class);
+		super(em,Material.class);
 	}
 
 
 	public Map<Integer, Material> findMaterials(String col, String value)
 	{
 		EntityManager em=getEntityManager();
-		Query q=em.createQuery("Select x from Material x where x."+col+"='"+value+"'");
-		Map<Integer, Material> list = new HashMap<Integer, Material>();
-		List<Material> resultList=(List<Material>)q.getResultList();
-		for(Material m:resultList)
+		Map<Integer, Material> list;
+		synchronized (em)
 		{
-			list.put(m.getId(),m);
+			Query q=em.createQuery("Select x from Material x where x."+col+"='"+value+"'");
+			list = new HashMap<Integer, Material>();
+			List<Material> resultList=(List<Material>)q.getResultList();
+			for(Material m:resultList)
+			{
+				list.put(m.getId(),m);
+			}
+			//em.close();
 		}
-		em.close();
 		return list;
 	}
 
 	public Map<Integer, Material> findMaterials()
 	{
 		EntityManager em=getEntityManager();
-		Query q=em.createQuery("Select x from Material x ORDER BY x.id");
-		Map<Integer, Material> list = new TreeMap<Integer, Material>();
-		List<Material> resultList=(List<Material>)q.getResultList();
-		for(Material m:resultList)
+		Map<Integer, Material> list;
+		synchronized (em)
 		{
-			list.put(m.getId(),m);
+			Query q=em.createQuery("Select x from Material x ORDER BY x.id");
+			list = new TreeMap<Integer, Material>();
+			List<Material> resultList=(List<Material>)q.getResultList();
+			for(Material m:resultList)
+			{
+				list.put(m.getId(),m);
+			}
+			//em.close();
 		}
-		em.close();
 		return list;
 	}
 

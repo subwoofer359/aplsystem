@@ -42,7 +42,7 @@ public class TestSPCData
 		//TestSPCMeasurment.createPartFromDataBase(factory);
 		
 		//Create SPCMeasurement in table to use in test
-		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(factory,SPCMeasurement.class);
+		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
 		SPCMeasurement measurement=new SPCMeasurement();
 		measurement.setActive(true);
 		measurement.setDimension("length");
@@ -52,7 +52,7 @@ public class TestSPCData
 		measurement.setNoOfMeasurements(5);
 
 		//Retrieve Part entity from the database
-		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
 		List<Part> parts=partDAO.findEntities();
 		Part part=null;
 		if(parts.size()>0)
@@ -93,9 +93,9 @@ public class TestSPCData
 	@Test
 	public void test()
 	{
-		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(factory,SPCMeasurement.class);
-		DAO<SPCData> spcdataDao=new DAO<SPCData>(factory,SPCData.class);
-		DAO<User> userDao=new DAO<User>(factory,User.class);
+		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
+		DAO<SPCData> spcdataDao=new DAO<SPCData>(em,SPCData.class);
+		DAO<User> userDao=new DAO<User>(em,User.class);
 		SPCMeasurement measurement=measurementDao.findEntities().get(0);
 		User user=userDao.findEntities().get(0);
 		

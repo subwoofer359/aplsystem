@@ -21,26 +21,25 @@ import static org.amc.Constants.PERSISTENCE_UNIT_NAME;
 public class DAO<T extends WorkEntity>
 {
 	private static Logger logger=Logger.getLogger(DAO.class);
-	private EntityManagerFactory emf;
 	private EntityManager em;
 	private Class<? extends WorkEntity> entityClass;
 	
-	
-	public DAO(EntityManagerFactory emf,Class<? extends WorkEntity> entityClass)
+	public DAO(EntityManager em,Class<? extends WorkEntity> entityClass)
 	{
 		//emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		this.emf=emf;
+		//this.emf=emf;
 		this.entityClass=entityClass;
-		this.em=emf.createEntityManager();
+		//this.em=emf.createEntityManager();
+		this.em=em;
 	
 	}
 	
-	@PersistenceUnit(name = PERSISTENCE_UNIT_NAME)
-	public void setEm(EntityManagerFactory emf)
-	{
-		logger.info("EntityManagerFactory set to "+emf.toString());
-		this.emf = emf;
-	}
+//	@PersistenceUnit(name = PERSISTENCE_UNIT_NAME)
+//	public void setEm(EntityManagerFactory emf)
+//	{
+//		logger.info("EntityManagerFactory set to "+emf.toString());
+//		this.emf = emf;
+//	}
 	
 	/**
 	 * 
@@ -48,52 +47,51 @@ public class DAO<T extends WorkEntity>
 	 */
 	public synchronized EntityManager getEntityManager()
 	{
-		if(emf!=null)
-		{
-			if(em==null || (!em.isOpen()))
-			{
-				this.em= emf.createEntityManager();
-			}
-		}
+//		if(emf!=null)
+//		{
+//			if(em==null || (!em.isOpen()))
+//			{
+//				this.em= emf.createEntityManager();
+//			}
+//		}
 		return em;
-	}
-	
-	@Override
-	public void finalize()
-	{
-		if(emf!=null && emf.isOpen())
-		{
-			em.close();
-			//emf.close();
-		}
 	}
 	
 	public void addEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		em.persist(entity);
-		em.getTransaction().commit();
-		//em.close();
+		synchronized (em)
+		{
+			em.getTransaction().begin();
+			em.persist(entity);
+			em.getTransaction().commit();
+			//em.close();
+		}
 	}
 
 	public void updateEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		em.merge(entity);
-		em.getTransaction().commit();
-		//em.close();
+		synchronized (em)
+		{
+			em.getTransaction().begin();
+			em.merge(entity);
+			em.getTransaction().commit();
+			//em.close();
+		}
 	}
 
 	public void deleteEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		T u=em.merge(entity);
-		em.remove(u);
-		em.getTransaction().commit();
-		//em.close();
+		synchronized (em)
+		{
+			em.getTransaction().begin();
+			T u=em.merge(entity);
+			em.remove(u);
+			em.getTransaction().commit();
+			//em.close();
+		}
 	}
 
 	/**
@@ -105,16 +103,21 @@ public class DAO<T extends WorkEntity>
 	{
 		EntityManager em=getEntityManager();
 		T mp=null;
-		Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
-		try
+		synchronized (em)
 		{
-			mp = (T)q.getSingleResult();
+			
+			Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
+			try
+			{
+				mp = (T)q.getSingleResult();
+			}
+			catch(NoResultException nre)
+			{
+				
+			}
+			//em.close();
+			em.detach(mp);
 		}
-		catch(NoResultException nre)
-		{
-	
-		}
-		//em.close();
 		return mp;
 
 	}
@@ -122,18 +125,27 @@ public class DAO<T extends WorkEntity>
 	public List<T> findEntities(String col, String value)
 	{
 		EntityManager em=getEntityManager();
-		Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+"='"+value+"'");
-		List<T> resultList=(List<T>)q.getResultList();
-		//em.close();
+		List<T> resultList;
+		synchronized (em)
+		{
+			Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+"='"+value+"'");
+			resultList=(List<T>)q.getResultList();
+			//em.close();
+		}
 		return resultList;
 	}
 
 	public List<T> findEntities() 
 	{
 		EntityManager em=getEntityManager();
-		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
-		List<T> resultList=(List<T>)q.getResultList();
-		//em.close();
+		List<T> resultList;
+		synchronized (em)
+		{
+		
+			Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
+			resultList=(List<T>)q.getResultList();
+			//em.close();
+		}
 		return resultList;
 	}
 	

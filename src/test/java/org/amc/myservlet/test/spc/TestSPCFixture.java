@@ -58,7 +58,7 @@ public class TestSPCFixture
 			em.getTransaction().commit();
 		}
 		//Get DAO object
-		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
 		String[] colours={"red","blue","green"};
 		String[] companies={"HMV","Granada","Apple"};
 		String[] names={"CD","Car","IPOD"};
@@ -93,7 +93,7 @@ public class TestSPCFixture
 			em.getTransaction().commit();
 		}
 		//Get DAO object
-		DAO<User> userDAO=new DAO<User>(factory,User.class);
+		DAO<User> userDAO=new DAO<User>(em,User.class);
 		
 		//Create User Entities and add them to the database
 		String[] fullnames={"Adrian McLaughlin","Stephen Nolan","Chris Dalton"};

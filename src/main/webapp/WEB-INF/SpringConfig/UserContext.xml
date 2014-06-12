@@ -22,13 +22,13 @@
   </bean>
    -->
   <bean id="myUserDAO" class="org.amc.dao.DAO" scope="prototype">
-     <constructor-arg ref="entityManagerFactory"/>
+     <constructor-arg ref="entityManager"/>
      <constructor-arg>  	
      	<value type="java.lang.Class">org.amc.model.User</value>
      </constructor-arg>
   </bean>
   
   <bean id="myUserRolesDAO" class="org.amc.dao.UserRolesDAO" scope="prototype">
-     <constructor-arg ref="entityManagerFactory"/>
+     <constructor-arg ref="entityManager"/>
   </bean>      
 </beans>

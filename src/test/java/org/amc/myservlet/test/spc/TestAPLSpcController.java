@@ -54,8 +54,8 @@ public class TestAPLSpcController
 		fixture=new TestSPCFixture();
 		fixture.setUp();
 		
-		partsListDao=new DAO<SPCPartsList>(factory,SPCPartsList.class);
-		partsDAO=new DAO<Part>(factory,Part.class);
+		partsListDao=new DAO<SPCPartsList>(em,SPCPartsList.class);
+		partsDAO=new DAO<Part>(em,Part.class);
 		controller=new APLSpcController();
 		controller.setSPCListPartDAO(partsListDao);
 	}
