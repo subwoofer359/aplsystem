@@ -54,16 +54,23 @@ public class APLSpcController
 	}
 	
 	@RequestMapping("/AddToSPC")
-	public String addToSPC(@RequestParam("edit") Integer id)
+	public String addToSPC(@RequestParam("edit") Integer id,HttpServletRequest request)
 	{
 		Part part=this.partDAO.getEntity(String.valueOf(id));
 		if(part!=null)
 		{
 			SPCPartsList spcPart=new SPCPartsList();
 			spcPart.setPart(part);
-			this.spcListPartDAO.addEntity(spcPart);
+			try
+			{
+				this.spcListPartDAO.addEntity(spcPart);
+			}
+			catch(Exception e)
+			{
+				request.setAttribute("message", "Part already on the SPC list");
+			}
 		}
-		return "APLSystemServlet";
+		return "forward:/Part_search";
 	}
 	
 	@RequestMapping("/SPC/removePart")

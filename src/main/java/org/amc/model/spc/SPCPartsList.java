@@ -32,7 +32,7 @@ public class SPCPartsList implements WorkEntity,Serializable
 	private int id;
 	
 	@OneToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="part_id")
+	@JoinColumn(name="part_id",unique=true)
 	private Part part;
 
 	public int getId()

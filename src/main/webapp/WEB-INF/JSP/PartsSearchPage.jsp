@@ -16,8 +16,18 @@
 
 
 </STYLE>
-<script src="js/SearchPage.js"></script>
-<script src="js/TablesSort.js"></script>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
+<script>
+window.onload=function()
+		{
+			var message="${message}";
+			if(message!=null && message!="")
+			{
+				alert(message);
+			}
+		};
+</script>
 </head>
 <body>
 <DIV class="title">
