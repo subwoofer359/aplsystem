@@ -110,13 +110,14 @@ public class DAO<T extends WorkEntity>
 			try
 			{
 				mp = (T)q.getSingleResult();
+				em.detach(mp);
 			}
 			catch(NoResultException nre)
 			{
 				
 			}
 			//em.close();
-			em.detach(mp);
+			
 		}
 		return mp;
 
