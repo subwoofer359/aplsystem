@@ -93,7 +93,7 @@ public class TestAPLSpcController
 		
 		ModelAndViewAssert.assertAndReturnModelAttributeOfType(mav, "parts", List.class);
 		
-		ModelAndViewAssert.assertViewName(mav, "SPCPartList");
+		ModelAndViewAssert.assertViewName(mav, "spc/SPCPartList");
 		
 		
 	}
