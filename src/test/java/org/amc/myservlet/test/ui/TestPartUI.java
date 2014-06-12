@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -38,7 +39,7 @@ public class TestPartUI
 	/**
 	 * Log in to the System
 	 */
-	private void login()
+	public void login()
 	{
 		driver.get("http://192.168.1.6:8080/myservlet");
 		WebElement element =driver.findElement(By.className("login"));
@@ -55,7 +56,7 @@ public class TestPartUI
 	/**
 	 * Log out of the System
 	 */
-	private void logout()
+	public void logout()
 	{
 		WebElement element=driver.findElement(By.id("userBox"));
 		element.click();
@@ -74,15 +75,14 @@ public class TestPartUI
 			}
 		}
 	}
-	
 	@Test
 	public void testLogin()
 	{
 		
 		driver.get("http://192.168.1.6:8080/myservlet");
 		
-		//Test logging 50 fives to see if there any issues with Database connections
-		for(int i=0;i<50;i++)
+		//Test logging 5 fives to see if there any issues with Database connections
+		for(int i=0;i<5;i++)
 		{
 			login();
 			//Test we are on the Main Page
@@ -94,5 +94,33 @@ public class TestPartUI
 			assertTrue(driver.getCurrentUrl().endsWith("myservlet/"));
 		}
 
+	}
+	
+	@Test
+	public void addPart()
+	{
+		login();
+		//Open Parts page
+		WebElement element=driver.findElement(By.id("partsearch"));
+		element.click();
+		
+		element=driver.findElement(By.id("add"));
+		
+		element.click();
+		
+		String[] names={"name","company","part_id","version","revision","colour","external","qss_no"};
+		String[] values={"Roof Tile","ARCKIT","A2039349","1","1","white","true","AR:300"};
+		
+		for(int i=0;i<names.length;i++)
+		{
+			element=driver.findElement(By.name(names[i]));
+			element.sendKeys(values[i]);
+		}
+		element.submit();
+	}
+	
+	public WebDriver getWebDriver()
+	{
+		return driver;
 	}
 }
