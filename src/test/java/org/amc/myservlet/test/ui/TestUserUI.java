@@ -38,6 +38,7 @@ public class TestUserUI
 	
 	/**
 	 * Bug 0001: On updating of user's roles a JPA exception is thrown
+	 * Caused by JPA entities not being enhanced
 	 */
 	@Test
 	public void testBug0001()
