@@ -311,7 +311,7 @@ public class APLUserController
 		byte[] hash=null;
 		try
 		{
-			MessageDigest digest=MessageDigest.getInstance(PASSWORD_DEFAULT);
+			MessageDigest digest=MessageDigest.getInstance(PASSWORD_DIGEST);
 			hash=digest.digest(new String(password).getBytes());
 		}
 		catch(NoSuchAlgorithmException nae)
