@@ -98,10 +98,10 @@ function checkPassword(element)
 <span class="buttons">
 <%-- To tell the servlet which mode the page is submitting in --%>
 <c:if test="${not(mode eq 'edit') }">
-	<input type='submit'  name="mode" value='enter'/>
+	<input id="edit" type='submit'  name="mode" value='enter'/>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<input type='submit'  name="mode" value='edit'/>
+	<input id="edit" type='submit'  name="mode" value='edit'/>
 </c:if>
 </span>
 </TABLE>

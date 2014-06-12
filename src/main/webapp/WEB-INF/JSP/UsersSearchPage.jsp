@@ -31,7 +31,7 @@
 </tbody>
 </table>
 </div>
-<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="delete"/></SPAN>
+<SPAN class="buttons"><input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/><input id="edit" type="submit" name="mode" value="edit" /><input id="delete" type="submit" name="mode" value="delete"/></SPAN>
 </form>
 </body>
 </html>
