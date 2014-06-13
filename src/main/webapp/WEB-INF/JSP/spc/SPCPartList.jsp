@@ -59,6 +59,7 @@
 <input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
 <SPAN class="buttons">
+    <input type="submit" name="mode" value="SPC Dimensions" formaction="${pageContext.request.contextPath}/spc/Dimensions" />
 	<input type="submit" name="mode" value="add SPC Data" formaction="${pageContext.request.contextPath}/spc/SPC/addData" onclick="addClicked(this)"/>
 	<input type="submit" name="mode" value="view SPC Data" formaction="${pageContext.request.contextPath}/spc/SPC/editData"/>
 	<input type="submit" name="mode" value="remove" formaction="${pageContext.request.contextPath}/spc/SPC/removePart"/>
