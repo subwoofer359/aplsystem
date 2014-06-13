@@ -14,7 +14,14 @@
            http://www.springframework.org/schema/context
            http://www.springframework.org/schema/context/spring-context-4.0.xsd">
   
- 
+  <bean id="spcDimensionDAO" class="org.amc.dao.DAO" scope="prototype">
+     <constructor-arg ref="entityManager"/>
+     <constructor-arg>  	
+     	<value type="java.lang.Class">org.amc.model.spc.SPCMeasurement</value>
+     </constructor-arg>
+     
+  </bean>
+  
   <bean id="spcPartsListDAO" class="org.amc.dao.DAO" scope="prototype">
      <constructor-arg ref="entityManager"/>
      <constructor-arg>  	
