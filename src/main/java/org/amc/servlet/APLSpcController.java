@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.amc.dao.DAO;
 import org.amc.model.Part;
+import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class APLSpcController
 	private static Logger logger=Logger.getLogger(APLSpcController.class);
 	private DAO<SPCPartsList> spcListPartDAO;
 	private DAO<Part> partDAO;
-	
+	private DAO<SPCMeasurement> spcDimensionDAO;
 	/**
 	 * Retrieve and return SPC Part List
 	 */
@@ -56,6 +57,12 @@ public class APLSpcController
 	@RequestMapping("/AddToSPC")
 	public String addToSPC(@RequestParam("edit") Integer id,HttpServletRequest request)
 	{
+		//If User not in role QC then return with error message
+		if(!request.isUserInRole(roles.QC.toString()))
+		{
+			request.setAttribute("message", "User can't not add Parts to the SPCList");
+			return "forward:/Part_search";
+		}
 		Part part=this.partDAO.getEntity(String.valueOf(id));
 		if(part!=null)
 		{
@@ -93,6 +100,47 @@ public class APLSpcController
 		
 	}
 	
+	@RequestMapping("/Dimensions")
+	public ModelAndView getDimensionList(HttpServletRequest request,@RequestParam("edit") Integer id)
+	{
+		ModelAndView mav=new ModelAndView();
+		if(!request.isUserInRole(roles.QC.toString()))
+		{
+			request.setAttribute("message", "User can't not add Parts to the SPCList");
+			mav.setViewName("Main");
+			return mav;
+		}
+		SPCPartsList spcPart=spcListPartDAO.getEntity(String.valueOf(id));
+		List<SPCMeasurement> dimensions=spcDimensionDAO.findEntities("part.id", spcPart.getPart().getId());
+		mav.getModelMap().put("spcPart", spcPart);
+		mav.getModelMap().put("dimensions", dimensions);
+		mav.getModelMap().put("part", spcPart.getPart());
+		mav.setViewName("spc/SPCMeasurement");
+		return mav;
+	}
+	
+	@RequestMapping("/SPC/deActivate")
+	public ModelAndView de_activate(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@RequestParam("edit") Integer id)
+	{
+		if(!request.isUserInRole(roles.QC.toString()))
+		{
+			request.setAttribute("message", "User edit SPC definitions");
+			mav.setViewName("Main");
+			return mav;
+		}
+		SPCMeasurement dimension=spcDimensionDAO.getEntity(String.valueOf(id));
+		
+		if(dimension!=null)
+		{
+			boolean active=dimension.isActive();
+			dimension.setActive(!active); //Flip the boolean
+			spcDimensionDAO.updateEntity(dimension);
+		}
+		logger.debug(mav.getModelMap().get("part"));
+		logger.debug(mav.getModelMap().get("dimensions"));
+		return getDimensionList(request, spcPartid);
+		
+	}
 	
 	@Resource(name="spcPartsListDAO")
 	public void setSPCListPartDAO(DAO<SPCPartsList> spcListPartDAO)
@@ -108,4 +156,10 @@ public class APLSpcController
 		logger.debug("partDAO:"+this.partDAO);
 	}
 	
+	@Resource(name="spcDimensionDAO")
+	public void setSPCDimensionDAO(DAO<SPCMeasurement> spcDimensionDAO)
+	{
+		this.spcDimensionDAO=spcDimensionDAO;
+		logger.debug("spcDimensionDAO:"+this.spcDimensionDAO);
+	}
 }
