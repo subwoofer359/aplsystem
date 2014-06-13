@@ -123,13 +123,15 @@ public class DAO<T extends WorkEntity>
 
 	}
 
-	public List<T> findEntities(String col, String value)
+	public List<T> findEntities(String col, Object value)
 	{
 		EntityManager em=getEntityManager();
 		List<T> resultList;
 		synchronized (em)
 		{
-			Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+"='"+value+"'");
+			Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
+			q.setParameter(1, value);
+			logger.debug(q.toString());
 			resultList=(List<T>)q.getResultList();
 			//em.close();
 		}
