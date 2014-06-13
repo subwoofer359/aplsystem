@@ -142,6 +142,26 @@ public class APLSpcController
 		
 	}
 	
+	@RequestMapping("/SPC/addDimension")
+	public ModelAndView addDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@ModelAttribute SPCMeasurement spcMeasurement)
+	{
+		if(!request.isUserInRole(roles.QC.toString()))
+		{
+			request.setAttribute("message", "User edit SPC definitions");
+			mav.setViewName("Main");
+			return mav;
+		}
+		SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
+		if(spclist!=null)
+		{
+			Part p=spclist.getPart();
+			spcMeasurement.setPart(p);
+			spcDimensionDAO.updateEntity(spcMeasurement);
+		}
+		
+		return getDimensionList(request, spcPartid);
+	}
+	
 	@Resource(name="spcPartsListDAO")
 	public void setSPCListPartDAO(DAO<SPCPartsList> spcListPartDAO)
 	{
