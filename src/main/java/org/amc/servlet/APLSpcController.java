@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.amc.dao.DAO;
@@ -160,17 +161,27 @@ public class APLSpcController
 		
 		if(!bindingResult.hasErrors())
 		{
-			SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
-			if(spclist!=null)
+			try
 			{
-				Part p=spclist.getPart();
-				spcMeasurement.setPart(p);
-				spcDimensionDAO.addEntity(spcMeasurement);
+				SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
+				if(spclist!=null)
+				{
+				
+					Part p=spclist.getPart();
+					spcMeasurement.setPart(p);
+					spcDimensionDAO.addEntity(spcMeasurement);
+				}
+			}
+			catch(PersistenceException pe)
+			{
+				request.setAttribute("message", "SPC Measurement was not updated. Error in application");
+				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+pe.getMessage());
+				return getDimensionList(request, spcPartid);
 			}
 		}
 		else
 		{
-			logger.debug("addDimension:BindingError:"+bindingResult.getAllErrors());
+			logger.debug("APLSpcController:/SPC/addDimension:BindingError:"+bindingResult.getAllErrors());
 		}
 		
 		return getDimensionList(request, spcPartid);
@@ -191,14 +202,27 @@ public class APLSpcController
 		
 		if(!bindingResult.hasErrors())
 		{
-			SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
-			if(spclist!=null)
+			try
 			{
-				Part p=spclist.getPart();
-				spcMeasurement.setPart(p);
-				spcMeasurement.setId(dimensionId);
-				spcDimensionDAO.updateEntity(spcMeasurement);
+				SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
+				if(spclist!=null)
+				{
+					Part p=spclist.getPart();
+					spcMeasurement.setPart(p);
+					spcMeasurement.setId(dimensionId);
+					spcDimensionDAO.updateEntity(spcMeasurement);
+				}
 			}
+			catch(PersistenceException pe)
+			{
+				request.setAttribute("message", "SPC Measurement was not updated. Error in application");
+				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+pe.getMessage());
+				return getDimensionList(request, spcPartid);
+			}
+		}
+		else
+		{
+			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
 		}
 		
 		return getDimensionList(request, spcPartid);
