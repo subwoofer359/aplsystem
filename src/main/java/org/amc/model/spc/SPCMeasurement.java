@@ -15,6 +15,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import org.amc.model.Part;
 import org.amc.model.WorkEntity;
@@ -89,6 +90,8 @@ public class SPCMeasurement implements Serializable, WorkEntity
 	@Column(nullable=false)
 	private boolean active;
 
+	@Column(name="table_id",nullable=true,length=70)
+	private String tableId;
 	/**
 	 * Required by JPA for concurrency
 	 */
@@ -179,6 +182,16 @@ public class SPCMeasurement implements Serializable, WorkEntity
 	public long getVersion()
 	{
 		return version;
+	}
+
+	public String getTableId()
+	{
+		return tableId;
+	}
+
+	public void setTableId(String tableId)
+	{
+		this.tableId = tableId;
 	}
 	
 	
