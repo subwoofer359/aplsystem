@@ -47,11 +47,19 @@
 {
 	font-size: xx-large;
 }
+
+.hiddenColumn
+{
+	display:none;
+}
 </STYLE>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 <script type="text/javascript">
+/*
+ * Makes the element visible
+ */
 function showEntryDiv(element,divName)
 {
 	var div=document.getElementById(divName);
@@ -60,6 +68,10 @@ function showEntryDiv(element,divName)
 		div.style.visibility="visible";
 	}
 }
+
+/*
+ * Makes the element hidden
+ */
 function hideEntryDiv(element,divName)
 {
 	var div=document.getElementById(divName);
@@ -69,14 +81,22 @@ function hideEntryDiv(element,divName)
 	}
 }
 
-function clearValueOfElementId(id)
+/*
+ * Clears the value attribute of element
+ */
+
+function clearValueOfElementId(idOfElement)
 {
-	var element=document.getElementById(id);
+	var element=document.getElementById(idOfElement);
 	if(element!=null)
 	{
 		element.value="";
 	}	
 }
+
+/*
+ * Copies values from the html table to the <div> used for entry and edit
+ */
 function populateForm(divName)
 {
 	var table=document.getElementById("dimensionsList");
@@ -122,6 +142,17 @@ function populateForm(divName)
 		}	
 	}
 }
+/*
+ * Displays error messages if they exist when the page loads
+ */
+window.onload=function()
+{
+	var message="${message}";
+	if(message!=null && message!="")
+	{
+		alert(message);
+	}
+};
 </script>
 </head>
 <body>
@@ -130,13 +161,14 @@ function populateForm(divName)
 </DIV>
 <%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
 <tags:Navbox href="${pageContext.request.contextPath}/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
+
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <input type="hidden" name="spcPart" value="${spcPart.id}"/>
 <DIV class="results">
 <TABLE id="dimensionsList">
 <thead>
 <TR>
-	<TH style="display:none;">Id</TH>  
+	<TH class="hiddenColumn">Id</TH>  
 	<TH onclick="tableSort(this, 'Dimension');selected(null);">Dimension</TH>
 	<TH onclick="tableSort(this, 'Nominal');selected(null);">Nominal</TH>
 	<TH onclick="tableSort(this, 'Upper Limit');selected(null);">Upper Limit</TH>
@@ -144,21 +176,21 @@ function populateForm(divName)
 	<TH onclick="tableSort(this, 'n');selected(null);">n</TH>
 	<TH onclick="tableSort(this, 'active');selected(null);">active</TH>
 	<TH></TH>
-	<TH style="display:none;"></TH>
+	<TH class="hiddenColumn"></TH>
 </TR>
 </thead>
 <tbody>
 <c:forEach items="${dimensions}" var="dimension">
 <TR  onclick="selected(this)">
-	<TD style="display:none;"><c:out value="${dimension.id}"/></TD>
+	<TD class="hiddenColumn"><c:out value="${dimension.id}"/></TD>
 	<TD><c:out value="${dimension.dimension}"/></TD>
 	<TD><c:out value="${dimension.nominal}"/></TD>
 	<TD><c:out value="${dimension.upperLimit}"/></TD>
 	<TD><c:out value="${dimension.lowerLimit}"/></TD>
 	<TD><c:out value="${dimension.noOfMeasurements}"/></TD>
 	<TD><c:out value="${dimension.active}"/></TD>
-	<td style="display:none;">${dimension.tableId}</td>
-	<TD  class="checkbox" style="display:none;"><input type="checkbox" name="edit" value="${dimension.id}"/></TD>
+	<td class="hiddenColumn">${dimension.tableId}</td>
+	<TD  class="checkbox" class="hiddenColumn"><input type="checkbox" name="edit" value="${dimension.id}"/></TD>
 	
 </TR>
 </c:forEach>
