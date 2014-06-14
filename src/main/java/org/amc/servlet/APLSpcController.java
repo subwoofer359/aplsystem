@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.amc.dao.DAO;
+import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +36,7 @@ public class APLSpcController
 	private static Logger logger=Logger.getLogger(APLSpcController.class);
 	private DAO<SPCPartsList> spcListPartDAO;
 	private DAO<Part> partDAO;
-	private DAO<SPCMeasurement> spcDimensionDAO;
+	private SPCMeasurementDAO spcDimensionDAO;
 	/**
 	 * Retrieve and return SPC Part List
 	 */
@@ -143,7 +145,35 @@ public class APLSpcController
 	}
 	
 	@RequestMapping("/SPC/addDimension")
-	public ModelAndView addDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@ModelAttribute SPCMeasurement spcMeasurement)
+	public ModelAndView addDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@ModelAttribute SPCMeasurement spcMeasurement,BindingResult bindingResult)
+	{
+		logger.debug("addDimension:scpPart="+spcPartid+",SPCMeasurement="+spcMeasurement.getId());
+		if(!request.isUserInRole(roles.QC.toString()))
+		{
+			request.setAttribute("message", "User edit SPC definitions");
+			mav.setViewName("Main");
+			return mav;
+		}
+		if(!bindingResult.hasErrors())
+		{
+			SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
+			if(spclist!=null)
+			{
+				Part p=spclist.getPart();
+				spcMeasurement.setPart(p);
+				spcDimensionDAO.addEntity(spcMeasurement);
+			}
+		}
+		else
+		{
+			logger.debug("addDimension:BindingError:"+bindingResult.getAllErrors());
+		}
+		
+		return getDimensionList(request, spcPartid);
+	}
+	
+	@RequestMapping("/SPC/editDimension")
+	public ModelAndView editDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@RequestParam("DimensionId")Integer dimensionId,@ModelAttribute SPCMeasurement spcMeasurement,BindingResult bindingResult)
 	{
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
@@ -151,12 +181,16 @@ public class APLSpcController
 			mav.setViewName("Main");
 			return mav;
 		}
-		SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
-		if(spclist!=null)
+		if(!bindingResult.hasErrors())
 		{
-			Part p=spclist.getPart();
-			spcMeasurement.setPart(p);
-			spcDimensionDAO.updateEntity(spcMeasurement);
+			SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
+			if(spclist!=null)
+			{
+				Part p=spclist.getPart();
+				spcMeasurement.setPart(p);
+				spcMeasurement.setId(dimensionId);
+				spcDimensionDAO.updateEntity(spcMeasurement);
+			}
 		}
 		
 		return getDimensionList(request, spcPartid);
@@ -177,7 +211,7 @@ public class APLSpcController
 	}
 	
 	@Resource(name="spcDimensionDAO")
-	public void setSPCDimensionDAO(DAO<SPCMeasurement> spcDimensionDAO)
+	public void setSPCDimensionDAO(SPCMeasurementDAO spcDimensionDAO)
 	{
 		this.spcDimensionDAO=spcDimensionDAO;
 		logger.debug("spcDimensionDAO:"+this.spcDimensionDAO);
