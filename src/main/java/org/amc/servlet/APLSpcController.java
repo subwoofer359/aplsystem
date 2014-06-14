@@ -11,11 +11,13 @@ import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
+import org.amc.servlet.validator.SPCMeasurementValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -151,6 +153,11 @@ public class APLSpcController
 			request.setAttribute("message", "User edit SPC definitions");
 			return getDimensionList(request, spcPartid);
 		}
+		
+		//Valid SPCMeasurement
+		Validator v=new SPCMeasurementValidator();
+		v.validate(spcMeasurement, bindingResult);
+		
 		if(!bindingResult.hasErrors())
 		{
 			SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
@@ -177,6 +184,11 @@ public class APLSpcController
 			request.setAttribute("message", "User edit SPC definitions");
 			return getDimensionList(request, spcPartid);
 		}
+		
+		//Valid SPCMeasurement
+		Validator v=new SPCMeasurementValidator();
+		v.validate(spcMeasurement, bindingResult);
+		
 		if(!bindingResult.hasErrors())
 		{
 			SPCPartsList spclist=spcListPartDAO.getEntity(String.valueOf(spcPartid));
