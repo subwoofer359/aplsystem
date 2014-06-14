@@ -109,8 +109,7 @@ public class APLSpcController
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
 			request.setAttribute("message", "User can't not add Parts to the SPCList");
-			mav.setViewName("Main");
-			return mav;
+			return getDimensionList(request, id);
 		}
 		SPCPartsList spcPart=spcListPartDAO.getEntity(String.valueOf(id));
 		List<SPCMeasurement> dimensions=spcDimensionDAO.findEntities("part.id", spcPart.getPart().getId());
@@ -127,8 +126,7 @@ public class APLSpcController
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
 			request.setAttribute("message", "User edit SPC definitions");
-			mav.setViewName("Main");
-			return mav;
+			return getDimensionList(request, spcPartid);
 		}
 		SPCMeasurement dimension=spcDimensionDAO.getEntity(String.valueOf(id));
 		
@@ -151,8 +149,7 @@ public class APLSpcController
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
 			request.setAttribute("message", "User edit SPC definitions");
-			mav.setViewName("Main");
-			return mav;
+			return getDimensionList(request, spcPartid);
 		}
 		if(!bindingResult.hasErrors())
 		{
@@ -178,8 +175,7 @@ public class APLSpcController
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
 			request.setAttribute("message", "User edit SPC definitions");
-			mav.setViewName("Main");
-			return mav;
+			return getDimensionList(request, spcPartid);
 		}
 		if(!bindingResult.hasErrors())
 		{
