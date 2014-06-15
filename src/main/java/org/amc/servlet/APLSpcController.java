@@ -109,10 +109,12 @@ public class APLSpcController
 	public ModelAndView getDimensionList(HttpServletRequest request,@RequestParam("edit") Integer id)
 	{
 		ModelAndView mav=new ModelAndView();
+		//If user not in role QC then return to main menu
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
-			request.setAttribute("message", "User can't not add Parts to the SPCList");
-			return getDimensionList(request, id);
+			mav.getModelMap().put("message", "User can't not add Parts to the SPCList");
+			mav.setViewName("Main");
+			return  mav;
 		}
 		SPCPartsList spcPart=spcListPartDAO.getEntity(String.valueOf(id));
 		List<SPCMeasurement> dimensions=spcDimensionDAO.findEntities("part.id", spcPart.getPart().getId());
@@ -148,7 +150,6 @@ public class APLSpcController
 	@RequestMapping("/SPC/addDimension")
 	public ModelAndView addDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@ModelAttribute SPCMeasurement spcMeasurement,BindingResult bindingResult)
 	{
-		logger.debug("addDimension:scpPart="+spcPartid+",SPCMeasurement="+spcMeasurement.getId());
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
 			request.setAttribute("message", "User edit SPC definitions");
@@ -182,6 +183,7 @@ public class APLSpcController
 		else
 		{
 			logger.debug("APLSpcController:/SPC/addDimension:BindingError:"+bindingResult.getAllErrors());
+			request.setAttribute("errors", bindingResult.getAllErrors());
 		}
 		
 		return getDimensionList(request, spcPartid);
@@ -228,6 +230,9 @@ public class APLSpcController
 		return getDimensionList(request, spcPartid);
 	}
 	
+	
+	
+	/*   Spring injected resources   */
 	@Resource(name="spcPartsListDAO")
 	public void setSPCListPartDAO(DAO<SPCPartsList> spcListPartDAO)
 	{
