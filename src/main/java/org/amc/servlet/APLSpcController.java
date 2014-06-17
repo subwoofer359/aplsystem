@@ -225,6 +225,7 @@ public class APLSpcController
 		}
 		else
 		{
+			request.setAttribute("errors", bindingResult.getAllErrors());
 			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
 			return getDimensionList(request, spcPartid);
 		}
