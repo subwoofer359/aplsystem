@@ -184,6 +184,7 @@ public class APLSpcController
 		{
 			logger.debug("APLSpcController:/SPC/addDimension:BindingError:"+bindingResult.getAllErrors());
 			request.setAttribute("errors", bindingResult.getAllErrors());
+			//call to getDimensionList is required
 		}
 		
 		return getDimensionList(request, spcPartid);
@@ -225,6 +226,7 @@ public class APLSpcController
 		else
 		{
 			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
+			return getDimensionList(request, spcPartid);
 		}
 		
 		return getDimensionList(request, spcPartid);
