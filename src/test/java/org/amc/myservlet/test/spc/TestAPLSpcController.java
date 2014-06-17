@@ -2,12 +2,17 @@ package org.amc.myservlet.test.spc;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.persistence.PersistenceException;
 
 import org.amc.Constants;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
+import org.amc.model.WorkEntity;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
 import org.amc.servlet.APLSpcController;
@@ -223,7 +228,31 @@ public class TestAPLSpcController
 	@Test
 	public void testAddDimensionExceptionThrown()
 	{
-		assertTrue(false);
+		ModelAndView mav=new ModelAndView();
+		
+		//User is not in the required role
+		request.addUserRole(Constants.roles.QC.toString());
+		Map<String, Object> params=new HashMap<>();
+		request.setParameters(params);
+		
+		//No binding errors
+		when(result.hasErrors()).thenReturn(false);
+		
+		SPCMeasurement spcMeasurement=getSPCMeasurement();
+		
+		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+		
+		doThrow(new PersistenceException()).when(spcMeasurementDAO).addEntity(any(SPCMeasurement.class));
+		
+		mav=controller.addDimension(request,mav,spcPartid,spcMeasurement,result);
+		
+		//Check the user is sent to the correct view
+		ModelAndViewAssert.assertViewName(mav,"spc/SPCMeasurement");
+				
+		//Check that the required attribute was set
+		/* @Todo */
+		//ModelAndViewAssert.assertModelAttributeAvailable(mav, "message");
+
 	}
 	/**
 	 * 
