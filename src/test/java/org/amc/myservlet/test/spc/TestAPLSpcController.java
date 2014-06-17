@@ -39,6 +39,7 @@ public class TestAPLSpcController
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@Before
 	public void setUp()
 	{
@@ -50,6 +51,7 @@ public class TestAPLSpcController
 		
 		
 		spcMeasurementDAO=mock(SPCMeasurementDAO.class);
+		
 		partsDAO=mock(DAO.class);
 		partsListDao=mock(DAO.class);
 		
