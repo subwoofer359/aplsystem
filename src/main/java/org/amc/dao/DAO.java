@@ -3,19 +3,16 @@ package org.amc.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import org.amc.model.WorkEntity;
 import org.apache.log4j.Logger;
 
-import static org.amc.Constants.PERSISTENCE_UNIT_NAME;
 /*
  * Fetches and holds a reference to the Persistence EntityManager
  * @author Adrian Mclaughlin
- * @version 1
+ * @version 1.1
  *
  */
 public class DAO<T extends WorkEntity>
@@ -26,34 +23,17 @@ public class DAO<T extends WorkEntity>
 	
 	public DAO(EntityManager em,Class<? extends WorkEntity> entityClass)
 	{
-		//emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		//this.emf=emf;
 		this.entityClass=entityClass;
-		//this.em=emf.createEntityManager();
 		this.em=em;
 	
 	}
-	
-//	@PersistenceUnit(name = PERSISTENCE_UNIT_NAME)
-//	public void setEm(EntityManagerFactory emf)
-//	{
-//		logger.info("EntityManagerFactory set to "+emf.toString());
-//		this.emf = emf;
-//	}
-	
+
 	/**
 	 * 
 	 * @return EntityManager for subclass to use
 	 */
 	public synchronized EntityManager getEntityManager()
 	{
-//		if(emf!=null)
-//		{
-//			if(em==null || (!em.isOpen()))
-//			{
-//				this.em= emf.createEntityManager();
-//			}
-//		}
 		return em;
 	}
 	
