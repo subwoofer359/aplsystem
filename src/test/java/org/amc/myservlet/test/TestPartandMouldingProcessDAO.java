@@ -73,7 +73,7 @@ public class TestPartandMouldingProcessDAO
 		m.setCompany(COMPANY);
 		m.setName(NAME);
 		m.setType(TYPE);
-		MaterialDAO daoMaterial=new MaterialDAO(em);
+		MaterialDAO daoMaterial=new MaterialDAO();
 		//daoMaterial.setEm(em);
 		daoMaterial.addEntity(m);
 		

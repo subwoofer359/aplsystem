@@ -15,7 +15,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 {
 	private static Logger logger=Logger.getLogger(SPCMeasurement.class);
 	
-	public SPCMeasurementDAO(EntityManager em)
+	public SPCMeasurementDAO()
 	{
 		super(SPCMeasurement.class);
 	}

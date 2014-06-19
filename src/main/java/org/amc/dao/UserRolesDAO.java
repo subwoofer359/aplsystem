@@ -9,7 +9,7 @@ import org.amc.model.UserRoles;
 
 public class UserRolesDAO extends DAO<UserRoles>
 {
-	public UserRolesDAO(EntityManager em)
+	public UserRolesDAO()
 	{
 		super(UserRoles.class);
 	}

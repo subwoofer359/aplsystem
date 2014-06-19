@@ -22,7 +22,7 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 {
 	private static final long serialVersionUID = -4397260307883862647L;
 
-	public MaterialDAO(EntityManager em)
+	public MaterialDAO()
 	{
 		super(Material.class);
 	}
