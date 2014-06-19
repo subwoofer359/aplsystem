@@ -20,7 +20,8 @@ public class SPCMeasurementValidator implements Validator
 		SPCMeasurement measurement=(SPCMeasurement)arg0;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dimension", "spcMeasurement.dimension.empty","No entry in Dimension");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "part", "spcMeasurement.part.empty","No related Part");
+		/* Part can be empty*/
+		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "part", "spcMeasurement.part.empty","No related Part");
 	}
 
 }
