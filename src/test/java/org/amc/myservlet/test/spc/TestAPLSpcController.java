@@ -232,7 +232,7 @@ public class TestAPLSpcController
 		
 		//User is not in the required role
 		request.addUserRole(Constants.roles.QC.toString());
-		Map<String, Object> params=new HashMap<>();
+		Map<String, Object> params=new HashMap<String, Object>();
 		request.setParameters(params);
 		
 		//No binding errors
