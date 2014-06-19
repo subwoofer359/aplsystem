@@ -14,12 +14,18 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 import org.amc.EntityManagerThreadLocal;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 /**
  * Servlet Filter implementation class EntityManagerFilter
  */
-public class EntityManagerFilter implements Filter {
+public class EntityManagerFilter implements Filter 
+{
 
+	private static Logger logger=Logger.getLogger(EntityManagerFilter.class);
+	
 	private FilterConfig fConfig;
 	private EntityManagerFactory factory;
 
@@ -34,7 +40,9 @@ public class EntityManagerFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException 
+	{
+		logger.debug("EntityManagerFilter:doFilter: The EntityManagerFactory="+factory);
 		EntityManagerThreadLocal.setEntityManagerFactory(factory);
 
 		// pass the request along the filter chain
@@ -46,14 +54,17 @@ public class EntityManagerFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-	public void init(FilterConfig fConfig) throws ServletException {
+	public void init(FilterConfig fConfig) throws ServletException 
+	{
 		this.fConfig=fConfig;
+		ApplicationContext context2=(ApplicationContext)fConfig.getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+		setEntityManagerFactory((EntityManagerFactory)context2.getBean("applicationEntityManagerFactory"));
 	}
 
-	@Resource(name="entityManagerFactory")
 	public void setEntityManagerFactory(EntityManagerFactory factory)
 	{
 		this.factory=factory;
+		logger.debug("EntityManagerFilter:setEntityManagerFactory: The EntityManagerFactory="+factory);
 	}
 	
 }
