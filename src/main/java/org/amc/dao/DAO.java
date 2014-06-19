@@ -3,17 +3,14 @@ package org.amc.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
 import org.apache.log4j.Logger;
 
-import static org.amc.Constants.PERSISTENCE_UNIT_NAME;
-/*
+/**
  * Fetches and holds a reference to the Persistence EntityManager
  * @author Adrian Mclaughlin
  * @version 1
@@ -42,38 +39,28 @@ public class DAO<T extends WorkEntity>
 	public void addEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
-		synchronized (em)
-		{
-			em.getTransaction().begin();
-			em.persist(entity);
-			em.getTransaction().commit();
-			//em.close();
-		}
+		em.getTransaction().begin();
+		em.persist(entity);
+		em.getTransaction().commit();
 	}
 
 	public void updateEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
-		synchronized (em)
-		{
-			em.getTransaction().begin();
-			em.merge(entity);
-			em.getTransaction().commit();
-			//em.close();
-		}
+		em.getTransaction().begin();
+		em.merge(entity);
+		em.getTransaction().commit();
+		
 	}
 
 	public void deleteEntity(T entity)
 	{
 		EntityManager em=getEntityManager();
-		synchronized (em)
-		{
-			em.getTransaction().begin();
-			T u=em.merge(entity);
-			em.remove(u);
-			em.getTransaction().commit();
-			//em.close();
-		}
+		em.getTransaction().begin();
+		T u=em.merge(entity);
+		em.remove(u);
+		em.getTransaction().commit();
+
 	}
 
 	/**
@@ -83,54 +70,39 @@ public class DAO<T extends WorkEntity>
 	 */
 	public T getEntity(String workEntityId)
 	{
-		EntityManager em=getEntityManager();
 		T mp=null;
-		synchronized (em)
+		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
+		try
+		{
+			mp = (T)q.getSingleResult();
+			getEntityManager().detach(mp);
+		}
+		catch(NoResultException nre)
 		{
 			
-			Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
-			try
-			{
-				mp = (T)q.getSingleResult();
-				em.detach(mp);
-			}
-			catch(NoResultException nre)
-			{
-				
-			}
-			//em.close();
-			
-		}
+		}		
 		return mp;
 
 	}
 
 	public List<T> findEntities(String col, Object value)
 	{
-		EntityManager em=getEntityManager();
+		
 		List<T> resultList;
-		synchronized (em)
-		{
-			Query q=em.createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
-			q.setParameter(1, value);
-			logger.debug(q.toString());
-			resultList=(List<T>)q.getResultList();
-			//em.close();
-		}
+		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
+		q.setParameter(1, value);
+		logger.debug(q.toString());
+		resultList=(List<T>)q.getResultList();
+			
+		
 		return resultList;
 	}
 
 	public List<T> findEntities() 
 	{
-		EntityManager em=getEntityManager();
 		List<T> resultList;
-		synchronized (em)
-		{
-		
-			Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
-			resultList=(List<T>)q.getResultList();
-			//em.close();
-		}
+		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
+		resultList=(List<T>)q.getResultList();
 		return resultList;
 	}
 	
