@@ -1,5 +1,12 @@
 package org.amc;
 
+
+/**
+ * Holds the global constants for the Application
+ * @author Adrian Mclaughlin
+ * @version 1
+ *
+ */
 public class Constants
 {
 	public static enum roles

@@ -3,6 +3,11 @@ package org.amc;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
+/**
+ * @author Adrian Mclaughlin
+ * @version 1
+ *
+ */
 public class EntityManagerThreadLocal
 {
 	private static EntityManagerFactory factory;
