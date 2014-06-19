@@ -24,7 +24,6 @@
   </bean>
           
     <bean id="mouldingProcessDAO" class="org.amc.dao.DAO">
-    	<constructor-arg ref="entityManager"/>
     	<constructor-arg>  	
      		<value type="java.lang.Class">org.amc.model.MouldingProcess</value>
      </constructor-arg>     

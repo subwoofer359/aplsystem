@@ -52,7 +52,9 @@
       <role-name>manager</role-name>
       <role-name>guest</role-name>
     </auth-constraint>
-    <user-data-constraint><transport-guarantee>CONFIDENTIAL</transport-guarantee></user-data-constraint>
+    <user-data-constraint>
+    	<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+    </user-data-constraint>
   </security-constraint>
   <security-constraint>
     <web-resource-collection>
@@ -114,6 +116,7 @@
   </jsp-config>
   
   <!-- Mapping Servlets to JSP pages so they be accessed by the application -->
+  
   <servlet>
     <servlet-name>UserPage</servlet-name>
     <jsp-file>/WEB-INF/JSP/UserInfo.jsp</jsp-file>
@@ -139,16 +142,27 @@
     <url-pattern>/Processing/ProcessSheetBean</url-pattern>
   </servlet-mapping>
   
-  
   <servlet>
         <servlet-name>User</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-    </servlet>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>User</servlet-name>
+    <url-pattern>/user/*</url-pattern>
+    <url-pattern>/spc/*</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Filters -->
+  <filter>
+    <description>Adds a new EntityManager to each request and closes it when the response is sent</description>
+  	<filter-name>EntityManagerFilter</filter-name>
+  	<filter-class>org.amc.servlet.filter.EntityManagerFilter</filter-class>
+  </filter>
 
-    <servlet-mapping>
-        <servlet-name>User</servlet-name>
-        <url-pattern>/user/*</url-pattern>
-        <url-pattern>/spc/*</url-pattern>
-    </servlet-mapping>
+  <filter-mapping>
+  	<filter-name>EntityManagerFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  	<dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
 </web-app>
