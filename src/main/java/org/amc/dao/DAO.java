@@ -75,7 +75,7 @@ public class DAO<T extends WorkEntity>
 		try
 		{
 			mp = (T)q.getSingleResult();
-			getEntityManager().detach(mp);
+			//getEntityManager().detach(mp);
 		}
 		catch(NoResultException nre)
 		{
