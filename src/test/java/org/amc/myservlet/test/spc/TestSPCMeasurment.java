@@ -44,12 +44,6 @@ public class TestSPCMeasurment
 		{
 			part=parts.get(0);
 		}
-		
-		//Forcing the EntityManager to manage Part entity
-		EntityManager em=dao.getEntityManager();
-		em.getTransaction().begin();
-		part=em.merge(part);
-		em.getTransaction().commit();
 		measurement.setPart(part);
 		//Save SPCMeasurement entity to database
 		
@@ -63,26 +57,6 @@ public class TestSPCMeasurment
 		assertEquals(spc.getNominal(),measurement.getNominal(),0.1);
 		assertEquals(spc.getUpperLimit(),measurement.getUpperLimit(),0.1);
 	}
-	
-	/**
-	 * Creates a Part entity
-	 * @param factory
-	 */
-//	static Part createPartFromDataBase(EntityManagerFactory factory)
-//	{
-//		Part part =new Part();
-//		part.setCompany("tosara");
-//		part.setExternal(true);
-//		part.setName("125g pot");
-//		part.setQss_no("TA 001");
-//		part.setRevision("1");
-//		part.setVersion("3");
-//		part.setPart_id("300r30");
-//		part.setColour("grey");
-//		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
-//		partDAO.addEntity(part);
-//		return part;
-//	}
 	
 	@BeforeClass
 	public static void setTables()
