@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
 import org.junit.After;
@@ -41,7 +42,8 @@ public class TestMaterialDAO
 		testMaterial.setType(TYPE);
 		
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		
 		//Clear the table
 		Query q=em.createNativeQuery("DELETE FROM processSheets");
@@ -57,7 +59,7 @@ public class TestMaterialDAO
 	@After
 	public void tearDown()
 	{
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 	/**

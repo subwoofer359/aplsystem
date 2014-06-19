@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
@@ -41,7 +42,8 @@ public class TestPartandMouldingProcessDAO
 	public void setUp()
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		
 		//Clear the table
 		Query q=em.createNativeQuery("DELETE FROM processSheets");
@@ -57,10 +59,7 @@ public class TestPartandMouldingProcessDAO
 	@After
 	public void tearDown()
 	{
-//		if(em.isOpen())
-//		{
-//			em.close();
-//		}
+		EntityManagerThreadLocal.closeEntityManager();
 		if(factory.isOpen())
 		{
 			factory.close();
@@ -89,13 +88,13 @@ public class TestPartandMouldingProcessDAO
 		mp.setMachineSize(320);
 		mp.setMaterial(m.getId());
 	
-		DAO<MouldingProcess> d=new DAO<MouldingProcess>(em,MouldingProcess.class);
+		DAO<MouldingProcess> d=new DAO<MouldingProcess>(MouldingProcess.class);
 		//d.setEm(em);
 		d.addEntity(mp);
 		
 		Part p=getPart(testPartName);
 		
-		DAO<Part> pd=new DAO<Part>(em,Part.class);
+		DAO<Part> pd=new DAO<Part>(Part.class);
 		//pd.setEm(em);
 		pd.addEntity(p);
 		
@@ -113,12 +112,12 @@ public class TestPartandMouldingProcessDAO
 		int NO_OF_THREADS=12;
 		CountDownLatch latch=new CountDownLatch(NO_OF_THREADS);
 		List<UpdateThread> threads=new ArrayList<TestPartandMouldingProcessDAO.UpdateThread>();
-		DAO<Part> pd=new DAO<Part>(factory.createEntityManager(),Part.class);
+		DAO<Part> pd=new DAO<Part>(Part.class);
 		//Add Parts to database
 		for(int i=0;i<NO_OF_THREADS;i++)
 		{
 			pd.addEntity(getPart("Part:"+i));
-			threads.add(new UpdateThread(latch,new DAO<Part>(factory.createEntityManager(),Part.class)));
+			threads.add(new UpdateThread(latch,new DAO<Part>(Part.class)));
 		}
 		
 		for(UpdateThread thread:threads)
@@ -160,6 +159,7 @@ public class TestPartandMouldingProcessDAO
 		
 		public UpdateThread(CountDownLatch latch,DAO<Part> dao)
 		{
+			
 			this.dao=dao;
 			this.latch=latch;
 		}

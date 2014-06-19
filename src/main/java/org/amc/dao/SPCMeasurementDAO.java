@@ -17,7 +17,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 	
 	public SPCMeasurementDAO(EntityManager em)
 	{
-		super(em,SPCMeasurement.class);
+		super(SPCMeasurement.class);
 	}
 
 	

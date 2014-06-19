@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
 import org.apache.log4j.Logger;
 
@@ -21,25 +22,12 @@ import static org.amc.Constants.PERSISTENCE_UNIT_NAME;
 public class DAO<T extends WorkEntity>
 {
 	private static Logger logger=Logger.getLogger(DAO.class);
-	private EntityManager em;
 	private Class<? extends WorkEntity> entityClass;
 	
-	public DAO(EntityManager em,Class<? extends WorkEntity> entityClass)
+	public DAO(Class<? extends WorkEntity> entityClass)
 	{
-		//emf=Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		//this.emf=emf;
-		this.entityClass=entityClass;
-		//this.em=emf.createEntityManager();
-		this.em=em;
-	
+		this.entityClass=entityClass;	
 	}
-	
-//	@PersistenceUnit(name = PERSISTENCE_UNIT_NAME)
-//	public void setEm(EntityManagerFactory emf)
-//	{
-//		logger.info("EntityManagerFactory set to "+emf.toString());
-//		this.emf = emf;
-//	}
 	
 	/**
 	 * 
@@ -47,14 +35,8 @@ public class DAO<T extends WorkEntity>
 	 */
 	public synchronized EntityManager getEntityManager()
 	{
-//		if(emf!=null)
-//		{
-//			if(em==null || (!em.isOpen()))
-//			{
-//				this.em= emf.createEntityManager();
-//			}
-//		}
-		return em;
+		
+		return EntityManagerThreadLocal.getEntityManager();
 	}
 	
 	public void addEntity(T entity)

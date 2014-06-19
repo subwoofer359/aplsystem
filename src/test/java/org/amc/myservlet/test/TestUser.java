@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
@@ -28,7 +29,8 @@ public class TestUser
 	public void setUp() throws Exception
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		
 		//Clear the table
 			Query q=em.createNativeQuery("DELETE FROM users");
@@ -42,7 +44,7 @@ public class TestUser
 	@After
 	public void tearDown() throws Exception
 	{
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 
@@ -80,7 +82,7 @@ public class TestUser
 //		listOfRoles.add(roles);
 //		listOfRoles.add(roles2);
 //		u.setRoles(listOfRoles);
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		ud.addEntity(u);
 		
 		User tu=ud.getEntity(String.valueOf(u.getId()));
@@ -91,7 +93,7 @@ public class TestUser
 	@Test
 	public void testFindUsers()
 	{
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		User[] users={getTestUser(),getTestUser(),getTestUser(),getTestUser()};
 		
 		for(User u:users)
@@ -110,7 +112,7 @@ public class TestUser
 	{
 		String userName="Bunny";
 		
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		
 		User u1=getTestUser();
 		User u2=getTestUser();
@@ -133,7 +135,7 @@ public class TestUser
 	public void testUpdateUser()
 	{
 		String emailAddress="chris@eircom.net";
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		User u=getTestUser();
 		
 		ud.addEntity(u);
@@ -153,7 +155,7 @@ public class TestUser
 		String userName="Bunny";
 		String[] roles={"QC","MANAGER"};
 		
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		
 		User u1=getTestUser();
 		User u2=getTestUser();
@@ -209,7 +211,7 @@ public class TestUser
 		rolesList.add(role1);
 		rolesList.add(role2);
 		u1.setRoles(rolesList);
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		
 		ud.addEntity(u1);
 		

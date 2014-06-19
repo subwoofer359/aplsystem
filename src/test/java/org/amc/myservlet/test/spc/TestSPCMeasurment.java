@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
@@ -25,7 +26,7 @@ public class TestSPCMeasurment
 	@Test
 	public void testSPCMeasurement()
 	{
-		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
+		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(SPCMeasurement.class);
 		
 		SPCMeasurement measurement=new SPCMeasurement();
 		measurement.setActive(true);
@@ -36,7 +37,7 @@ public class TestSPCMeasurment
 		measurement.setNoOfMeasurements(5);
 		
 		//Retrieve Part entity from the database
-		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(Part.class);
 		List<Part> parts=partDAO.findEntities();
 		Part part=null;
 		if(parts.size()>0)
@@ -109,7 +110,8 @@ public class TestSPCMeasurment
 	public void setUp()
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		fixture=new TestSPCFixture();
 		fixture.setUp();
 		fixture.setupPartTable();
@@ -118,15 +120,8 @@ public class TestSPCMeasurment
 	@After
 	public void tearDown()
 	{
-		fixture.tearDown();
 		fixture=null;
-		if(em!=null && em.isOpen())
-		{
-			em.getTransaction().begin();
-			em.flush();
-			em.getTransaction().commit();
-		}
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 }

@@ -11,7 +11,7 @@ public class UserRolesDAO extends DAO<UserRoles>
 {
 	public UserRolesDAO(EntityManager em)
 	{
-		super(em,UserRoles.class);
+		super(UserRoles.class);
 	}
 	
 	public List<UserRoles> getEntities(User user)

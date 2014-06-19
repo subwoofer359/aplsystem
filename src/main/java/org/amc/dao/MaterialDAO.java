@@ -24,7 +24,7 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 
 	public MaterialDAO(EntityManager em)
 	{
-		super(em,Material.class);
+		super(Material.class);
 	}
 
 

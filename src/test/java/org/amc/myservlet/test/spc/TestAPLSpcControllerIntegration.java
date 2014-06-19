@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCPartsList;
@@ -39,19 +40,21 @@ public class TestAPLSpcControllerIntegration
 		em.getTransaction().begin();
 		q.executeUpdate();
 		em.getTransaction().commit();
+		em.close();
 	}
 	
 	@Before
 	public void setUp()
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		
 		fixture=new TestSPCFixture();
 		fixture.setUp();
 		
-		partsListDao=new DAO<SPCPartsList>(em,SPCPartsList.class);
-		partsDAO=new DAO<Part>(em,Part.class);
+		partsListDao=new DAO<SPCPartsList>(SPCPartsList.class);
+		partsDAO=new DAO<Part>(Part.class);
 		controller=new APLSpcController();
 		controller.setSPCListPartDAO(partsListDao);
 	}
@@ -59,9 +62,8 @@ public class TestAPLSpcControllerIntegration
 	@After
 	public void tearDown() throws Exception
 	{
-		fixture.tearDown();
 		fixture=null;
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 	
