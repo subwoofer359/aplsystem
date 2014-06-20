@@ -20,13 +20,9 @@ public class UserRolesDAO extends DAO<UserRoles>
 	{
 		EntityManager em=getEntityManager();
 		List<UserRoles> roles=null;
-		synchronized (em)
-		{
-			Query q = em.createQuery("Select x from UserRoles x where x.userName='"
+		Query q = em.createQuery("Select x from UserRoles x where x.userName='"
 				+ user.getUserName() + "'");
-			roles = (List<UserRoles>) q.getResultList();
-		//em.close();
-		}
+		roles = (List<UserRoles>) q.getResultList();
 		return roles;
 	}
 }

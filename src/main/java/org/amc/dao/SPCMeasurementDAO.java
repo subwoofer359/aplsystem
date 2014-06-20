@@ -54,36 +54,30 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 					+ "PRIMARY KEY(id))  ENGINE=InnoDB" ;
 			logger.debug(queryString);
 		}
-		synchronized (em)
+		try
 		{
-			try
+			em.getTransaction().begin();
+			if(entity.getTableId()==null || entity.getTableId().trim().equals(""))
 			{
-				em.getTransaction().begin();
-				if(entity.getTableId()==null || entity.getTableId().trim().equals(""))
-				{
-					Query query=em.createNativeQuery(queryString);
-					query.setParameter(1, tableName);
-					query.executeUpdate();
-					
-					entity.setTableId(tableName);
-				}
-		
+				Query query=em.createNativeQuery(queryString);
+				query.setParameter(1, tableName);
+				query.executeUpdate();
 				
-					Part part=em.merge(entity.getPart());
-					entity.setPart(part);
-					em.persist(entity);
-					em.getTransaction().commit();
+				entity.setTableId(tableName);
 			}
-			catch(PersistenceException pe)
-			{
-				em.getTransaction().rollback();
-				logger.error("SPCMeasuremenDAO:"+pe.getMessage());
-			}
-			finally
-			{
-					
-			}
-
+			Part part=em.merge(entity.getPart());
+			entity.setPart(part);
+			em.persist(entity);
+			em.getTransaction().commit();
+		}
+		catch(PersistenceException pe)
+		{
+			em.getTransaction().rollback();
+			logger.error("SPCMeasuremenDAO:"+pe.getMessage());
+		}
+		finally
+		{
+				
 		}
 	}
 
