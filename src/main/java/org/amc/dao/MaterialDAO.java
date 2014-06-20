@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.amc.DAOException;
 import org.amc.model.Material;
 
 import javax.persistence.EntityManager;
@@ -28,7 +29,7 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 	}
 
 
-	public Map<Integer, Material> findMaterials(String col, String value)
+	public Map<Integer, Material> findMaterials(String col, String value) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		Map<Integer, Material> list;
@@ -46,7 +47,7 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 		return list;
 	}
 
-	public Map<Integer, Material> findMaterials()
+	public Map<Integer, Material> findMaterials() throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		Map<Integer, Material> list;

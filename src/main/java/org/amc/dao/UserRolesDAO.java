@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
+import org.amc.DAOException;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
 
@@ -14,7 +16,7 @@ public class UserRolesDAO extends DAO<UserRoles>
 		super(UserRoles.class);
 	}
 	
-	public List<UserRoles> getEntities(User user)
+	public List<UserRoles> getEntities(User user) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		List<UserRoles> roles=null;

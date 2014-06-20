@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
 import org.apache.log4j.Logger;
@@ -36,7 +37,7 @@ public class DAO<T extends WorkEntity>
 		return EntityManagerThreadLocal.getEntityManager();
 	}
 	
-	public void addEntity(T entity)
+	public void addEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
@@ -44,7 +45,7 @@ public class DAO<T extends WorkEntity>
 		em.getTransaction().commit();
 	}
 
-	public void updateEntity(T entity)
+	public void updateEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
@@ -53,7 +54,7 @@ public class DAO<T extends WorkEntity>
 		
 	}
 
-	public void deleteEntity(T entity)
+	public void deleteEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
@@ -68,7 +69,7 @@ public class DAO<T extends WorkEntity>
 	 * @param processId
 	 * @return MouldingProcess or null if not found
 	 */
-	public T getEntity(String workEntityId)
+	public T getEntity(String workEntityId) throws DAOException
 	{
 		T mp=null;
 		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
@@ -85,7 +86,7 @@ public class DAO<T extends WorkEntity>
 
 	}
 
-	public List<T> findEntities(String col, Object value)
+	public List<T> findEntities(String col, Object value) throws DAOException
 	{
 		
 		List<T> resultList;
@@ -98,7 +99,7 @@ public class DAO<T extends WorkEntity>
 		return resultList;
 	}
 
-	public List<T> findEntities() 
+	public List<T> findEntities() throws DAOException
 	{
 		List<T> resultList;
 		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.model.Part;
 import org.amc.model.WorkEntity;
 import org.amc.model.spc.SPCMeasurement;
@@ -21,7 +22,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 	}
 
 	
-	private String getUniqueTableName(SPCMeasurement entity)
+	private String getUniqueTableName(SPCMeasurement entity) throws DAOException
 	{
 		long uuid=UUID.randomUUID().getMostSignificantBits();
 		String tableName="table_"+entity.getDimension()+entity.getNominal()+uuid;
@@ -30,7 +31,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 	}
 	
 	@Override
-	public void addEntity(SPCMeasurement entity)
+	public void addEntity(SPCMeasurement entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		logger.debug("SPCMeasuremenDAO:tableID="+entity.getTableId());
@@ -88,7 +89,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 
 
 	@Override
-	public void updateEntity(SPCMeasurement entity)
+	public void updateEntity(SPCMeasurement entity) throws DAOException
 	{
 		if(!(entity.getTableId()==null || entity.getTableId().trim().equals("")))
 		{
