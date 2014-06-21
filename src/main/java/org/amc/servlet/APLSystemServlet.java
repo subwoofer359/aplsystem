@@ -1,10 +1,9 @@
 package org.amc.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import org.amc.DAOException;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,6 @@ import org.amc.servlet.action.SearchPartAction;
 import org.amc.servlet.model.*;
 import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -215,7 +213,7 @@ public class APLSystemServlet extends HttpServlet
 			{
 				throw new ServletException(se);
 			}
-			catch(SQLException se)
+			catch(DAOException se)
 			{
 				
 				throw new ServletException("Database not available:"+se.getMessage());
@@ -329,7 +327,7 @@ public class APLSystemServlet extends HttpServlet
 			RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 			rd.forward(request, response);
 		}
-		catch(SQLException se)
+		catch(DAOException se)
 		{
 			
 			se.printStackTrace();

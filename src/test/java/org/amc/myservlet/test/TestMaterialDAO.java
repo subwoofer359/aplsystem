@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
@@ -66,7 +67,7 @@ public class TestMaterialDAO
 	 * Test getMaterial method as well as addMaterial
 	 */
 	@Test
-	public void testAddMaterial()
+	public void testAddMaterial()  throws DAOException
 	{
 		MaterialDAO d=new MaterialDAO();
 		d.addEntity(testMaterial);
@@ -76,7 +77,7 @@ public class TestMaterialDAO
 	}
 
 	@Test
-	public void testUpdateMaterial()
+	public void testUpdateMaterial()  throws DAOException
 	{	
 		//Create Material DAO
 		MaterialDAO d=new MaterialDAO();
@@ -101,7 +102,7 @@ public class TestMaterialDAO
 	}
 
 	@Test
-	public void testFindMaterialsStringString()
+	public void testFindMaterialsStringString()  throws DAOException
 	{
 		MaterialDAO d=new MaterialDAO();
 		//d.setEm(em);
@@ -111,7 +112,7 @@ public class TestMaterialDAO
 	}
 
 	@Test
-	public void testFindMaterials()
+	public void testFindMaterials()  throws DAOException
 	{
 		MaterialDAO d=new MaterialDAO();
 		//d.setEm(em);

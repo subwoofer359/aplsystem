@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.*;
 import org.amc.Constants;
 import org.amc.Constants.roles;
+import org.amc.DAOException;
 
 public class TestAPLUserController
 {
@@ -65,7 +66,7 @@ public class TestAPLUserController
 	 * Should return a ModelAndView object with a viewname="UsersSearchPage" and contain a List of Users
 	 */
 	@Test
-	public void testGetUsersPage()
+	public void testGetUsersPage() throws DAOException
 	{
 		//Mock DAO object
 		DAO<User> dao=mock(DAO.class);
@@ -99,7 +100,7 @@ public class TestAPLUserController
 	 * Test to make sure that if a user isn't in role 'manager' they are redirected to the Main page
 	 */
 	@Test
-	public void testSaveUserNotInRole()
+	public void testSaveUserNotInRole()  throws DAOException
 	{
 		//Request parameters
 		String[] roles={ROLES[0],ROLES[1],ROLES[2]};
@@ -154,7 +155,7 @@ public class TestAPLUserController
 	 * BindResult returns with no errors
 	 */
 	@Test
-	public void testSaveNewUser()
+	public void testSaveNewUser() throws DAOException
 	{
 		//Case one: User has currently no roles but 3 new roles are selected
 		//Request parameters
@@ -219,7 +220,7 @@ public class TestAPLUserController
 	 * BindResult returns with no errors
 	 */
 	@Test
-	public void testSaveEditedUser()
+	public void testSaveEditedUser()  throws DAOException
 	{
 		//Request parameters
 		String[] roles={ROLES[0],ROLES[1],ROLES[2]};
@@ -267,7 +268,7 @@ public class TestAPLUserController
 	 * BindResult returns with errors
 	 */
 	@Test
-	public void testSaveEditedUserWithValidationErrors()
+	public void testSaveEditedUserWithValidationErrors()  throws DAOException
 	{
 		//Request parameters
 		String[] roles={ROLES[0],ROLES[1],ROLES[2]};
@@ -305,7 +306,7 @@ public class TestAPLUserController
 	 * Test to see if delete user succeeds and the user is directed to the correct page
 	 */
 	@Test
-	public void testDeleteUser()
+	public void testDeleteUser()  throws DAOException
 	{
 		String mode="delete";//delete user mode
 		int id=1;
@@ -336,7 +337,7 @@ public class TestAPLUserController
 	 * Test that the user directed to the User edit page 
 	 */
 	@Test
-	public void testEditUsers()
+	public void testEditUsers()  throws DAOException
 	{
 		String mode="edit";//delete user mode
 		int id=1;

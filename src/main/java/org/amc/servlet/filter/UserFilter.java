@@ -13,7 +13,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger; 
+import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.model.User;
 
@@ -87,19 +89,26 @@ public class UserFilter implements Filter {
 			context2=(ApplicationContext)sContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		}
 		DAO<User> userDAO=(DAO<User>)context2.getBean("myUserDAO",DAO.class);
-		List<User> listOfUser=userDAO.findEntities("userName", userName);
-		if(listOfUser!=null && listOfUser.size()==1)
-		{
-			synchronized(session)
+		List<User> listOfUser=null;
+		try{
+			listOfUser=userDAO.findEntities("userName", userName);
+			if(listOfUser!=null && listOfUser.size()==1)
 			{
-				session.setAttribute("USER", listOfUser.get(0));
-				logger.debug("User added to Session:"+listOfUser.get(0));
+				synchronized(session)
+				{
+					session.setAttribute("USER", listOfUser.get(0));
+					logger.debug("User added to Session:"+listOfUser.get(0));
+				}
+			}
+			else
+			{
+				logger.debug("Error when adding User "+userName+" added to Session:");
+				throw new ServletException("No User has been found in the User Database with that User name");
 			}
 		}
-		else
+		catch(DAOException de)
 		{
-			logger.debug("Error when adding User "+userName+" added to Session:");
-			throw new ServletException("No User has been found in the User Database with that User name");
+			logger.error(de.getMessage());
 		}
 	}
 

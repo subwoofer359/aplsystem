@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
@@ -68,7 +69,7 @@ public class TestAPLSpcControllerIntegration
 	}
 	
 	@Test
-	public void testGetSPCPartList()
+	public void testGetSPCPartList() throws DAOException
 	{
 		fixture.setupPartTable();
 		List<Part> listOfParts=partsDAO.findEntities();

@@ -12,12 +12,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.dao.MaterialDAO;
+import org.amc.dao.UserRolesDAO;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -37,6 +40,8 @@ public class TestPartandMouldingProcessDAO
 	private final String NAME="Moplen550";
 	private final String COMPANY="TOSARA";
 	private final String TYPE="ABS";
+	
+	private static Logger logger=Logger.getLogger(TestPartandMouldingProcessDAO.class);
 	
 	@Before
 	public void setUp()
@@ -67,7 +72,7 @@ public class TestPartandMouldingProcessDAO
 	}
 	
 	@Test
-	public void testAdd()
+	public void testAdd()  throws DAOException
 	{
 		Material m=new Material();
 		m.setCompany(COMPANY);
@@ -107,7 +112,7 @@ public class TestPartandMouldingProcessDAO
 		assertTrue(plist.size()>=1);
 	}
 	@Test
-	public void testConcurrency()
+	public void testConcurrency()  throws DAOException
 	{
 		int NO_OF_THREADS=12;
 		CountDownLatch latch=new CountDownLatch(NO_OF_THREADS);
@@ -139,7 +144,7 @@ public class TestPartandMouldingProcessDAO
 	}
 
 
-	public Part getPart(String testPartName)
+	public Part getPart(String testPartName) 
 	{
 		Part p=new Part();
 		p.setCompany("Tosara");
@@ -166,13 +171,19 @@ public class TestPartandMouldingProcessDAO
 		
 		public void run()
 		{
-			List<Part> list=dao.findEntities();
-			for(Part p:list)
+			try
 			{
-				p.setName("Updated by "+this.getName());
-				dao.updateEntity(p);
+				List<Part> list=dao.findEntities();
+				for(Part p:list)
+				{
+					p.setName("Updated by "+this.getName());
+					dao.updateEntity(p);
+				}
+				latch.countDown();
+			} catch (DAOException e)
+			{
+				logger.error(e.getMessage());
 			}
-			latch.countDown();
 			
 		}
 	}

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import org.amc.DAOException;
@@ -40,28 +41,56 @@ public class DAO<T extends WorkEntity>
 	public void addEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		em.persist(entity);
-		em.getTransaction().commit();
+		try
+		{
+			em.getTransaction().begin();
+			em.persist(entity);
+			em.getTransaction().commit();
+		}
+		catch(PersistenceException pe)
+		{
+			em.getTransaction().rollback();
+			em.close();
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to persist entity");
+			throw new DAOException(pe);
+		}
 	}
 
 	public void updateEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		em.merge(entity);
-		em.getTransaction().commit();
+		try
+		{
+			em.getTransaction().begin();
+			em.merge(entity);
+			em.getTransaction().commit();
+		}
+		catch(PersistenceException pe)
+		{
+			em.getTransaction().rollback();
+			em.close();
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to merge entity into the persistence context");
+			throw new DAOException(pe);
+		}
 		
 	}
 
 	public void deleteEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
-		em.getTransaction().begin();
-		T u=em.merge(entity);
-		em.remove(u);
-		em.getTransaction().commit();
-
+		try
+		{
+			em.getTransaction().begin();
+			T u=em.merge(entity);
+			em.remove(u);
+			em.getTransaction().commit();
+		}
+		catch(PersistenceException pe)
+		{
+			em.close();
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to delete entity");
+			throw new DAOException(pe);
+		}
 	}
 
 	/**
@@ -80,21 +109,33 @@ public class DAO<T extends WorkEntity>
 		}
 		catch(NoResultException nre)
 		{
-			
-		}		
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity. The entity should exist in the database but it doesn't");
+			//throw new DAOException(nre); todo Should this error be thrown?
+		}
+		catch(PersistenceException pe)
+		{
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity");
+			throw new DAOException(pe);
+		}
 		return mp;
 
 	}
 
 	public List<T> findEntities(String col, Object value) throws DAOException
 	{
-		
 		List<T> resultList;
-		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
-		q.setParameter(1, value);
-		logger.debug(q.toString());
-		resultList=(List<T>)q.getResultList();
-			
+		try
+		{
+			Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
+			q.setParameter(1, value);
+			logger.debug(q.toString());
+			resultList=(List<T>)q.getResultList();
+		}
+		catch(PersistenceException pe)
+		{
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
+			throw new DAOException(pe);
+		}	
 		
 		return resultList;
 	}
@@ -102,11 +143,22 @@ public class DAO<T extends WorkEntity>
 	public List<T> findEntities() throws DAOException
 	{
 		List<T> resultList;
-		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
-		resultList=(List<T>)q.getResultList();
+		try
+		{
+			Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
+			resultList=(List<T>)q.getResultList();
+		}
+		catch(PersistenceException pe)
+		{
+			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
+			throw new DAOException(pe);
+		}
 		return resultList;
 	}
 	
-
+	protected Class<? extends WorkEntity> getEntityClass()
+	{
+		return this.entityClass;
+	}
 	
 }

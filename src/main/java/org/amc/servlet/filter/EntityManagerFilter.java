@@ -2,20 +2,16 @@ package org.amc.servlet.filter;
 
 import java.io.IOException;
 
-import javax.annotation.Resource;
 import javax.persistence.EntityManagerFactory;
-import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 
 import org.amc.EntityManagerThreadLocal;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**

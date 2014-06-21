@@ -4,7 +4,7 @@ package org.amc.servlet.action;
  * @author Adrian Mclaughlin
  * @version 1
  */
-import java.sql.SQLException;
+import org.amc.DAOException;
 import java.util.List;
 
 import org.amc.dao.DAO;
@@ -21,19 +21,19 @@ public class SearchPartAction
 		this.partDAO=jobTemplateDAO;
 	}
 	
-	public List<Part> search() throws SQLException
+	public List<Part> search() throws DAOException
 	{
 		return partDAO.findEntities();
 		
 	}
 	
-	public List<Part> search(String item,String value) throws SQLException
+	public List<Part> search(String item,String value) throws DAOException
 	{
 		return partDAO.findEntities(item,value);
 		
 	}
 	
-	public Part getPart(String id) throws SQLException
+	public Part getPart(String id) throws DAOException
 	{
 		return partDAO.getEntity(id);
 	}

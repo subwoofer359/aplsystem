@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.persistence.PersistenceException;
 
 import org.amc.Constants;
+import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
@@ -103,7 +104,7 @@ public class TestAPLSpcController
 	 * Preconditions:No PersistenceException thrown
 	 */
 	@Test
-	public void testGetDimensionList()
+	public void testGetDimensionList() throws DAOException
 	{
 		ModelAndView mav=new ModelAndView();
 		//The user is in the correct role
@@ -131,7 +132,7 @@ public class TestAPLSpcController
 	 * Precondition:No PersistenceException thrown
 	 */
 	@Test
-	public void testAddDimensionBindingError()
+	public void testAddDimensionBindingError() throws DAOException
 	{
 		
 		ModelAndView mav=new ModelAndView();
@@ -196,7 +197,7 @@ public class TestAPLSpcController
 	 * Precondition:No PersistenceException thrown
 	 */
 	@Test
-	public void testAddDimension()
+	public void testAddDimension() throws DAOException
 	{
 		ModelAndView mav=new ModelAndView();
 		
@@ -226,7 +227,7 @@ public class TestAPLSpcController
 	 * Precondition:PersistenceException thrown
 	 */
 	@Test
-	public void testAddDimensionExceptionThrown()
+	public void testAddDimensionExceptionThrown() throws DAOException
 	{
 		ModelAndView mav=new ModelAndView();
 		
@@ -242,7 +243,7 @@ public class TestAPLSpcController
 		
 		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
 		
-		doThrow(new PersistenceException()).when(spcMeasurementDAO).addEntity(any(SPCMeasurement.class));
+		doThrow(new DAOException()).when(spcMeasurementDAO).addEntity(any(SPCMeasurement.class));
 		
 		mav=controller.addDimension(request,mav,spcPartid,spcMeasurement,result);
 		
@@ -252,6 +253,7 @@ public class TestAPLSpcController
 		//Check that the required attribute was set
 		/* @Todo */
 		//ModelAndViewAssert.assertModelAttributeAvailable(mav, "message");
+		assertNotNull(request.getAttribute("message"));
 
 	}
 	/**

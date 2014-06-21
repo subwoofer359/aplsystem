@@ -10,6 +10,7 @@ import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
@@ -69,7 +70,17 @@ public class APLUserController
 	{
 		if(request.isUserInRole(roles.MANAGER.toString()))
 		{
-			List<User> list=userDAO.findEntities();
+			List<User> list=null;
+			try
+			{
+				list=userDAO.findEntities();
+				
+			}
+			catch(DAOException de)
+			{
+				model.getModel().put("message",de.getMessage());
+				list=new ArrayList<User>();
+			}
 			model.getModel().put("users", list);
 			model.setViewName("UsersSearchPage");
 		}
@@ -115,94 +126,103 @@ public class APLUserController
 		
 		//Check for new password
 		//Get old password
-		User tempUser =userDAO.getEntity(String.valueOf(user.getId()));
-		//If the user's password doesn't equals the DEFAULT password then hash and save the password
-		if(!user.getPassword().equals(PASSWORD_DEFAULT))
+		User tempUser=null;
+		try
 		{
-			user.setPassword(hash(user.getPassword()));
-		}
-		// Save the old password
-		else
-		{
-			user.setPassword(tempUser.getPassword());
-		}
+			tempUser=userDAO.getEntity(String.valueOf(user.getId()));
 		
-		//Get the roles currently assigned to the user
-		List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);
-		//Create a new list of roles
-		List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
-		//Check if roles equals null or no roles selected
-		
-		if(roles==null)
-		{
-			roles=new String[0];
-		}
-		//Check to see if the User's role already exists
-		for(int i=0;i<roles.length;i++)
-		{
-			boolean exists=false;
-			for(UserRoles tempRole:currentListOfRoles)
+			//If the user's password doesn't equals the DEFAULT password then hash and save the password
+			if(!user.getPassword().equals(PASSWORD_DEFAULT))
 			{
-				if(tempRole.getRoleName().equals(roles[i]))
+				user.setPassword(hash(user.getPassword()));
+			}
+			// Save the old password
+			else
+			{
+				user.setPassword(tempUser.getPassword());
+			}
+		
+			//Get the roles currently assigned to the user
+			List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);
+			//Create a new list of roles
+			List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
+			//Check if roles equals null or no roles selected
+		
+			if(roles==null)
+			{
+				roles=new String[0];
+			}
+			//Check to see if the User's role already exists
+			for(int i=0;i<roles.length;i++)
+			{
+				boolean exists=false;
+				for(UserRoles tempRole:currentListOfRoles)
 				{
-					//If the role already exists copy to new list
-					newListOfRoles.add(tempRole);
-					exists=true;
+					if(tempRole.getRoleName().equals(roles[i]))
+					{
+						//If the role already exists copy to new list
+						newListOfRoles.add(tempRole);
+						exists=true;
+					}
+				}
+				if(!exists)
+				{
+					//If the role doesn't exist then create a new role for the user and add to new list
+					UserRoles newRole=new UserRoles();
+					newRole.setRoleName(roles[i]);
+					newRole.setUser(user);
+					newListOfRoles.add(newRole);
 				}
 			}
-			if(!exists)
-			{
-				//If the role doesn't exist then create a new role for the user and add to new list
-				UserRoles newRole=new UserRoles();
-				newRole.setRoleName(roles[i]);
-				newRole.setUser(user);
-				newListOfRoles.add(newRole);
-			}
-		}
 		
 		
-		//Check to see what roles are no longer required and delete them
-		for(int i=0;i<currentListOfRoles.size();i++)
-		{
-			boolean exists=false;
-			for(int t=0;t<roles.length;t++)
+			//Check to see what roles are no longer required and delete them
+			for(int i=0;i<currentListOfRoles.size();i++)
 			{
-				if(currentListOfRoles.get(i).getRoleName().equals(roles[t]))
+				boolean exists=false;
+				for(int t=0;t<roles.length;t++)
 				{
-					exists=true;
+					if(currentListOfRoles.get(i).getRoleName().equals(roles[t]))
+					{
+						exists=true;
+					}
+				}
+				if(exists==false)
+				{
+					userRolesDAO.deleteEntity(currentListOfRoles.get(i));
 				}
 			}
-			if(exists==false)
+			
+			logger.debug(newListOfRoles);
+			//Set the user's roles
+			user.setRoles(newListOfRoles);
+			logger.debug(user);
+			
+		
+			//Check validation if fails return to page to get correct information
+			Validator v=new UserValidator();//@ToDo to be Injected
+			v.validate(user, result);
+			if(result.hasErrors())
 			{
-				userRolesDAO.deleteEntity(currentListOfRoles.get(i));
+				logger.debug("Errors in Model User found:"+result);
+				model.addAttribute("errors", result.getAllErrors());
+				model.addAttribute("user", user);
+				return "UserAddOrEdit";
 			}
-		}
-		
-		logger.debug(newListOfRoles);
-		//Set the user's roles
-		user.setRoles(newListOfRoles);
-		logger.debug(user);
-		
-		
-		//Check validation if fails return to page to get correct information
-		Validator v=new UserValidator();//@ToDo to be Injected
-		v.validate(user, result);
-		if(result.hasErrors())
-		{
-			logger.debug("Errors in Model User found:"+result);
-			model.addAttribute("errors", result.getAllErrors());
-			model.addAttribute("user", user);
-			return "UserAddOrEdit";
-		}
 				
-		//If in Edit mode update user otherwise add user
-		if(mode.equals("edit"))
-		{
-			userDAO.updateEntity(user);
+			//If in Edit mode update user otherwise add user
+			if(mode.equals("edit"))
+			{
+				userDAO.updateEntity(user);
+			}
+			else
+			{
+				userDAO.addEntity(user);
+			}
 		}
-		else
+		catch(DAOException de)
 		{
-			userDAO.addEntity(user);
+			request.setAttribute("message", de.getMessage());
 		}
 		//Return to the search page
 		return "forward:/user/Users";
@@ -235,35 +255,43 @@ public class APLUserController
 		logger.debug("UserServlet:UserDAO is "+userDAO);
 		User u=null;
 		model.getModel().put("mode", mode);
-		if(mode.equals("edit"))
+		try
 		{
-			u=userDAO.getEntity(String.valueOf(id));
-			logger.debug("Users_edit: User retrieved"+u);
-			
-		}
-		else
-			if(mode.equals("add"))
+			if(mode.equals("edit"))
 			{
-				u=new User();
-				
-			}
-		else if(mode.equals("delete"))
-		{
-			u=userDAO.getEntity(String.valueOf(id)); 
-			logger.debug("User about to be deleted "+u);
-			userDAO.deleteEntity(u);
-			return getUsersPage(new ModelAndView(), request);
+				u=userDAO.getEntity(String.valueOf(id));
+				logger.debug("Users_edit: User retrieved"+u);
 			
+			}
+			else
+				if(mode.equals("add"))
+				{
+					u=new User();				
+				}
+				else if(mode.equals("delete"))
+				{
+					u=userDAO.getEntity(String.valueOf(id)); 
+					logger.debug("User about to be deleted "+u);
+					userDAO.deleteEntity(u);
+					return getUsersPage(new ModelAndView(), request);			
+				}
+				else
+				{
+					logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+				}
+			model.setViewName("UserAddOrEdit");
+			u.setPassword(PASSWORD_DEFAULT);
+			model.getModel().put("user", u);
 		}
-		else
+		catch(DAOException de)
 		{
-			logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+			model.getModelMap().put("message", de.getMessage());
+			//Redirect to search page
+			model.setViewName("UsersSearchPage");
 		}
 		
-		model.setViewName("UserAddOrEdit");
 		//Blank password
-		u.setPassword(PASSWORD_DEFAULT);
-		model.getModel().put("user", u);
+		
 		
 		return model; 
 	}

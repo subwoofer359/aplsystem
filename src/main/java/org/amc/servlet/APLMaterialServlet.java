@@ -1,7 +1,7 @@
 package org.amc.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import org.amc.DAOException;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
@@ -179,7 +179,7 @@ public class APLMaterialServlet extends HttpServlet
 			{
 				throw new ServletException(se);
 			}
-			catch(SQLException se)
+			catch(DAOException se)
 			{	
 				throw new ServletException(se);
 			}
@@ -217,7 +217,7 @@ public class APLMaterialServlet extends HttpServlet
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
 				rd.forward(request, response);
-			} catch (SQLException e)
+			} catch (DAOException e)
 			{
 				getServletContext().log(e.getMessage());
 				e.printStackTrace();
@@ -310,7 +310,7 @@ public class APLMaterialServlet extends HttpServlet
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);
 				}
-				catch(SQLException se)
+				catch(DAOException se)
 				{
 					se.printStackTrace();
 					throw new ServletException("Database not available:"+se.getMessage());

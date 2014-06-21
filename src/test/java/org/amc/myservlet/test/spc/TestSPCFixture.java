@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
@@ -37,7 +38,7 @@ public class TestSPCFixture
 	}
 
 
-	public void setupPartTable()
+	public void setupPartTable() throws DAOException
 	{
 		//Clear table users
 		if(tableExists("jobtemplate"))
@@ -72,7 +73,7 @@ public class TestSPCFixture
 		//Set it to be garbage collected
 		partDAO=null;
 	}
-	public void setUpUserTable()
+	public void setUpUserTable() throws DAOException
 	{
 		//Clear table users
 		if(tableExists("users"))

@@ -4,7 +4,7 @@ package org.amc.servlet.action;
  * @author Adrian Mclaughlin
  * @version 1
  */
-import java.sql.SQLException;
+import org.amc.DAOException;
 
 import org.amc.model.MouldingProcess;
 import org.amc.dao.DAO;
@@ -22,9 +22,9 @@ public class SaveProcessSheetAction
 	/**
 	 * Saves Job to the database as a new entry
 	 * @param job
-	 * @throws SQLException
+	 * @throws DAOException
 	 */
-	public void save(MouldingProcess processSheet) throws SQLException
+	public void save(MouldingProcess processSheet) throws DAOException
 	{
 		mouldingProcessDAO.addEntity(processSheet);
 		
@@ -34,9 +34,9 @@ public class SaveProcessSheetAction
 	/**
 	 * Updates database entry
 	 * @param job
-	 * @throws SQLException
+	 * @throws DAOException
 	 */
-	public void edit(MouldingProcess processSheet) throws SQLException
+	public void edit(MouldingProcess processSheet) throws DAOException
 	{
 		mouldingProcessDAO.updateEntity(processSheet);
 	}

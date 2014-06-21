@@ -9,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
@@ -28,7 +29,7 @@ public class TestSPCData
 	private TestSPCFixture fixture;
 	
 	@BeforeClass
-	public static void setTables()
+	public static void setTables() throws DAOException
 	{
 		//Deletes SPCMeasusrements table
 		EntityManagerFactory factory=Persistence.createEntityManagerFactory("myDataSource");
@@ -93,7 +94,7 @@ public class TestSPCData
 	}
 
 	@Test
-	public void test()
+	public void test() throws DAOException
 	{
 		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(SPCMeasurement.class);
 		DAO<SPCData> spcdataDao=new DAO<SPCData>(SPCData.class);

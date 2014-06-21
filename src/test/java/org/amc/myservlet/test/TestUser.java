@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.User;
@@ -67,7 +68,7 @@ public class TestUser
 	 * Tests methods addUser(User u) and getUser(String id)
 	 */
 	@Test
-	public void testAddUser()
+	public void testAddUser() throws DAOException 
 	{
 		User u=getTestUser();
 //		UserRoles roles=new UserRoles();
@@ -91,7 +92,7 @@ public class TestUser
 	}
 	
 	@Test
-	public void testFindUsers()
+	public void testFindUsers() throws DAOException
 	{
 		DAO<User> ud=new DAO<User>(User.class);
 		User[] users={getTestUser(),getTestUser(),getTestUser(),getTestUser()};
@@ -108,7 +109,7 @@ public class TestUser
 	}
 	
 	@Test
-	public void testFindUsersByValue()
+	public void testFindUsersByValue() throws DAOException
 	{
 		String userName="Bunny";
 		
@@ -132,7 +133,7 @@ public class TestUser
 	}
 	
 	@Test
-	public void testUpdateUser()
+	public void testUpdateUser() throws DAOException
 	{
 		String emailAddress="chris@eircom.net";
 		DAO<User> ud=new DAO<User>(User.class);
@@ -150,7 +151,7 @@ public class TestUser
 	}
 	
 	@Test
-	public void testRoles()
+	public void testRoles() throws DAOException
 	{
 		String userName="Bunny";
 		String[] roles={"QC","MANAGER"};
@@ -197,7 +198,7 @@ public class TestUser
 	}
 	
 	@Test
-	public void testDeleteUser()
+	public void testDeleteUser() throws DAOException
 	{
 		User u1=getTestUser();
 		

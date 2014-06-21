@@ -10,4 +10,13 @@ public class DAOException extends Exception
 {
 	private static final long serialVersionUID = -1428358886074010054L;
 	
+	public DAOException()
+	{
+		super();
+	}
+	
+	public DAOException(Throwable throwable)
+	{
+		super(throwable);
+	}
 }

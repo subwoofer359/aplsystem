@@ -8,7 +8,6 @@ import javax.persistence.Query;
 
 import org.amc.DAOException;
 import org.amc.model.Part;
-import org.amc.model.WorkEntity;
 import org.amc.model.spc.SPCMeasurement;
 import org.apache.log4j.Logger;
 
@@ -73,11 +72,8 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 		catch(PersistenceException pe)
 		{
 			em.getTransaction().rollback();
-			logger.error("SPCMeasuremenDAO:"+pe.getMessage());
-		}
-		finally
-		{
-				
+			logger.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to add entity");
+			throw new DAOException(pe);
 		}
 	}
 

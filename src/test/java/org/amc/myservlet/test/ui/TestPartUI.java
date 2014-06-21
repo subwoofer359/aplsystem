@@ -82,7 +82,7 @@ public class TestPartUI
 		driver.get("http://192.168.1.6:8080/myservlet");
 		
 		//Test logging 5 fives to see if there any issues with Database connections
-		for(int i=0;i<5;i++)
+		for(int i=0;i<15;i++)
 		{
 			login();
 			//Test we are on the Main Page

@@ -8,10 +8,10 @@ import java.util.TreeMap;
 
 import org.amc.DAOException;
 import org.amc.model.Material;
+import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 /**
@@ -22,7 +22,8 @@ import javax.persistence.Query;
 public class MaterialDAO extends DAO<Material> implements Serializable
 {
 	private static final long serialVersionUID = -4397260307883862647L;
-
+	private static Logger logger=Logger.getLogger(MaterialDAO.class);
+	
 	public MaterialDAO()
 	{
 		super(Material.class);
@@ -33,13 +34,22 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 	{
 		EntityManager em=getEntityManager();
 		Map<Integer, Material> list;
-		Query q=em.createQuery("Select x from Material x where x."+col+"='"+value+"'");
-		list = new HashMap<Integer, Material>();
-		List<Material> resultList=(List<Material>)q.getResultList();
-		for(Material m:resultList)
+		try
 		{
-			list.put(m.getId(),m);
-		}	
+			Query q=em.createQuery("Select x from Material x where x."+col+"='"+value+"'");
+			list = new HashMap<Integer, Material>();
+			List<Material> resultList=(List<Material>)q.getResultList();
+			for(Material m:resultList)
+			{
+				list.put(m.getId(),m);
+			}
+		}
+		catch(PersistenceException pe)
+		{
+			em.getTransaction().rollback();
+			logger.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to find entities");
+			throw new DAOException(pe);
+		}
 		return list;
 	}
 
@@ -47,12 +57,21 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 	{
 		EntityManager em=getEntityManager();
 		Map<Integer, Material> list;
-		Query q=em.createQuery("Select x from Material x ORDER BY x.id");
-		list = new TreeMap<Integer, Material>();
-		List<Material> resultList=(List<Material>)q.getResultList();
-		for(Material m:resultList)
+		try
 		{
-			list.put(m.getId(),m);
+			Query q=em.createQuery("Select x from Material x ORDER BY x.id");
+			list = new TreeMap<Integer, Material>();
+			List<Material> resultList=(List<Material>)q.getResultList();
+			for(Material m:resultList)
+			{
+				list.put(m.getId(),m);
+			}
+		}
+		catch(PersistenceException pe)
+		{
+			em.getTransaction().rollback();
+			logger.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to find entities");
+			throw new DAOException(pe);
 		}
 		return list;
 	}
