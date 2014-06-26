@@ -3,17 +3,15 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.persistence.PersistenceException;
 
 import org.amc.Constants;
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
-import org.amc.model.WorkEntity;
+
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
 import org.amc.servlet.APLSpcController;
@@ -24,6 +22,7 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -143,6 +142,10 @@ public class TestAPLSpcController
 		
 		//Binding Results returns true. Errors mapping the form values to the Model attribute found
 		when(result.hasErrors()).thenReturn(true);
+		FieldError fieldError=mock(FieldError.class);
+		when(fieldError.getField()).thenReturn("Input Field");
+		when(fieldError.getCode()).thenReturn("Input Code");
+		when(result.getFieldError()).thenReturn(fieldError);
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -154,10 +157,10 @@ public class TestAPLSpcController
 		ModelAndViewAssert.assertViewName(mav,"spc/SPCMeasurement");
 		
 		//Check Error message set
-		Object errors=request.getAttribute("errors");
+		Object errors=mav.getModelMap().get("errors");
 		
 		//Check errors is a list
-		assertTrue(errors instanceof List);
+		assertTrue(errors instanceof Map);
 	}
 	
 	/** 
@@ -253,7 +256,7 @@ public class TestAPLSpcController
 		//Check that the required attribute was set
 		/* @Todo */
 		//ModelAndViewAssert.assertModelAttributeAvailable(mav, "message");
-		assertNotNull(request.getAttribute("message"));
+		assertNotNull(mav.getModelMap().get("message"));
 
 	}
 	/**
