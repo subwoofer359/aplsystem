@@ -2,6 +2,7 @@
     @author:Adrian McLaughlin
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -51,6 +52,20 @@
 .hiddenColumn
 {
 	display:none;
+}
+.errorMessage
+{
+	position: absolute;
+	top: 100px;
+	left: 367px;
+	border-style: dashed;
+	height: 400px;
+	width: 700px;
+	overflow: auto;
+	padding: 2px;
+	font-size: xx-large;
+	background-color: red;
+	visibility:hidden;
 }
 </STYLE>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
@@ -145,14 +160,20 @@ function populateForm(divName)
 /*
  * Displays error messages if they exist when the page loads
  */
-window.onload=function()
-{
-	var message="${message}";
-	if(message!=null && message!="")
-	{
-		alert(message);
-	}
-};
+ function message(theMessage)
+ {
+ 	var message=theMessage;
+ 	if(message!=null && message!="")
+ 	{
+ 		var errorDisplay=document.getElementById("errorMessage");
+ 		errorDisplay.style.visibility="visible";
+ 	}
+ };
+
+
+ 
+message("${message}");
+message("${errors}");
 </script>
 </head>
 <body>
@@ -228,5 +249,9 @@ window.onload=function()
 </form>
 
 </div>
+<jsp:include page="/WEB-INF/JSP/ErrorDisplay.jsp">
+	<jsp:param name="errors" value="${errors}"/>
+	<jsp:param name="message" value="${message}"/>
+</jsp:include>
 </body>
 </html>
