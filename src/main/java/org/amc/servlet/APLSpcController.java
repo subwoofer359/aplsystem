@@ -17,6 +17,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -133,9 +135,8 @@ public class APLSpcController
 	}
 	
 	@RequestMapping("/Dimensions")
-	public ModelAndView getDimensionList(HttpServletRequest request,@RequestParam("edit") Integer id)
+	public ModelAndView getDimensionList(ModelAndView mav,HttpServletRequest request,@RequestParam("edit") Integer id)
 	{
-		ModelAndView mav=new ModelAndView();
 		//If user not in role QC then return to main menu
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
@@ -153,7 +154,7 @@ public class APLSpcController
 		}
 		catch(DAOException de)
 		{
-			mav.getModel().put("message",de.getMessage());
+			mav.getModelMap().put("message",de.getMessage());
 			//If exception is raised return empty objects
 			spcPart=new SPCPartsList();
 			dimensions=new ArrayList<SPCMeasurement>();
@@ -171,8 +172,8 @@ public class APLSpcController
 	{
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
-			request.setAttribute("message", "User edit SPC definitions");
-			return getDimensionList(request, spcPartid);
+			mav.getModelMap().put("message", "User edit SPC definitions");
+			return getDimensionList(mav,request, spcPartid);
 		}
 		try
 		{
@@ -191,7 +192,7 @@ public class APLSpcController
 		{
 			mav.getModel().put("message",de.getMessage());
 		}
-		return getDimensionList(request, spcPartid);
+		return getDimensionList(mav,request, spcPartid);
 		
 	}
 	
@@ -200,8 +201,8 @@ public class APLSpcController
 	{
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
-			request.setAttribute("message", "User edit SPC definitions");
-			return getDimensionList(request, spcPartid);
+			mav.getModelMap().put("message", "User edit SPC definitions");
+			return getDimensionList(mav,request, spcPartid);
 		}
 		
 		//Valid SPCMeasurement
@@ -223,19 +224,20 @@ public class APLSpcController
 			}
 			catch(DAOException de)
 			{
-				request.setAttribute("message", "SPC Measurement was not updated. Error in application");
+				mav.getModelMap().put("message", "SPC Measurement was not updated. Error in application");
 				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+de.getMessage());
-				return getDimensionList(request, spcPartid);
+				return getDimensionList(mav,request, spcPartid);
 			}
 		}
 		else
 		{
 			logger.debug("APLSpcController:/SPC/addDimension:BindingError:"+bindingResult.getAllErrors());
-			request.setAttribute("errors", bindingResult.getAllErrors());
+			mav.getModelMap().put("errors", getErrors(bindingResult));
+			
 			//call to getDimensionList is required
 		}
 		
-		return getDimensionList(request, spcPartid);
+		return getDimensionList(mav,request, spcPartid);
 	}
 	
 	@RequestMapping("/SPC/editDimension")
@@ -243,8 +245,8 @@ public class APLSpcController
 	{
 		if(!request.isUserInRole(roles.QC.toString()))
 		{
-			request.setAttribute("message", "User edit SPC definitions");
-			return getDimensionList(request, spcPartid);
+			mav.getModelMap().put("message", "User edit SPC definitions");
+			return getDimensionList(mav,request, spcPartid);
 		}
 		
 		//Valid SPCMeasurement
@@ -266,19 +268,19 @@ public class APLSpcController
 			}
 			catch(DAOException de)
 			{
-				request.setAttribute("message", "SPC Measurement was not updated. Error in application");
+				mav.getModelMap().put("message", "SPC Measurement was not updated. Error in application");
 				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+de.getMessage());
-				return getDimensionList(request, spcPartid);
+				return getDimensionList(mav,request, spcPartid);
 			}
 		}
 		else
 		{
-			request.setAttribute("errors", bindingResult.getAllErrors());
+			mav.getModelMap().put("errors", bindingResult.getAllErrors());
 			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
-			return getDimensionList(request, spcPartid);
+			return getDimensionList(mav,request, spcPartid);
 		}
 		
-		return getDimensionList(request, spcPartid);
+		return getDimensionList(mav,request, spcPartid);
 	}
 	
 	
@@ -303,5 +305,17 @@ public class APLSpcController
 	{
 		this.spcDimensionDAO=spcDimensionDAO;
 		logger.debug("spcDimensionDAO:"+this.spcDimensionDAO);
+	}
+	
+	private List<String> getErrors(BindingResult result)
+	{
+		List<String> errors=new ArrayList<String>();
+		
+		
+		FieldError e=result.getFieldError();
+		errors.add(e.getField()+":"+e.getCode());
+		
+		
+		return errors;
 	}
 }
