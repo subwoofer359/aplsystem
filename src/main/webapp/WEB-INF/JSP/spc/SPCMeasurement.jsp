@@ -53,20 +53,6 @@
 {
 	display:none;
 }
-.errorMessage
-{
-	position: absolute;
-	top: 100px;
-	left: 367px;
-	border-style: dashed;
-	height: 400px;
-	width: 700px;
-	overflow: auto;
-	padding: 2px;
-	font-size: xx-large;
-	background-color: red;
-	visibility:hidden;
-}
 </STYLE>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
@@ -141,23 +127,9 @@ function populateForm(divName)
 		$('#tableId').attr("value",values[7]);
 	}
 }
-/*
- * Displays error messages if they exist when the page loads
- */
- function message(theMessage)
- {
- 	var message=theMessage;
- 	if(message!=null && message!="")
- 	{
- 		var errorDisplay=document.getElementById("errorMessage");
- 		errorDisplay.style.visibility="visible";
- 	}
- };
 
 
  
-message("${message}");
-message("${errors}");
 </script>
 </head>
 <body>

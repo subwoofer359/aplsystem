@@ -1,7 +1,9 @@
 package org.amc.servlet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -275,7 +277,7 @@ public class APLSpcController
 		}
 		else
 		{
-			mav.getModelMap().put("errors", bindingResult.getAllErrors());
+			mav.getModelMap().put("errors", getErrors(bindingResult));
 			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
 			return getDimensionList(mav,request, spcPartid);
 		}
@@ -307,13 +309,13 @@ public class APLSpcController
 		logger.debug("spcDimensionDAO:"+this.spcDimensionDAO);
 	}
 	
-	private List<String> getErrors(BindingResult result)
+	private Map<String,String> getErrors(BindingResult result)
 	{
-		List<String> errors=new ArrayList<String>();
+		Map<String,String> errors=new HashMap<String,String>();
 		
 		
 		FieldError e=result.getFieldError();
-		errors.add(e.getField()+":"+e.getCode());
+		errors.put(e.getField(),e.getCode());
 		
 		
 		return errors;

@@ -19,10 +19,7 @@
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 
-<script>
-window.addEventListener("load", message("${message}"), true);
-window.addEventListener("load", message("${errors}"), true);
-</script>
+
 </head>
 <body>
 <DIV class="title">
@@ -70,5 +67,10 @@ window.addEventListener("load", message("${errors}"), true);
 	<input type="submit" name="mode" value="remove" formaction="${pageContext.request.contextPath}/spc/SPC/removePart"/>
 	</SPAN>
 </FORM>
+
+<jsp:include page="/WEB-INF/JSP/ErrorDisplay.jsp">
+	<jsp:param name="errors" value="${errors}"/>
+	<jsp:param name="message" value="${message}"/>
+</jsp:include>
 </body>
 </html>
