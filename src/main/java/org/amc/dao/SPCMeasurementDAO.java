@@ -1,5 +1,6 @@
 package org.amc.dao;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import javax.persistence.Query;
 import org.amc.DAOException;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
+import org.apache.bval.constraints.Email;
 import org.apache.log4j.Logger;
 
 public class SPCMeasurementDAO extends DAO<SPCMeasurement>
@@ -87,8 +89,79 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 		}
 		
 	}
+
+
+	@Override
+	public void deleteEntity(SPCMeasurement entity) throws DAOException
+	{
+		EntityManager em=getEntityManager();
+		try
+		{
+			if(entity.getTableId()!=null && !entity.getTableId().trim().equals(""))
+			{
+				if(!isTableEmpty(entity.getTableId()))
+				{
+					throw new DAOException("Table is not empty");
+				}
+				
+				
+				em.getTransaction().begin();
+				logger.debug("Trying to delete table:"+entity.getTableId());
+				Query q=em.createNativeQuery("drop table if exists "+entity.getTableId());
+				q.executeUpdate();
+				em.getTransaction().commit();
+
+				if(tableExists(entity.getTableId()))
+				{
+					logger.debug("Table:"+entity.getTableId()+" wasn't deleted");
+					em.getTransaction().rollback();
+					em.close();
+					throw new DAOException();
+				}
+				
+			}
+			super.deleteEntity(entity);
+		}
+		catch(PersistenceException pe)
+		{
+			throw new DAOException(pe);
+		}
+	}
 	
+	/**
+	 * 
+	 * @param tableName
+	 * @return true if the table exists in the database
+	 */
+	public boolean tableExists(String tableName)
+	{
+		EntityManager em=getEntityManager();
+		em.getTransaction().begin();
+		Query tableExists=em.createNativeQuery("SHOW TABLES");
+		
+		tableExists.executeUpdate();
+		List<String> tables=tableExists.getResultList();
+		boolean result=false;
+		if(tables.contains(tableName))
+		{
+			result=true;
+		}
+		em.getTransaction().commit();
+		
+		return result;
+	}
 	
+	/**
+	 * 
+	 * @param tableName
+	 * @return true if the table has no entries
+	 */
+	public boolean isTableEmpty(String tableName)
+	{
+		//Todo
+		
+		return true;
+	}
 	
 	
 }
