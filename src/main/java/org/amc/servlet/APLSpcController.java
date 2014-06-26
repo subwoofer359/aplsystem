@@ -286,6 +286,36 @@ public class APLSpcController
 	}
 	
 	
+	@RequestMapping("/SPC/deleteDimension")
+	public ModelAndView removeDimension(
+			HttpServletRequest request,
+			ModelAndView mav,
+			@RequestParam("spcPart") Integer spcPartid,
+			@RequestParam("edit") Integer id)
+	{
+		if(!request.isUserInRole(roles.QC.toString()))
+		{
+			mav.getModelMap().put("message", "User edit SPC definitions");
+			return getDimensionList(mav,request, spcPartid);
+		}
+		
+		
+			try
+			{
+				SPCMeasurement measurement=(SPCMeasurement)spcDimensionDAO.getEntity(String.valueOf(id));
+				spcDimensionDAO.deleteEntity(measurement);
+			}
+			catch(DAOException de)
+			{
+				mav.getModelMap().put("message", "SPC Measurement was not deleted. Error in application");
+				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+de.getMessage());
+				return getDimensionList(mav,request, spcPartid);
+			}
+		logger.debug("deleteDimension:"+mav.toString()+":"+request.toString()+":"+spcPartid);
+		return getDimensionList(mav,request, spcPartid);
+	}
+	
+	
 	
 	/*   Spring injected resources   */
 	@Resource(name="spcPartsListDAO")
