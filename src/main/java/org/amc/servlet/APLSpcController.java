@@ -307,7 +307,7 @@ public class APLSpcController
 			}
 			catch(DAOException de)
 			{
-				mav.getModelMap().put("message", "SPC Measurement was not deleted. Error in application");
+				mav.getModelMap().put("message", "SPC Measurement was not deleted."+de.getMessage());
 				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+de.getMessage());
 				return getDimensionList(mav,request, spcPartid);
 			}
