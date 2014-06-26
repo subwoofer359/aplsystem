@@ -66,6 +66,14 @@ public class TestAPLSpcController
 		controller.setSPCDimensionDAO(spcMeasurementDAO);
 		controller.setPartDAO(partsDAO);
 		controller.setSPCListPartDAO(partsListDao);
+		
+		try
+		{
+			when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+		} catch (DAOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -108,8 +116,6 @@ public class TestAPLSpcController
 		ModelAndView mav=new ModelAndView();
 		//The user is in the correct role
 		request.addUserRole(Constants.roles.QC.toString());
-		
-		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -209,8 +215,7 @@ public class TestAPLSpcController
 		when(result.hasErrors()).thenReturn(false);
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
-		
-		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+
 		
 		mav=controller.addDimension(request,mav,spcPartid,spcMeasurement,result);
 		
@@ -244,8 +249,6 @@ public class TestAPLSpcController
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
-		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
-		
 		doThrow(new DAOException()).when(spcMeasurementDAO).addEntity(any(SPCMeasurement.class));
 		
 		mav=controller.addDimension(request,mav,spcPartid,spcMeasurement,result);
@@ -259,6 +262,59 @@ public class TestAPLSpcController
 		assertNotNull(mav.getModelMap().get("message"));
 
 	}
+	
+	@Test
+	public void testDeleteSPCMeasurement() 
+	{
+		ModelAndView mav=new ModelAndView();
+		
+		request.addUserRole(Constants.roles.QC.toString());
+		
+		SPCMeasurement spcMeasurement=getSPCMeasurement();
+	
+		int id=1;
+		
+		mav=controller.removeDimension(request, mav, spcPartid, id);
+		
+		try
+		{
+			verify(spcMeasurementDAO).deleteEntity(any(SPCMeasurement.class));
+		} 
+		catch (DAOException e)
+		{
+			//Handled by Controller
+		}
+		//No Error message
+		assertNull(mav.getModelMap().get("message"));
+	}
+	
+	@Test
+	public void testDeleteSPCMeasurementThrowException() 
+	{
+		ModelAndView mav=new ModelAndView();
+		
+		request.addUserRole(Constants.roles.QC.toString());
+		
+		try
+		{
+			doThrow(new DAOException()).when(spcMeasurementDAO).deleteEntity(any(SPCMeasurement.class));
+		}
+		catch(DAOException de)
+		{
+			//Handled by Controller
+		}
+		
+		int id=1;
+		
+		mav=controller.removeDimension(request, mav, spcPartid, id);
+		
+		ModelAndViewAssert.assertModelAttributeAvailable(mav, "message");
+		
+		
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @return typical SPCMeasurement Object
