@@ -24,7 +24,7 @@
 	left: 29%;
 	font-size: xx-large;
 	padding: 5px;
-	visibility:hidden;
+	display:none;
 }
 
 #dimensionEntry table 
@@ -68,6 +68,7 @@
 	visibility:hidden;
 }
 </STYLE>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
@@ -77,11 +78,12 @@
  */
 function showEntryDiv(element,divName)
 {
-	var div=document.getElementById(divName);
+	var name="#"+divName;
+	var div=$(name);
 	if(div!=null)
 	{
-		div.style.visibility="visible";
-	}
+		div.show();
+	}	
 }
 
 /*
@@ -89,11 +91,12 @@ function showEntryDiv(element,divName)
  */
 function hideEntryDiv(element,divName)
 {
-	var div=document.getElementById(divName);
+	var name="#"+divName;
+	var div=$(name);
 	if(div!=null)
 	{
-		div.style.visibility="hidden";
-	}
+		div.hide();
+	}	
 }
 
 /*
@@ -101,12 +104,13 @@ function hideEntryDiv(element,divName)
  */
 
 function clearValueOfElementId(idOfElement)
-{
-	var element=document.getElementById(idOfElement);
+{	
+	var name="#"+idOfElement;
+	var element=$(name);
 	if(element!=null)
 	{
-		element.value="";
-	}	
+		element.removeAttr("value");
+	}
 }
 
 /*
@@ -114,47 +118,27 @@ function clearValueOfElementId(idOfElement)
  */
 function populateForm(divName)
 {
-	var table=document.getElementById("dimensionsList");
-	var rows=table.getElementsByTagName("input");
-	var rowSelected;
-	var check=false;
-	for(var i=0,rlen=rows.length;i<rlen;i++)
+	var row=$("tr[style*='background-color: red']");
+	if(row!=null)
 	{
-			if(rows[i].getAttribute("name")=="edit")
-			{
-				if(rows[i].checked==true)
-				{
-					rowSelected=rows[i].parentNode.parentNode;
-					check=true;
-					break;				
-				}
-			}
-	}
-	if(check)
-	{
-		var div=document.getElementById(divName);
-		var values=rowSelected.getElementsByTagName("td");
-		if(values!=null && div!=null)
-		{
-			var inputs=div.getElementsByTagName("input");
-			for(var i=1,j=0;i<inputs.length;i++,j++)
-			{
-				var input=inputs[i];
-				if(input.type=="checkbox")
-				{
-					input.checked=values[j].childNodes[0].data;	
-				}
-				if(input.type=="submit")
-				{
-					j--;	
-				}
-				else
-				{
-					input.value=values[j].childNodes[0].data;	
-				}
-					
-			}
-		}	
+		row.css("background-color","blue");
+		var div=$("#"+divName);
+		var values=[];
+
+		row.children("td").each(
+				function(){
+					values.push($(this).text());
+					console.log($(this).text());
+		});
+
+		$('#DimensionId').attr("value",values[0]);
+		$('#dimension').attr("value",values[1]);
+		$('#nominal').attr("value",values[2]);
+		$('#upperLimit').attr("value",values[3]);
+		$('#lowerLimit').attr("value",values[4]);
+		$('#noOfMeasurements').attr("value",values[5]);
+		$('#active').attr("checked",values[6]);
+		$('#tableId').attr("value",values[7]);
 	}
 }
 /*
@@ -204,7 +188,7 @@ message("${errors}");
 <c:forEach items="${dimensions}" var="dimension">
 <TR  onclick="selected(this)">
 	<TD class="hiddenColumn"><c:out value="${dimension.id}"/></TD>
-	<TD><c:out value="${dimension.dimension}"/></TD>
+	<TD ><c:out value="${dimension.dimension}"/></TD>
 	<TD><c:out value="${dimension.nominal}"/></TD>
 	<TD><c:out value="${dimension.upperLimit}"/></TD>
 	<TD><c:out value="${dimension.lowerLimit}"/></TD>
