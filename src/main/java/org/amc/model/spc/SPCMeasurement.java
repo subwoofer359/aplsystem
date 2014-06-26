@@ -44,7 +44,7 @@ public class SPCMeasurement implements Serializable, WorkEntity
 	 * The part the SPC measurements will be taken from
 	 */
 	@NotNull
-	@ManyToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	@ManyToOne(cascade=CascadeType.PERSIST,fetch=FetchType.EAGER)
 	@JoinColumn(name="part_id",nullable=false)
 	private Part part;
 	
