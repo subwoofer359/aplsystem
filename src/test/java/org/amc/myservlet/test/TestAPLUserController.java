@@ -22,14 +22,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.mock.web.*;
 import org.amc.Constants;
-import org.amc.Constants.roles;
+import org.amc.Constants.Roles;
 import org.amc.DAOException;
 
 public class TestAPLUserController
 {
 
 	//Availible roles
-	private static String[] ROLES ={roles.MANAGER.toString(),roles.GUEST.toString(),"user",roles.QC.toString()};
+	private static String[] ROLES ={Roles.MANAGER.toString(),Roles.GUEST.toString(),"user",Roles.QC.toString()};
 	//Test Fixture
 	private APLUserController userServlet;
 	

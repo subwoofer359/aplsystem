@@ -9,7 +9,7 @@ package org.amc;
  */
 public class Constants
 {
-	public static enum roles
+	public static enum Roles
 	{
 		QC,
 		MANAGER,
@@ -20,7 +20,7 @@ public class Constants
 		}
 		public static String[] getStringValues()
 		{
-			roles[] r=roles.values();
+			Roles[] r=Roles.values();
 			String[] roleStrings=new String[r.length];
 			
 			for(int i=0;i<roleStrings.length;i++)

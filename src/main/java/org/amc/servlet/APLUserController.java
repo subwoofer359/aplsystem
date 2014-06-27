@@ -1,5 +1,6 @@
 package org.amc.servlet;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.persistence.PersistenceException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -33,7 +35,7 @@ import org.apache.log4j.Logger;
 
 import static org.amc.Constants.PASSWORD_DIGEST;
 import static org.amc.Constants.PASSWORD_DEFAULT;
-import static org.amc.Constants.roles;
+import static org.amc.Constants.Roles;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -68,7 +70,7 @@ public class APLUserController
 	@RequestMapping("/Users")
 	public ModelAndView getUsersPage(ModelAndView model,HttpServletRequest request)
 	{
-		if(request.isUserInRole(roles.MANAGER.toString()))
+		if(request.isUserInRole(Roles.MANAGER.toString()))
 		{
 			List<User> list=null;
 			try
@@ -113,7 +115,7 @@ public class APLUserController
 						 HttpServletRequest request
 						 )
 	{
-		if(!request.isUserInRole(org.amc.Constants.roles.MANAGER.toString()))
+		if(!request.isUserInRole(org.amc.Constants.Roles.MANAGER.toString()))
 		{
 			//Return to the Main page
 			return "Main";
@@ -245,7 +247,7 @@ public class APLUserController
 			)
 	{
 		//If not in role manager return the Main.jsp
-		if(!request.isUserInRole(roles.MANAGER.toString()))
+		if(!request.isUserInRole(Roles.MANAGER.toString()))
 		{
 			model.setViewName("Main");
 			return model;
@@ -277,7 +279,9 @@ public class APLUserController
 				}
 				else
 				{
-					logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+					logger.error("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+					throw new IllegalArgumentException("mode wasn't set to a correct value");
+					
 				}
 			model.setViewName("UserAddOrEdit");
 			u.setPassword(PASSWORD_DEFAULT);
@@ -340,7 +344,7 @@ public class APLUserController
 		try
 		{
 			MessageDigest digest=MessageDigest.getInstance(PASSWORD_DIGEST);
-			hash=digest.digest(new String(password).getBytes());
+			hash=digest.digest(password.getBytes(Charset.defaultCharset()));
 		}
 		catch(NoSuchAlgorithmException nae)
 		{

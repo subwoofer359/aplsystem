@@ -88,7 +88,7 @@ public class TestAPLSpcController
 		ModelAndView mav=new ModelAndView();
 		
 		//The user is not in the required role QC
-		request.addUserRole(Constants.roles.GUEST.toString());
+		request.addUserRole(Constants.Roles.GUEST.toString());
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -115,7 +115,7 @@ public class TestAPLSpcController
 	{
 		ModelAndView mav=new ModelAndView();
 		//The user is in the correct role
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -142,7 +142,7 @@ public class TestAPLSpcController
 		
 		ModelAndView mav=new ModelAndView();
 		
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
 		
@@ -181,7 +181,7 @@ public class TestAPLSpcController
 		ModelAndView mav=new ModelAndView();
 		
 		//User is not in the required role
-		request.addUserRole(Constants.roles.GUEST.toString());
+		request.addUserRole(Constants.Roles.GUEST.toString());
 		
 		//No binding errors
 		when(result.hasErrors()).thenReturn(false);
@@ -210,7 +210,7 @@ public class TestAPLSpcController
 	{
 		ModelAndView mav=new ModelAndView();
 		
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		when(result.hasErrors()).thenReturn(false);
 		
@@ -240,7 +240,7 @@ public class TestAPLSpcController
 		ModelAndView mav=new ModelAndView();
 		
 		//User is not in the required role
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		Map<String, Object> params=new HashMap<String, Object>();
 		request.setParameters(params);
 		
@@ -268,7 +268,7 @@ public class TestAPLSpcController
 	{
 		ModelAndView mav=new ModelAndView();
 		
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 	
@@ -293,7 +293,7 @@ public class TestAPLSpcController
 	{
 		ModelAndView mav=new ModelAndView();
 		
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		try
 		{

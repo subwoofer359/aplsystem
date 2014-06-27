@@ -177,6 +177,14 @@ public class User implements Serializable,WorkEntity
 	}
 	
 	@Override
+	public int hashCode()
+	{
+		int temp=1;
+		temp=temp*2+this.userName.hashCode();
+		return temp;
+	}
+	
+	@Override
 	public String toString()
 	{
 		StringBuffer sb=new StringBuffer();

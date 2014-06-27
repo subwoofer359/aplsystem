@@ -17,7 +17,7 @@ public class SPCMeasurementValidator implements Validator
 	@Override
 	public void validate(Object arg0, Errors errors)
 	{
-		SPCMeasurement measurement=(SPCMeasurement)arg0;
+		//SPCMeasurement measurement=(SPCMeasurement)arg0;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dimension", "spcMeasurement.dimension.empty","No entry in Dimension");
 		/* Part can be empty*/

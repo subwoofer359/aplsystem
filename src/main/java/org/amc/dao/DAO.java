@@ -1,5 +1,6 @@
 package org.amc.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,7 +19,7 @@ import org.apache.log4j.Logger;
  * @version 1
  *
  */
-public class DAO<T extends WorkEntity>
+public class DAO<T extends WorkEntity> implements Serializable
 {
 	private static Logger logger=Logger.getLogger(DAO.class);
 	private Class<? extends WorkEntity> entityClass;

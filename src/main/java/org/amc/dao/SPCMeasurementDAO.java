@@ -10,7 +10,6 @@ import javax.persistence.Query;
 import org.amc.DAOException;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
-import org.apache.bval.constraints.Email;
 import org.apache.log4j.Logger;
 
 public class SPCMeasurementDAO extends DAO<SPCMeasurement>
@@ -114,7 +113,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 				if(tableExists(entity.getTableId()))
 				{
 					logger.debug("Table:"+entity.getTableId()+" wasn't deleted");
-					em.getTransaction().rollback();
+					em.getTransaction().rollback();//todo Check to see if this works
 					em.close();
 					throw new DAOException();
 				}

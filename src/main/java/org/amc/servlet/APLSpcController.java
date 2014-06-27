@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import static org.amc.Constants.roles;
+import static org.amc.Constants.Roles;
 
 /**
  * 
@@ -75,7 +75,7 @@ public class APLSpcController
 	public String addToSPC(@RequestParam("edit") Integer id,HttpServletRequest request)
 	{
 		//If User not in role QC then return with error message
-		if(!request.isUserInRole(roles.QC.toString()))
+		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			request.setAttribute("message", "User can't not add Parts to the SPCList");
 			return "forward:/Part_search";
@@ -113,9 +113,9 @@ public class APLSpcController
 							HttpServletRequest request
 							)
 	{
-		logger.debug("ROLES:"+roles.QC.toString());
+		logger.debug("ROLES:"+Roles.QC.toString());
 		logger.debug("ID:"+id);
-		if(request.isUserInRole(roles.QC.toString())||request.isUserInRole(roles.MANAGER.toString()))
+		if(request.isUserInRole(Roles.QC.toString())||request.isUserInRole(Roles.MANAGER.toString()))
 		{
 			SPCPartsList spcPart=null;
 			try
@@ -140,7 +140,7 @@ public class APLSpcController
 	public ModelAndView getDimensionList(ModelAndView mav,HttpServletRequest request,@RequestParam("edit") Integer id)
 	{
 		//If user not in role QC then return to main menu
-		if(!request.isUserInRole(roles.QC.toString()))
+		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put("message", "User can't not add Parts to the SPCList");
 			mav.setViewName("Main");
@@ -172,7 +172,7 @@ public class APLSpcController
 	@RequestMapping("/SPC/deActivate")
 	public ModelAndView de_activate(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@RequestParam("edit") Integer id)
 	{
-		if(!request.isUserInRole(roles.QC.toString()))
+		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put("message", "User edit SPC definitions");
 			return getDimensionList(mav,request, spcPartid);
@@ -201,7 +201,7 @@ public class APLSpcController
 	@RequestMapping("/SPC/addDimension")
 	public ModelAndView addDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@ModelAttribute SPCMeasurement spcMeasurement,BindingResult bindingResult)
 	{
-		if(!request.isUserInRole(roles.QC.toString()))
+		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put("message", "User edit SPC definitions");
 			return getDimensionList(mav,request, spcPartid);
@@ -245,7 +245,7 @@ public class APLSpcController
 	@RequestMapping("/SPC/editDimension")
 	public ModelAndView editDimension(HttpServletRequest request,ModelAndView mav,@RequestParam("spcPart") Integer spcPartid,@RequestParam("DimensionId")Integer dimensionId,@ModelAttribute SPCMeasurement spcMeasurement,BindingResult bindingResult)
 	{
-		if(!request.isUserInRole(roles.QC.toString()))
+		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put("message", "User edit SPC definitions");
 			return getDimensionList(mav,request, spcPartid);
@@ -293,7 +293,7 @@ public class APLSpcController
 			@RequestParam("spcPart") Integer spcPartid,
 			@RequestParam("edit") Integer id)
 	{
-		if(!request.isUserInRole(roles.QC.toString()))
+		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put("message", "User edit SPC definitions");
 			return getDimensionList(mav,request, spcPartid);

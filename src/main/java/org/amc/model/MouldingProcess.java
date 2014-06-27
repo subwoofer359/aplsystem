@@ -22,7 +22,7 @@ import javax.persistence.Transient;
 public class MouldingProcess implements Serializable,WorkEntity
 {
 	@Transient
-	public static String[] fields={
+	public final static String[] fields={
 		 "id",	
 		 "partId",
 		 "machineSize",
@@ -1632,13 +1632,14 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Override
 	public String toString()
 	{
-		String result = "ProcessSheet:(";
+		StringBuilder result=new StringBuilder();
+		result.append("ProcessSheet:(");
 		for (String field : fields)
 		{
-			result += ",(" + field + ":" + getField(field) + ")\n";
+			result.append(",(" + field + ":" + getField(field) + ")\n");
 		}
-		result += ")";
-		return result;
+		result.append(")");
+		return result.toString();
 	}
 
 }

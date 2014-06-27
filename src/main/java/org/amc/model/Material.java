@@ -211,22 +211,30 @@ public class Material implements Serializable,WorkEntity
 	 */
 	public boolean equals(Object material)
 	{
+		if(material==null || (!material.getClass().equals(this.getClass())))
+		{
+			return false;
+		}
+		
 		Material m2=(Material)material;
 		
-		if(m2 instanceof Material)
+		if(this.getName().equals(m2.getName()) && this.getCompany().equals(m2.getCompany()) && getType().equals(m2.getType()))
 		{
-			if(this.getName().equals(m2.getName()) && this.getCompany().equals(m2.getCompany()) && getType().equals(m2.getType()))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return true;
 		}
 		else
 		{
 			return false;
 		}
 	}
+	
+	@Override
+	public int hashCode()
+	{
+		int hash=1;
+		hash=hash*33+company.hashCode();
+		hash=hash*2+type.hashCode();
+		return hash;
+	}
+	
 }
