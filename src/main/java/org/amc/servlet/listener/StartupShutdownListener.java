@@ -24,11 +24,10 @@ public class StartupShutdownListener implements ServletContextListener
 	 */ 
 	private final static String ROLES="SECURITY_ROLES";
 
-	public final static Logger log = Logger.getLogger(StartupShutdownListener.class.toString());
+	public final static Logger log = Logger.getLogger(StartupShutdownListener.class);
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) 
 	{
-		Logger log=(Logger)org.apache.log4j.Logger.getLogger(StartupShutdownListener.class);
 		log.info("Servlet shut down....");
 		deregisterDatabaseDrivers();
 	}
