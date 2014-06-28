@@ -42,14 +42,6 @@ public class APLMaterialServlet extends HttpServlet
 	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
 	
 	private MaterialActionFactory materialActionFactory;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public APLMaterialServlet() 
-    {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

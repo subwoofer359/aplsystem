@@ -50,13 +50,6 @@ public class User implements Serializable,WorkEntity
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<UserRoles> roles;
 	
-	public User()
-	{
-		//empty constructor
-	}
-
-	
-	
 	public String getFullName()
 	{
 		return fullName;

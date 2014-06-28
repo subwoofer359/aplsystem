@@ -371,11 +371,6 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private String waterTempNotes;
 
-	public MouldingProcess()
-	{
-		//empty constructor
-	}
-
 	// Getters/Setters
 	public void setField(String field, Float f)
 	{

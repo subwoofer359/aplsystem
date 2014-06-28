@@ -29,12 +29,6 @@ public class UserRoles implements Serializable,WorkEntity
 	@Column(name="role_name")
 	private String roleName;
 	
-	
-	public UserRoles()
-	{
-		//empty constructor
-	}
-
 	public int getId()
 	{
 		return id;

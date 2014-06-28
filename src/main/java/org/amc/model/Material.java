@@ -60,11 +60,6 @@ public class Material implements Serializable,WorkEntity
 	@Column
 	private float mould_temp_upper;
 
-	public Material()
-	{
-		//empty constructor
-	}
-
 	public int getId()
 	{
 		return id;

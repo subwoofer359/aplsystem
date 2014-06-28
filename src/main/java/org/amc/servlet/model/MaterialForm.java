@@ -26,11 +26,6 @@ public class MaterialForm
 	private String mould_temp_low;
 	private String mould_temp_upper;
 
-	
-	public MaterialForm()
-	{
-		//Empty Constructor
-	}
 
 	public String getId()
 	{
