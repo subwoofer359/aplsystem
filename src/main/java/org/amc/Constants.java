@@ -9,6 +9,12 @@ package org.amc;
  */
 public class Constants
 {
+	
+	private Constants()
+	{
+		//Utility Class
+	}
+	
 	public static enum Roles
 	{
 		QC,
