@@ -45,14 +45,14 @@ public class User implements Serializable,WorkEntity
 	private String password="";
 	
 	@Column(name="activate",updatable=true)
-	boolean active=true;
+	private boolean active=true;
 	
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<UserRoles> roles;
 	
 	public User()
 	{
-		;;
+		//empty constructor
 	}
 
 	
@@ -161,14 +161,8 @@ public class User implements Serializable,WorkEntity
 		if(obj instanceof User)
 		{
 			User otherUser=(User)obj;
-			if(this.getUserName().equals(otherUser.getUserName()) && (this.id == otherUser.id))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return this.getUserName().equals(otherUser.getUserName()) && (this.id == otherUser.id);
+			
 		}
 		else
 		{
@@ -197,7 +191,7 @@ public class User implements Serializable,WorkEntity
 		sb.append("active:"+this.isActive());
 		sb.append("\n");
 		List<UserRoles> roles=this.getRoles();
-		if(roles!=null && roles.size()!=0)
+		if(roles!=null && !roles.isEmpty())
 		{
 			sb.append("Roles:\n");
 			for(UserRoles role:roles)

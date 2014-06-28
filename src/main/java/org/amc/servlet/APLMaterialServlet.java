@@ -147,14 +147,16 @@ public class APLMaterialServlet extends HttpServlet
 			{
 				material=MaterialForm.getMaterial(jForm);
 				// New JobTemplate to Database
-				if(mode==null||mode.equals("Enter"))
+				//if(mode==null||mode.equals("Enter"))
+				if(mode==null || "Enter".equals(mode))
 				{
 					logger.debug(String.format("SaveMaterial:Entering entry into database"));
 					action.save(material);
 					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
-				else if(mode.equals("edit"))
+				//else if(mode.equals("edit"))
+				else if("edit".equals(mode))
 				{
 					logger.debug(String.format("SaveMaterial:Editing entry into database"));
 					//Current JobTemplate is updated in the Database
@@ -193,7 +195,8 @@ public class APLMaterialServlet extends HttpServlet
 		else
 		{
 			//if the form doesn't validate without errors then
-			if(mode.equals("edit")) //Remember page is in edit mode
+			//if(mode.equals("edit")) //Remember page is in edit mode
+			if("edit".equals(mode))
 			{
 				request.setAttribute("mode", mode);
 			}
@@ -208,7 +211,13 @@ public class APLMaterialServlet extends HttpServlet
 	{
 		//Selected Process Page
 		String idValue=request.getParameter("edit");
-		if(idValue!=null && (!idValue.equals("")))
+		//if(idValue!=null && (!idValue.equals("")))
+		if(idValue==null || "".equals(idValue))
+		{
+			// No Process selected return to ProcessSearchPage
+			response.sendRedirect(request.getContextPath()+"/Material_search");	
+		}
+		else
 		{
 			try
 			{
@@ -221,14 +230,11 @@ public class APLMaterialServlet extends HttpServlet
 			{
 				getServletContext().log(e.getMessage());
 				e.printStackTrace();
-				throw new ServletException("Database not available");			
+				throw (ServletException)new ServletException("Database not available").initCause(e);			
 			}
 			
 		}
-		else // No Process selected return to ProcessSearchPage
-		{
-			response.sendRedirect(request.getContextPath()+"/Material_search");
-		}
+		
 	}
 	
 	private void searchMaterial(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
@@ -251,7 +257,8 @@ public class APLMaterialServlet extends HttpServlet
 				try
 				{
 					//if the page is to do a search
-					if(mode==null || mode.equals("search"))
+					//if(mode==null || mode.equals("search"))
+					if(mode==null || "search".equals(mode))
 					{
 						Map<Integer,Material> list=null;
 						//To check to search for all entries or entries where name=searchWord
@@ -288,7 +295,7 @@ public class APLMaterialServlet extends HttpServlet
 //					}
 					else if(mode!=null)
 					{
-						if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
+						if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
 							logger.debug(String.format("searchMaterial:Opening Material.jsp"));
 							//open the JobTemplate JSPage in add mode
@@ -296,7 +303,7 @@ public class APLMaterialServlet extends HttpServlet
 							request.setAttribute("form", material);
 							dispatchURL="/WEB-INF/JSP/Material.jsp";
 						}
-						else if(mode.equals("edit")&&idValue!=null)
+						else if("edit".equals(mode) && idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchMaterial:Opening Material.jsp in edit mode"));
@@ -313,7 +320,7 @@ public class APLMaterialServlet extends HttpServlet
 				catch(DAOException se)
 				{
 					se.printStackTrace();
-					throw new ServletException("Database not available:"+se.getMessage());
+					throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 				}
 		
 	}

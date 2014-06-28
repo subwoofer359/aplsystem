@@ -32,7 +32,7 @@ public class UserRoles implements Serializable,WorkEntity
 	
 	public UserRoles()
 	{
-		;;
+		//empty constructor
 	}
 
 	public int getId()

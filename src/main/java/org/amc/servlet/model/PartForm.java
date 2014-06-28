@@ -6,16 +6,16 @@ package org.amc.servlet.model;
  */
 public class PartForm 
 {
-	String id;
+	private String id;
 	
-	String colour;
-	String company;
-	boolean external;
-	String name;
-	String part_id;
-	String qss_no;
-	String revision;
-	String version;
+	private String colour;
+	private String company;
+	private boolean external;
+	private String name;
+	private String part_id;
+	private String qss_no;
+	private String revision;
+	private String version;
 	
 	public String getColour() {
 		return colour;

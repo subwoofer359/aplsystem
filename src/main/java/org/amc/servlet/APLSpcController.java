@@ -211,7 +211,14 @@ public class APLSpcController
 		Validator v=new SPCMeasurementValidator();
 		v.validate(spcMeasurement, bindingResult);
 		
-		if(!bindingResult.hasErrors())
+		if(bindingResult.hasErrors())
+		{
+			logger.debug("APLSpcController:/SPC/addDimension:BindingError:"+bindingResult.getAllErrors());
+			mav.getModelMap().put("errors", getErrors(bindingResult));
+			
+			//call to getDimensionList is required
+		}
+		else
 		{
 			try
 			{
@@ -231,13 +238,6 @@ public class APLSpcController
 				return getDimensionList(mav,request, spcPartid);
 			}
 		}
-		else
-		{
-			logger.debug("APLSpcController:/SPC/addDimension:BindingError:"+bindingResult.getAllErrors());
-			mav.getModelMap().put("errors", getErrors(bindingResult));
-			
-			//call to getDimensionList is required
-		}
 		
 		return getDimensionList(mav,request, spcPartid);
 	}
@@ -255,7 +255,13 @@ public class APLSpcController
 		Validator v=new SPCMeasurementValidator();
 		v.validate(spcMeasurement, bindingResult);
 		
-		if(!bindingResult.hasErrors())
+		if(bindingResult.hasErrors())
+		{
+			mav.getModelMap().put("errors", getErrors(bindingResult));
+			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
+			return getDimensionList(mav,request, spcPartid);
+		}
+		else
 		{
 			try
 			{
@@ -274,12 +280,6 @@ public class APLSpcController
 				logger.error("APLSpcController:Call to "+SPCMeasurementDAO.class.getSimpleName()+" has cause an exception:"+de.getMessage());
 				return getDimensionList(mav,request, spcPartid);
 			}
-		}
-		else
-		{
-			mav.getModelMap().put("errors", getErrors(bindingResult));
-			logger.debug("APLSpcController:/SPC/editDimension:BindingError:"+bindingResult.getAllErrors());
-			return getDimensionList(mav,request, spcPartid);
 		}
 		
 		return getDimensionList(mav,request, spcPartid);

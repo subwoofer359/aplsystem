@@ -373,7 +373,7 @@ public class MouldingProcess implements Serializable,WorkEntity
 
 	public MouldingProcess()
 	{
-		;;
+		//empty constructor
 	}
 
 	// Getters/Setters
@@ -1066,7 +1066,6 @@ public class MouldingProcess implements Serializable,WorkEntity
 	public void setInjectionSpeed_1(float injectionSpeed_1)
 	{
 		this.injectionSpeed_1 = injectionSpeed_1;
-		;
 	}
 
 	public void setInjectionSpeed_2(float injectionSpeed_2)
@@ -1242,349 +1241,292 @@ public class MouldingProcess implements Serializable,WorkEntity
 	public void setBackPressure_5(float backPressure_5)
 	{
 		this.backPressure_5 = backPressure_5;
-		;
 	}
 
 	public void setBackPressure_6(float backPressure_6)
 	{
 		this.backPressure_6 = backPressure_6;
-		;
 	}
 
 	public void setScrewExtSpeed_1(float screwExtSpeed_1)
 	{
 		this.screwExtSpeed_1 = screwExtSpeed_1;
-		;
 	}
 
 	public void setScrewExtSpeed_2(float screwExtSpeed_2)
 	{
 		this.screwExtSpeed_2 = screwExtSpeed_2;
-		;
 	}
 
 	public void setScrewExtSpeed_3(float screwExtSpeed_3)
 	{
 		this.screwExtSpeed_3 = screwExtSpeed_3;
-		;
 	}
 
 	public void setScrewExtSpeed_4(float screwExtSpeed_4)
 	{
 		this.screwExtSpeed_4 = screwExtSpeed_4;
-		;
 	}
 
 	public void setScrewExtSpeed_5(float screwExtSpeed_5)
 	{
 		this.screwExtSpeed_5 = screwExtSpeed_5;
-		;
 	}
 
 	public void setScrewExtSpeed_6(float screwExtSpeed_6)
 	{
 		this.screwExtSpeed_6 = screwExtSpeed_6;
-		;
 	}
 
 	public void setExtProfilePos_1(float extProfilePos_1)
 	{
 		this.extProfilePos_1 = extProfilePos_1;
-		;
 	}
 
 	public void setExtProfilePos_2(float extProfilePos_2)
 	{
 		this.extProfilePos_2 = extProfilePos_2;
-		;
 	}
 
 	public void setExtProfilePos_3(float extProfilePos_3)
 	{
 		this.extProfilePos_3 = extProfilePos_3;
-		;
 	}
 
 	public void setExtProfilePos_4(float extProfilePos_4)
 	{
 		this.extProfilePos_4 = extProfilePos_4;
-		;
 	}
 
 	public void setExtProfilePos_5(float extProfilePos_5)
 	{
 		this.extProfilePos_5 = extProfilePos_5;
-		;
 	}
 
 	public void setExtProfilePos_6(float extProfilePos_6)
 	{
 		this.extProfilePos_6 = extProfilePos_6;
-		;
 	}
 
 	public void setNozzelTemperature(float nozzelTemperature)
 	{
 		this.nozzelTemperature = nozzelTemperature;
-		;
 	}
 
 	public void setBarrelTemperature_1(float barrelTemperature_1)
 	{
 		this.barrelTemperature_1 = barrelTemperature_1;
-		;
 	}
 
 	public void setBarrelTemperature_2(float barrelTemperature_2)
 	{
 		this.barrelTemperature_2 = barrelTemperature_2;
-		;
 	}
 
 	public void setBarrelTemperature_3(float barrelTemperature_3)
 	{
 		this.barrelTemperature_3 = barrelTemperature_3;
-		;
 	}
 
 	public void setBarrelTemperature_4(float barrelTemperature_4)
 	{
 		this.barrelTemperature_4 = barrelTemperature_4;
-		;
 	}
 
 	public void setThroatTemperature(float throatTemperature)
 	{
 		this.throatTemperature = throatTemperature;
-		;
 	}
 
 	public void setMouldClosingOpenLimitPos(float mouldClosingOpenLimitPos)
 	{
 		this.mouldClosingOpenLimitPos = mouldClosingOpenLimitPos;
-		;
 	}
 
 	public void setMouldClosingOpenLimitSpeed(float mouldClosingOpenLimitSpeed)
 	{
 		this.mouldClosingOpenLimitSpeed = mouldClosingOpenLimitSpeed;
-		;
 	}
 
 	public void setMouldClosedLimitPos(float mouldClosedLimitPos)
 	{
 		this.mouldClosedLimitPos = mouldClosedLimitPos;
-		;
 	}
 
 	public void setMouldClosedLimitSpeed(float mouldClosedLimitSpeed)
 	{
 		this.mouldClosedLimitSpeed = mouldClosedLimitSpeed;
-		;
 	}
 
 	public void setClsSlowPos(float clsSlowPos)
 	{
 		this.clsSlowPos = clsSlowPos;
-		;
 	}
 
 	public void setClsSlowSpeed(float clsSlowSpeed)
 	{
 		this.clsSlowSpeed = clsSlowSpeed;
-		;
 	}
 
 	public void setMouldOpenBreakAwaySpeed(float mouldOpenBreakAwaySpeed)
 	{
 		this.mouldOpenBreakAwaySpeed = mouldOpenBreakAwaySpeed;
-		;
 	}
 
 	public void setMouldOpenStepPos_1(float mouldOpenStepPos_1)
 	{
 		this.mouldOpenStepPos_1 = mouldOpenStepPos_1;
-		;
 	}
 
 	public void setMouldOpenStepSpeed_1(float mouldOpenStepSpeed_1)
 	{
 		this.mouldOpenStepSpeed_1 = mouldOpenStepSpeed_1;
-		;
 	}
 
 	public void setMouldOpenStepPos_2(float mouldOpenStepPos_2)
 	{
 		this.mouldOpenStepPos_2 = mouldOpenStepPos_2;
-		;
 	}
 
 	public void setMouldOpenStepSpeed_2(float mouldOpenStepSpeed_2)
 	{
 		this.mouldOpenStepSpeed_2 = mouldOpenStepSpeed_2;
-		;
 	}
 
 	public void setMouldOpenStepPos_3(float mouldOpenStepPos_3)
 	{
 		this.mouldOpenStepPos_3 = mouldOpenStepPos_3;
-		;
 	}
 
 	public void setMouldOpenStepSpeed_3(float mouldOpenStepSpeed_3)
 	{
 		this.mouldOpenStepSpeed_3 = mouldOpenStepSpeed_3;
-		;
 	}
 
 	public void setMouldOpenTime(float mouldOpenTime)
 	{
 		this.mouldOpenTime = mouldOpenTime;
-		;
 	}
 
 	public void setEjectStart(String ejectStart)
 	{
 		this.ejectStart = ejectStart;
-		;
 	}
 
 	public void setEjectMode(String ejectMode)
 	{
 		this.ejectMode = ejectMode;
-		;
 	}
 
 	public void setEjectPulse(float ejectPulse)
 	{
 		this.ejectPulse = ejectPulse;
-		;
 	}
 
 	public void setEjectDelay(float ejectDelay)
 	{
 		this.ejectDelay = ejectDelay;
-		;
 	}
 
 	public void setEjectorsFwdPos(float ejectorsFwdPos)
 	{
 		this.ejectorsFwdPos = ejectorsFwdPos;
-		;
 	}
 
 	public void setEjectorsFwdSpeed(float ejectorsFwdSpeed)
 	{
 		this.ejectorsFwdSpeed = ejectorsFwdSpeed;
-		;
 	}
 
 	public void setEjectorsFwdTime(float ejectorsFwdTime)
 	{
 		this.ejectorsFwdTime = ejectorsFwdTime;
-		;
 	}
 
 	public void setEjectorsStopPos(float ejectorsStopPos)
 	{
 		this.ejectorsStopPos = ejectorsStopPos;
-		;
 	}
 
 	public void setEjectorsStopSpeed(float ejectorsStopSpeed)
 	{
 		this.ejectorsStopSpeed = ejectorsStopSpeed;
-		;
 	}
 
 	public void setEjectorsStopTime(float ejectorsStopTime)
 	{
 		this.ejectorsStopTime = ejectorsStopTime;
-		;
 	}
+	
 
 	public void setEjectorsRevPos(float ejectorsRevPos)
 	{
 		this.ejectorsRevPos = ejectorsRevPos;
-		;
 	}
 
 	public void setEjectorsRevSpeed(float ejectorsRevSpeed)
 	{
 		this.ejectorsRevSpeed = ejectorsRevSpeed;
-		;
 	}
 
 	public void setEjectorsRevTime(float ejectorsRevTime)
 	{
 		this.ejectorsRevTime = ejectorsRevTime;
-		;
 	}
 
 	public void setDme_1(float dme_1)
 	{
 		this.dme_1 = dme_1;
-		;
 	}
 
 	public void setDme_2(float dme_2)
 	{
 		this.dme_2 = dme_2;
-		;
 	}
 
 	public void setDme_3(float dme_3)
 	{
 		this.dme_3 = dme_3;
-		;
 	}
 
 	public void setDme_4(float dme_4)
 	{
 		this.dme_4 = dme_4;
-		;
 	}
 
 	public void setDme_5(float dme_5)
 	{
 		this.dme_5 = dme_5;
-		;
 	}
 
 	public void setDme_6(float dme_6)
 	{
 		this.dme_6 = dme_6;
-		;
 	}
 
 	public void setDme_7(float dme_7)
 	{
 		this.dme_7 = dme_7;
-		;
 	}
 
 	public void setDme_8(float dme_8)
 	{
 		this.dme_8 = dme_8;
-		;
 	}
 
 	public void setWaterTempFixedHalf(float waterTempFixedHalf)
 	{
 		this.waterTempFixedHalf = waterTempFixedHalf;
-		;
 	}
 
 	public void setWaterTempMovingHalf(float waterTempMovingHalf)
 	{
 		this.waterTempMovingHalf = waterTempMovingHalf;
-		;
 	}
 
 	public void setWaterTempNotes(String waterTempNotes)
 	{
 		this.waterTempNotes = waterTempNotes;
-		;
 	}
 
 	public float getClsSPPos()
@@ -1600,13 +1542,11 @@ public class MouldingProcess implements Serializable,WorkEntity
 	public void setClsSPPos(float clsSPPos)
 	{
 		this.clsSPPos = clsSPPos;
-		;
 	}
 
 	public void setClsSPSpeed(float clsSPSpeed)
 	{
 		this.clsSPSpeed = clsSPSpeed;
-		;
 	}
 
 	public int getId()

@@ -70,7 +70,7 @@ public class MaterialForm_Validator
 			}
 			catch(NullPointerException npe)
 			{
-				
+				errors.add(s[0]+" is null");
 			}
 		}
 			
@@ -85,7 +85,7 @@ public class MaterialForm_Validator
 		}
 		catch(NumberFormatException nfe)
 		{
-			
+			errors.add("Mould Temperatures are not numbers");
 		}
 		
 		

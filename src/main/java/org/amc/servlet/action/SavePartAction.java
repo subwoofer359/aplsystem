@@ -12,7 +12,7 @@ import org.amc.model.Part;
 
 public class SavePartAction 
 {
-	private DAO<Part> partDAO;
+	private final DAO<Part> partDAO;
 	
 	public SavePartAction(DAO<Part> jobTemplateDAO)
 	{

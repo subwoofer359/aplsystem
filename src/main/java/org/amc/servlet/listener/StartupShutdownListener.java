@@ -22,7 +22,7 @@ public class StartupShutdownListener implements ServletContextListener
 	/**
 	 * Roles defined here must be the same as the roles defined in the deployment descriptor
 	 */ 
-	private final String ROLES="SECURITY_ROLES";
+	private final static String ROLES="SECURITY_ROLES";
 
 	public final static Logger log = Logger.getLogger(StartupShutdownListener.class.toString());
 	@Override

@@ -8,7 +8,7 @@ import javax.persistence.EntityManagerFactory;
  * @version 1
  *
  */
-public class EntityManagerThreadLocal
+public final class EntityManagerThreadLocal
 {
 	private static EntityManagerFactory factory;
 	private final static ThreadLocal<EntityManager> entityManager=new ThreadLocal<EntityManager>()
@@ -38,6 +38,10 @@ public class EntityManagerThreadLocal
 	{
 		entityManager.get().close();
 		entityManager.remove();
+	}
+	
+	private EntityManagerThreadLocal()
+	{
 	}
 
 }

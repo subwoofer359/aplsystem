@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveProcessSheetAction 
 {
-	private DAO<MouldingProcess> mouldingProcessDAO;
+	private final DAO<MouldingProcess> mouldingProcessDAO;
 	
 	@Autowired
 	public SaveProcessSheetAction(DAO<MouldingProcess> mouldingProcessDAO)

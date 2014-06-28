@@ -21,8 +21,12 @@ import org.apache.log4j.Logger;
  */
 public class DAO<T extends WorkEntity> implements Serializable
 {
+	
+	private static final long serialVersionUID = 854157422459241714L;
+	
 	private static Logger logger=Logger.getLogger(DAO.class);
-	private Class<? extends WorkEntity> entityClass;
+	
+	private final Class<? extends WorkEntity> entityClass;
 	
 	public DAO(Class<? extends WorkEntity> entityClass)
 	{
@@ -33,7 +37,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 	 * 
 	 * @return EntityManager for subclass to use
 	 */
-	public synchronized EntityManager getEntityManager()
+	public EntityManager getEntityManager()
 	{
 		
 		return EntityManagerThreadLocal.getEntityManager();

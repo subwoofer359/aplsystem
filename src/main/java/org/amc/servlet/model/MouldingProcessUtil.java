@@ -8,12 +8,17 @@ import org.apache.log4j.Logger;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class MouldingProcessUtil
+public final class MouldingProcessUtil
 {
 	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
 	private final static float CLAMP_CLOSING_ACCELERATION=1250f;
 	private final static float CLAMP_CLOSING_DEACCELERATION=-1000f;
 	
+	
+	private MouldingProcessUtil()
+	{
+		//An utility class
+	}
 	
 	public static float getTotalInjectionTime(MouldingProcess process)
 	{
@@ -41,15 +46,15 @@ public class MouldingProcessUtil
 		
 		for(int pointer=0;pointer<speed.length;pointer++)
 		{
-			if(position[pointer+1]!=0)
-			{
-				totalInjectionTime+=(position[pointer]-position[pointer+1])/speed[pointer];
-				
-			}
-			else
+			if(position[pointer+1]==0)
 			{
 				totalInjectionTime+=(position[pointer]-process.getPosTran())/speed[pointer];
 				break;
+			}
+			else
+			{
+				totalInjectionTime+=(position[pointer]-position[pointer+1])/speed[pointer];
+				
 			}
 		}
 		return totalInjectionTime;
@@ -64,8 +69,8 @@ public class MouldingProcessUtil
 	 */
 	private static float getDistance(float intialVelocity,float timeInSeconds,float acceleration)
 	{
-		float distance=(float)((intialVelocity*timeInSeconds)+(0.5*acceleration*Math.pow(timeInSeconds, 2)));
-		return distance;
+		return (float)((intialVelocity*timeInSeconds)+(0.5*acceleration*Math.pow(timeInSeconds, 2)));
+		
 	}
 	/**
 	 * a=(v-u)/t

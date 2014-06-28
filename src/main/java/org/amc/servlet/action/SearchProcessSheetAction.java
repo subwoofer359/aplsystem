@@ -13,7 +13,7 @@ import org.amc.dao.DAO;
 public class SearchProcessSheetAction 
 {
 	
-	private DAO<MouldingProcess> mouldingProcessDAO;
+	private final DAO<MouldingProcess> mouldingProcessDAO;
 	
 	public SearchProcessSheetAction(DAO<MouldingProcess> mouldingProcessDAO)
 	{

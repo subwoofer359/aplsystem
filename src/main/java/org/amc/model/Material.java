@@ -62,7 +62,7 @@ public class Material implements Serializable,WorkEntity
 
 	public Material()
 	{
-		;;
+		//empty constructor
 	}
 
 	public int getId()
@@ -211,21 +211,15 @@ public class Material implements Serializable,WorkEntity
 	 */
 	public boolean equals(Object material)
 	{
-		if(material==null || (!material.getClass().equals(this.getClass())))
+		if(material==null || !material.getClass().equals(this.getClass()))
 		{
 			return false;
 		}
 		
 		Material m2=(Material)material;
 		
-		if(this.getName().equals(m2.getName()) && this.getCompany().equals(m2.getCompany()) && getType().equals(m2.getType()))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return this.getName().equals(m2.getName()) && this.getCompany().equals(m2.getCompany()) && getType().equals(m2.getType());
+		
 	}
 	
 	@Override

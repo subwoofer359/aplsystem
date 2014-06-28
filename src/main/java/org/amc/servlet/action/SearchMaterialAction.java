@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SearchMaterialAction
 {
 
-	private MaterialDAO materialDAO;
+	private final MaterialDAO materialDAO;
 	
 	@Autowired
 	public SearchMaterialAction(MaterialDAO materialDAO)

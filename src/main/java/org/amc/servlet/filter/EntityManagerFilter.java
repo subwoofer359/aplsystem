@@ -30,7 +30,7 @@ public class EntityManagerFilter implements Filter
 	 */
 	public void destroy() 
 	{
-		;;
+		//empty constructor
 	}
 
 	/**

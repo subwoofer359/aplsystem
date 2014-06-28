@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class SearchPartAction 
 {
-	private DAO<Part> partDAO;
+	private final DAO<Part> partDAO;
 	
 	@Autowired
 	public SearchPartAction(DAO<Part> jobTemplateDAO)

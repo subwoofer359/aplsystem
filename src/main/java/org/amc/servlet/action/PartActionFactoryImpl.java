@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class PartActionFactoryImpl implements PartActionFactory
 {
-	DAO<Part> jobDAO;
+	private static final long serialVersionUID = -2782238430222426152L;
+	private final DAO<Part> jobDAO;
+	
 	@Autowired
 	public PartActionFactoryImpl(DAO<Part> jobDAO)
 	{

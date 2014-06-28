@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ProcessActionFactoryImpl implements ProcessActionFactory
 {
 
-	private DAO<MouldingProcess> mouldingProcessDAO;
+	private static final long serialVersionUID = 4706570566006585224L;
+	
+	private final DAO<MouldingProcess> mouldingProcessDAO;
 	
 	@Autowired
 	public ProcessActionFactoryImpl(DAO<MouldingProcess> mouldingProcessDAO)

@@ -133,15 +133,17 @@ public class APLUserController
 		{
 			tempUser=userDAO.getEntity(String.valueOf(user.getId()));
 		
-			//If the user's password doesn't equals the DEFAULT password then hash and save the password
-			if(!user.getPassword().equals(PASSWORD_DEFAULT))
-			{
-				user.setPassword(hash(user.getPassword()));
-			}
 			// Save the old password
-			else
+
+			if(user.getPassword().equals(PASSWORD_DEFAULT))
 			{
 				user.setPassword(tempUser.getPassword());
+			}
+			//If the user's password doesn't equals the DEFAULT password then hash and save the password
+			else
+			{
+				user.setPassword(hash(user.getPassword()));
+				
 			}
 		
 			//Get the roles currently assigned to the user
@@ -150,20 +152,26 @@ public class APLUserController
 			List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
 			//Check if roles equals null or no roles selected
 		
+			String[] tempRoles;
+			
 			if(roles==null)
 			{
-				roles=new String[0];
+				tempRoles=new String[0];
+			}
+			else
+			{
+				tempRoles=roles;
 			}
 			//Check to see if the User's role already exists
-			for(int i=0;i<roles.length;i++)
+			for(int i=0;i<tempRoles.length;i++)
 			{
 				boolean exists=false;
-				for(UserRoles tempRole:currentListOfRoles)
+				for(UserRoles currRole:currentListOfRoles)
 				{
-					if(tempRole.getRoleName().equals(roles[i]))
+					if(currRole.getRoleName().equals(tempRoles[i]))
 					{
 						//If the role already exists copy to new list
-						newListOfRoles.add(tempRole);
+						newListOfRoles.add(currRole);
 						exists=true;
 					}
 				}
@@ -171,7 +179,7 @@ public class APLUserController
 				{
 					//If the role doesn't exist then create a new role for the user and add to new list
 					UserRoles newRole=new UserRoles();
-					newRole.setRoleName(roles[i]);
+					newRole.setRoleName(tempRoles[i]);
 					newRole.setUser(user);
 					newListOfRoles.add(newRole);
 				}
@@ -182,14 +190,14 @@ public class APLUserController
 			for(int i=0;i<currentListOfRoles.size();i++)
 			{
 				boolean exists=false;
-				for(int t=0;t<roles.length;t++)
+				for(int t=0;t<tempRoles.length;t++)
 				{
-					if(currentListOfRoles.get(i).getRoleName().equals(roles[t]))
+					if(currentListOfRoles.get(i).getRoleName().equals(tempRoles[t]))
 					{
 						exists=true;
 					}
 				}
-				if(exists==false)
+				if(!exists)
 				{
 					userRolesDAO.deleteEntity(currentListOfRoles.get(i));
 				}
@@ -213,7 +221,7 @@ public class APLUserController
 			}
 				
 			//If in Edit mode update user otherwise add user
-			if(mode.equals("edit"))
+			if("edit".equals(mode))
 			{
 				userDAO.updateEntity(user);
 			}
@@ -259,18 +267,18 @@ public class APLUserController
 		model.getModel().put("mode", mode);
 		try
 		{
-			if(mode.equals("edit"))
+			if("edit".equals(mode))
 			{
 				u=userDAO.getEntity(String.valueOf(id));
 				logger.debug("Users_edit: User retrieved"+u);
 			
 			}
 			else
-				if(mode.equals("add"))
+				if("add".equals(mode))
 				{
 					u=new User();				
 				}
-				else if(mode.equals("delete"))
+				else if("delete".equals(mode))
 				{
 					u=userDAO.getEntity(String.valueOf(id)); 
 					logger.debug("User about to be deleted "+u);
@@ -336,9 +344,10 @@ public class APLUserController
 	 */
 	private String hash(String password)
 	{
+		String hashedPassword="";
 		if(password==null)
 		{
-			return "";
+			return hashedPassword;
 		}
 		byte[] hash=null;
 		try
@@ -348,13 +357,14 @@ public class APLUserController
 		}
 		catch(NoSuchAlgorithmException nae)
 		{
-			//to implement
+			logger.error("HashPassword:The hashing algorithm not supported");
+			//todo implement
 		}
 		if(hash!=null)
 		{
-			password=hexEncode(hash);
+			hashedPassword=hexEncode(hash);
 		}
-		return password;
+		return hashedPassword;
 	}
 	
 	/**

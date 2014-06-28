@@ -20,17 +20,13 @@ import javax.servlet.http.HttpServletResponse;
 public class NoCacheFilter implements Filter {
 
     private FilterConfig filterConfig;
-    public NoCacheFilter() 
-    {
-      
-    }
-
+    
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() 
 	{
-		
+		//Nothing to clean up
 	}
 
 	/**

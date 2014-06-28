@@ -1,5 +1,7 @@
 package org.amc.servlet.model;
 
+import javax.validation.ValidationException;
+
 import org.amc.model.Material;
 
 /**
@@ -24,9 +26,10 @@ public class MaterialForm
 	private String mould_temp_low;
 	private String mould_temp_upper;
 
+	
 	public MaterialForm()
 	{
-		
+		//Empty Constructor
 	}
 
 	public String getId()
@@ -165,7 +168,7 @@ public class MaterialForm
 		return this.getCompany()+" "+this.getName()+" "+this.getType();
 	}
 	
-	public static Material getMaterial(MaterialForm form) throws Exception
+	public static Material getMaterial(MaterialForm form) throws ValidationException
 	{
 		Material material = null;
 		try
@@ -193,11 +196,11 @@ public class MaterialForm
 					.getWater_absorption()));
 			material.setType(form.getType());
 			material.setName(form.getName());
-		} catch (NumberFormatException e)
+		} 
+		catch (NumberFormatException e)
 		{
-			Exception exception = new Exception(
-					"Couldn't parse MouldingProcessForm into MouldingProcess object");
-			exception.addSuppressed(e);
+			ValidationException exception = new ValidationException("Couldn't parse MouldingProcessForm into MouldingProcess object");
+			exception.initCause(e);
 			throw exception;
 		}
 		return material;

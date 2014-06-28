@@ -58,8 +58,7 @@ public class Part implements Serializable,WorkEntity
 	 */
 	public Part()
 	{
-		;
-		;
+		//empty constructor
 	}
 
 	/**

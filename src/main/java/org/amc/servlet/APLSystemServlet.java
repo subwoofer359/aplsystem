@@ -182,14 +182,14 @@ public class APLSystemServlet extends HttpServlet
 			try
 			{
 				// New Part to Database
-				if(mode==null||mode.equals("Enter"))
+				if(mode==null||"Enter".equals(mode))
 				{
 					action.save(job);
 					request.setAttribute("form",jForm);
 					request.setAttribute("result", job.toString()+" saved");
 					dispatcherURL="/WEB-INF/JSP/Part.jsp";
 				}
-				else if(mode.equals("Edit"))
+				else if("Edit".equals(mode))
 				{
 					//Current Part is updated in the Database
 					job.setId(Integer.parseInt(jForm.getId()));
@@ -216,7 +216,7 @@ public class APLSystemServlet extends HttpServlet
 			catch(DAOException se)
 			{
 				
-				throw new ServletException("Database not available:"+se.getMessage());
+				throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 			}
 			
 			
@@ -273,7 +273,7 @@ public class APLSystemServlet extends HttpServlet
 		try
 		{
 			//if the page is to do a search
-			if(mode==null || mode.equals("search"))
+			if(mode==null || "search".equals(mode))
 			{
 				List<Part> list=null;
 				//To check to search for all entries or entries where name=searchWord
@@ -310,12 +310,12 @@ public class APLSystemServlet extends HttpServlet
 //			}
 			else if(mode!=null)
 			{
-				if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
+				if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 				{
 					//open the Part JSPage in add mode
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
 				}
-				else if(mode.equals("edit")&&idValue!=null)
+				else if("edit".equals(mode)&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
 					Part job=sjt.getPart(idValue);
@@ -331,7 +331,7 @@ public class APLSystemServlet extends HttpServlet
 		{
 			
 			se.printStackTrace();
-			throw new ServletException("Database not available:"+se.getMessage());
+			throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 		}
 	}
 	

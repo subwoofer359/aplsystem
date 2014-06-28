@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class MaterialActionFactoryImpl implements MaterialActionFactory
 {
-
-	private MaterialDAO materialDAO;
+	private static final long serialVersionUID = 2021441937440247471L;
+	private final MaterialDAO materialDAO;
 	
 	@Autowired
 	public MaterialActionFactoryImpl(MaterialDAO materialDAO)
