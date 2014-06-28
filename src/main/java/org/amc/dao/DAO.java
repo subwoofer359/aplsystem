@@ -103,6 +103,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 	 * @param processId
 	 * @return MouldingProcess or null if not found
 	 */
+	@SuppressWarnings("unchecked")
 	public T getEntity(String workEntityId) throws DAOException
 	{
 		T mp=null;
@@ -115,7 +116,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 		catch(NoResultException nre)
 		{
 			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity. The entity should exist in the database but it doesn't");
-			//throw new DAOException(nre); todo Should this error be thrown?
+			throw new DAOException(nre);
 		}
 		catch(PersistenceException pe)
 		{
@@ -125,7 +126,9 @@ public class DAO<T extends WorkEntity> implements Serializable
 		return mp;
 
 	}
-
+	
+	
+	@SuppressWarnings("unchecked")
 	public List<T> findEntities(String col, Object value) throws DAOException
 	{
 		List<T> resultList;
@@ -145,6 +148,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 		return resultList;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> findEntities() throws DAOException
 	{
 		List<T> resultList;
