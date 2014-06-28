@@ -17,7 +17,6 @@ public final class EntityManagerThreadLocal
 				@Override
 				protected EntityManager initialValue()
 				{
-					// TODO Auto-generated method stub
 					return factory.createEntityManager();
 				}
 			
