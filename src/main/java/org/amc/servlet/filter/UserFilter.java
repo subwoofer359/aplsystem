@@ -14,57 +14,54 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger; 
+import org.apache.log4j.Logger;
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.model.User;
-
-
 
 import org.springframework.context.ApplicationContext;
 
 /**
  * Servlet Filter implementation class UserFilter
+ * 
  * @author Adrian Mclaughlin
  * @version 1
  */
 @WebFilter(description = "Save the logged in user", urlPatterns = { "/APLSystemServlet" })
-public class UserFilter implements Filter {
+public class UserFilter implements Filter
+{
 
 	private FilterConfig filterConfig;
-	private static Logger logger=Logger.getLogger(UserFilter.class);
+	private static Logger logger = Logger.getLogger(UserFilter.class);
+
 	/**
 	 * @see Filter#destroy()
 	 */
-	public void destroy() {
+	public void destroy()
+	{
 		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException 
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
-		//Save User
-		HttpServletRequest httpRequest=(HttpServletRequest)request;
-		HttpSession session=httpRequest.getSession();
+		// Save User
+		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpSession session = httpRequest.getSession();
 		synchronized (session)
 		{
-			if(httpRequest.getUserPrincipal()!=null && session.getAttribute("USER")==null)
+			if (httpRequest.getUserPrincipal() != null && session.getAttribute("USER") == null)
 			{
-			//session.setAttribute("USER", new MyServletUser(request.getUserPrincipal()));
-				if(session.getAttribute("REMOTE_ADDRESS")==null)
+				if (session.getAttribute("REMOTE_ADDRESS") == null)
 				{
 					session.setAttribute("REMOTE_ADDRESS", httpRequest.getRemoteAddr());
 				}
-				String userName=httpRequest.getUserPrincipal().getName();
-				//session.setAttribute("USER", httpRequest.getUserPrincipal());
-				//Save Remote address when USER is saved
-				
+				String userName = httpRequest.getUserPrincipal().getName();
 				addLoggedUserToSession(userName, session);
 			}
 		}
-		
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
@@ -73,40 +70,40 @@ public class UserFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-	public void init(FilterConfig fConfig) throws ServletException 
+	public void init(FilterConfig fConfig) throws ServletException
 	{
-		this.filterConfig=fConfig;
-		
+		this.filterConfig = fConfig;
+
 	}
-	
-	private void addLoggedUserToSession(String userName,HttpSession session) throws ServletException
+
+	private void addLoggedUserToSession(String userName, HttpSession session) throws ServletException
 	{
-		//Spring Context
-		ServletContext sContext=filterConfig.getServletContext();
+		// Spring Context
+		ServletContext sContext = filterConfig.getServletContext();
 		ApplicationContext context2;
-		synchronized(sContext)
+		synchronized (sContext)
 		{
-			context2=(ApplicationContext)sContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
+			context2 = (ApplicationContext) sContext.getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		}
-		DAO<User> userDAO=(DAO<User>)context2.getBean("myUserDAO",DAO.class);
-		List<User> listOfUser=null;
-		try{
-			listOfUser=userDAO.findEntities("userName", userName);
-			if(listOfUser!=null && listOfUser.size()==1)
+		DAO<User> userDAO = (DAO<User>) context2.getBean("myUserDAO", DAO.class);
+		List<User> listOfUser = null;
+		try
+		{
+			listOfUser = userDAO.findEntities("userName", userName);
+			if (listOfUser != null && listOfUser.size() == 1)
 			{
-				synchronized(session)
+				synchronized (session)
 				{
 					session.setAttribute("USER", listOfUser.get(0));
-					logger.debug("User added to Session:"+listOfUser.get(0));
+					logger.debug("User added to Session:" + listOfUser.get(0));
 				}
 			}
 			else
 			{
-				logger.debug("Error when adding User "+userName+" added to Session:");
+				logger.debug("Error when adding User " + userName + " added to Session:");
 				throw new ServletException("No User has been found in the User Database with that User name");
 			}
-		}
-		catch(DAOException de)
+		} catch (DAOException de)
 		{
 			logger.error(de.getMessage());
 		}
