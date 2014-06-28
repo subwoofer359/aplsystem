@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebFilter("/*")
 public class NoCacheFilter implements Filter {
-
-    private FilterConfig filterConfig;
-    
 	/**
 	 * @see Filter#destroy()
 	 */
@@ -48,7 +45,7 @@ public class NoCacheFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException 
 	{
-		this.filterConfig=fConfig;
+		//No need to use the FilterConfig
 	}
 
 }
