@@ -22,7 +22,6 @@ public class EntityManagerFilter implements Filter
 
 	private static Logger logger=Logger.getLogger(EntityManagerFilter.class);
 	
-	private FilterConfig fConfig;
 	private EntityManagerFactory factory;
 
 	/**
@@ -52,7 +51,6 @@ public class EntityManagerFilter implements Filter
 	 */
 	public void init(FilterConfig fConfig) throws ServletException 
 	{
-		this.fConfig=fConfig;
 		ApplicationContext context2=(ApplicationContext)fConfig.getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setEntityManagerFactory((EntityManagerFactory)context2.getBean("applicationEntityManagerFactory"));
 	}
