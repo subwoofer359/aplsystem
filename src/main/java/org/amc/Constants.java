@@ -7,13 +7,11 @@ package org.amc;
  * @version 1
  *
  */
-public class Constants
+public final class Constants
 {
-	
-	private Constants()
-	{
-		//Utility Class
-	}
+	public final static String PERSISTENCE_UNIT_NAME="myDatabase";
+	public final static String PASSWORD_DIGEST="SHA-256";
+	public final static String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 	
 	public static enum Roles
 	{
@@ -37,7 +35,8 @@ public class Constants
 		}
 	}
 	
-	public final static String PERSISTENCE_UNIT_NAME="myDatabase";
-	public final static String PASSWORD_DIGEST="SHA-256";
-	public final static String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
+	private Constants()
+	{
+		//Utility Class
+	}
 }
