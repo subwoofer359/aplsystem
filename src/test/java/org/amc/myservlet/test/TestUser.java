@@ -191,7 +191,15 @@ public class TestUser
 		assertTrue(t1!=null);
 		
 		ud.deleteEntity(u1);
-		t1=ud.getEntity(String.valueOf(u1.getId()));
+		try
+		{
+			t1=ud.getEntity(String.valueOf(u1.getId()));
+		}
+		catch(DAOException de)
+		{
+			//Catch throw exception but for testing purposes carry on
+			t1=null;
+		}
 		
 		assertTrue(t1==null);
 		
@@ -224,7 +232,15 @@ public class TestUser
 		ud.deleteEntity(ru1);
 		
 		//Test user has been deleted
-		ru1=ud.getEntity(String.valueOf(u1.getId()));
+		try
+		{
+			ru1=ud.getEntity(String.valueOf(u1.getId()));
+		}
+		catch(DAOException de)
+		{
+			//Catch throw exception but for testing purposes carry on
+			ru1=null;
+		}
 		assertNull(ru1);
 	}
 	
