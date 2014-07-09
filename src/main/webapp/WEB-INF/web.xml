@@ -47,12 +47,7 @@
     </web-resource-collection>
     <web-resource-collection>
       <web-resource-name>APLSystemServlet</web-resource-name>
-      <url-pattern>/</url-pattern>
-      <url-pattern>/Material*</url-pattern>
-      <url-pattern>/ProcessSheet*</url-pattern>
-      <url-pattern>/APLProcessServlet</url-pattern>
-      <url-pattern>/APLSystemServlet</url-pattern>
-      <url-pattern>/Part*</url-pattern>
+      <url-pattern>/app/*</url-pattern>
     </web-resource-collection>
     <auth-constraint>
       <role-name>qc</role-name>
@@ -62,16 +57,6 @@
     <user-data-constraint>
       <transport-guarantee>CONFIDENTIAL</transport-guarantee>
     </user-data-constraint>
-  </security-constraint>
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>login</web-resource-name>
-      <url-pattern>*.css</url-pattern>
-      <url-pattern>/Login.jsp</url-pattern>
-      <url-pattern>/LoginError.jsp</url-pattern>
-      <url-pattern>/index.html</url-pattern>
-      <url-pattern>/images/*</url-pattern>
-    </web-resource-collection>
   </security-constraint>
   <login-config>
     <auth-method>FORM</auth-method>
@@ -171,10 +156,6 @@
     <filter-class>org.amc.servlet.filter.UserFilter</filter-class>
   </filter>
   <filter>
-  	<filter-name>UserActiveFilter</filter-name>
-  	<filter-class>org.amc.servlet.filter.UserActivateFilter</filter-class>
-  </filter>
-  <filter>
     <description>Adds a new EntityManager to each request and closes it when the response is sent</description>
     <filter-name>EntityManagerFilter</filter-name>
     <filter-class>org.amc.servlet.filter.EntityManagerFilter</filter-class>
@@ -187,10 +168,7 @@
   <filter-mapping>
     <filter-name>UserFilter</filter-name>
     <url-pattern>/APLSystemServlet</url-pattern>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/app/*</url-pattern>
   </filter-mapping>
-  <filter-mapping>
-    <filter-name>UserActiveFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+
 </web-app>
