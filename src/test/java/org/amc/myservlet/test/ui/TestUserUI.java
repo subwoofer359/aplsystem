@@ -47,7 +47,7 @@ public class TestUserUI
 		fixture.login();
 		for(int t=0;t<2;t++)
 		{
-			driver.get("http://192.168.1.6:8080/myservlet/APLSystemServlet");
+			driver.get("http://192.168.1.6:8080/myservlet/app/APLSystemServlet");
 			//Enter User page
 			WebElement element=driver.findElement(By.id("users"));
 			element.click();
