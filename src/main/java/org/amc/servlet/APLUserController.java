@@ -5,13 +5,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
@@ -19,7 +17,6 @@ import org.amc.model.User;
 import org.amc.model.UserRoles;
 import org.amc.servlet.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -131,8 +128,18 @@ public class APLUserController
 		User tempUser=null;
 		try
 		{
-			tempUser=userDAO.getEntity(String.valueOf(user.getId()));
-		
+			try
+			{
+				tempUser=userDAO.getEntity(String.valueOf(user.getId()));
+			}
+			catch(DAOException de)
+			{
+				//Expecting a NoResultException as the User doesn't exist in the database
+				if(!de.getCause().getClass().equals(NoResultException.class))
+				{
+					throw new DAOException(de);
+				}
+			}
 			// Save the old password
 
 			if(user.getPassword().equals(PASSWORD_DEFAULT))
@@ -223,15 +230,18 @@ public class APLUserController
 			//If in Edit mode update user otherwise add user
 			if("edit".equals(mode))
 			{
+				logger.debug("Updating User in database");
 				userDAO.updateEntity(user);
 			}
 			else
 			{
+				logger.debug("Adding User in database");
 				userDAO.addEntity(user);
 			}
 		}
 		catch(DAOException de)
 		{
+			logger.error(de.getMessage());
 			request.setAttribute("message", de.getMessage());
 		}
 		//Return to the search page
