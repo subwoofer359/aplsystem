@@ -188,7 +188,7 @@ public class TestAPLUserController
 		//Verify add user was called on UserDao object
 		verify(dao).addEntity(any(User.class));
 		//Verify the correct view String was returned.
-		assertEquals("forward:/user/Users",returnedResult);
+		assertEquals("forward:/app/user/Users",returnedResult);
 		
 		
 		//Verify 3 roles were create for the user
@@ -205,7 +205,7 @@ public class TestAPLUserController
 		//Verify add user was called on UserDao object
 		verify(dao).addEntity(any(User.class));
 		//Verify the correct view String was returned.
-		assertEquals("forward:/user/Users",returnedResult);
+		assertEquals("forward:/app/user/Users",returnedResult);
 				
 		//The user should now have no roles
 		finalRoles=u1.getRoles();
@@ -255,7 +255,7 @@ public class TestAPLUserController
 		
 		assertTrue(u1.getPassword().equals(oldPassword));
 		//Verify the correct view String was returned.
-		assertEquals("forward:/user/Users",returnedResult);
+		assertEquals("forward:/app/user/Users",returnedResult);
 				
 		//The user should now have no roles
 		List<UserRoles> finalRoles=u1.getRoles();

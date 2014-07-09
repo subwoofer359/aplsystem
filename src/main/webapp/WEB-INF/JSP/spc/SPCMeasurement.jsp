@@ -137,7 +137,7 @@ function populateForm(divName)
 <H1>SPC:${part.name}&nbsp;${part.version }&nbsp;${part.colour}&nbsp;(${part.part_id })</H1>
 </DIV>
 <%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
 
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <input type="hidden" name="spcPart" value="${spcPart.id}"/>
@@ -177,8 +177,8 @@ function populateForm(divName)
 </DIV>
 <SPAN class="buttons">
 	<button onclick="populateForm('dimensionEntry');showEntryDiv(this,'dimensionEntry')" form="">add SPC Dimension</button>
-	<input type="submit" name="mode" value="de(activate)" formaction="${pageContext.request.contextPath}/spc/SPC/deActivate" />
-	<input type="submit" name="mode" value="remove" formaction="${pageContext.request.contextPath}/spc/SPC/deleteDimension" />
+	<input type="submit" name="mode" value="de(activate)" formaction="${pageContext.request.contextPath}/app/spc/SPC/deActivate" />
+	<input type="submit" name="mode" value="remove" formaction="${pageContext.request.contextPath}/app/spc/SPC/deleteDimension" />
 	</SPAN>
 </FORM>
 
@@ -198,8 +198,8 @@ function populateForm(divName)
 </tbody>
 </table>
 <span class="buttons">
-	<input type="submit" name="mode" value="Enter" formaction="${pageContext.request.contextPath}/spc/SPC/addDimension" onclick="clearValueOfElementId('tableId');clearValueOfElementId('DimensionId')" />
-	<input type="submit" name="mode" value="Edit" formaction="${pageContext.request.contextPath}/spc/SPC/editDimension" />
+	<input type="submit" name="mode" value="Enter" formaction="${pageContext.request.contextPath}/app/spc/SPC/addDimension" onclick="clearValueOfElementId('tableId');clearValueOfElementId('DimensionId')" />
+	<input type="submit" name="mode" value="Edit" formaction="${pageContext.request.contextPath}/app/spc/SPC/editDimension" />
 </span>
 <input type="hidden" id="tableId" name="tableId"/>
 </form>

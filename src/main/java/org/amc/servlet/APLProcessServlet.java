@@ -30,11 +30,11 @@ import org.springframework.web.context.WebApplicationContext;
 @WebServlet(description = "To serve up Process Sheet Data", 
 			urlPatterns = 
 			{
-				"/APLProcessServlet",
-				"/ProcessSheet_display",
-				"/ProcessSheet_search",
-				"/ProcessSheet_save", 
-				"/ProcessSheet_analysis"
+				"/app/APLProcessServlet",
+				"/app/ProcessSheet_display",
+				"/app/ProcessSheet_search",
+				"/app/ProcessSheet_save", 
+				"/app/ProcessSheet_analysis"
 			},loadOnStartup=2)
 
 
@@ -148,7 +148,7 @@ public class APLProcessServlet extends HttpServlet
 				{
 					logger.debug(String.format("SaveProcessSheet:Entering entry into database"));
 					action.save(processSheet);
-					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else if("edit".equals(mode))
@@ -158,7 +158,7 @@ public class APLProcessServlet extends HttpServlet
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					processSheet.setId(Integer.parseInt(jForm.getId()));
 					action.edit(processSheet);
-					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else
@@ -222,7 +222,7 @@ public class APLProcessServlet extends HttpServlet
 		if(idValue==null || ("".equals(idValue)))
 		{
 			// No Process selected return to ProcessSearchPage
-			response.sendRedirect(request.getContextPath()+"/ProcessSheet_search");
+			response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search");
 		}
 		else 
 		{

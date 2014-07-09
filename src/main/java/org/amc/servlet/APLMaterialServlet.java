@@ -29,10 +29,10 @@ import org.springframework.web.context.WebApplicationContext;
 @WebServlet(
 		description = "To Process Material Requests", 
 		urlPatterns = { 
-				"/Material_display",
-				"/Material_save",
-				"/Material_search",
-				"/MaterialServlet"
+				"/app/Material_display",
+				"/app/Material_save",
+				"/app/Material_search",
+				"/app/MaterialServlet"
 				}
 		,loadOnStartup=3)
 public class APLMaterialServlet extends HttpServlet 
@@ -144,7 +144,7 @@ public class APLMaterialServlet extends HttpServlet
 				{
 					logger.debug(String.format("SaveMaterial:Entering entry into database"));
 					action.save(material);
-					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				//else if(mode.equals("edit"))
@@ -155,7 +155,7 @@ public class APLMaterialServlet extends HttpServlet
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					material.setId(Integer.parseInt(jForm.getId()));
 					action.edit(material);
-					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/Material_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else
@@ -207,7 +207,7 @@ public class APLMaterialServlet extends HttpServlet
 		if(idValue==null || "".equals(idValue))
 		{
 			// No Process selected return to ProcessSearchPage
-			response.sendRedirect(request.getContextPath()+"/Material_search");	
+			response.sendRedirect(request.getContextPath()+"/app/Material_search");	
 		}
 		else
 		{

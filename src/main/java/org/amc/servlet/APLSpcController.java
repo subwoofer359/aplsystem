@@ -78,7 +78,7 @@ public class APLSpcController
 		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			request.setAttribute("message", "User can't not add Parts to the SPCList");
-			return "forward:/Part_search";
+			return "forward:/app/Part_search";
 		}
 		Part part=null;
 		try
@@ -104,7 +104,7 @@ public class APLSpcController
 				request.setAttribute("message", "Part already on the SPC list");
 			}
 		}
-		return "forward:/Part_search";
+		return "forward:/app/Part_search";
 	}
 	
 	@RequestMapping("/SPC/removePart")
@@ -132,7 +132,7 @@ public class APLSpcController
 			
 		}
 		
-		return "forward:/spc/SPCPartsList";
+		return "forward:/app/spc/SPCPartsList";
 		
 	}
 	

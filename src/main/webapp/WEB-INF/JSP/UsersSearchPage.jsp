@@ -18,7 +18,7 @@
 <DIV class="title"><H1>Users</H1></DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<form method="post" action="${pageContext.request.contextPath}/user/Users_edit" onsubmit="return isChecked(this, 'user')">
+<form method="post" action="${pageContext.request.contextPath}/app/user/Users_edit" onsubmit="return isChecked(this, 'user')">
 <div class="results">
 <table>
 <thead>

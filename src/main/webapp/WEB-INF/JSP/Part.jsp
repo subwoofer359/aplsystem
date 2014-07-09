@@ -32,7 +32,7 @@ function home()
 </DIV>
 
 <%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/Part_search" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/Part_search" value="Search Page" position="220px"></tags:Navbox>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("${errors}");</SCRIPT>

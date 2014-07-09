@@ -235,7 +235,7 @@ public class APLUserController
 			request.setAttribute("message", de.getMessage());
 		}
 		//Return to the search page
-		return "forward:/user/Users";
+		return "forward:/app/user/Users";
 	}
 	
 	/**

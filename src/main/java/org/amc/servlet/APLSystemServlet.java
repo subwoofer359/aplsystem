@@ -29,16 +29,16 @@ import org.springframework.context.ApplicationContext;
 @WebServlet(
 		description = "Dispatching Servlet for the Problem Database", 
 		urlPatterns = { 
-				"/APLSystemServlet", 
-				"/Part_display",
-				"/Part_search",
-				"/Part_save", 
-				"/Problem_save", 
-				"/Problem_display", 
-				"/ProblemDescription_save", 
-				"/ProblemDescription_display", 
-				"/SearchProblemDatabase",
-				"/logout"
+				"/app/APLSystemServlet", 
+				"/app/Part_display",
+				"/app/Part_search",
+				"/app/Part_save", 
+//				"/Problem_save", 
+//				"/Problem_display", 
+//				"/ProblemDescription_save", 
+//				"/ProblemDescription_display", 
+//				"/SearchProblemDatabase",
+				"/app/logout"
 		},loadOnStartup=1)
 
 public class APLSystemServlet extends HttpServlet 
@@ -195,7 +195,7 @@ public class APLSystemServlet extends HttpServlet
 					job.setId(Integer.parseInt(jForm.getId()));
 					action.edit(job);
 					dispatcherURL="Part_search";
-					response.sendRedirect(request.getContextPath()+"/Part_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/Part_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else

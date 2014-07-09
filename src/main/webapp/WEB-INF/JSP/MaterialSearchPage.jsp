@@ -15,8 +15,8 @@
 <STYLE>
 
 </STYLE>
-<script src="js/SearchPage.js"></script>
-<script src="js/TablesSort.js"></script>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 </head>
 <body>
 <DIV class="title">
@@ -25,7 +25,7 @@
 <%@ include file="NavigationDiv.jspf" %>
 
 
-<FORM action="${pageContext.request.contextPath}/Material_search" method="post" onsubmit="return isChecked(this,'material')">
+<FORM action="${pageContext.request.contextPath}/app/Material_search" method="post" onsubmit="return isChecked(this,'material')">
 <DIV class="results">
 <TABLE>
 <thead>
