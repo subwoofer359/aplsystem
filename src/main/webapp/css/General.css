@@ -39,6 +39,7 @@ body
 	margin-right:4px;
 	border-color: #345169;
 	font-size:x-large;
+	z-index:100;
 }
 
 .error_message
