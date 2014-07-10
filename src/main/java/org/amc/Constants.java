@@ -1,5 +1,8 @@
 package org.amc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Holds the global constants for the Application
@@ -48,18 +51,16 @@ public final class Constants
 		
 		/**
 		 * 
-		 * @return an array of Roles as Strings
+		 * @return a List of Roles as Strings
 		 */
-		public static String[] getStringValues()
+		public static List<String> getStringValues()
 		{
-			final Roles[] roles=Roles.values();
-			String[] roleStrings=new String[roles.length];
-			
-			for(int i=0;i<roleStrings.length;i++)
+			List<String> roleList=new ArrayList<String>();
+			for(Roles role:Roles.values())
 			{
-				roleStrings[i]=roles[i].toString();
+				roleList.add(role.toString());
 			}
-			return roleStrings;
+			return roleList;
 		}
 	}
 	
