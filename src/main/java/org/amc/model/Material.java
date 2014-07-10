@@ -206,6 +206,8 @@ public class Material implements Serializable,WorkEntity
 	 */
 	public boolean equals(Object material)
 	{
+		if(this==material) return true;
+		
 		if(material==null || !material.getClass().equals(this.getClass()))
 		{
 			return false;
@@ -224,6 +226,5 @@ public class Material implements Serializable,WorkEntity
 		hash=hash*33+company.hashCode();
 		hash=hash*2+type.hashCode();
 		return hash;
-	}
-	
+	}	
 }

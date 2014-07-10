@@ -17,12 +17,16 @@ import javax.persistence.Transient;
  * @author Adrian Mclaughlin
  * @version 1
  */
+/**
+ * @author adrian
+ *
+ */
 @Entity
 @Table(name = "processSheets")
 public class MouldingProcess implements Serializable,WorkEntity
 {
 	@Transient
-	public final static String[] fields={
+	public final static String[] FIELDS={
 		 "id",	
 		 "partId",
 		 "machineSize",
@@ -130,29 +134,62 @@ public class MouldingProcess implements Serializable,WorkEntity
 		 "waterTempNotes",
 };
 
+	/**
+	 * Serializable
+	 */
 	private static final long serialVersionUID = -2782845506401132766L;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;// Database ID
-	// Top Header
+	
+	/**
+	 * Part ID
+	 */
 	@Column(nullable=false)
 	private String partId;
+	
+	
+	/**
+	 * size of machine in tonnes
+	 */
 	@Column(nullable=false)
 	private int machineSize;
+	
+	/**
+	 * Identifer of the machine
+	 */
 	@Column(nullable=false)
 	private String machineNo;
+	
+	/**
+	 * Material ID
+	 */
 	@Column(nullable=false)
 	private int material;
+	
+	/**
+	 * Masterbatch number
+	 */
 	@Column
 	private String masterbatchNo;
+	
+	/**
+	 * Date of the Process setup
+	 */
 	@Column(nullable=false)
 	private Date dateOfIssue;
+	
+	/**
+	 * Author of the setup
+	 */
 	@Column(nullable=false)
 	private String signOffBy;
 	@Column
 	private String processNotes;
 
-	// Injection section
+	/**
+	 *  Injection section
+	 */
 	@Column
 	private float injectionSpeed_1;
 	@Column
@@ -165,7 +202,6 @@ public class MouldingProcess implements Serializable,WorkEntity
 	private float injectionSpeed_5;
 	@Column
 	private float injectionSpeed_6;
-
 	@Column
 	private float injSpeedPosition_1;
 	@Column
@@ -179,7 +215,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float injSpeedPosition_6;
 
-	// Holding pressure
+	/**
+	 *  Holding pressure
+	 */
 	@Column
 	private float holdingPressure_1;
 	@Column
@@ -193,7 +231,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float holdingPressure_6;
 
-	// Holding Time
+	/**
+	 *  Holding Time
+	 */
 	@Column
 	private float holdingTime_1;
 	@Column
@@ -207,7 +247,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float holdingTime_6;
 
-	// Injection and Holding variables
+	/**
+	 *  Injection and Holding variables
+	 */
 	@Column
 	private float maxPackVel;
 	@Column
@@ -225,7 +267,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float coolTime;
 
-	// Extruding
+	/**
+	 *  Extruding
+	 */
 	@Column
 	private float backPressure_1;
 	@Column
@@ -265,7 +309,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float extProfilePos_6;
 
-	// Barrel Temperature
+	/**
+	 *  Barrel Temperature
+	 */
 	@Column
 	private float nozzelTemperature;
 	@Column
@@ -279,7 +325,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float throatTemperature;
 
-	// mouldClosing
+	/**
+	 *  mouldClosing
+	 */
 	@Column
 	private float mouldClosingOpenLimitPos;
 	@Column
@@ -298,7 +346,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float clsSPSpeed;
 
-	// mould opening
+	/**
+	 *  mould opening
+	 */
 	@Column
 	private float mouldOpenBreakAwaySpeed;
 	@Column
@@ -319,7 +369,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private String ejectStart;
 
-	// Ejectors
+	/**
+	 *  Ejectors
+	 */
 	@Column
 	private String ejectMode;
 	@Column
@@ -345,7 +397,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float ejectorsRevTime;
 
-	// DMEs
+	/**
+	 *  DMEs
+	 */
 	@Column
 	private float dme_1;
 	@Column
@@ -363,7 +417,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private float dme_8;
 
-	// Water
+	/**
+	 *  Water
+	 */
 	@Column
 	private float waterTempFixedHalf;
 	@Column
@@ -371,7 +427,11 @@ public class MouldingProcess implements Serializable,WorkEntity
 	@Column
 	private String waterTempNotes;
 
-	// Getters/Setters
+	/**
+	 * Reflective Getters/Setters
+	 * @param field
+	 * @param f
+	 */
 	public void setField(String field, Float f)
 	{
 		try
@@ -393,7 +453,12 @@ public class MouldingProcess implements Serializable,WorkEntity
 		}
 
 	}
-
+	
+	/**
+	 * Reflective Getters/Setters
+	 * @param field
+	 * @param s
+	 */
 	public void setField(String field, java.sql.Date s)
 	{
 		try
@@ -416,6 +481,11 @@ public class MouldingProcess implements Serializable,WorkEntity
 
 	}
 
+	/**
+	 * Reflective Getters/Setters
+	 * @param field
+	 * @param s
+	 */
 	public void setField(String field, String s)
 	{
 		try
@@ -440,6 +510,11 @@ public class MouldingProcess implements Serializable,WorkEntity
 
 	}
 
+	/**
+	 * Reflective Getters/Setters
+	 * @param field
+	 * @param s
+	 */
 	public void setField(String field, Integer s)
 	{
 		try
@@ -462,6 +537,11 @@ public class MouldingProcess implements Serializable,WorkEntity
 
 	}
 
+	/**
+	 * Reflective Getters/Setters
+	 * @param field
+	 * @param obj
+	 */
 	public void setField(String field, Object obj)
 	{
 		try
@@ -487,6 +567,11 @@ public class MouldingProcess implements Serializable,WorkEntity
 
 	}
 
+	/**
+	 * 
+	 * @param field
+	 * @return Object from field
+	 */
 	public Object getField(String field)
 	{
 		try
@@ -540,7 +625,7 @@ public class MouldingProcess implements Serializable,WorkEntity
 
 	public java.sql.Date getDateOfIssue()
 	{
-		return (java.sql.Date) this.dateOfIssue;
+		return this.dateOfIssue;
 	}
 
 	public String getSignOffBy()
@@ -1549,6 +1634,9 @@ public class MouldingProcess implements Serializable,WorkEntity
 		return this.id;
 	}
 
+	/**
+	 * @param id
+	 */
 	public void setId(int id)
 	{
 		this.id = id;
@@ -1564,16 +1652,17 @@ public class MouldingProcess implements Serializable,WorkEntity
 		this.decompressionDist = decompressionDist;
 	}
 
+	
 	@Override
 	public String toString()
 	{
 		StringBuilder result=new StringBuilder();
 		result.append("ProcessSheet:(");
-		for (String field : fields)
+		for (String field : FIELDS)
 		{
 			result.append(",(" + field + ":" + getField(field) + ")\n");
 		}
-		result.append(")");
+		result.append(')');
 		return result.toString();
 	}
 

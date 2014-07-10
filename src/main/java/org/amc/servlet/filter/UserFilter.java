@@ -122,7 +122,7 @@ public class UserFilter implements Filter
 			context2 = (ApplicationContext) filterConfig.getServletContext().getAttribute(SPRING_WEBAPPCONTEXT);
 		}
 		
-		DAO<User> userDAO = (DAO<User>) context2.getBean(USERDAO, DAO.class);
+		DAO<User> userDAO = context2.getBean(USERDAO, DAO.class);
 		
 		try
 		{

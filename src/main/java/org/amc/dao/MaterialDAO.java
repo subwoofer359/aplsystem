@@ -38,7 +38,7 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 		{
 			Query q=em.createQuery("Select x from Material x where x."+col+"='"+value+"'");
 			list = new HashMap<Integer, Material>();
-			List<Material> resultList=(List<Material>)q.getResultList();
+			List<Material> resultList=q.getResultList();
 			for(Material m:resultList)
 			{
 				list.put(m.getId(),m);
@@ -61,7 +61,7 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 		{
 			Query q=em.createQuery("Select x from Material x ORDER BY x.id");
 			list = new TreeMap<Integer, Material>();
-			List<Material> resultList=(List<Material>)q.getResultList();
+			List<Material> resultList=q.getResultList();
 			for(Material m:resultList)
 			{
 				list.put(m.getId(),m);

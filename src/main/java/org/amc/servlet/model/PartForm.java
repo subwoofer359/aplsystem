@@ -29,7 +29,7 @@ public class PartForm
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public boolean getExternal() {
+	public boolean isExternal() {
 		return external;
 	}
 	public void setExternal(boolean external) {

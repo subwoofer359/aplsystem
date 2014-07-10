@@ -23,7 +23,6 @@ public class APLSessionListener implements HttpSessionListener
 		synchronized(this)
 		{
 			count++;
-			String address="";
 			logger.info("(Create) There are "+count+" sessions");
 			updateSerlvetContext(arg0);
 		}

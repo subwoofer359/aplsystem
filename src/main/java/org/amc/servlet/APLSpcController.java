@@ -101,6 +101,7 @@ public class APLSpcController
 			}
 			catch(Exception e)
 			{
+				logger.debug("Part already on the SPC list");
 				request.setAttribute("message", "Part already on the SPC list");
 			}
 		}
@@ -302,7 +303,7 @@ public class APLSpcController
 		
 			try
 			{
-				SPCMeasurement measurement=(SPCMeasurement)spcDimensionDAO.getEntity(String.valueOf(id));
+				SPCMeasurement measurement=spcDimensionDAO.getEntity(String.valueOf(id));
 				spcDimensionDAO.deleteEntity(measurement);
 			}
 			catch(DAOException de)

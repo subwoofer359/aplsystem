@@ -51,7 +51,7 @@ public class TestSPCMeasurment
 		dao.addEntity(measurement);
 	
 		//Retrieve SPCMeasurement entity from database
-		SPCMeasurement spc=(SPCMeasurement)dao.getEntity(String.valueOf(measurement.getId()));
+		SPCMeasurement spc=dao.getEntity(String.valueOf(measurement.getId()));
 		
 		//Check some properties 
 		assertEquals(spc.getDimension(),measurement.getDimension());

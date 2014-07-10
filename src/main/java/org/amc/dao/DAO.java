@@ -17,17 +17,30 @@ import org.apache.log4j.Logger;
  * Fetches and holds a reference to the Persistence EntityManager
  * @author Adrian Mclaughlin
  * @version 1
- *
+ * @param <T> WorkEntity
  */
 public class DAO<T extends WorkEntity> implements Serializable
 {
 	
+	/**
+	 * Serializable
+	 */
 	private static final long serialVersionUID = 854157422459241714L;
 	
-	private static Logger logger=Logger.getLogger(DAO.class);
+	/**
+	 * Logger used by the object
+	 */
+	private static Logger LOG=Logger.getLogger(DAO.class);
 	
+	/**
+	 * The class this DAO is handling
+	 */
 	private final Class<? extends WorkEntity> entityClass;
 	
+	/**
+	 * Constructor
+	 * @param entityClass
+	 */
 	public DAO(Class<? extends WorkEntity> entityClass)
 	{
 		this.entityClass=entityClass;	
@@ -43,6 +56,10 @@ public class DAO<T extends WorkEntity> implements Serializable
 		return EntityManagerThreadLocal.getEntityManager();
 	}
 	
+	/**
+	 * @param entity
+	 * @throws DAOException
+	 */
 	public void addEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
@@ -56,11 +73,15 @@ public class DAO<T extends WorkEntity> implements Serializable
 		{
 			em.getTransaction().rollback();
 			em.close();
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to persist entity");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to persist entity");
 			throw new DAOException(pe);
 		}
 	}
 
+	/**
+	 * @param entity
+	 * @throws DAOException
+	 */
 	public void updateEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
@@ -74,100 +95,131 @@ public class DAO<T extends WorkEntity> implements Serializable
 		{
 			em.getTransaction().rollback();
 			em.close();
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to merge entity into the persistence context");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to merge entity into the persistence context");
 			throw new DAOException(pe);
 		}
 		
 	}
 
+	/**
+	 * @param entity
+	 * @throws DAOException
+	 */
 	public void deleteEntity(T entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
 		try
 		{
 			em.getTransaction().begin();
-			T u=em.merge(entity);
-			em.remove(u);
+			T entityToBeRemoved=em.merge(entity);
+			em.remove(entityToBeRemoved);
 			em.getTransaction().commit();
 		}
 		catch(PersistenceException pe)
 		{
 			em.close();
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to delete entity");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to delete entity");
 			throw new DAOException(pe);
 		}
 	}
 
 	/**
-	 * 
-	 * @param processId
+	 * @param workEntityId
 	 * @return MouldingProcess or null if not found
+	 * @throws DAOException
 	 */
 	@SuppressWarnings("unchecked")
 	public T getEntity(String workEntityId) throws DAOException
 	{
-		T mp=null;
-		Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
+		
+		Query query=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x.id="+workEntityId+"");
 		try
 		{
-			mp = (T)q.getSingleResult();
+			T mp = (T)query.getSingleResult();
 			//getEntityManager().detach(mp);
+			return mp;
 		}
 		catch(NoResultException nre)
 		{
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity. The entity should exist in the database but it doesn't");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity. The entity should exist in the database but it doesn't");
 			throw new DAOException(nre);
 		}
 		catch(PersistenceException pe)
 		{
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to retrive entity");
 			throw new DAOException(pe);
 		}
-		return mp;
+		
 
 	}
 	
-	
+	/**
+	 * @param col
+	 * @param value
+	 * @return List of WorkEntities
+	 * @throws DAOException
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findEntities(String col, Object value) throws DAOException
 	{
-		List<T> resultList;
+		
 		try
 		{
-			Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
-			q.setParameter(1, value);
-			logger.debug(q.toString());
-			resultList=(List<T>)q.getResultList();
+			Query query=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x where x."+col+" = ?1");
+			query.setParameter(1, value);
+			LOG.debug(query.toString());
+			List<T> resultList=query.getResultList();
+			return resultList;
 		}
 		catch(PersistenceException pe)
 		{
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
 			throw new DAOException(pe);
 		}	
 		
-		return resultList;
+		
 	}
 
+	/**
+	 * @return List of WorkEntities
+	 * @throws DAOException
+	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findEntities() throws DAOException
 	{
-		List<T> resultList;
 		try
 		{
-			Query q=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
-			resultList=(List<T>)q.getResultList();
+			Query query=getEntityManager().createQuery("Select x from "+entityClass.getSimpleName()+" x");
+			List<T> resultList=query.getResultList();
+			return resultList;
 		}
 		catch(PersistenceException pe)
 		{
-			logger.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
 			throw new DAOException(pe);
 		}
-		return resultList;
+		
 	}
 	
+	/**
+	 * 
+	 * @return Class which this DAO is handing
+	 */
 	protected Class<? extends WorkEntity> getEntityClass()
 	{
 		return this.entityClass;
 	}
+
+	/**
+ 	 * Overrides Object toString()
+ 	 * @return String representation 
+ 	 */
+	@Override
+	public String toString()
+	{
+		return "DAO<"+getEntityClass().getSimpleName()+">";
+	}
+
 	
 }
+

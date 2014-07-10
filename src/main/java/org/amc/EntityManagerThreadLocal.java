@@ -10,37 +10,62 @@ import javax.persistence.EntityManagerFactory;
  */
 public final class EntityManagerThreadLocal
 {
-	private static EntityManagerFactory factory;
-	private final static ThreadLocal<EntityManager> entityManager=new ThreadLocal<EntityManager>()
+	/**
+	 * JPA EntityManagerFactory
+	 * Set up Spring IOC 
+	 * Thread safe
+	 */
+	private static EntityManagerFactory FACTORY;
+	
+	/**
+	 * ThreadLocal to be used by different threads
+	 */
+	private final static ThreadLocal<EntityManager> ENTITYMANAGER=new ThreadLocal<EntityManager>()
 			{
 
+				/**
+				 * @return EntityManager 
+				 */
 				@Override
 				protected EntityManager initialValue()
 				{
-					return factory.createEntityManager();
+					return FACTORY.createEntityManager();
 				}
 			
 			};
 	
 	
+	/**
+	 * @param factory
+	 */
 	public static void setEntityManagerFactory(EntityManagerFactory factory)
 	{
-		EntityManagerThreadLocal.factory=factory;
+		EntityManagerThreadLocal.FACTORY=factory;
 	}
 	
+	/**
+	 * @return an JPA EntityManager
+	 */
 	public static EntityManager getEntityManager()
 	{
-		return entityManager.get();
+		return ENTITYMANAGER.get();
 	}
 	
+	/**
+	 * Called to tidy up and release resources held by the EntityManager
+	 */
 	public static void closeEntityManager()
 	{
-		entityManager.get().close();
-		entityManager.remove();
+		ENTITYMANAGER.get().close();
+		ENTITYMANAGER.remove();
 	}
 	
+	/**
+	 * Constructor not to be called
+	 */
 	private EntityManagerThreadLocal()
 	{
+		throw new AssertionError(this.getClass().getSimpleName()+" is an utility class");
 	}
 
 }

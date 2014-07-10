@@ -144,7 +144,14 @@ public class APLUserController
 
 			if(user.getPassword().equals(PASSWORD_DEFAULT))
 			{
-				user.setPassword(tempUser.getPassword());
+				if(tempUser==null)
+				{
+					user.setPassword("");
+				}
+				else
+				{
+					user.setPassword(tempUser.getPassword());
+				}
 			}
 			//If the user's password doesn't equals the DEFAULT password then hash and save the password
 			else

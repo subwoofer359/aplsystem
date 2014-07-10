@@ -27,4 +27,5 @@ public class MaterialActionFactoryImpl implements MaterialActionFactory
 	{
 		return new SaveMaterialAction(materialDAO);
 	}
+	
 }

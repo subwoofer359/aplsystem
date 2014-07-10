@@ -11,6 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * 
+ * @author adrian
+ *
+ */
 @Entity
 @Table(name="user_roles")
 public class UserRoles implements Serializable,WorkEntity

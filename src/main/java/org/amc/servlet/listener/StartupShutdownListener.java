@@ -17,7 +17,7 @@ import org.amc.Constants.Roles;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class StartupShutdownListener implements ServletContextListener 
+public final class StartupShutdownListener implements ServletContextListener 
 {
 	/**
 	 * Roles defined here must be the same as the roles defined in the deployment descriptor

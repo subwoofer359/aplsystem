@@ -9,32 +9,58 @@ import javax.persistence.Query;
 
 import org.amc.DAOException;
 import org.amc.model.Part;
+import org.amc.model.WorkEntity;
 import org.amc.model.spc.SPCMeasurement;
 import org.apache.log4j.Logger;
+/**
+ * DAO for SPCMeasurement entities as they need to use SQL directly
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 
 public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 {
-	private static Logger logger=Logger.getLogger(SPCMeasurement.class);
+	/**
+	 * Serializable UID
+	 */
+	private static final long serialVersionUID = 8865055871857791936L;
 	
+	/**
+	 * logging service
+	 */
+	private static final Logger LOG=Logger.getLogger(SPCMeasurement.class);
+	
+	/**
+	 * Constructor
+	 */
 	public SPCMeasurementDAO()
 	{
 		super(SPCMeasurement.class);
 	}
 
 	
-	private String getUniqueTableName(SPCMeasurement entity) throws DAOException
+	/**
+	 * @param entity
+	 * @return Unique Table name
+	 */
+	private String getUniqueTableName(SPCMeasurement entity)
 	{
 		long uuid=UUID.randomUUID().getMostSignificantBits();
-		String tableName="table_"+entity.getDimension()+entity.getNominal()+uuid;
+		String tableName=("table_"+entity.getDimension())+entity.getNominal()+uuid;
 		tableName=tableName.replace('.', '_').replace(' ', '_').replace('-', '_');
 		return tableName;
 	}
 	
+	/**
+	 * @see {@link #addEntity(WorkEntity)}
+	 * @param entity
+	 * @throws DAOException
+	 */
 	@Override
 	public void addEntity(SPCMeasurement entity) throws DAOException
 	{
 		EntityManager em=getEntityManager();
-		logger.debug("SPCMeasuremenDAO:tableID="+entity.getTableId());
+		LOG.debug("SPCMeasuremenDAO:tableID="+entity.getTableId());
 		
 		String queryString="";
 		String tableName="";
@@ -52,7 +78,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 					+ "measurementNumber int NOT NULL,"
 					+ "measurement_id int NOT NULL, "
 					+ "PRIMARY KEY(id))  ENGINE=InnoDB" ;
-			logger.debug(queryString);
+			LOG.debug(queryString);
 		}
 		try
 		{
@@ -73,12 +99,17 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 		catch(PersistenceException pe)
 		{
 			em.getTransaction().rollback();
-			logger.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to add entity");
+			LOG.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to add entity");
 			throw new DAOException(pe);
 		}
 	}
 
 
+	/**
+	 * @see {{@link #updateEntity(WorkEntity)}};
+	 * @param entity
+	 * @throws DAOException
+	 */
 	@Override
 	public void updateEntity(SPCMeasurement entity) throws DAOException
 	{
@@ -88,8 +119,12 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 		}
 		
 	}
-
-
+	
+	/**
+	 * @see {@link #deleteEntity(WorkEntity)}
+	 * @param entity
+	 * @throws DAOException 
+	 */
 	@Override
 	public void deleteEntity(SPCMeasurement entity) throws DAOException
 	{
@@ -105,14 +140,14 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 				
 				
 				em.getTransaction().begin();
-				logger.debug("Trying to delete table:"+entity.getTableId());
-				Query q=em.createNativeQuery("drop table if exists "+entity.getTableId());
-				q.executeUpdate();
+				LOG.debug("Trying to delete table:"+entity.getTableId());
+				Query query=em.createNativeQuery("drop table if exists "+entity.getTableId());
+				query.executeUpdate();
 				em.getTransaction().commit();
 
-				if(tableExists(entity.getTableId()))
+				if(doesTableExists(entity.getTableId()))
 				{
-					logger.debug("Table:"+entity.getTableId()+" wasn't deleted");
+					LOG.debug("Table:"+entity.getTableId()+" wasn't deleted");
 					em.getTransaction().rollback();//todo Check to see if this works
 					em.close();
 					throw new DAOException();
@@ -132,7 +167,7 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 	 * @param tableName
 	 * @return true if the table exists in the database
 	 */
-	public boolean tableExists(String tableName)
+	public boolean doesTableExists(String tableName)
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
@@ -151,13 +186,12 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 	}
 	
 	/**
-	 * 
 	 * @param tableName
 	 * @return true if the table has no entries
 	 */
 	public boolean isTableEmpty(String tableName)
 	{
-		//Todo
+		//todo
 		
 		return true;
 	}

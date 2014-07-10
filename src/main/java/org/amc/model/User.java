@@ -176,20 +176,20 @@ public class User implements Serializable,WorkEntity
 	{
 		StringBuffer sb=new StringBuffer();
 		sb.append("UserName("+this.getId()+"):"+this.getUserName());
-		sb.append("\n");
+		sb.append(' ');
 		sb.append("FullName:"+this.getFullName());
-		sb.append("\n");
+		sb.append(' ');
 		sb.append("Email address:"+this.getEmailAddress());
-		sb.append("\n");
+		sb.append(' ');
 		sb.append("active:"+this.isActive());
-		sb.append("\n");
+		sb.append(' ');
 		List<UserRoles> roles=this.getRoles();
 		if(roles!=null && !roles.isEmpty())
 		{
-			sb.append("Roles:\n");
+			sb.append("Roles:");
 			for(UserRoles role:roles)
 			{
-				sb.append(role+"\n");
+				sb.append(role+" ");
 			}
 		}
 		return sb.toString();

@@ -171,7 +171,7 @@ public class APLSystemServlet extends HttpServlet
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
-			job.setExternal(jForm.getExternal());
+			job.setExternal(jForm.isExternal());
 			job.setQss_no(jForm.getQss_no());
 			job.setRevision(jForm.getRevision());
 			job.setVersion(jForm.getVersion());
