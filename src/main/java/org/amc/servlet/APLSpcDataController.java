@@ -19,32 +19,56 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class APLSpcDataController
 {
-	private static Logger logger=Logger.getLogger(APLSpcDataController.class);
+	/**
+	 * Logging Service
+	 */
+	private static final Logger LOG=Logger.getLogger(APLSpcDataController.class);
+	
+	/**
+	 * SPCPartsList DAO injected by Spring IOC
+	 */
 	private DAO<SPCPartsList> spcListPartDAO;
+	
+	/**
+	 * Part DAO injected by Spring IOC
+	 */
 	private DAO<Part> partDAO;
+	
+	/**
+	 * SPCMeasurement DAO injected by Spring IOC
+	 */
 	private SPCMeasurementDAO spcDimensionDAO;
-	
-	
-	
-	/*   Spring injected resources   */
+
+	/**
+	 * Spring injected resources   
+	 * @param spcListPartDAO
+	 */
 	@Resource(name="spcPartsListDAO")
 	public void setSPCListPartDAO(DAO<SPCPartsList> spcListPartDAO)
 	{
 		this.spcListPartDAO=spcListPartDAO;
-		logger.debug("spcPartsListDAO:"+this.spcListPartDAO);
+		LOG.debug(getClass().getSimpleName()+":"+this.spcListPartDAO);
 	}
 	
+	/**
+	 * Spring injected resources   
+	 * @param partDAO
+	 */
 	@Resource(name="partDAO")
 	public void setPartDAO(DAO<Part> partDAO)
 	{
 		this.partDAO=partDAO;
-		logger.debug("partDAO:"+this.partDAO);
+		LOG.debug(getClass().getSimpleName()+":"+this.partDAO);
 	}
 	
+	/**
+	 * Spring injected resources   
+	 * @param spcDimensionDAO
+	 */
 	@Resource(name="spcDimensionDAO")
 	public void setSPCDimensionDAO(SPCMeasurementDAO spcDimensionDAO)
 	{
 		this.spcDimensionDAO=spcDimensionDAO;
-		logger.debug("spcDimensionDAO:"+this.spcDimensionDAO);
+		LOG.debug(getClass().getSimpleName()+":"+this.spcDimensionDAO);
 	}
 }
