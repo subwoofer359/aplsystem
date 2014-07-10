@@ -164,12 +164,13 @@ public class TestAPLUserController
 		String active="true";
 		//Create User
 		User u1=getTestUser("adrian", "Adrian McLaughlin");
+		u1.setPassword(Constants.PASSWORD_DEFAULT);
 		
 		//Create DAO objects
 		DAO<User> dao=mock(DAO.class);
 		UserRolesDAO roleDao=mock(UserRolesDAO.class);
 		when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
-		when(dao.getEntity(anyString())).thenReturn(u1);
+		//when(dao.getEntity(anyString())).thenReturn(u1);
 		//Inject DAOs
 		userServlet.setUserDAO(dao);
 		userServlet.setUserRolesDAO(roleDao);
@@ -199,7 +200,7 @@ public class TestAPLUserController
 		//Case 2: User has current 2 Roles but has no roles selected in page
 		roles=new String[]{};
 		dao=mock(DAO.class);
-		when(dao.getEntity(anyString())).thenReturn(u1);
+		//when(dao.getEntity(anyString())).thenReturn(u1);
 		userServlet.setUserDAO(dao);
 		returnedResult=userServlet.saveUser(m, u1, result, mode, active, roles, request);
 		//Verify add user was called on UserDao object
