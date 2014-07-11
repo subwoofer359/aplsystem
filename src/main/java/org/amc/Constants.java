@@ -1,6 +1,7 @@
 package org.amc;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -60,7 +61,7 @@ public final class Constants
 			{
 				roleList.add(role.toString());
 			}
-			return roleList;
+			return Collections.unmodifiableList(roleList);
 		}
 	}
 	
