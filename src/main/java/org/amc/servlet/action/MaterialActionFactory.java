@@ -9,7 +9,13 @@ import java.io.Serializable;
  */
 public interface MaterialActionFactory extends Serializable
 {
+	/**
+	 * @return a SearchMaterialAction object
+	 */
 	public SearchMaterialAction getSearchMaterialAction();
 	
+	/**
+	 * @return a SaveMaterialAction object
+	 */
 	public SaveMaterialAction getSaveMaterialAction();
 }

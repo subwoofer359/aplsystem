@@ -11,148 +11,148 @@ import org.amc.model.MouldingProcess;
  */
 public class MouldingProcessForm
 {
-	public String id;// Database ID
+	private String id;// Database ID
 	// Top Header
-	public String partId;
-	public String machineSize;
-	public String machineNo;
-	public int material;
-	public String masterbatchNo;
-	public String dateOfIssue;
-	public String signOffBy;
-	public String processNotes;
+	private String partId;
+	private String machineSize;
+	private String machineNo;
+	private int material;
+	private String masterbatchNo;
+	private String dateOfIssue;
+	private String signOffBy;
+	private String processNotes;
 
 	// Injection section
-	public String injectionSpeed_1;
-	public String injectionSpeed_2;
-	public String injectionSpeed_3;
-	public String injectionSpeed_4;
-	public String injectionSpeed_5;
-	public String injectionSpeed_6;
+	private String injectionSpeed_1;
+	private String injectionSpeed_2;
+	private String injectionSpeed_3;
+	private String injectionSpeed_4;
+	private String injectionSpeed_5;
+	private String injectionSpeed_6;
 
-	public String injSpeedPosition_1;
-	public String injSpeedPosition_2;
-	public String injSpeedPosition_3;
-	public String injSpeedPosition_4;
-	public String injSpeedPosition_5;
-	public String injSpeedPosition_6;
+	private String injSpeedPosition_1;
+	private String injSpeedPosition_2;
+	private String injSpeedPosition_3;
+	private String injSpeedPosition_4;
+	private String injSpeedPosition_5;
+	private String injSpeedPosition_6;
 
 	// Holding pressure
 
-	public String holdingPressure_1;
-	public String holdingPressure_2;
-	public String holdingPressure_3;
-	public String holdingPressure_4;
-	public String holdingPressure_5;
-	public String holdingPressure_6;
+	private String holdingPressure_1;
+	private String holdingPressure_2;
+	private String holdingPressure_3;
+	private String holdingPressure_4;
+	private String holdingPressure_5;
+	private String holdingPressure_6;
 
 	// Holding Time
-	public String holdingTime_1;
-	public String holdingTime_2;
-	public String holdingTime_3;
-	public String holdingTime_4;
-	public String holdingTime_5;
-	public String holdingTime_6;
+	private String holdingTime_1;
+	private String holdingTime_2;
+	private String holdingTime_3;
+	private String holdingTime_4;
+	private String holdingTime_5;
+	private String holdingTime_6;
 
 	// Injection and Holding variables
-	public String maxPackVel;
-	public String posTran;
-	public String maxInjPre;
-	public String maxInjTime;
-	public String shotSize;
-	public String decompressionDist;
-	public String decompressionVel;
-	public String coolTime;
+	private String maxPackVel;
+	private String posTran;
+	private String maxInjPre;
+	private String maxInjTime;
+	private String shotSize;
+	private String decompressionDist;
+	private String decompressionVel;
+	private String coolTime;
 
 	// Extruding
 
-	public String backPressure_1;
-	public String backPressure_2;
-	public String backPressure_3;
-	public String backPressure_4;
-	public String backPressure_5;
-	public String backPressure_6;
+	private String backPressure_1;
+	private String backPressure_2;
+	private String backPressure_3;
+	private String backPressure_4;
+	private String backPressure_5;
+	private String backPressure_6;
 
-	public String screwExtSpeed_1;
-	public String screwExtSpeed_2;
-	public String screwExtSpeed_3;
-	public String screwExtSpeed_4;
-	public String screwExtSpeed_5;
-	public String screwExtSpeed_6;
+	private String screwExtSpeed_1;
+	private String screwExtSpeed_2;
+	private String screwExtSpeed_3;
+	private String screwExtSpeed_4;
+	private String screwExtSpeed_5;
+	private String screwExtSpeed_6;
 
-	public String extProfilePos_1;
-	public String extProfilePos_2;
-	public String extProfilePos_3;
-	public String extProfilePos_4;
-	public String extProfilePos_5;
-	public String extProfilePos_6;
+	private String extProfilePos_1;
+	private String extProfilePos_2;
+	private String extProfilePos_3;
+	private String extProfilePos_4;
+	private String extProfilePos_5;
+	private String extProfilePos_6;
 
 	// Barrel Temperature
 
-	public String nozzelTemperature;
-	public String barrelTemperature_1;
-	public String barrelTemperature_2;
-	public String barrelTemperature_3;
-	public String barrelTemperature_4;
-	public String throatTemperature;
+	private String nozzelTemperature;
+	private String barrelTemperature_1;
+	private String barrelTemperature_2;
+	private String barrelTemperature_3;
+	private String barrelTemperature_4;
+	private String throatTemperature;
 
 	// mouldClosing
-	public String mouldClosingOpenLimitPos;
-	public String mouldClosingOpenLimitSpeed;
+	private String mouldClosingOpenLimitPos;
+	private String mouldClosingOpenLimitSpeed;
 
-	public String mouldClosedLimitPos;
-	public String mouldClosedLimitSpeed;
+	private String mouldClosedLimitPos;
+	private String mouldClosedLimitSpeed;
 
-	public String clsSlowPos;
-	public String clsSlowSpeed;
+	private String clsSlowPos;
+	private String clsSlowSpeed;
 
-	public String clsSPPos;
-	public String clsSPSpeed;
+	private String clsSPPos;
+	private String clsSPSpeed;
 	// mould opening
 
-	public String mouldOpenBreakAwaySpeed;
-	public String mouldOpenStepPos_1;
-	public String mouldOpenStepSpeed_1;
-	public String mouldOpenStepPos_2;
-	public String mouldOpenStepSpeed_2;
-	public String mouldOpenStepPos_3;
-	public String mouldOpenStepSpeed_3;
+	private String mouldOpenBreakAwaySpeed;
+	private String mouldOpenStepPos_1;
+	private String mouldOpenStepSpeed_1;
+	private String mouldOpenStepPos_2;
+	private String mouldOpenStepSpeed_2;
+	private String mouldOpenStepPos_3;
+	private String mouldOpenStepSpeed_3;
 
-	public String mouldOpenTime;
-	public String ejectStart;
+	private String mouldOpenTime;
+	private String ejectStart;
 
 	// Ejectors
-	public String ejectMode;
-	public String ejectPulse;
-	public String ejectDelay;
+	private String ejectMode;
+	private String ejectPulse;
+	private String ejectDelay;
 
-	public String ejectorsFwdPos;
-	public String ejectorsFwdSpeed;
-	public String ejectorsFwdTime;
+	private String ejectorsFwdPos;
+	private String ejectorsFwdSpeed;
+	private String ejectorsFwdTime;
 
-	public String ejectorsStopPos;
-	public String ejectorsStopSpeed;
-	public String ejectorsStopTime;
+	private String ejectorsStopPos;
+	private String ejectorsStopSpeed;
+	private String ejectorsStopTime;
 
-	public String ejectorsRevPos;
-	public String ejectorsRevSpeed;
-	public String ejectorsRevTime;
+	private String ejectorsRevPos;
+	private String ejectorsRevSpeed;
+	private String ejectorsRevTime;
 
 	// DMEs
 
-	public String dme_1;
-	public String dme_2;
-	public String dme_3;
-	public String dme_4;
-	public String dme_5;
-	public String dme_6;
-	public String dme_7;
-	public String dme_8;
+	private String dme_1;
+	private String dme_2;
+	private String dme_3;
+	private String dme_4;
+	private String dme_5;
+	private String dme_6;
+	private String dme_7;
+	private String dme_8;
 
 	// Water
-	public String waterTempFixedHalf;
-	public String waterTempMovingHalf;
-	public String waterTempNotes;
+	private String waterTempFixedHalf;
+	private String waterTempMovingHalf;
+	private String waterTempNotes;
 
 	// Getters/Setters (JavaBean)
 

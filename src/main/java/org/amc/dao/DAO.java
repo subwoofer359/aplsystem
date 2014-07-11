@@ -13,6 +13,7 @@ import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
 import org.apache.log4j.Logger;
 
+
 /**
  * Fetches and holds a reference to the Persistence EntityManager
  * @author Adrian Mclaughlin
@@ -21,7 +22,6 @@ import org.apache.log4j.Logger;
  */
 public class DAO<T extends WorkEntity> implements Serializable
 {
-	
 	/**
 	 * Serializable
 	 */
@@ -51,8 +51,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 	 * @return EntityManager for subclass to use
 	 */
 	public EntityManager getEntityManager()
-	{
-		
+	{	
 		return EntityManagerThreadLocal.getEntityManager();
 	}
 	
