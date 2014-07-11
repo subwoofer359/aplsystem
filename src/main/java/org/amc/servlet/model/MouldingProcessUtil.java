@@ -1,7 +1,6 @@
 package org.amc.servlet.model;
 
 import org.amc.model.MouldingProcess;
-import org.amc.servlet.APLMaterialServlet;
 import org.apache.log4j.Logger;
 /**
  * 
@@ -10,14 +9,14 @@ import org.apache.log4j.Logger;
  */
 public final class MouldingProcessUtil
 {
-	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
-	private final static float CLAMP_CLOSING_ACCELERATION=1250f;
-	private final static float CLAMP_CLOSING_DEACCELERATION=-1000f;
+	private static final Logger LOG=Logger.getLogger(MouldingProcessUtil.class);
+	private static final float CLAMP_CLOSING_ACCELERATION=1250f;
+	private static final float CLAMP_CLOSING_DEACCELERATION=-1000f;
 	
 	
 	private MouldingProcessUtil()
 	{
-		//An utility class
+		throw new AssertionError(this.getClass().getSimpleName()+" is a utility class");
 	}
 	
 	public static float getTotalInjectionTime(MouldingProcess process)
@@ -215,7 +214,7 @@ public final class MouldingProcessUtil
 		
 		for(int i=0;i<data.length;i++)
 		{
-			logger.debug("("+data[i][1]+","+data[i][0]+")");
+			LOG.debug("("+data[i][1]+","+data[i][0]+")");
 		}
 		return data;
 }
