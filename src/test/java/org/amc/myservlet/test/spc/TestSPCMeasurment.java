@@ -8,6 +8,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
@@ -23,9 +25,9 @@ public class TestSPCMeasurment
 	private TestSPCFixture fixture;
 	
 	@Test
-	public void testSPCMeasurement()
+	public void testSPCMeasurement() throws DAOException
 	{
-		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
+		DAO<SPCMeasurement> dao=new DAO<SPCMeasurement>(SPCMeasurement.class);
 		
 		SPCMeasurement measurement=new SPCMeasurement();
 		measurement.setActive(true);
@@ -36,52 +38,26 @@ public class TestSPCMeasurment
 		measurement.setNoOfMeasurements(5);
 		
 		//Retrieve Part entity from the database
-		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(Part.class);
 		List<Part> parts=partDAO.findEntities();
 		Part part=null;
 		if(parts.size()>0)
 		{
 			part=parts.get(0);
 		}
-		
-		//Forcing the EntityManager to manage Part entity
-		EntityManager em=dao.getEntityManager();
-		em.getTransaction().begin();
-		part=em.merge(part);
-		em.getTransaction().commit();
 		measurement.setPart(part);
 		//Save SPCMeasurement entity to database
 		
 		dao.addEntity(measurement);
 	
 		//Retrieve SPCMeasurement entity from database
-		SPCMeasurement spc=(SPCMeasurement)dao.getEntity(String.valueOf(measurement.getId()));
+		SPCMeasurement spc=dao.getEntity(String.valueOf(measurement.getId()));
 		
 		//Check some properties 
 		assertEquals(spc.getDimension(),measurement.getDimension());
 		assertEquals(spc.getNominal(),measurement.getNominal(),0.1);
 		assertEquals(spc.getUpperLimit(),measurement.getUpperLimit(),0.1);
 	}
-	
-	/**
-	 * Creates a Part entity
-	 * @param factory
-	 */
-//	static Part createPartFromDataBase(EntityManagerFactory factory)
-//	{
-//		Part part =new Part();
-//		part.setCompany("tosara");
-//		part.setExternal(true);
-//		part.setName("125g pot");
-//		part.setQss_no("TA 001");
-//		part.setRevision("1");
-//		part.setVersion("3");
-//		part.setPart_id("300r30");
-//		part.setColour("grey");
-//		DAO<Part> partDAO=new DAO<Part>(factory,Part.class);
-//		partDAO.addEntity(part);
-//		return part;
-//	}
 	
 	@BeforeClass
 	public static void setTables()
@@ -106,10 +82,11 @@ public class TestSPCMeasurment
 	}
 	
 	@Before
-	public void setUp()
+	public void setUp() throws DAOException
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		fixture=new TestSPCFixture();
 		fixture.setUp();
 		fixture.setupPartTable();
@@ -118,15 +95,8 @@ public class TestSPCMeasurment
 	@After
 	public void tearDown()
 	{
-		fixture.tearDown();
 		fixture=null;
-		if(em!=null && em.isOpen())
-		{
-			em.getTransaction().begin();
-			em.flush();
-			em.getTransaction().commit();
-		}
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 }

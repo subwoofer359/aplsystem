@@ -16,6 +16,6 @@
 <jsp:useBean id="processSheet" class="org.amc.servlet.model.MouldingProcessForm" scope="request"/>
 
 <jsp:setProperty name="processSheet" property="*" />
-<jsp:forward page="/ProcessSheet_save"/>
+<jsp:forward page="/app/ProcessSheet_save"/>
 </body>
 </html>

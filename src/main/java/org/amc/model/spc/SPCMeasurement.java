@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,7 +44,7 @@ public class SPCMeasurement implements Serializable, WorkEntity
 	 * The part the SPC measurements will be taken from
 	 */
 	@NotNull
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne(cascade=CascadeType.PERSIST,fetch=FetchType.EAGER)
 	@JoinColumn(name="part_id",nullable=false)
 	private Part part;
 	

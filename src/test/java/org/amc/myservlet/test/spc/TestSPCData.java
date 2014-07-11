@@ -9,6 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.User;
@@ -27,11 +29,12 @@ public class TestSPCData
 	private TestSPCFixture fixture;
 	
 	@BeforeClass
-	public static void setTables()
+	public static void setTables() throws DAOException
 	{
 		//Deletes SPCMeasusrements table
 		EntityManagerFactory factory=Persistence.createEntityManagerFactory("myDataSource");
-		EntityManager em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		EntityManager em=EntityManagerThreadLocal.getEntityManager();
 
 		Query q=em.createNativeQuery("delete from SPCMeasurements");
 		em.getTransaction().begin();
@@ -42,7 +45,7 @@ public class TestSPCData
 		//TestSPCMeasurment.createPartFromDataBase(factory);
 		
 		//Create SPCMeasurement in table to use in test
-		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
+		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(SPCMeasurement.class);
 		SPCMeasurement measurement=new SPCMeasurement();
 		measurement.setActive(true);
 		measurement.setDimension("length");
@@ -52,7 +55,7 @@ public class TestSPCData
 		measurement.setNoOfMeasurements(5);
 
 		//Retrieve Part entity from the database
-		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(Part.class);
 		List<Part> parts=partDAO.findEntities();
 		Part part=null;
 		if(parts.size()>0)
@@ -65,7 +68,7 @@ public class TestSPCData
 		em.getTransaction().commit();
 		measurement.setPart(part);
 		measurementDao.addEntity(measurement);
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 		
 	}
@@ -74,7 +77,8 @@ public class TestSPCData
 	public void setUp() throws Exception
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		fixture=new TestSPCFixture();
 		fixture.setUp();
 		fixture.setupPartTable();
@@ -84,18 +88,17 @@ public class TestSPCData
 	@After
 	public void tearDown() throws Exception
 	{
-		fixture.tearDown();
 		fixture=null;
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 
 	@Test
-	public void test()
+	public void test() throws DAOException
 	{
-		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(em,SPCMeasurement.class);
-		DAO<SPCData> spcdataDao=new DAO<SPCData>(em,SPCData.class);
-		DAO<User> userDao=new DAO<User>(em,User.class);
+		DAO<SPCMeasurement> measurementDao=new DAO<SPCMeasurement>(SPCMeasurement.class);
+		DAO<SPCData> spcdataDao=new DAO<SPCData>(SPCData.class);
+		DAO<User> userDao=new DAO<User>(User.class);
 		SPCMeasurement measurement=measurementDao.findEntities().get(0);
 		User user=userDao.findEntities().get(0);
 		

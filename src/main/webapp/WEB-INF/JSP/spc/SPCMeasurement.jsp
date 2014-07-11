@@ -2,6 +2,7 @@
     @author:Adrian McLaughlin
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 	left: 29%;
 	font-size: xx-large;
 	padding: 5px;
-	visibility:hidden;
+	display:none;
 }
 
 #dimensionEntry table 
@@ -53,6 +54,7 @@
 	display:none;
 }
 </STYLE>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
@@ -62,11 +64,12 @@
  */
 function showEntryDiv(element,divName)
 {
-	var div=document.getElementById(divName);
+	var name="#"+divName;
+	var div=$(name);
 	if(div!=null)
 	{
-		div.style.visibility="visible";
-	}
+		div.show();
+	}	
 }
 
 /*
@@ -74,11 +77,12 @@ function showEntryDiv(element,divName)
  */
 function hideEntryDiv(element,divName)
 {
-	var div=document.getElementById(divName);
+	var name="#"+divName;
+	var div=$(name);
 	if(div!=null)
 	{
-		div.style.visibility="hidden";
-	}
+		div.hide();
+	}	
 }
 
 /*
@@ -86,12 +90,13 @@ function hideEntryDiv(element,divName)
  */
 
 function clearValueOfElementId(idOfElement)
-{
-	var element=document.getElementById(idOfElement);
+{	
+	var name="#"+idOfElement;
+	var element=$(name);
 	if(element!=null)
 	{
-		element.value="";
-	}	
+		element.removeAttr("value");
+	}
 }
 
 /*
@@ -99,60 +104,32 @@ function clearValueOfElementId(idOfElement)
  */
 function populateForm(divName)
 {
-	var table=document.getElementById("dimensionsList");
-	var rows=table.getElementsByTagName("input");
-	var rowSelected;
-	var check=false;
-	for(var i=0,rlen=rows.length;i<rlen;i++)
+	var row=$("tr[style*='background-color: red']");
+	if(row!=null)
 	{
-			if(rows[i].getAttribute("name")=="edit")
-			{
-				if(rows[i].checked==true)
-				{
-					rowSelected=rows[i].parentNode.parentNode;
-					check=true;
-					break;				
-				}
-			}
-	}
-	if(check)
-	{
-		var div=document.getElementById(divName);
-		var values=rowSelected.getElementsByTagName("td");
-		if(values!=null && div!=null)
-		{
-			var inputs=div.getElementsByTagName("input");
-			for(var i=1,j=0;i<inputs.length;i++,j++)
-			{
-				var input=inputs[i];
-				if(input.type=="checkbox")
-				{
-					input.checked=values[j].childNodes[0].data;	
-				}
-				if(input.type=="submit")
-				{
-					j--;	
-				}
-				else
-				{
-					input.value=values[j].childNodes[0].data;	
-				}
-					
-			}
-		}	
+		row.css("background-color","blue");
+		var div=$("#"+divName);
+		var values=[];
+
+		row.children("td").each(
+				function(){
+					values.push($(this).text());
+					console.log($(this).text());
+		});
+
+		$('#DimensionId').attr("value",values[0]);
+		$('#dimension').attr("value",values[1]);
+		$('#nominal').attr("value",values[2]);
+		$('#upperLimit').attr("value",values[3]);
+		$('#lowerLimit').attr("value",values[4]);
+		$('#noOfMeasurements').attr("value",values[5]);
+		$('#active').attr("checked",values[6]);
+		$('#tableId').attr("value",values[7]);
 	}
 }
-/*
- * Displays error messages if they exist when the page loads
- */
-window.onload=function()
-{
-	var message="${message}";
-	if(message!=null && message!="")
-	{
-		alert(message);
-	}
-};
+
+
+ 
 </script>
 </head>
 <body>
@@ -160,7 +137,7 @@ window.onload=function()
 <H1>SPC:${part.name}&nbsp;${part.version }&nbsp;${part.colour}&nbsp;(${part.part_id })</H1>
 </DIV>
 <%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
 
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <input type="hidden" name="spcPart" value="${spcPart.id}"/>
@@ -183,7 +160,7 @@ window.onload=function()
 <c:forEach items="${dimensions}" var="dimension">
 <TR  onclick="selected(this)">
 	<TD class="hiddenColumn"><c:out value="${dimension.id}"/></TD>
-	<TD><c:out value="${dimension.dimension}"/></TD>
+	<TD ><c:out value="${dimension.dimension}"/></TD>
 	<TD><c:out value="${dimension.nominal}"/></TD>
 	<TD><c:out value="${dimension.upperLimit}"/></TD>
 	<TD><c:out value="${dimension.lowerLimit}"/></TD>
@@ -200,8 +177,8 @@ window.onload=function()
 </DIV>
 <SPAN class="buttons">
 	<button onclick="populateForm('dimensionEntry');showEntryDiv(this,'dimensionEntry')" form="">add SPC Dimension</button>
-	<input type="submit" name="mode" value="de(activate)" formaction="${pageContext.request.contextPath}/spc/SPC/deActivate" />
-	<input type="submit" name="mode" value="remove" formaction="${pageContext.request.contextPath}/spc/SPC/deleteDimension" />
+	<input type="submit" name="mode" value="de(activate)" formaction="${pageContext.request.contextPath}/app/spc/SPC/deActivate" />
+	<input type="submit" name="mode" value="remove" formaction="${pageContext.request.contextPath}/app/spc/SPC/deleteDimension" />
 	</SPAN>
 </FORM>
 
@@ -221,12 +198,16 @@ window.onload=function()
 </tbody>
 </table>
 <span class="buttons">
-	<input type="submit" name="mode" value="Enter" formaction="${pageContext.request.contextPath}/spc/SPC/addDimension" onclick="clearValueOfElementId('tableId');clearValueOfElementId('DimensionId')" />
-	<input type="submit" name="mode" value="Edit" formaction="${pageContext.request.contextPath}/spc/SPC/editDimension" />
+	<input type="submit" name="mode" value="Enter" formaction="${pageContext.request.contextPath}/app/spc/SPC/addDimension" onclick="clearValueOfElementId('tableId');clearValueOfElementId('DimensionId')" />
+	<input type="submit" name="mode" value="Edit" formaction="${pageContext.request.contextPath}/app/spc/SPC/editDimension" />
 </span>
 <input type="hidden" id="tableId" name="tableId"/>
 </form>
 
 </div>
+<jsp:include page="/WEB-INF/JSP/ErrorDisplay.jsp">
+	<jsp:param name="errors" value="${errors}"/>
+	<jsp:param name="message" value="${message}"/>
+</jsp:include>
 </body>
 </html>

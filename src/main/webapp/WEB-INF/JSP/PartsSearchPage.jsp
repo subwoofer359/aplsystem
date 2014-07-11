@@ -35,7 +35,7 @@ window.onload=function()
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
 
-<FORM action="${pageContext.request.contextPath}/Part_search" method="post" onsubmit="return isChecked(this,'part')">
+<FORM action="${pageContext.request.contextPath}/app/Part_search" method="post" onsubmit="return isChecked(this,'part')">
 <DIV class="results">
 <TABLE>
 <thead>
@@ -63,7 +63,7 @@ window.onload=function()
 <SPAN class="buttons">
 	<input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
 	<input id="edit" type="submit" name="mode" value="edit"/>
-	<input id="edit" type="submit" value="add To SPC" formaction="${pageContext.request.contextPath}/spc/AddToSPC"/>
+	<input id="edit" type="submit" value="add To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC"/>
 </SPAN>
 </FORM>
 </body>

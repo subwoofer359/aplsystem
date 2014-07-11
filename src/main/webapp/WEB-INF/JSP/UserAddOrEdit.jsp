@@ -19,7 +19,7 @@
 <SCRIPT>
 function home()
 {
-	location="user/Users";
+	location="app/user/Users";
 }
 
 function checkPassword(element)
@@ -64,7 +64,7 @@ function checkPassword(element)
 </DIV>
 
 <%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/user/Users" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/user/Users" value="Search Page" position="220px"></tags:Navbox>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("<c:forEach items='${errors}' var='error'>${error.defaultMessage}\n</c:forEach>");</SCRIPT> 
@@ -72,7 +72,7 @@ function checkPassword(element)
 
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
-<FORM method="post" action='${pageContext.request.contextPath}/user/User_Save' onsubmit="return checkPassword(this)" autocomplete="off">
+<FORM method="post" action='${pageContext.request.contextPath}/app/user/User_Save' onsubmit="return checkPassword(this)" autocomplete="off">
 <div class="entry">
 <input type="hidden" name='id' <c:if test='${user ne null}'>value='${user.id}'</c:if>/>
 <TABLE>

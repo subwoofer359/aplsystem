@@ -29,7 +29,5 @@
   </bean>
   
   
-    <bean id="MaterialDAO"  class="org.amc.dao.MaterialDAO">
-       <constructor-arg ref="entityManager"/>
-    </bean>
+    <bean id="MaterialDAO"  class="org.amc.dao.MaterialDAO"/>
 </beans>

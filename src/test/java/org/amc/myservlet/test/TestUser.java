@@ -10,6 +10,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
@@ -28,7 +30,8 @@ public class TestUser
 	public void setUp() throws Exception
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		
 		//Clear the table
 			Query q=em.createNativeQuery("DELETE FROM users");
@@ -40,9 +43,9 @@ public class TestUser
 	}
 
 	@After
-	public void tearDown() throws Exception
+	public void tearDown()
 	{
-		em.close();
+		EntityManagerThreadLocal.closeEntityManager();
 		factory.close();
 	}
 
@@ -65,7 +68,7 @@ public class TestUser
 	 * Tests methods addUser(User u) and getUser(String id)
 	 */
 	@Test
-	public void testAddUser()
+	public void testAddUser() throws DAOException 
 	{
 		User u=getTestUser();
 //		UserRoles roles=new UserRoles();
@@ -80,7 +83,7 @@ public class TestUser
 //		listOfRoles.add(roles);
 //		listOfRoles.add(roles2);
 //		u.setRoles(listOfRoles);
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		ud.addEntity(u);
 		
 		User tu=ud.getEntity(String.valueOf(u.getId()));
@@ -89,9 +92,9 @@ public class TestUser
 	}
 	
 	@Test
-	public void testFindUsers()
+	public void testFindUsers() throws DAOException
 	{
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		User[] users={getTestUser(),getTestUser(),getTestUser(),getTestUser()};
 		
 		for(User u:users)
@@ -106,11 +109,11 @@ public class TestUser
 	}
 	
 	@Test
-	public void testFindUsersByValue()
+	public void testFindUsersByValue() throws DAOException
 	{
 		String userName="Bunny";
 		
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		
 		User u1=getTestUser();
 		User u2=getTestUser();
@@ -130,10 +133,10 @@ public class TestUser
 	}
 	
 	@Test
-	public void testUpdateUser()
+	public void testUpdateUser() throws DAOException
 	{
 		String emailAddress="chris@eircom.net";
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		User u=getTestUser();
 		
 		ud.addEntity(u);
@@ -148,12 +151,12 @@ public class TestUser
 	}
 	
 	@Test
-	public void testRoles()
+	public void testRoles() throws DAOException
 	{
 		String userName="Bunny";
 		String[] roles={"QC","MANAGER"};
 		
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		
 		User u1=getTestUser();
 		User u2=getTestUser();
@@ -188,14 +191,22 @@ public class TestUser
 		assertTrue(t1!=null);
 		
 		ud.deleteEntity(u1);
-		t1=ud.getEntity(String.valueOf(u1.getId()));
+		try
+		{
+			t1=ud.getEntity(String.valueOf(u1.getId()));
+		}
+		catch(DAOException de)
+		{
+			//Catch throw exception but for testing purposes carry on
+			t1=null;
+		}
 		
 		assertTrue(t1==null);
 		
 	}
 	
 	@Test
-	public void testDeleteUser()
+	public void testDeleteUser() throws DAOException
 	{
 		User u1=getTestUser();
 		
@@ -209,7 +220,7 @@ public class TestUser
 		rolesList.add(role1);
 		rolesList.add(role2);
 		u1.setRoles(rolesList);
-		DAO<User> ud=new DAO<User>(em,User.class);
+		DAO<User> ud=new DAO<User>(User.class);
 		
 		ud.addEntity(u1);
 		
@@ -221,7 +232,15 @@ public class TestUser
 		ud.deleteEntity(ru1);
 		
 		//Test user has been deleted
-		ru1=ud.getEntity(String.valueOf(u1.getId()));
+		try
+		{
+			ru1=ud.getEntity(String.valueOf(u1.getId()));
+		}
+		catch(DAOException de)
+		{
+			//Catch throw exception but for testing purposes carry on
+			ru1=null;
+		}
 		assertNull(ru1);
 	}
 	

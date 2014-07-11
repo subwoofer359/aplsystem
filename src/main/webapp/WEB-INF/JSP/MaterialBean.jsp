@@ -17,6 +17,6 @@
 <jsp:useBean id="material" class="org.amc.servlet.model.MaterialForm" scope="request"/>
 
 <jsp:setProperty name="material" property="*" />
-<jsp:forward page="/Material_save"/>
+<jsp:forward page="/app/Material_save"/>
 </body>
 </html>

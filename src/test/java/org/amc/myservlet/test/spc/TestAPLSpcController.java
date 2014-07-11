@@ -3,16 +3,15 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.persistence.PersistenceException;
 
 import org.amc.Constants;
+import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
-import org.amc.model.WorkEntity;
+
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
 import org.amc.servlet.APLSpcController;
@@ -23,6 +22,7 @@ import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -66,6 +66,14 @@ public class TestAPLSpcController
 		controller.setSPCDimensionDAO(spcMeasurementDAO);
 		controller.setPartDAO(partsDAO);
 		controller.setSPCListPartDAO(partsListDao);
+		
+		try
+		{
+			when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+		} catch (DAOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -80,7 +88,7 @@ public class TestAPLSpcController
 		ModelAndView mav=new ModelAndView();
 		
 		//The user is not in the required role QC
-		request.addUserRole(Constants.roles.GUEST.toString());
+		request.addUserRole(Constants.Roles.GUEST.toString());
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -103,13 +111,11 @@ public class TestAPLSpcController
 	 * Preconditions:No PersistenceException thrown
 	 */
 	@Test
-	public void testGetDimensionList()
+	public void testGetDimensionList() throws DAOException
 	{
 		ModelAndView mav=new ModelAndView();
 		//The user is in the correct role
-		request.addUserRole(Constants.roles.QC.toString());
-		
-		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -131,17 +137,21 @@ public class TestAPLSpcController
 	 * Precondition:No PersistenceException thrown
 	 */
 	@Test
-	public void testAddDimensionBindingError()
+	public void testAddDimensionBindingError() throws DAOException
 	{
 		
 		ModelAndView mav=new ModelAndView();
 		
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
 		
 		//Binding Results returns true. Errors mapping the form values to the Model attribute found
 		when(result.hasErrors()).thenReturn(true);
+		FieldError fieldError=mock(FieldError.class);
+		when(fieldError.getField()).thenReturn("Input Field");
+		when(fieldError.getCode()).thenReturn("Input Code");
+		when(result.getFieldError()).thenReturn(fieldError);
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
@@ -153,10 +163,10 @@ public class TestAPLSpcController
 		ModelAndViewAssert.assertViewName(mav,"spc/SPCMeasurement");
 		
 		//Check Error message set
-		Object errors=request.getAttribute("errors");
+		Object errors=mav.getModelMap().get("errors");
 		
 		//Check errors is a list
-		assertTrue(errors instanceof List);
+		assertTrue(errors instanceof Map);
 	}
 	
 	/** 
@@ -171,7 +181,7 @@ public class TestAPLSpcController
 		ModelAndView mav=new ModelAndView();
 		
 		//User is not in the required role
-		request.addUserRole(Constants.roles.GUEST.toString());
+		request.addUserRole(Constants.Roles.GUEST.toString());
 		
 		//No binding errors
 		when(result.hasErrors()).thenReturn(false);
@@ -196,17 +206,16 @@ public class TestAPLSpcController
 	 * Precondition:No PersistenceException thrown
 	 */
 	@Test
-	public void testAddDimension()
+	public void testAddDimension() throws DAOException
 	{
 		ModelAndView mav=new ModelAndView();
 		
-		request.addUserRole(Constants.roles.QC.toString());
+		request.addUserRole(Constants.Roles.QC.toString());
 		
 		when(result.hasErrors()).thenReturn(false);
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
-		
-		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+
 		
 		mav=controller.addDimension(request,mav,spcPartid,spcMeasurement,result);
 		
@@ -226,13 +235,13 @@ public class TestAPLSpcController
 	 * Precondition:PersistenceException thrown
 	 */
 	@Test
-	public void testAddDimensionExceptionThrown()
+	public void testAddDimensionExceptionThrown() throws DAOException
 	{
 		ModelAndView mav=new ModelAndView();
 		
 		//User is not in the required role
-		request.addUserRole(Constants.roles.QC.toString());
-		Map<String, Object> params=new HashMap<>();
+		request.addUserRole(Constants.Roles.QC.toString());
+		Map<String, Object> params=new HashMap<String, Object>();
 		request.setParameters(params);
 		
 		//No binding errors
@@ -240,9 +249,7 @@ public class TestAPLSpcController
 		
 		SPCMeasurement spcMeasurement=getSPCMeasurement();
 		
-		when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
-		
-		doThrow(new PersistenceException()).when(spcMeasurementDAO).addEntity(any(SPCMeasurement.class));
+		doThrow(new DAOException()).when(spcMeasurementDAO).addEntity(any(SPCMeasurement.class));
 		
 		mav=controller.addDimension(request,mav,spcPartid,spcMeasurement,result);
 		
@@ -252,8 +259,62 @@ public class TestAPLSpcController
 		//Check that the required attribute was set
 		/* @Todo */
 		//ModelAndViewAssert.assertModelAttributeAvailable(mav, "message");
+		assertNotNull(mav.getModelMap().get("message"));
 
 	}
+	
+	@Test
+	public void testDeleteSPCMeasurement() 
+	{
+		ModelAndView mav=new ModelAndView();
+		
+		request.addUserRole(Constants.Roles.QC.toString());
+		
+		SPCMeasurement spcMeasurement=getSPCMeasurement();
+	
+		int id=1;
+		
+		mav=controller.removeDimension(request, mav, spcPartid, id);
+		
+		try
+		{
+			verify(spcMeasurementDAO).deleteEntity(any(SPCMeasurement.class));
+		} 
+		catch (DAOException e)
+		{
+			//Handled by Controller
+		}
+		//No Error message
+		assertNull(mav.getModelMap().get("message"));
+	}
+	
+	@Test
+	public void testDeleteSPCMeasurementThrowException() 
+	{
+		ModelAndView mav=new ModelAndView();
+		
+		request.addUserRole(Constants.Roles.QC.toString());
+		
+		try
+		{
+			doThrow(new DAOException()).when(spcMeasurementDAO).deleteEntity(any(SPCMeasurement.class));
+		}
+		catch(DAOException de)
+		{
+			//Handled by Controller
+		}
+		
+		int id=1;
+		
+		mav=controller.removeDimension(request, mav, spcPartid, id);
+		
+		ModelAndViewAssert.assertModelAttributeAvailable(mav, "message");
+		
+		
+	}
+	
+	
+	
 	/**
 	 * 
 	 * @return typical SPCMeasurement Object

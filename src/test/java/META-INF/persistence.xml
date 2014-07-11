@@ -18,7 +18,7 @@
 <class>org.amc.model.spc.SPCData</class>
 <class>org.amc.model.spc.SPCPartsList</class>
 <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.105/test"/>
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.4/test"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
       <property name="openjpa.ConnectionUserName" value="adrian"/>
       <property name="openjpa.ConnectionPassword" value="cr2032ux"></property>

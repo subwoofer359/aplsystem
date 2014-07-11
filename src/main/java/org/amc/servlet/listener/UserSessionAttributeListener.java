@@ -27,7 +27,7 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
      */
     public void attributeRemoved(HttpSessionBindingEvent arg0) 
     {
-    	Logger log=(Logger)Logger.getLogger(UserSessionAttributeListener.class);
+    	Logger log=Logger.getLogger(UserSessionAttributeListener.class);
     	if(arg0.getName().equals("USER"))
     	{
         	Object temp=arg0.getValue();
@@ -52,7 +52,7 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
     public void attributeAdded(HttpSessionBindingEvent arg0) //FIX
     {
         HttpSession session=arg0.getSession();
-        Logger log=(Logger)Logger.getLogger(UserSessionAttributeListener.class);
+        Logger log=Logger.getLogger(UserSessionAttributeListener.class);
        
         synchronized(session)
         {

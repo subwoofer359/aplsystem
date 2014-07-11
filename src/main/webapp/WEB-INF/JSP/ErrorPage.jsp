@@ -36,17 +36,7 @@
 <strong>${pageContext.exception}</strong>
 <br/>
 <br/>
-Status Code: ${pageContext.errorData.statusCode}
-<br/>
-<br/>
-${pageContext.errorData.requestURI}
-<br/>
-<br/>
-Stack Trace<br/>
-<c:forEach var="trace" 
-         items="${pageContext.exception.stackTrace}">
-<p>${trace}</p>
-</c:forEach>
+
 
 </DIV>
 </body>

@@ -1,3 +1,4 @@
+// $codepro.audit.disable emptyCatchClause
 package org.amc.myservlet.test.ui;
 
 import java.util.List;
@@ -43,11 +44,11 @@ public class TestUserUI
 	@Test
 	public void testBug0001()
 	{
-		WebDriver driver=fixture.getWebDriver();
+		final WebDriver driver=fixture.getWebDriver();
 		fixture.login();
 		for(int t=0;t<2;t++)
 		{
-			driver.get("http://192.168.1.6:8080/myservlet/APLSystemServlet");
+			driver.get("http://192.168.1.6:8080/myservlet/app/APLSystemServlet");
 			//Enter User page
 			WebElement element=driver.findElement(By.id("users"));
 			element.click();

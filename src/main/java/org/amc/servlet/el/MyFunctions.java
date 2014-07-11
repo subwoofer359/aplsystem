@@ -9,12 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.amc.model.Material;
-import org.amc.servlet.APLMaterialServlet;
 
-public class MyFunctions
+public final class MyFunctions
 {
 
 	private static Logger logger=Logger.getLogger(MyFunctions.class);
+	
+	/**
+	 * Utility class
+	 */
+	private MyFunctions()
+	{
+	}
 	
 	public static boolean isUserInRole(HttpServletRequest request,String role)
 	{

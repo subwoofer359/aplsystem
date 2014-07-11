@@ -35,13 +35,13 @@
 <body>
 <div class="title"><h1>Material</h1></div>
 <%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/Material_search" value="Search Page" position="220px"/>
+<tags:Navbox href="${pageContext.request.contextPath}/app/Material_search" value="Search Page" position="220px"/>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("${errors}");</SCRIPT>
 </c:if>
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
-<FORM method="post" action="${pageContext.request.contextPath}/Processing/MaterialBean"> 
+<FORM method="post" action="${pageContext.request.contextPath}/app/Processing/MaterialBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <div class="entry">
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>

@@ -37,7 +37,7 @@
 <SCRIPT>
 function goHome(button)
 {
-	window.location="${pageContext.request.contextPath}/APLSystemServlet";
+	window.location="${pageContext.request.contextPath}/app/APLSystemServlet";
 }
 </SCRIPT>
 <body>
@@ -66,7 +66,7 @@ Session count: ${session_count}<br/>
 </DIV>
 
 
-<form id="logout" action="${pageContext.request.contextPath}/logout" method="post">
+<form id="logout" action="${pageContext.request.contextPath}/app/logout" method="post">
 </form>
 <span class="buttons">
 <button id="home" onclick="goHome(this)">Go Home</button>

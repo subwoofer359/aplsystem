@@ -1,5 +1,5 @@
 package org.amc.servlet.action;
-import java.sql.SQLException;
+import org.amc.DAOException;
 import java.util.Map;
 
 import org.amc.model.Material;
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class SearchMaterialAction
 {
 
-	private MaterialDAO materialDAO;
+	private final MaterialDAO materialDAO;
 	
 	@Autowired
 	public SearchMaterialAction(MaterialDAO materialDAO)
@@ -22,19 +22,19 @@ public class SearchMaterialAction
 	}
 	
 	
-	public Map<Integer,Material> search() throws SQLException
+	public Map<Integer,Material> search() throws DAOException
 	{
 		return materialDAO.findMaterials();
 		
 	}
 	
-	public Map<Integer,Material> search(String item,String value) throws SQLException
+	public Map<Integer,Material> search(String item,String value) throws DAOException
 	{
 		return materialDAO.findMaterials(item,value);
 		
 	}
 	
-	public Material getMaterial(String id) throws SQLException
+	public Material getMaterial(String id) throws DAOException
 	{
 		return materialDAO.getEntity(id);
 	}

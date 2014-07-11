@@ -39,6 +39,7 @@ body
 	margin-right:4px;
 	border-color: #345169;
 	font-size:x-large;
+	z-index:100;
 }
 
 .error_message
@@ -54,4 +55,19 @@ body
 	font-size: 20px;
 	text-align: center;		
 	overflow: auto;
+}
+/*Used by ErrorDisplay.jsp*/
+.inputErrorMessage
+{
+	position: absolute;
+	top: 100px;
+	left: 367px;
+	border-style: dashed;
+	height: 400px;
+	width: 700px;
+	overflow: auto;
+	padding: 2px;
+	font-size: xx-large;
+	background-color: red;
+	display:none;
 }

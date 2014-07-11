@@ -16,14 +16,13 @@ import javax.servlet.http.HttpSessionListener;
 public class APLSessionListener implements HttpSessionListener
 {
 	private static Logger logger=Logger.getLogger(APLSessionListener.class);
-	public static int count=0;
+	private static int count=0;
 	@Override
 	public void sessionCreated(HttpSessionEvent arg0)
 	{
 		synchronized(this)
 		{
 			count++;
-			String address="";
 			logger.info("(Create) There are "+count+" sessions");
 			updateSerlvetContext(arg0);
 		}

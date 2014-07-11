@@ -1,10 +1,9 @@
 package org.amc.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import org.amc.DAOException;
 import java.util.List;
 
-import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,6 @@ import org.amc.servlet.action.SearchPartAction;
 import org.amc.servlet.model.*;
 import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -31,16 +29,16 @@ import org.springframework.context.ApplicationContext;
 @WebServlet(
 		description = "Dispatching Servlet for the Problem Database", 
 		urlPatterns = { 
-				"/APLSystemServlet", 
-				"/Part_display",
-				"/Part_search",
-				"/Part_save", 
-				"/Problem_save", 
-				"/Problem_display", 
-				"/ProblemDescription_save", 
-				"/ProblemDescription_display", 
-				"/SearchProblemDatabase",
-				"/logout"
+				"/app/APLSystemServlet", 
+				"/app/Part_display",
+				"/app/Part_search",
+				"/app/Part_save", 
+//				"/Problem_save", 
+//				"/Problem_display", 
+//				"/ProblemDescription_save", 
+//				"/ProblemDescription_display", 
+//				"/SearchProblemDatabase",
+				"/app/logout"
 		},loadOnStartup=1)
 
 public class APLSystemServlet extends HttpServlet 
@@ -173,7 +171,7 @@ public class APLSystemServlet extends HttpServlet
 			job.setCompany(jForm.getCompany());
 			job.setName(jForm.getName());
 			job.setColour(jForm.getColour());
-			job.setExternal(jForm.getExternal());
+			job.setExternal(jForm.isExternal());
 			job.setQss_no(jForm.getQss_no());
 			job.setRevision(jForm.getRevision());
 			job.setVersion(jForm.getVersion());
@@ -184,20 +182,20 @@ public class APLSystemServlet extends HttpServlet
 			try
 			{
 				// New Part to Database
-				if(mode==null||mode.equals("Enter"))
+				if(mode==null||"Enter".equals(mode))
 				{
 					action.save(job);
 					request.setAttribute("form",jForm);
 					request.setAttribute("result", job.toString()+" saved");
 					dispatcherURL="/WEB-INF/JSP/Part.jsp";
 				}
-				else if(mode.equals("Edit"))
+				else if("Edit".equals(mode))
 				{
 					//Current Part is updated in the Database
 					job.setId(Integer.parseInt(jForm.getId()));
 					action.edit(job);
 					dispatcherURL="Part_search";
-					response.sendRedirect(request.getContextPath()+"/Part_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/Part_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else
@@ -215,10 +213,10 @@ public class APLSystemServlet extends HttpServlet
 			{
 				throw new ServletException(se);
 			}
-			catch(SQLException se)
+			catch(DAOException se)
 			{
 				
-				throw new ServletException("Database not available:"+se.getMessage());
+				throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 			}
 			
 			
@@ -275,7 +273,7 @@ public class APLSystemServlet extends HttpServlet
 		try
 		{
 			//if the page is to do a search
-			if(mode==null || mode.equals("search"))
+			if(mode==null || "search".equals(mode))
 			{
 				List<Part> list=null;
 				//To check to search for all entries or entries where name=searchWord
@@ -312,12 +310,12 @@ public class APLSystemServlet extends HttpServlet
 //			}
 			else if(mode!=null)
 			{
-				if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
+				if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 				{
 					//open the Part JSPage in add mode
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
 				}
-				else if(mode.equals("edit")&&idValue!=null)
+				else if("edit".equals(mode)&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
 					Part job=sjt.getPart(idValue);
@@ -329,11 +327,11 @@ public class APLSystemServlet extends HttpServlet
 			RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 			rd.forward(request, response);
 		}
-		catch(SQLException se)
+		catch(DAOException se)
 		{
 			
 			se.printStackTrace();
-			throw new ServletException("Database not available:"+se.getMessage());
+			throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 		}
 	}
 	

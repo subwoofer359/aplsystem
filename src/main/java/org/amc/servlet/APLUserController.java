@@ -1,22 +1,22 @@
 package org.amc.servlet;
 
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.Resource;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
+import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
 import org.amc.servlet.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
 
 import static org.amc.Constants.PASSWORD_DIGEST;
 import static org.amc.Constants.PASSWORD_DEFAULT;
-import static org.amc.Constants.roles;
+import static org.amc.Constants.Roles;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -67,9 +67,19 @@ public class APLUserController
 	@RequestMapping("/Users")
 	public ModelAndView getUsersPage(ModelAndView model,HttpServletRequest request)
 	{
-		if(request.isUserInRole(roles.MANAGER.toString()))
+		if(request.isUserInRole(Roles.MANAGER.toString()))
 		{
-			List<User> list=userDAO.findEntities();
+			List<User> list=null;
+			try
+			{
+				list=userDAO.findEntities();
+				
+			}
+			catch(DAOException de)
+			{
+				model.getModel().put("message",de.getMessage());
+				list=new ArrayList<User>();
+			}
 			model.getModel().put("users", list);
 			model.setViewName("UsersSearchPage");
 		}
@@ -102,7 +112,7 @@ public class APLUserController
 						 HttpServletRequest request
 						 )
 	{
-		if(!request.isUserInRole(org.amc.Constants.roles.MANAGER.toString()))
+		if(!request.isUserInRole(org.amc.Constants.Roles.MANAGER.toString()))
 		{
 			//Return to the Main page
 			return "Main";
@@ -115,97 +125,134 @@ public class APLUserController
 		
 		//Check for new password
 		//Get old password
-		User tempUser =userDAO.getEntity(String.valueOf(user.getId()));
-		//If the user's password doesn't equals the DEFAULT password then hash and save the password
-		if(!user.getPassword().equals(PASSWORD_DEFAULT))
+		User tempUser=null;
+		try
 		{
-			user.setPassword(hash(user.getPassword()));
-		}
-		// Save the old password
-		else
-		{
-			user.setPassword(tempUser.getPassword());
-		}
-		
-		//Get the roles currently assigned to the user
-		List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);
-		//Create a new list of roles
-		List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
-		//Check if roles equals null or no roles selected
-		
-		if(roles==null)
-		{
-			roles=new String[0];
-		}
-		//Check to see if the User's role already exists
-		for(int i=0;i<roles.length;i++)
-		{
-			boolean exists=false;
-			for(UserRoles tempRole:currentListOfRoles)
+			try
 			{
-				if(tempRole.getRoleName().equals(roles[i]))
+				tempUser=userDAO.getEntity(String.valueOf(user.getId()));
+			}
+			catch(DAOException de)
+			{
+				//Expecting a NoResultException as the User doesn't exist in the database
+				if(!de.getCause().getClass().equals(NoResultException.class))
 				{
-					//If the role already exists copy to new list
-					newListOfRoles.add(tempRole);
-					exists=true;
+					throw new DAOException(de);
 				}
 			}
-			if(!exists)
+			// Save the old password
+
+			if(user.getPassword().equals(PASSWORD_DEFAULT))
 			{
-				//If the role doesn't exist then create a new role for the user and add to new list
-				UserRoles newRole=new UserRoles();
-				newRole.setRoleName(roles[i]);
-				newRole.setUser(user);
-				newListOfRoles.add(newRole);
-			}
-		}
-		
-		
-		//Check to see what roles are no longer required and delete them
-		for(int i=0;i<currentListOfRoles.size();i++)
-		{
-			boolean exists=false;
-			for(int t=0;t<roles.length;t++)
-			{
-				if(currentListOfRoles.get(i).getRoleName().equals(roles[t]))
+				if(tempUser==null)
 				{
-					exists=true;
+					user.setPassword("");
+				}
+				else
+				{
+					user.setPassword(tempUser.getPassword());
 				}
 			}
-			if(exists==false)
+			//If the user's password doesn't equals the DEFAULT password then hash and save the password
+			else
 			{
-				userRolesDAO.deleteEntity(currentListOfRoles.get(i));
-			}
-		}
-		
-		logger.debug(newListOfRoles);
-		//Set the user's roles
-		user.setRoles(newListOfRoles);
-		logger.debug(user);
-		
-		
-		//Check validation if fails return to page to get correct information
-		Validator v=new UserValidator();//@ToDo to be Injected
-		v.validate(user, result);
-		if(result.hasErrors())
-		{
-			logger.debug("Errors in Model User found:"+result);
-			model.addAttribute("errors", result.getAllErrors());
-			model.addAttribute("user", user);
-			return "UserAddOrEdit";
-		}
+				user.setPassword(hash(user.getPassword()));
 				
-		//If in Edit mode update user otherwise add user
-		if(mode.equals("edit"))
-		{
-			userDAO.updateEntity(user);
+			}
+		
+			//Get the roles currently assigned to the user
+			List<UserRoles> currentListOfRoles=userRolesDAO.getEntities(user);
+			//Create a new list of roles
+			List<UserRoles> newListOfRoles=new ArrayList<UserRoles>();
+			//Check if roles equals null or no roles selected
+		
+			String[] tempRoles;
+			
+			if(roles==null)
+			{
+				tempRoles=new String[0];
+			}
+			else
+			{
+				tempRoles=roles;
+			}
+			//Check to see if the User's role already exists
+			for(int i=0;i<tempRoles.length;i++)
+			{
+				boolean exists=false;
+				for(UserRoles currRole:currentListOfRoles)
+				{
+					if(currRole.getRoleName().equals(tempRoles[i]))
+					{
+						//If the role already exists copy to new list
+						newListOfRoles.add(currRole);
+						exists=true;
+					}
+				}
+				if(!exists)
+				{
+					//If the role doesn't exist then create a new role for the user and add to new list
+					UserRoles newRole=new UserRoles();
+					newRole.setRoleName(tempRoles[i]);
+					newRole.setUser(user);
+					newListOfRoles.add(newRole);
+				}
+			}
+		
+		
+			//Check to see what roles are no longer required and delete them
+			for(int i=0;i<currentListOfRoles.size();i++)
+			{
+				boolean exists=false;
+				for(int t=0;t<tempRoles.length;t++)
+				{
+					if(currentListOfRoles.get(i).getRoleName().equals(tempRoles[t]))
+					{
+						exists=true;
+					}
+				}
+				if(!exists)
+				{
+					userRolesDAO.deleteEntity(currentListOfRoles.get(i));
+				}
+			}
+			
+			logger.debug(newListOfRoles);
+			//Set the user's roles
+			user.setRoles(newListOfRoles);
+			logger.debug(user);
+			
+		
+			//Check validation if fails return to page to get correct information
+			Validator v=new UserValidator();//@ToDo to be Injected
+			v.validate(user, result);
+			if(result.hasErrors())
+			{
+				logger.debug("Errors in Model User found:"+result);
+				model.addAttribute("errors", result.getAllErrors());
+				model.addAttribute("user", user);
+				return "UserAddOrEdit";
+			}
+				
+			//If in Edit mode update user otherwise add user
+			if("edit".equals(mode))
+			{
+				logger.debug("Updating User in database");
+				userDAO.updateEntity(user);
+			}
+			else
+			{
+				logger.debug("Adding User in database");
+				userDAO.addEntity(user);
+			}
 		}
-		else
+		catch(DAOException de)
 		{
-			userDAO.addEntity(user);
+			logger.error(de.getMessage());
+			request.setAttribute("message", de.getMessage());
 		}
 		//Return to the search page
-		return "forward:/user/Users";
+		return "forward:/app/user/Users";
 	}
 	
 	/**
@@ -225,7 +272,7 @@ public class APLUserController
 			)
 	{
 		//If not in role manager return the Main.jsp
-		if(!request.isUserInRole(roles.MANAGER.toString()))
+		if(!request.isUserInRole(Roles.MANAGER.toString()))
 		{
 			model.setViewName("Main");
 			return model;
@@ -235,35 +282,45 @@ public class APLUserController
 		logger.debug("UserServlet:UserDAO is "+userDAO);
 		User u=null;
 		model.getModel().put("mode", mode);
-		if(mode.equals("edit"))
+		try
 		{
-			u=userDAO.getEntity(String.valueOf(id));
-			logger.debug("Users_edit: User retrieved"+u);
-			
-		}
-		else
-			if(mode.equals("add"))
+			if("edit".equals(mode))
 			{
-				u=new User();
-				
-			}
-		else if(mode.equals("delete"))
-		{
-			u=userDAO.getEntity(String.valueOf(id)); 
-			logger.debug("User about to be deleted "+u);
-			userDAO.deleteEntity(u);
-			return getUsersPage(new ModelAndView(), request);
+				u=userDAO.getEntity(String.valueOf(id));
+				logger.debug("Users_edit: User retrieved"+u);
 			
+			}
+			else
+				if("add".equals(mode))
+				{
+					u=new User();				
+				}
+				else if("delete".equals(mode))
+				{
+					u=userDAO.getEntity(String.valueOf(id)); 
+					logger.debug("User about to be deleted "+u);
+					userDAO.deleteEntity(u);
+					return getUsersPage(new ModelAndView(), request);			
+				}
+				else
+				{
+					logger.error("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+					throw new IllegalArgumentException("mode wasn't set to a correct value");
+					
+				}
+			model.setViewName("UserAddOrEdit");
+			u.setPassword(PASSWORD_DEFAULT);
+			model.getModel().put("user", u);
 		}
-		else
+		catch(DAOException de)
 		{
-			logger.debug("UserServlet:editUsers: passed straight through if/else block shouldn't happen");
+			model.getModelMap().put("message", de.getMessage());
+			//Redirect to search page
+			model.setViewName("UsersSearchPage");
 		}
 		
-		model.setViewName("UserAddOrEdit");
 		//Blank password
-		u.setPassword(PASSWORD_DEFAULT);
-		model.getModel().put("user", u);
+		
 		
 		return model; 
 	}
@@ -304,25 +361,27 @@ public class APLUserController
 	 */
 	private String hash(String password)
 	{
+		String hashedPassword="";
 		if(password==null)
 		{
-			return "";
+			return hashedPassword;
 		}
 		byte[] hash=null;
 		try
 		{
 			MessageDigest digest=MessageDigest.getInstance(PASSWORD_DIGEST);
-			hash=digest.digest(new String(password).getBytes());
+			hash=digest.digest(password.getBytes(Charset.defaultCharset()));
 		}
 		catch(NoSuchAlgorithmException nae)
 		{
-			//to implement
+			logger.error("HashPassword:The hashing algorithm not supported");
+			//todo implement
 		}
 		if(hash!=null)
 		{
-			password=hexEncode(hash);
+			hashedPassword=hexEncode(hash);
 		}
-		return password;
+		return hashedPassword;
 	}
 	
 	/**

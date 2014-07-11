@@ -12,11 +12,15 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.dao.MaterialDAO;
+import org.amc.dao.UserRolesDAO;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
+import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -37,11 +41,14 @@ public class TestPartandMouldingProcessDAO
 	private final String COMPANY="TOSARA";
 	private final String TYPE="ABS";
 	
+	private static Logger logger=Logger.getLogger(TestPartandMouldingProcessDAO.class);
+	
 	@Before
 	public void setUp()
 	{
 		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();
+		EntityManagerThreadLocal.setEntityManagerFactory(factory);
+		em=EntityManagerThreadLocal.getEntityManager();
 		
 		//Clear the table
 		Query q=em.createNativeQuery("DELETE FROM processSheets");
@@ -57,10 +64,7 @@ public class TestPartandMouldingProcessDAO
 	@After
 	public void tearDown()
 	{
-//		if(em.isOpen())
-//		{
-//			em.close();
-//		}
+		EntityManagerThreadLocal.closeEntityManager();
 		if(factory.isOpen())
 		{
 			factory.close();
@@ -68,13 +72,13 @@ public class TestPartandMouldingProcessDAO
 	}
 	
 	@Test
-	public void testAdd()
+	public void testAdd()  throws DAOException
 	{
 		Material m=new Material();
 		m.setCompany(COMPANY);
 		m.setName(NAME);
 		m.setType(TYPE);
-		MaterialDAO daoMaterial=new MaterialDAO(em);
+		MaterialDAO daoMaterial=new MaterialDAO();
 		//daoMaterial.setEm(em);
 		daoMaterial.addEntity(m);
 		
@@ -89,13 +93,13 @@ public class TestPartandMouldingProcessDAO
 		mp.setMachineSize(320);
 		mp.setMaterial(m.getId());
 	
-		DAO<MouldingProcess> d=new DAO<MouldingProcess>(em,MouldingProcess.class);
+		DAO<MouldingProcess> d=new DAO<MouldingProcess>(MouldingProcess.class);
 		//d.setEm(em);
 		d.addEntity(mp);
 		
 		Part p=getPart(testPartName);
 		
-		DAO<Part> pd=new DAO<Part>(em,Part.class);
+		DAO<Part> pd=new DAO<Part>(Part.class);
 		//pd.setEm(em);
 		pd.addEntity(p);
 		
@@ -108,17 +112,17 @@ public class TestPartandMouldingProcessDAO
 		assertTrue(plist.size()>=1);
 	}
 	@Test
-	public void testConcurrency()
+	public void testConcurrency()  throws DAOException
 	{
 		int NO_OF_THREADS=12;
 		CountDownLatch latch=new CountDownLatch(NO_OF_THREADS);
 		List<UpdateThread> threads=new ArrayList<TestPartandMouldingProcessDAO.UpdateThread>();
-		DAO<Part> pd=new DAO<Part>(factory.createEntityManager(),Part.class);
+		DAO<Part> pd=new DAO<Part>(Part.class);
 		//Add Parts to database
 		for(int i=0;i<NO_OF_THREADS;i++)
 		{
 			pd.addEntity(getPart("Part:"+i));
-			threads.add(new UpdateThread(latch,new DAO<Part>(factory.createEntityManager(),Part.class)));
+			threads.add(new UpdateThread(latch,new DAO<Part>(Part.class)));
 		}
 		
 		for(UpdateThread thread:threads)
@@ -140,7 +144,7 @@ public class TestPartandMouldingProcessDAO
 	}
 
 
-	public Part getPart(String testPartName)
+	public Part getPart(String testPartName) 
 	{
 		Part p=new Part();
 		p.setCompany("Tosara");
@@ -160,19 +164,26 @@ public class TestPartandMouldingProcessDAO
 		
 		public UpdateThread(CountDownLatch latch,DAO<Part> dao)
 		{
+			
 			this.dao=dao;
 			this.latch=latch;
 		}
 		
 		public void run()
 		{
-			List<Part> list=dao.findEntities();
-			for(Part p:list)
+			try
 			{
-				p.setName("Updated by "+this.getName());
-				dao.updateEntity(p);
+				List<Part> list=dao.findEntities();
+				for(Part p:list)
+				{
+					p.setName("Updated by "+this.getName());
+					dao.updateEntity(p);
+				}
+				latch.countDown();
+			} catch (DAOException e)
+			{
+				logger.error(e.getMessage());
 			}
-			latch.countDown();
 			
 		}
 	}

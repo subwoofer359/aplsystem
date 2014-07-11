@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import org.amc.DAOException;
+import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.User;
@@ -31,23 +33,12 @@ public class TestSPCFixture
 	
 	public void setUp()
 	{
-		factory=Persistence.createEntityManagerFactory("myDataSource");
-		em=factory.createEntityManager();	
-	}
-	
-	public void tearDown()
-	{
-		if(em!=null && em.isOpen())
-		{
-			em.getTransaction().begin();
-			em.flush();
-			em.getTransaction().commit();
-		}
-		em.close();
-		factory.close();
+		//factory=Persistence.createEntityManagerFactory("myDataSource");
+		em=EntityManagerThreadLocal.getEntityManager();	
 	}
 
-	public void setupPartTable()
+
+	public void setupPartTable() throws DAOException
 	{
 		//Clear table users
 		if(tableExists("jobtemplate"))
@@ -58,7 +49,7 @@ public class TestSPCFixture
 			em.getTransaction().commit();
 		}
 		//Get DAO object
-		DAO<Part> partDAO=new DAO<Part>(em,Part.class);
+		DAO<Part> partDAO=new DAO<Part>(Part.class);
 		String[] colours={"red","blue","green"};
 		String[] companies={"HMV","Granada","Apple"};
 		String[] names={"CD","Car","IPOD"};
@@ -82,7 +73,7 @@ public class TestSPCFixture
 		//Set it to be garbage collected
 		partDAO=null;
 	}
-	public void setUpUserTable()
+	public void setUpUserTable() throws DAOException
 	{
 		//Clear table users
 		if(tableExists("users"))
@@ -93,7 +84,7 @@ public class TestSPCFixture
 			em.getTransaction().commit();
 		}
 		//Get DAO object
-		DAO<User> userDAO=new DAO<User>(em,User.class);
+		DAO<User> userDAO=new DAO<User>(User.class);
 		
 		//Create User Entities and add them to the database
 		String[] fullnames={"Adrian McLaughlin","Stephen Nolan","Chris Dalton"};

@@ -10,18 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
-import com.mysql.jdbc.log.Log;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -52,17 +45,10 @@ public class User implements Serializable,WorkEntity
 	private String password="";
 	
 	@Column(name="activate",updatable=true)
-	boolean active=true;
+	private boolean active=true;
 	
 	@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 	private List<UserRoles> roles;
-	
-	public User()
-	{
-		;;
-	}
-
-	
 	
 	public String getFullName()
 	{
@@ -168,14 +154,8 @@ public class User implements Serializable,WorkEntity
 		if(obj instanceof User)
 		{
 			User otherUser=(User)obj;
-			if(this.getUserName().equals(otherUser.getUserName()) && (this.id == otherUser.id))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return this.getUserName().equals(otherUser.getUserName()) && (this.id == otherUser.id);
+			
 		}
 		else
 		{
@@ -184,24 +164,32 @@ public class User implements Serializable,WorkEntity
 	}
 	
 	@Override
+	public int hashCode()
+	{
+		int temp=1;
+		temp=temp*2+this.userName.hashCode();
+		return temp;
+	}
+	
+	@Override
 	public String toString()
 	{
 		StringBuffer sb=new StringBuffer();
 		sb.append("UserName("+this.getId()+"):"+this.getUserName());
-		sb.append("\n");
+		sb.append(' ');
 		sb.append("FullName:"+this.getFullName());
-		sb.append("\n");
+		sb.append(' ');
 		sb.append("Email address:"+this.getEmailAddress());
-		sb.append("\n");
+		sb.append(' ');
 		sb.append("active:"+this.isActive());
-		sb.append("\n");
+		sb.append(' ');
 		List<UserRoles> roles=this.getRoles();
-		if(roles!=null && roles.size()!=0)
+		if(roles!=null && !roles.isEmpty())
 		{
-			sb.append("Roles:\n");
+			sb.append("Roles:");
 			for(UserRoles role:roles)
 			{
-				sb.append(role+"\n");
+				sb.append(role+" ");
 			}
 		}
 		return sb.toString();

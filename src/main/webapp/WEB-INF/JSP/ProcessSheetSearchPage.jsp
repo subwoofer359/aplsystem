@@ -16,8 +16,8 @@
 <style>
 
 </style>
-<script src="js/SearchPage.js"></script>
-<script src="js/TablesSort.js"></script>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script type="text/javascript">
 /**
  * Needs to be in JSP. Contains EL Expression 
@@ -37,7 +37,7 @@ function isDisplayChecked(id)
 	}
 	if(checked)
 	{
-		id.formAction="${pageContext.request.contextPath}/ProcessSheet_display";
+		id.formAction="${pageContext.request.contextPath}/app/ProcessSheet_display";
 	}
 	else
 	{
@@ -58,7 +58,7 @@ function isDisplayChecked(id)
 <%@ include file="NavigationDiv.jspf" %>
 
 
-<FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post" onsubmit="return isChecked(this,'Process Sheet')">
+<FORM action="${pageContext.request.contextPath}/app/ProcessSheet_search" method="post" onsubmit="return isChecked(this,'Process Sheet')">
 <DIV class="results">
 <TABLE>
 <thead>
@@ -82,7 +82,7 @@ function isDisplayChecked(id)
 <SPAN class="search">
 <input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
-<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"/></SPAN>
 </FORM>
 
 </body>

@@ -58,8 +58,7 @@ public class Part implements Serializable,WorkEntity
 	 */
 	public Part()
 	{
-		;
-		;
+		//empty constructor
 	}
 
 	/**
@@ -98,11 +97,15 @@ public class Part implements Serializable,WorkEntity
 
 	public String toString()
 	{
-		String value = String.valueOf(getName()) + " ";
-		value = value + String.valueOf(getVersion()) + " ";
-		value = value + String.valueOf(getRevision()) + " ";
-		value = value + String.valueOf(getColour());
-		return value;
+		StringBuilder sb=new StringBuilder();
+		sb.append(getName());
+		sb.append(' ');
+		sb.append(getVersion());
+		sb.append(' ');
+		sb.append(getRevision());
+		sb.append(' ');
+		sb.append(getColour());
+		return sb.toString();
 	}
 
 	public String getColour()
@@ -125,7 +128,7 @@ public class Part implements Serializable,WorkEntity
 		this.company = company;
 	}
 
-	public boolean getExternal()
+	public boolean isExternal()
 	{
 		return external;
 	}
