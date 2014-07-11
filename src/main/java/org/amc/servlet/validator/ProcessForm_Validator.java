@@ -57,7 +57,7 @@ public class ProcessForm_Validator
 			String field=null;
 			try
 			{
-				field=MouldingProcess.FIELDS[i];
+				field=MouldingProcess.FIELDS.get(i);
 				Field refField=MouldingProcessForm.class.getDeclaredField(field);
 				Float.parseFloat((String)refField.get(form));
 				
@@ -84,7 +84,7 @@ public class ProcessForm_Validator
 			String field=null;
 			try
 			{
-				field=MouldingProcess.FIELDS[i];
+				field=MouldingProcess.FIELDS.get(i);
 				Field refField=MouldingProcessForm.class.getDeclaredField(field);
 				Float.parseFloat((String)refField.get(form));
 				
