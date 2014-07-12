@@ -47,9 +47,8 @@ public class APLSpcController
 	 * Retrieve and return SPC Part List
 	 */
 	@RequestMapping("/SPCPartsList")
-	public ModelAndView getSPCPartList()
+	public ModelAndView getSPCPartList(ModelAndView mav)
 	{
-		ModelAndView mav=new ModelAndView();
 		logger.debug("spcPartsListDAO in getSPCPartList:"+this.spcListPartDAO);
 		List<SPCPartsList> list=null;
 		try
@@ -72,23 +71,23 @@ public class APLSpcController
 	}
 	
 	@RequestMapping("/AddToSPC")
-	public String addToSPC(@RequestParam("edit") Integer id,HttpServletRequest request)
+	public ModelAndView addToSPC(ModelAndView mav,@RequestParam("edit") Integer id,HttpServletRequest request)
 	{
 		//If User not in role QC then return with error message
 		if(!request.isUserInRole(Roles.QC.toString()))
 		{
-			request.setAttribute("message", "User can't not add Parts to the SPCList");
-			return "forward:/app/Part_search";
+			mav.getModelMap().put("message", "User can't not add Parts to the SPCList");
+			mav.setViewName("forward:/app/Part_search");
+			return mav;
 		}
 		Part part=null;
 		try
-		{
-				
+		{		
 			part=this.partDAO.getEntity(String.valueOf(id));
 		}
 		catch(DAOException de)
 		{
-			request.setAttribute("message",de.getMessage());
+			mav.getModelMap().put("message",de.getMessage());
 		}
 		
 		if(part!=null)
@@ -102,14 +101,15 @@ public class APLSpcController
 			catch(Exception e)
 			{
 				logger.debug("Part already on the SPC list");
-				request.setAttribute("message", "Part already on the SPC list");
+				mav.getModelMap().put("message", "Part already on the SPC list");
 			}
 		}
-		return "forward:/app/Part_search";
+		mav.setViewName("forward:/app/Part_search");
+		return mav;
 	}
 	
 	@RequestMapping("/SPC/removePart")
-	public String removePart(Model model,
+	public ModelAndView removePart(ModelAndView mav,
 							@RequestParam(value="edit",required=true)  Integer id,
 							HttpServletRequest request
 							)
@@ -127,13 +127,17 @@ public class APLSpcController
 			}
 			catch(DAOException de)
 			{
-				request.setAttribute("message",de.getMessage());
+				mav.getModelMap().put("message",de.getMessage());
 			}
 			
 			
 		}
-		
-		return "forward:/app/spc/SPCPartsList";
+		else
+		{
+			mav.getModelMap().put("message","User has no permission to delete SPC Measurements");
+		}
+		mav.setViewName("forward:/app/spc/SPCPartsList");
+		return mav;
 		
 	}
 	
