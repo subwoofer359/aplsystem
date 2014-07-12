@@ -87,8 +87,9 @@ public class TestAPLSpcControllerIntegration
 			spcPart.setPart(part);
 			partsListDao.addEntity(spcPart);
 		}
+		ModelAndView inputMav=new ModelAndView();
 		
-		ModelAndView mav=controller.getSPCPartList();
+		ModelAndView mav=controller.getSPCPartList(inputMav);
 		
 		ModelAndViewAssert.assertAndReturnModelAttributeOfType(mav, "parts", List.class);
 		
