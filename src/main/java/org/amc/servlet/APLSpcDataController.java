@@ -147,6 +147,7 @@ public class APLSpcDataController
 				spcDataDAO.addEntities((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT),data);
 			
 				//Update Session values
+				@SuppressWarnings("unchecked")
 				List<SPCMeasurement> measurments=(List<SPCMeasurement>)session.getAttribute(SPC_MEASUREMENTS);
 				int index=measurments.indexOf(session.getAttribute(CURRENT_SPC_MEASUREMENT));
 				if(index!=-1 && index<measurments.size()-1)
@@ -225,40 +226,4 @@ public class APLSpcDataController
 		
 		return errors;
 	}
-//	private List<SPCData> getSPCDataFromRequest(HttpServletRequest request)
-//	{
-//		List<SPCData> spcData=new ArrayList<SPCData>();
-//		SimpleDateFormat sdf=new SimpleDateFormat();
-//		
-//		String[] ids=request.getParameterValues("id");
-//		String[] dates=request.getParameterValues("date");
-//		String[] userId=request.getParameterValues("userId");
-//		String[] measurmentNos=request.getParameterValues("measurementNo");
-//		String[] measurements=request.getParameterValues("measurement");
-//		String[] spcMeasurementsId=request.getParameterValues("spcMeasurementId");
-//		
-//		
-//		try
-//		{
-//			for(int i=0;i<ids.length;i++)
-//			{
-//				SPCData data=new SPCData();
-//				data.setDate((java.sql.Date)sdf.parse(dates[i]));
-//				
-//				//data.setUser(user);
-//				
-//				data.setMeasurement(Float.parseFloat(measurements[i]));
-//			}
-//		}
-//		catch(NullPointerException npe)
-//		{
-//			
-//		}
-//		catch(ParseException pe)
-//		{
-//			
-//		}
-//		
-//		return spcData;
-//	}
 }
