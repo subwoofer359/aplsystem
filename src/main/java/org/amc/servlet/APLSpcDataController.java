@@ -145,28 +145,27 @@ public class APLSpcDataController
 			try
 			{
 				spcDataDAO.addEntities(data);
+			
+				//Update Session values
+				List<SPCMeasurement> measurments=(List<SPCMeasurement>)session.getAttribute(SPC_MEASUREMENTS);
+				int index=measurments.indexOf(session.getAttribute(CURRENT_SPC_MEASUREMENT));
+				if(index!=-1 && index<measurments.size()-1)
+				{
+					session.setAttribute(CURRENT_SPC_MEASUREMENT,measurments.get(index+1));
+				}
+				else
+				{
+					//Clear session values
+					session.removeAttribute(CURRENT_SPC_MEASUREMENT);
+					session.removeAttribute(PART);
+					session.removeAttribute(SPC_MEASUREMENTS);
+					mav.setViewName("spc/SPCPartList");
+				}
 			}
 			catch(DAOException de)
 			{
 				mav.getModelMap().put(MESSAGE, "SPC Data was not saved. Error in application");
 				LOG.error("APLSpcDataController:Call to "+SPCDataDAO.class.getSimpleName()+" has cause an exception:"+de.getMessage());
-				//Todo where to go next
-			}
-			//Update Session values
-			List<SPCMeasurement> measurments=(List<SPCMeasurement>)session.getAttribute(SPC_MEASUREMENTS);
-			SPCMeasurement currSPCMeasurement=(SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT);
-			int index=measurments.indexOf(currSPCMeasurement);
-			if(index!=-1 && index<measurments.size())
-			{
-				currSPCMeasurement=measurments.get(index+1);
-			}
-			else
-			{
-				//Clear session values
-				session.removeAttribute(CURRENT_SPC_MEASUREMENT);
-				session.removeAttribute(PART);
-				session.removeAttribute(SPC_MEASUREMENTS);
-				mav.setViewName("spc/SPCPartList");
 			}
 		}
 		

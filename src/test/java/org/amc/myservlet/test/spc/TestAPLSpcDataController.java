@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.amc.Constants;
 import org.amc.DAOException;
 import org.amc.dao.DAO;
+import org.amc.dao.SPCDataDAO;
 import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCData;
@@ -24,8 +25,10 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.verification.VerificationMode;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,6 +39,7 @@ public class TestAPLSpcDataController
 
 	private DAO<SPCPartsList> partsListDao;
 	private DAO<Part> partsDAO;
+	private SPCDataDAO spcDataDAO;
 	private APLSpcDataController controller;
 	private SPCMeasurementDAO spcMeasurementDAO;
 	private MockHttpServletRequest request;
@@ -46,6 +50,7 @@ public class TestAPLSpcDataController
 	private static final String CURRENT_SPC_MEASUREMENT="CURRENT_SPC_MEASUREMENT";
 	private static final String SPC_MEASUREMENTS="spcmeasurements";
 	private static final String MESSAGE="message";
+	private static final String ERRORS="errors";
 	private static final String SPC_PART="spcPart";
 	private static final String PART="part";
 	
@@ -69,11 +74,13 @@ public class TestAPLSpcDataController
 		
 		partsDAO=mock(DAO.class);
 		partsListDao=mock(DAO.class);
+		spcDataDAO=mock(SPCDataDAO.class);
 		
 		controller=new APLSpcDataController();
 		controller.setSPCDimensionDAO(spcMeasurementDAO);
 		controller.setPartDAO(partsDAO);
 		controller.setSPCListPartDAO(partsListDao);
+		controller.setSPCDataDAO(spcDataDAO);
 	}
 
 	@After
@@ -120,7 +127,116 @@ public class TestAPLSpcDataController
 		assertEquals(part, session.getAttribute(PART));
 		
 		//Not error message set
-		assertNull(session.getAttribute(MESSAGE));
+		assertNull(mav.getModel().get(MESSAGE));
+	}
+	
+	
+	
+	@Test
+	public void testSaveSPCData() throws DAOException
+	{
+		ModelAndView mav=new ModelAndView();
+		request.addUserRole(Constants.Roles.QC.toString());
+		when(result.hasErrors()).thenReturn(false);
+		List<SPCData> data=new ArrayList<SPCData>();
+		
+		List<SPCMeasurement> measurements =getMeasurements();
+		Part part= TestPartandMouldingProcessDAO.getPart("new Part");
+		
+		session.setAttribute(CURRENT_SPC_MEASUREMENT, measurements.get(0));
+		session.setAttribute(SPC_MEASUREMENTS, measurements);
+		session.setAttribute(PART, part);
+		controller.saveSPCData(request, session, mav, data, result);
+		
+		verify(spcDataDAO,times(1)).addEntities(any(List.class));
+		assertEquals(measurements.get(1),session.getAttribute(CURRENT_SPC_MEASUREMENT));
+		ModelAndViewAssert.assertViewName(mav, "spc/SPCEntryPage");
+		//No error
+		assertNull(mav.getModel().get(MESSAGE));
+		assertNull(mav.getModel().get(ERRORS));
+		
+	}
+	
+	@Test
+	public void testSaveLastSPCData() throws DAOException
+	{
+		ModelAndView mav=new ModelAndView();
+		request.addUserRole(Constants.Roles.QC.toString());
+		when(result.hasErrors()).thenReturn(false);
+		List<SPCData> data=new ArrayList<SPCData>();
+		
+		List<SPCMeasurement> measurements =getMeasurements();
+		Part part= TestPartandMouldingProcessDAO.getPart("new Part");
+		
+		session.setAttribute(CURRENT_SPC_MEASUREMENT, measurements.get(measurements.size()-1));
+		session.setAttribute(SPC_MEASUREMENTS, measurements);
+		session.setAttribute(PART, part);
+		controller.saveSPCData(request, session, mav, data, result);
+		
+		verify(spcDataDAO,times(1)).addEntities(any(List.class));
+		ModelAndViewAssert.assertViewName(mav, "spc/SPCPartList");
+		assertNull(session.getAttribute(CURRENT_SPC_MEASUREMENT));
+		assertNull(session.getAttribute(SPC_MEASUREMENTS));
+		assertNull(session.getAttribute(PART));
+		
 	}
 
+	@Test
+	public void testSaveSPCDataExceptionThrown() throws DAOException
+	{
+		ModelAndView mav=new ModelAndView();
+		request.addUserRole(Constants.Roles.QC.toString());
+		when(result.hasErrors()).thenReturn(false);
+		doThrow(DAOException.class).when(spcDataDAO).addEntities(anyList());
+		
+		List<SPCData> data=new ArrayList<SPCData>();
+		
+		List<SPCMeasurement> measurements =getMeasurements();
+		Part part= TestPartandMouldingProcessDAO.getPart("new Part");
+		
+		session.setAttribute(CURRENT_SPC_MEASUREMENT, measurements.get(0));
+		session.setAttribute(SPC_MEASUREMENTS, measurements);
+		session.setAttribute(PART, part);
+		
+		controller.saveSPCData(request, session, mav, data, result);
+		
+		assertNotNull(mav.getModel().get(MESSAGE));
+		assertNull(mav.getModel().get(ERRORS));
+		ModelAndViewAssert.assertViewName(mav, "spc/SPCEntryPage");
+		//The session attributed shouldn't be changed
+		assertEquals(measurements.get(0),session.getAttribute(CURRENT_SPC_MEASUREMENT));
+		
+		
+		
+		
+		//No error
+		
+	}
+	
+	private List<SPCMeasurement> getMeasurements()
+	{
+		List<SPCMeasurement> measurements=new ArrayList<SPCMeasurement>();
+		String[] dimensions={"length","height","width","radius"};
+		float[] lowerLimits={0.3f,0.2f,0f,3f,1f};
+		float[] upperLimits={0.3f,0.2f,0f,3f,1f};
+		float[] nominals={123.34f,221.2f,11.22f,21.23f,0.33f};
+		int[] noOfMeasurments={3,2,5,5,10};
+		String[] tableIds={"tableId0020202020","tableId03","tableId0020ffrrf0","tableId022ff202020","tableId0020330"};
+		
+		for(int i=0;i<dimensions.length;i++)
+		{
+			SPCMeasurement measurement=new SPCMeasurement();
+			measurement.setActive(true);
+			measurement.setDimension(dimensions[i]);
+			measurement.setLowerLimit(lowerLimits[i]);
+			measurement.setUpperLimit(upperLimits[i]);
+			measurement.setNominal(nominals[i]);
+			measurement.setNoOfMeasurements(noOfMeasurments[i]);
+			measurement.setTableId(tableIds[i]);
+			measurements.add(measurement);
+		}
+		
+		
+		return measurements;
+	}
 }
