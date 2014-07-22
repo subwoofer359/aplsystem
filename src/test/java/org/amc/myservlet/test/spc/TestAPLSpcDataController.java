@@ -148,7 +148,7 @@ public class TestAPLSpcDataController
 		session.setAttribute(PART, part);
 		controller.saveSPCData(request, session, mav, data, result);
 		
-		verify(spcDataDAO,times(1)).addEntities((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT),any(List.class));
+		verify(spcDataDAO,times(1)).addEntities(any(SPCMeasurement.class),anyListOf(SPCData.class));
 		assertEquals(measurements.get(1),session.getAttribute(CURRENT_SPC_MEASUREMENT));
 		ModelAndViewAssert.assertViewName(mav, "spc/SPCEntryPage");
 		//No error
@@ -173,7 +173,7 @@ public class TestAPLSpcDataController
 		session.setAttribute(PART, part);
 		controller.saveSPCData(request, session, mav, data, result);
 		
-		verify(spcDataDAO,times(1)).addEntities((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT),any(List.class));
+		verify(spcDataDAO,times(1)).addEntities(any(SPCMeasurement.class),anyListOf(SPCData.class));
 		ModelAndViewAssert.assertViewName(mav, "spc/SPCPartList");
 		assertNull(session.getAttribute(CURRENT_SPC_MEASUREMENT));
 		assertNull(session.getAttribute(SPC_MEASUREMENTS));
@@ -187,7 +187,7 @@ public class TestAPLSpcDataController
 		ModelAndView mav=new ModelAndView();
 		request.addUserRole(Constants.Roles.QC.toString());
 		when(result.hasErrors()).thenReturn(false);
-		doThrow(DAOException.class).when(spcDataDAO).addEntities((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT),anyList());
+		doThrow(DAOException.class).when(spcDataDAO).addEntities(any(SPCMeasurement.class),anyListOf(SPCData.class));
 		
 		List<SPCData> data=new ArrayList<SPCData>();
 		
