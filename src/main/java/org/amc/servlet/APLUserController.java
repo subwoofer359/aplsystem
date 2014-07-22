@@ -5,11 +5,13 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Resource;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
@@ -44,9 +46,13 @@ public class APLUserController
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(APLUserController.class);
+	private static final String USERS="users";
+	private static final String USER="user";
+	private static final String MESSAGE="message";
+	private static final String ERRORS="errors";
 	
 	
-//	@InitBinder("user")
+//	@InitBinder(USER)
 //	protected void initBinder(WebDataBinder binder)
 //	{
 //		binder.addValidators(new UserValidator());
@@ -77,10 +83,10 @@ public class APLUserController
 			}
 			catch(DAOException de)
 			{
-				model.getModel().put("message",de.getMessage());
+				model.getModel().put(MESSAGE,de.getMessage());
 				list=new ArrayList<User>();
 			}
-			model.getModel().put("users", list);
+			model.getModel().put(USERS, list);
 			model.setViewName("UsersSearchPage");
 		}
 		else
@@ -104,7 +110,7 @@ public class APLUserController
 	 */
 	@RequestMapping("/User_Save")
 	public String saveUser(Model model,
-						 @Valid @ModelAttribute("user") User user,
+						 @Valid @ModelAttribute(USER) User user,
 						 BindingResult result, 
 						 @RequestParam("mode") String mode,
 						 @RequestParam(value="active",required=false) String active,
@@ -229,8 +235,8 @@ public class APLUserController
 			if(result.hasErrors())
 			{
 				logger.debug("Errors in Model User found:"+result);
-				model.addAttribute("errors", result.getAllErrors());
-				model.addAttribute("user", user);
+				model.addAttribute(ERRORS, result.getAllErrors());
+				model.addAttribute(USER, user);
 				return "UserAddOrEdit";
 			}
 				
@@ -249,7 +255,7 @@ public class APLUserController
 		catch(DAOException de)
 		{
 			logger.error(de.getMessage());
-			request.setAttribute("message", de.getMessage());
+			request.setAttribute(MESSAGE, de.getMessage());
 		}
 		//Return to the search page
 		return "forward:/app/user/Users";
@@ -310,11 +316,11 @@ public class APLUserController
 				}
 			model.setViewName("UserAddOrEdit");
 			u.setPassword(PASSWORD_DEFAULT);
-			model.getModel().put("user", u);
+			model.getModel().put(USER, u);
 		}
 		catch(DAOException de)
 		{
-			model.getModelMap().put("message", de.getMessage());
+			model.getModelMap().put(MESSAGE, de.getMessage());
 			//Redirect to search page
 			model.setViewName("UsersSearchPage");
 		}
