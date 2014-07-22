@@ -3,15 +3,21 @@ package org.amc.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Savepoint;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import org.amc.DAOException;
 import org.amc.model.spc.SPCData;
+import org.amc.model.spc.SPCMeasurement;
 import org.apache.log4j.Logger;
 
+/**
+ * DAO for SPCData
+ * 
+ * @author Adrian McLaughlin
+ *
+ */
 public class SPCDataDAO extends DAO<SPCData>
 {
 	/**
@@ -29,22 +35,29 @@ public class SPCDataDAO extends DAO<SPCData>
 		super(SPCData.class);
 	}
 	
-	public void addEntities(List<SPCData> entities) throws DAOException
+	/**
+	 * 
+	 * @param measurement SPCMeasurement related to the SPCData being saved. Contains reference to the database table in which to save the SPCData
+	 * @param entities List of SPCData to be saved
+	 * @throws DAOException if exception is thrown by the database
+	 */
+	public void addEntities(SPCMeasurement measurement,List<SPCData> entities) throws DAOException
 	{
 		EntityManager manager=getEntityManager();
 		Connection connection=manager.unwrap(java.sql.Connection.class);
 		try
 		{
 			connection.setAutoCommit(false);
-			Savepoint savepointTop=connection.setSavepoint("Begin");
-			PreparedStatement statement=connection.prepareStatement("insert into ? values(default,?,?,?,?");
+			
+			
 			for(SPCData entity:entities)
 			{
-				statement.setDate(2, entity.getDate());
-				statement.setInt(3, entity.getUser().getId());
-				statement.setInt(4, entity.getMeasurementNumber());
+				PreparedStatement statement=connection.prepareStatement("insert into "+measurement.getTableId()+" values(default,?,?,?,?,?);");
+				statement.setDate(1, entity.getDate());
+				statement.setInt(2, entity.getUser().getId());
+				statement.setInt(3, entity.getMeasurementNumber());
+				statement.setFloat(4, entity.getSpcMeasurement().getId());
 				statement.setFloat(5, entity.getMeasurement());
-				
 				statement.execute();
 			}
 			connection.commit();

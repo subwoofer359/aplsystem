@@ -144,7 +144,7 @@ public class APLSpcDataController
 		{
 			try
 			{
-				spcDataDAO.addEntities(data);
+				spcDataDAO.addEntities((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT),data);
 			
 				//Update Session values
 				List<SPCMeasurement> measurments=(List<SPCMeasurement>)session.getAttribute(SPC_MEASUREMENTS);

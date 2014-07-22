@@ -1,5 +1,6 @@
 package org.amc.myservlet.test.spc;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,8 +11,10 @@ import javax.persistence.Query;
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
+import org.amc.dao.SPCMeasurementDAO;
 import org.amc.model.Part;
 import org.amc.model.User;
+import org.amc.model.spc.SPCMeasurement;
 
 /**
  * 
@@ -104,6 +107,49 @@ public class TestSPCFixture
 		}
 		//Set it to be garbage collected
 		userDAO=null;
+	}
+	
+	public void setUpSPCMeasurementTable() throws DAOException
+	{
+		//Clear SPCDimension Table
+		if(tableExists("SPCMeasurements"))
+		{
+			Query q1=em.createNativeQuery("delete from SPCMeasurements");
+			em.getTransaction().begin();
+			q1.executeUpdate();
+			em.getTransaction().commit();
+		}
+		
+		DAO<Part> partDAO=new DAO<Part>(Part.class);
+		SPCMeasurementDAO measurementDAO=new SPCMeasurementDAO();
+	
+		//Presuming there are entries in the part database table;
+		Part p=partDAO.findEntities().get(0);
+		
+		
+		String[] dimensions={"length","height","width","radius"};
+		float[] lowerLimits={0.3f,0.2f,0f,3f,1f};
+		float[] upperLimits={0.3f,0.2f,0f,3f,1f};
+		float[] nominals={123.34f,221.2f,11.22f,21.23f,0.33f};
+		int[] noOfMeasurments={3,2,5,5,10};
+		//String[] tableIds={"tableId0020202020","tableId03","tableId0020ffrrf0","tableId022ff202020","tableId0020330"};
+		
+		for(int i=0;i<dimensions.length;i++)
+		{
+			SPCMeasurement measurement=new SPCMeasurement();
+			measurement.setActive(true);
+			measurement.setDimension(dimensions[i]);
+			measurement.setLowerLimit(lowerLimits[i]);
+			measurement.setUpperLimit(upperLimits[i]);
+			measurement.setNominal(nominals[i]);
+			measurement.setNoOfMeasurements(noOfMeasurments[i]);
+			//measurement.setTableId(tableIds[i]);
+			measurement.setPart(p);
+			measurementDAO.addEntity(measurement);
+		}
+		
+		
+		
 	}
 	
 	public boolean tableExists(String tableName)

@@ -76,7 +76,8 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 					+ "date Date NOT NULL,"
 					+ "user_id int NOT NULL,"
 					+ "measurementNumber int NOT NULL,"
-					+ "measurement_id int NOT NULL, "
+					+ "measurement_id int NOT NULL,"
+					+ "measurement float NOT NULL, "
 					+ "PRIMARY KEY(id))  ENGINE=InnoDB" ;
 			LOG.debug(queryString);
 		}
