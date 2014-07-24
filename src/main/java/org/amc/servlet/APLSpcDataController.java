@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import static org.amc.servlet.ControllerConstants.MESSAGE;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+
 /**
  * 
  * The controller for SPCData creation
@@ -64,10 +67,8 @@ public class APLSpcDataController
 	
 	private static final String CURRENT_SPC_MEASUREMENT="CURRENT_SPC_MEASUREMENT";
 	private static final String SPC_MEASUREMENTS="spcmeasurements";
-	private static final String MESSAGE="message";
 	private static final String SPC_PART="spcPart";
 	private static final String PART="part";
-	private static final String ERRORS="errors";
 
 	/**
 	 * Fetches SPCMeasurements related to the Part in spcPart and pass them to the view SPCEntryPage
