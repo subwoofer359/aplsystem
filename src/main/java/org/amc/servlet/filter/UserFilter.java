@@ -15,6 +15,9 @@ import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.model.User;
 import org.springframework.context.ApplicationContext;
+import static org.amc.Constants.SESSIONVAR_REMOTE_ADDRESS;
+import static org.amc.Constants.SESSIONVAR_USER;
+import static org.amc.Constants.SPRING_WEBAPPCONTEXT;;
 
 /**
  * Servlet Filter implementation class UserFilter
@@ -29,19 +32,12 @@ public class UserFilter implements Filter
 	
 	private final static Logger logger = Logger.getLogger(UserFilter.class);
 	
-	private final static String SPRING_WEBAPPCONTEXT="org.springframework.web.context.WebApplicationContext.ROOT";
-	
 	//The Spring bean's name referring a UserDAO object
 	private final static String USERDAO="myUserDAO";
 	
 	//Field of the User entity (@see org.amc.model.User)
 	private final static String USER_USERNAME="userName";
-	
-	//Session variable to hold the User Object
-	public final static String SESSIONVAR_USER="USER";
-	
-	//Session variable to hold the Remote Address of the User
-	private final static String SESSIONVAR_REMOTE_ADDRESS="REMOTE_ADDRESS";
+
 	/**
 	 * @see Filter#destroy()
 	 */

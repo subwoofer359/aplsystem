@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.amc.Constants;
 import org.amc.Constants.Roles;
 import org.amc.DAOException;
 import org.amc.dao.DAO;
@@ -19,7 +20,6 @@ import org.amc.model.User;
 import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
-import org.amc.servlet.filter.UserFilter;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,7 +35,8 @@ import static org.amc.servlet.ControllerConstants.MODE_EDIT;
 import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENTS;
 import static org.amc.servlet.ControllerConstants.CURRENT_SPC_MEASUREMENT;
 import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
-
+import static org.amc.servlet.ControllerConstants.SPCLISTPARTS;
+import static org.amc.servlet.ControllerConstants.SPC_ENTRYPAGE_VIEW;
 /**
  * 
  * The controller for SPCData creation
@@ -88,7 +89,7 @@ public class APLSpcDataController
 			HttpSession session
 	)
 	{
-		mav.setViewName("spc/SPCEntryPage");
+		mav.setViewName(SPC_ENTRYPAGE_VIEW);
 		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put(MESSAGE, "User can't not add SPC Data");
@@ -117,14 +118,14 @@ public class APLSpcDataController
 			else
 			{
 				mav.getModelMap().put(MESSAGE, "There are no SPC Dimensions for this part");
-				mav.setViewName("forward:/app/spc/SPCPartsList");
+				mav.setViewName("forward:"+SPCLISTPARTS);
 			}
 		}
 		catch(DAOException de)
 		{
 			LOG.error(de.getMessage());
 			mav.getModelMap().put(MESSAGE, de.getMessage());
-			mav.setViewName("forward:/app/spc/SPCListParts");
+			mav.setViewName("forward:"+SPCLISTPARTS);
 		}
 		LOG.info("APLSPCDataController:At the end for the Function");
 		return mav;
@@ -147,7 +148,7 @@ public class APLSpcDataController
 		}
 		
 		//Return to the SPCEntryPage
-		mav.setViewName("spc/SPCEntryPage");
+		mav.setViewName(SPC_ENTRYPAGE_VIEW);
 		
 		List<SPCData> data=new ArrayList<SPCData>();
 		String[] measurements=request.getParameterValues("measurement");
@@ -160,7 +161,7 @@ public class APLSpcDataController
 			spcData.setMeasurementNumber(Integer.parseInt(measurementNumber[i]));
 			spcData.setDate(new java.sql.Date(System.currentTimeMillis()));
 			spcData.setSpcMeasurement((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT));
-			spcData.setUser((User)session.getAttribute(UserFilter.SESSIONVAR_USER));
+			spcData.setUser((User)session.getAttribute(Constants.SESSIONVAR_USER));
 			LOG.debug(spcData);
 			data.add(spcData);
 		}
@@ -191,7 +192,7 @@ public class APLSpcDataController
 					session.removeAttribute(CURRENT_SPC_MEASUREMENT);
 					session.removeAttribute(PART);
 					session.removeAttribute(SPC_MEASUREMENTS);
-					mav.setViewName("forward:/app/spc/SPCListParts");
+					mav.setViewName("forward:"+SPCLISTPARTS);
 				}
 			}
 			catch(DAOException de)

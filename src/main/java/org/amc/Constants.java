@@ -29,6 +29,22 @@ public final class Constants
 	public static final String PASSWORD_DEFAULT="PaSsWoRd24432322535342";
 	
 	/**
+	 * Session variable to hold the User Object
+	 */
+	public static final String SESSIONVAR_USER="USER";
+	
+	/**
+	 * Session variable to hold the Remote Address of the User
+	 */
+	public static final String SESSIONVAR_REMOTE_ADDRESS="REMOTE_ADDRESS";
+	
+	/**
+	 * Spring WebAPP Context 
+	 */
+	
+	public final static String SPRING_WEBAPPCONTEXT="org.springframework.web.context.WebApplicationContext.ROOT";
+	
+	/**
 	 * 
 	 * Availible security roles
 	 * Must mirror security roles defined in the deployment descriptor 

@@ -32,10 +32,17 @@ class ControllerConstants
 	
 	//Controller paths
 	static final String PARTSEARCH="/app/Part_search";
+	static final String SPCLISTPARTS="/app/spc/SPCListParts";
+	static final String USER_SEARCH="/app/user/Users";
+	
 	//Views
 	static final String MAIN_VIEW="Main";
 	static final String SPC_PARTLIST_VIEW="spc/SPCPartList";
 	static final String SPC_MEASUREMENT_VIEW="spc/SPCMeasurement";
+	static final String SPC_ENTRYPAGE_VIEW="spc/SPCEntryPage";
+	static final String USER_SEARCH_VIEW="UsersSearchPage";
+	static final String USER_EDIT_VIEW="UserAddOrEdit";
+	static final String USER_INFO_VIEW="UserInfo";
 	
 	private ControllerConstants()
 	{

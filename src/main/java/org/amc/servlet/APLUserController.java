@@ -44,6 +44,11 @@ import static org.amc.servlet.ControllerConstants.MODE_EDIT;
 import static org.amc.servlet.ControllerConstants.MODE_ADD;
 import static org.amc.servlet.ControllerConstants.MODE_DELETE;
 import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
+import static org.amc.servlet.ControllerConstants.USER_EDIT_VIEW;
+import static org.amc.servlet.ControllerConstants.USER_INFO_VIEW;
+import static org.amc.servlet.ControllerConstants.USER_SEARCH_VIEW;
+import static org.amc.servlet.ControllerConstants.USER_SEARCH;
+
 /**
  * 
  * @author Adrian Mclaughlin
@@ -56,13 +61,7 @@ public class APLUserController
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(APLUserController.class);
 	
-	private static final String USER_SEARCH_VIEW="UsersSearchPage";
-	private static final String USER_EDIT="UserAddOrEdit";
-	private static final String USER_INFO_VIEW="UserInfo";
-	/**
-	 * todo replace with correct view name
-	 */
-	private static final String USER_SEARCH_VIEW2="/app/user/Users";
+	
 	
 //	@InitBinder(USER)
 //	protected void initBinder(WebDataBinder binder)
@@ -249,7 +248,7 @@ public class APLUserController
 				logger.debug("Errors in Model User found:"+result);
 				model.addAttribute(ERRORS, result.getAllErrors());
 				model.addAttribute(USER, user);
-				return USER_EDIT;
+				return USER_EDIT_VIEW;
 			}
 				
 			//If in Edit mode update user otherwise add user
@@ -270,7 +269,7 @@ public class APLUserController
 			request.setAttribute(MESSAGE, de.getMessage());
 		}
 		//Return to the search page
-		return "forward:"+USER_SEARCH_VIEW2;
+		return "forward:"+USER_SEARCH;
 	}
 	
 	/**
@@ -326,7 +325,7 @@ public class APLUserController
 					throw new IllegalArgumentException("mode wasn't set to a correct value");
 					
 				}
-			model.setViewName(USER_EDIT);
+			model.setViewName(USER_EDIT_VIEW);
 			u.setPassword(PASSWORD_DEFAULT);
 			model.getModel().put(USER, u);
 		}
