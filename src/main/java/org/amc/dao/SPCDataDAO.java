@@ -69,13 +69,15 @@ public class SPCDataDAO extends DAO<SPCData>
 			try
 			{
 				connection.rollback();
+				LOG.debug("Database transaction rolled back");
 				connection.close();
+				throw new DAOException(se);
 			}
 			catch(SQLException se2)
 			{
 				LOG.error("SPCDataDAO:SQLException raised when closing connection to database:"+se.getMessage());
+				throw new DAOException(se2);
 			}
-			throw new DAOException(se);
 		}
 	}
 
