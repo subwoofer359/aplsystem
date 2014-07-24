@@ -35,6 +35,9 @@ import static org.amc.servlet.ControllerConstants.SPC_PART;
 import static org.amc.servlet.ControllerConstants.DIMENSIONS;
 import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
 import static org.amc.servlet.ControllerConstants.PARTSEARCH_VIEW;
+import static org.amc.servlet.ControllerConstants.SPC_PARTLIST_VIEW;
+import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENT_VIEW;
+
 /**
  * 
  * @author Adrian McLaughlin
@@ -62,8 +65,7 @@ public class APLSpcController
 	 */
 	private SPCMeasurementDAO spcMeasurementDAO;
 	
-	private static final String SPC_PARTLIST_VIEW="spc/SPCPartList";
-	private static final String SPC_MEASUREMENT_VIEW="spc/SPCMeasurement";
+	
 	
 	/**
 	 * Retrieve and return SPC Part List
