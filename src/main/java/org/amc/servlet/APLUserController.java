@@ -35,6 +35,15 @@ import org.apache.log4j.Logger;
 import static org.amc.Constants.PASSWORD_DIGEST;
 import static org.amc.Constants.PASSWORD_DEFAULT;
 import static org.amc.Constants.Roles;
+import static org.amc.servlet.ControllerConstants.MESSAGE;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.USER;
+import static org.amc.servlet.ControllerConstants.USERS;
+import static org.amc.servlet.ControllerConstants.MODE;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.MODE_ADD;
+import static org.amc.servlet.ControllerConstants.MODE_DELETE;
+import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
 /**
  * 
  * @author Adrian Mclaughlin
@@ -46,11 +55,14 @@ public class APLUserController
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(APLUserController.class);
-	private static final String USERS="users";
-	private static final String USER="user";
-	private static final String MESSAGE="message";
-	private static final String ERRORS="errors";
 	
+	private static final String USER_SEARCH_VIEW="UsersSearchPage";
+	private static final String USER_EDIT="UserAddOrEdit";
+	private static final String USER_INFO_VIEW="UserInfo";
+	/**
+	 * todo replace with correct view name
+	 */
+	private static final String USER_SEARCH_VIEW2="/app/user/Users";
 	
 //	@InitBinder(USER)
 //	protected void initBinder(WebDataBinder binder)
@@ -62,7 +74,7 @@ public class APLUserController
 	@RequestMapping("/User")
 	public String getUserPage()
 	{
-		return "UserInfo";
+		return USER_INFO_VIEW;
 	}
 	
 	/**
@@ -87,12 +99,12 @@ public class APLUserController
 				list=new ArrayList<User>();
 			}
 			model.getModel().put(USERS, list);
-			model.setViewName("UsersSearchPage");
+			model.setViewName(USER_SEARCH_VIEW);
 		}
 		else
 		{
 			//Not Manager so return to Main.jsp
-			model.setViewName("Main");
+			model.setViewName(MAIN_VIEW);
 		}
 		
 		
@@ -112,7 +124,7 @@ public class APLUserController
 	public String saveUser(Model model,
 						 @Valid @ModelAttribute(USER) User user,
 						 BindingResult result, 
-						 @RequestParam("mode") String mode,
+						 @RequestParam(MODE) String mode,
 						 @RequestParam(value="active",required=false) String active,
 						 @RequestParam(value="role",required=false) String[] roles,
 						 HttpServletRequest request
@@ -121,7 +133,7 @@ public class APLUserController
 		if(!request.isUserInRole(org.amc.Constants.Roles.MANAGER.toString()))
 		{
 			//Return to the Main page
-			return "Main";
+			return MAIN_VIEW;
 		}
 		//Set the user's active state
 		if(active==null)
@@ -237,11 +249,11 @@ public class APLUserController
 				logger.debug("Errors in Model User found:"+result);
 				model.addAttribute(ERRORS, result.getAllErrors());
 				model.addAttribute(USER, user);
-				return "UserAddOrEdit";
+				return USER_EDIT;
 			}
 				
 			//If in Edit mode update user otherwise add user
-			if("edit".equals(mode))
+			if(MODE_EDIT.equals(mode))
 			{
 				logger.debug("Updating User in database");
 				userDAO.updateEntity(user);
@@ -258,7 +270,7 @@ public class APLUserController
 			request.setAttribute(MESSAGE, de.getMessage());
 		}
 		//Return to the search page
-		return "forward:/app/user/Users";
+		return "forward:"+USER_SEARCH_VIEW2;
 	}
 	
 	/**
@@ -270,8 +282,8 @@ public class APLUserController
 	 */
 	@RequestMapping("/Users_edit")
 	public ModelAndView editUsers(
-			@RequestParam("mode") String mode, 
-			@RequestParam(value="edit",required=false)  Integer id,
+			@RequestParam(MODE) String mode, 
+			@RequestParam(value=MODE_EDIT,required=false)  Integer id,
 			ModelAndView model,
 			HttpServletRequest request
 			
@@ -280,28 +292,28 @@ public class APLUserController
 		//If not in role manager return the Main.jsp
 		if(!request.isUserInRole(Roles.MANAGER.toString()))
 		{
-			model.setViewName("Main");
+			model.setViewName(MAIN_VIEW);
 			return model;
 			
 		}
 		logger.debug("UserServlet:In mode "+mode);
 		logger.debug("UserServlet:UserDAO is "+userDAO);
 		User u=null;
-		model.getModel().put("mode", mode);
+		model.getModel().put(MODE, mode);
 		try
 		{
-			if("edit".equals(mode))
+			if(MODE_EDIT.equals(mode))
 			{
 				u=userDAO.getEntity(String.valueOf(id));
 				logger.debug("Users_edit: User retrieved"+u);
 			
 			}
 			else
-				if("add".equals(mode))
+				if(MODE_ADD.equals(mode))
 				{
 					u=new User();				
 				}
-				else if("delete".equals(mode))
+				else if(MODE_DELETE.equals(mode))
 				{
 					u=userDAO.getEntity(String.valueOf(id)); 
 					logger.debug("User about to be deleted "+u);
@@ -314,7 +326,7 @@ public class APLUserController
 					throw new IllegalArgumentException("mode wasn't set to a correct value");
 					
 				}
-			model.setViewName("UserAddOrEdit");
+			model.setViewName(USER_EDIT);
 			u.setPassword(PASSWORD_DEFAULT);
 			model.getModel().put(USER, u);
 		}
@@ -322,7 +334,7 @@ public class APLUserController
 		{
 			model.getModelMap().put(MESSAGE, de.getMessage());
 			//Redirect to search page
-			model.setViewName("UsersSearchPage");
+			model.setViewName(USER_SEARCH_VIEW);
 		}
 		
 		//Blank password
