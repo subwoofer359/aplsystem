@@ -11,6 +11,7 @@ import org.amc.DAOException;
 import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.apache.log4j.Logger;
+import org.apache.xerces.impl.xs.opti.NodeImpl;
 
 /**
  * DAO for SPCData
@@ -40,6 +41,7 @@ public class SPCDataDAO extends DAO<SPCData>
 	 * @param measurement SPCMeasurement related to the SPCData being saved. Contains reference to the database table in which to save the SPCData
 	 * @param entities List of SPCData to be saved
 	 * @throws DAOException if exception is thrown by the database
+	 * @throws SQLException 
 	 */
 	public void addEntities(SPCMeasurement measurement,List<SPCData> entities) throws DAOException
 	{
@@ -70,7 +72,6 @@ public class SPCDataDAO extends DAO<SPCData>
 			{
 				connection.rollback();
 				LOG.debug("Database transaction rolled back");
-				connection.close();
 				throw new DAOException(se);
 			}
 			catch(SQLException se2)
@@ -79,42 +80,54 @@ public class SPCDataDAO extends DAO<SPCData>
 				throw new DAOException(se2);
 			}
 		}
+		finally
+		{
+			try
+			{
+				connection.close();
+			}
+			catch(SQLException se)
+			{
+				throw new DAOException(se);
+			}
+		}
 	}
 
+	//Behaviour has not yet been defined
 	@Override
 	public void addEntity(SPCData entity) throws DAOException
-	{
+	{throw new NoSuchMethodError();
 
 	}
-
+	//Behaviour has not yet been defined
 	@Override
 	public void updateEntity(SPCData entity) throws DAOException
 	{
-
+		throw new NoSuchMethodError();
 	}
-
+	//Behaviour has not yet been defined
 	@Override
 	public void deleteEntity(SPCData entity) throws DAOException
 	{
-
+		throw new NoSuchMethodError();
 	}
-
+	//Behaviour has not yet been defined
 	@Override
 	public SPCData getEntity(String workEntityId) throws DAOException
 	{
-		return null;
+		throw new NoSuchMethodError();
 	}
-
+	//Behaviour has not yet been defined
 	@Override
 	public List<SPCData> findEntities(String col, Object value) throws DAOException
 	{
-		return null;
+		throw new NoSuchMethodError();
 	}
-
+	//Behaviour has not yet been defined
 	@Override
 	public List<SPCData> findEntities() throws DAOException
 	{
-		return null;
+		throw new NoSuchMethodError();
 	}
 	
 	
