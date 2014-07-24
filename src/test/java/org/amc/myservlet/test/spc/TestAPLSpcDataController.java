@@ -106,12 +106,14 @@ public class TestAPLSpcDataController
 		measurement.setNominal(152f);
 		measurement.setNoOfMeasurements(5);
 		Part part= TestPartandMouldingProcessDAO.getPart("new Part");
+		SPCPartsList spcPartsList=new SPCPartsList();
+		spcPartsList.setPart(part);
 		
 		List<SPCMeasurement> spcDimensions=new ArrayList<SPCMeasurement>();
 		spcDimensions.add(measurement);
 		
-		when(this.spcMeasurementDAO.findEntities(eq(PART), anyObject())).thenReturn(spcDimensions);
-		when(this.partsDAO.getEntity(String.valueOf(spcPartid))).thenReturn(part);
+		when(this.spcMeasurementDAO.findEntities(eq("part.id"), anyObject())).thenReturn(spcDimensions);
+		when(this.partsListDao.getEntity(String.valueOf(spcPartid))).thenReturn(spcPartsList);
 		
 		controller.openSPCDataEntry(request, spcPartid, mav, session);
 		
