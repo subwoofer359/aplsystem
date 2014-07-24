@@ -1,9 +1,6 @@
 package org.amc.servlet;
 
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.amc.Constants;
 import org.amc.Constants.Roles;
 import org.amc.DAOException;
 import org.amc.dao.DAO;
@@ -28,13 +24,17 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import static org.amc.servlet.ControllerConstants.PART;
 import static org.amc.servlet.ControllerConstants.MESSAGE;
 import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENTS;
+import static org.amc.servlet.ControllerConstants.CURRENT_SPC_MEASUREMENT;
+import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
 
 /**
  * 
@@ -71,10 +71,7 @@ public class APLSpcDataController
 	 */
 	private SPCDataDAO spcDataDAO;
 	
-	private static final String CURRENT_SPC_MEASUREMENT="CURRENT_SPC_MEASUREMENT";
-	private static final String SPC_MEASUREMENTS="spcmeasurements";
-	private static final String SPC_PART="edit";
-	private static final String PART="part";
+	
 
 	/**
 	 * Fetches SPCMeasurements related to the Part in spcPart and pass them to the view SPCEntryPage
@@ -86,7 +83,7 @@ public class APLSpcDataController
 	@RequestMapping("/SPC/addData")
 	public ModelAndView openSPCDataEntry(
 			HttpServletRequest request,
-			@RequestParam(SPC_PART) Integer spcPartid,
+			@RequestParam(MODE_EDIT) Integer spcPartid,
 			ModelAndView mav,
 			HttpSession session
 	)
@@ -95,7 +92,7 @@ public class APLSpcDataController
 		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put(MESSAGE, "User can't not add SPC Data");
-			mav.setViewName("Main");
+			mav.setViewName(MAIN_VIEW);
 			return mav;
 		}
 		try
@@ -127,7 +124,7 @@ public class APLSpcDataController
 		{
 			LOG.error(de.getMessage());
 			mav.getModelMap().put(MESSAGE, de.getMessage());
-			mav.setViewName("forward:/app/spc/SPCPartsList");
+			mav.setViewName("forward:/app/spc/SPCListParts");
 		}
 		LOG.info("APLSPCDataController:At the end for the Function");
 		return mav;
@@ -145,7 +142,7 @@ public class APLSpcDataController
 		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put(MESSAGE, "User can't not add SPC Data");
-			mav.setViewName("Main");
+			mav.setViewName(MAIN_VIEW);
 			return mav;
 		}
 		
@@ -194,7 +191,7 @@ public class APLSpcDataController
 					session.removeAttribute(CURRENT_SPC_MEASUREMENT);
 					session.removeAttribute(PART);
 					session.removeAttribute(SPC_MEASUREMENTS);
-					mav.setViewName("spc/SPCPartList");
+					mav.setViewName("forward:/app/spc/SPCListParts");
 				}
 			}
 			catch(DAOException de)

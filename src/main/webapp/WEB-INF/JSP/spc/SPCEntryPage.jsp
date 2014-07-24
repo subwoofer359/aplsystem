@@ -49,7 +49,7 @@
 </div>
 
 <%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCListParts" value="Search Page" position="220px"></tags:Navbox>
 
 <table id="spcmeasurements">
 <thead>

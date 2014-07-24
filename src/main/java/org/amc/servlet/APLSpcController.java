@@ -70,11 +70,11 @@ public class APLSpcController
 	/**
 	 * Retrieve and return SPC Part List
 	 */
-	@RequestMapping("/SPCPartsList")
+	@RequestMapping("/SPCListParts")
 	public ModelAndView getSPCPartList(ModelAndView mav)
 	{
 		
-		lOG.debug("spcPartsListDAO in getSPCPartList:"+this.spcPartsListDAO);
+		lOG.debug("spcPartsListDAO in getSPCListParts:"+this.spcPartsListDAO);
 		List<SPCPartsList> list=null;
 		try
 		{

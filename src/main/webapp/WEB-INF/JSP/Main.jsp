@@ -101,7 +101,7 @@ table
 </td>
 <td>
 	<c:if test="${my:isUserInRole(pageContext.request,'qc')}">
-	<a href="${pageContext.request.contextPath}/app/spc/SPCPartsList">
+	<a href="${pageContext.request.contextPath}/app/spc/SPCListParts">
 	<DIV id="spc" class="icon">
 		Statistical process control
 	</DIV>

@@ -137,7 +137,7 @@ function populateForm(divName)
 <H1>SPC:${part.name}&nbsp;${part.version }&nbsp;${part.colour}&nbsp;(${part.part_id })</H1>
 </DIV>
 <%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCPartsList" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCListParts" value="Search Page" position="220px"></tags:Navbox>
 
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <input type="hidden" name="spcPart" value="${spcPart.id}"/>
