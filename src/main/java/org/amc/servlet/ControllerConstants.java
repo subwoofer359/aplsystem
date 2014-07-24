@@ -30,9 +30,10 @@ class ControllerConstants
 	static final String CURRENT_SPC_MEASUREMENT="CURRENT_SPC_MEASUREMENT";
 	static final String SPC_MEASUREMENTS="spcmeasurements";
 	
+	//Controller paths
+	static final String PARTSEARCH="/app/Part_search";
 	//Views
 	static final String MAIN_VIEW="Main";
-	static final String PARTSEARCH_VIEW="/app/Part_search";
 	static final String SPC_PARTLIST_VIEW="spc/SPCPartList";
 	static final String SPC_MEASUREMENT_VIEW="spc/SPCMeasurement";
 	

@@ -34,7 +34,7 @@ import static org.amc.servlet.ControllerConstants.PARTS;
 import static org.amc.servlet.ControllerConstants.SPC_PART;
 import static org.amc.servlet.ControllerConstants.DIMENSIONS;
 import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
-import static org.amc.servlet.ControllerConstants.PARTSEARCH_VIEW;
+import static org.amc.servlet.ControllerConstants.PARTSEARCH;
 import static org.amc.servlet.ControllerConstants.SPC_PARTLIST_VIEW;
 import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENT_VIEW;
 
@@ -102,7 +102,7 @@ public class APLSpcController
 		if(!request.isUserInRole(Roles.QC.toString()))
 		{
 			mav.getModelMap().put(MESSAGE, "User can't not add Parts to the SPCList");
-			mav.setViewName("forward:"+PARTSEARCH_VIEW);
+			mav.setViewName("forward:"+PARTSEARCH);
 			return mav;
 		}
 		Part part=null;
@@ -129,7 +129,7 @@ public class APLSpcController
 				mav.getModelMap().put(MESSAGE, "Part already on the SPC list");
 			}
 		}
-		mav.setViewName("forward:"+PARTSEARCH_VIEW);
+		mav.setViewName("forward:"+PARTSEARCH);
 		return mav;
 	}
 	
