@@ -195,6 +195,47 @@ public class SPCMeasurement implements Serializable, WorkEntity
 		this.tableId = tableId;
 	}
 	
+	@Override
+	public boolean equals(Object other)
+	{
+		if(this==other)
+		{
+			return true;
+		}
+		
+		if(other instanceof SPCMeasurement)
+		{
+			SPCMeasurement temp=(SPCMeasurement)other;
+			if((temp.getId()==this.id && this.id!=0) && 
+				(temp.getDimension().equals(this.dimension)) &&
+				(temp.getNominal()==this.nominal) &&
+				(temp.getTableId().equals(tableId))
+				) 
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	@Override
+	public int hashCode()
+	{
+		int hash=2;
+		hash+=3*id;
+		if(dimension!=null)
+		{
+			hash+=dimension.hashCode();
+		}
+		hash+=4*nominal;
+		if(tableId!=null)
+		{
+			hash+=tableId.hashCode();
+		}
+		
+		return hash;
+	}
 	
 	
 	
