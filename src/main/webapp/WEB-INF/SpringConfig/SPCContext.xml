@@ -21,7 +21,7 @@
      <constructor-arg>  	
      	<value type="java.lang.Class">org.amc.model.spc.SPCPartsList</value>
      </constructor-arg>
-     
-  </bean> 
+  </bean>
   
+  <bean id="spcDataDAO" class="org.amc.dao.SPCDataDAO" scope="prototype"></bean> 
   </beans>
