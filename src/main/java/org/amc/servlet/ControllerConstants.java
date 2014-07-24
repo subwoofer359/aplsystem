@@ -1,6 +1,6 @@
 package org.amc.servlet;
 
-class ControllerConstants 
+final class ControllerConstants 
 {
 	
 	static final String USERS="users";
