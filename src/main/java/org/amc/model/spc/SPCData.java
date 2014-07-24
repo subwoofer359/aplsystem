@@ -75,7 +75,7 @@ public class SPCData implements Serializable, WorkEntity
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="measurement_id",nullable=false)
 	private SPCMeasurement spcMeasurement;
-
+	
 	public int getId()
 	{
 		return id;
@@ -141,6 +141,30 @@ public class SPCData implements Serializable, WorkEntity
 		this.spcMeasurement = spcMeasurement;
 	}
 	
+	@Override
+	public String toString()
+	{
+		StringBuilder sb=new StringBuilder();
+		sb.append(id);
+		sb.append(':');
+		sb.append(measurement);
+		sb.append(':');
+		sb.append(measurementNumber);
+		sb.append(':');
+		sb.append(date);
+		sb.append(':');
+		if(user!=null)
+		{
+			sb.append(user.getId());
+		}
+		sb.append(':');
+		if(spcMeasurement!=null)
+		{
+			sb.append(spcMeasurement.getId());
+		}
+		
+		return sb.toString();
+	}
 	
 
 }
