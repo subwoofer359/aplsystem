@@ -65,7 +65,7 @@ public class APLSpcDataController
 	private static final String CURRENT_SPC_MEASUREMENT="CURRENT_SPC_MEASUREMENT";
 	private static final String SPC_MEASUREMENTS="spcmeasurements";
 	private static final String MESSAGE="message";
-	private static final String SPC_PART="spcPart";
+	private static final String SPC_PART="edit";
 	private static final String PART="part";
 	private static final String ERRORS="errors";
 
@@ -79,7 +79,8 @@ public class APLSpcDataController
 	@RequestMapping("/SPC/addData")
 	public ModelAndView openSPCDataEntry(
 			HttpServletRequest request,
-			@RequestParam("spcPart") Integer spcPartid,ModelAndView mav,
+			@RequestParam(SPC_PART) Integer spcPartid,
+			ModelAndView mav,
 			HttpSession session
 	)
 	{
@@ -92,27 +93,32 @@ public class APLSpcDataController
 		}
 		try
 		{
-			List<SPCMeasurement> spcmeasurements=spcDimensionDAO.findEntities(PART, spcPartid);
+			SPCPartsList spcPartList=spcListPartDAO.getEntity(String.valueOf(spcPartid));
+			Part part=spcPartList.getPart();
+			LOG.debug("Part"+part+" retrieved");
+			LOG.debug("Part ID:"+part.getId());
+			List<SPCMeasurement> spcmeasurements=spcDimensionDAO.findEntities(PART+".id",part.getId());
+			LOG.debug("SPCMeasurements:"+spcmeasurements.size());
 			if(spcmeasurements.size()>0)
 			{
 				session.setAttribute(CURRENT_SPC_MEASUREMENT,spcmeasurements.get(0));
 				session.setAttribute(SPC_MEASUREMENTS, spcmeasurements);
-				Part part=partDAO.getEntity(String.valueOf(spcPartid));
+				
 				session.setAttribute(PART, part);
 			}
 			else
 			{
 				mav.getModelMap().put(MESSAGE, "There are no SPC Dimensions for this part");
-				mav.setViewName("forward:spc/SPCPartsLst");
+				mav.setViewName("forward:/app/spc/SPCPartsList");
 			}
 		}
 		catch(DAOException de)
 		{
 			LOG.error(de.getMessage());
 			mav.getModelMap().put(MESSAGE, de.getMessage());
-			mav.setViewName("forward:spc/SPCPartsList");
+			mav.setViewName("forward:/app/spc/SPCPartsList");
 		}
-		
+		LOG.info("APLSPCDataController:At the end for the Function");
 		return mav;
 	}
 	
