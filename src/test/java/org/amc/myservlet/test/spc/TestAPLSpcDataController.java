@@ -181,7 +181,7 @@ public class TestAPLSpcDataController
 		controller.saveSPCData(request, session, mav, result);
 		
 		verify(spcDataDAO,times(1)).addEntities(any(SPCMeasurement.class),anyListOf(SPCData.class));
-		ModelAndViewAssert.assertViewName(mav, "spc/SPCPartList");
+		ModelAndViewAssert.assertViewName(mav, "forward:/app/spc/SPCListParts");
 		assertNull(session.getAttribute(CURRENT_SPC_MEASUREMENT));
 		assertNull(session.getAttribute(SPC_MEASUREMENTS));
 		assertNull(session.getAttribute(PART));
