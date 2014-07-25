@@ -36,7 +36,8 @@ import static org.amc.servlet.ControllerConstants.DIMENSIONS;
 import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
 import static org.amc.servlet.ControllerConstants.PARTSEARCH;
 import static org.amc.servlet.ControllerConstants.SPC_PARTLIST_VIEW;
-import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENT_VIEW;
+import static org.amc.servlet.ControllerConstants.SPCLISTPARTS;
+import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENT_VIEW;;
 
 /**
  * 
@@ -161,7 +162,7 @@ public class APLSpcController
 		{
 			mav.getModelMap().put(MESSAGE,"User has no permission to delete SPC Measurements");
 		}
-		mav.setViewName("forward:/app/"+SPC_PARTLIST_VIEW);
+		mav.setViewName("forward:"+SPCLISTPARTS);
 		return mav;
 		
 	}
