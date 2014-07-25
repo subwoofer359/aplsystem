@@ -47,14 +47,13 @@ public class SPCDataDAO extends DAO<SPCData>
 	{
 		EntityManager manager=getEntityManager();
 		Connection connection=manager.unwrap(java.sql.Connection.class);
+		PreparedStatement statement=null;
 		try
 		{
 			connection.setAutoCommit(false);
-			
-			
 			for(SPCData entity:entities)
 			{
-				PreparedStatement statement=connection.prepareStatement("insert into "+measurement.getTableId()+" values(default,?,?,?,?,?);");
+				statement=connection.prepareStatement("insert into "+measurement.getTableId()+" values(default,?,?,?,?,?);");
 				statement.setDate(1, entity.getDate());
 				statement.setInt(2, entity.getUser().getId());
 				statement.setInt(3, entity.getMeasurementNumber());
@@ -84,6 +83,10 @@ public class SPCDataDAO extends DAO<SPCData>
 		{
 			try
 			{
+				if(statement!=null)
+				{
+					statement.close();
+				}
 				connection.close();
 			}
 			catch(SQLException se)
