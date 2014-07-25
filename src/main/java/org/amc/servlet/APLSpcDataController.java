@@ -1,5 +1,6 @@
 package org.amc.servlet;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,10 +21,13 @@ import org.amc.model.User;
 import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
+import org.amc.servlet.validator.SPCDataFormValidator;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -136,7 +140,7 @@ public class APLSpcDataController
 			HttpServletRequest request,
 			HttpSession session,
 			ModelAndView mav,
-			//@ModelAttribute SPCData data[],
+			@ModelAttribute SPCDataForm spcDataList,
 			BindingResult result
 			)
 	{
@@ -149,33 +153,30 @@ public class APLSpcDataController
 		
 		//Return to the SPCEntryPage
 		mav.setViewName(SPC_ENTRYPAGE_VIEW);
+
+		LOG.debug("SPCDATA:"+spcDataList);
+		//Fill in the missing values for SPCData
+		spcDataList.setDate(new java.sql.Date(System.currentTimeMillis()));
+		spcDataList.setUser((User)session.getAttribute(Constants.SESSIONVAR_USER));
+		spcDataList.setSPCMeasurement((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT));
 		
-		List<SPCData> data=new ArrayList<SPCData>();
-		String[] measurements=request.getParameterValues("measurement");
-		String[] measurementNumber=request.getParameterValues("measurementNumber");
-		
-		for(int i=0;i<measurements.length;i++)
-		{
-			SPCData spcData=new SPCData();
-			spcData.setMeasurement(Float.parseFloat(measurements[i]));
-			spcData.setMeasurementNumber(Integer.parseInt(measurementNumber[i]));
-			spcData.setDate(new java.sql.Date(System.currentTimeMillis()));
-			spcData.setSpcMeasurement((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT));
-			spcData.setUser((User)session.getAttribute(Constants.SESSIONVAR_USER));
-			LOG.debug(spcData);
-			data.add(spcData);
-		}
-		
+		//Check that SPCDataForm will not throw an exception when getSPCData is called
+		Validator validator=new SPCDataFormValidator();
+		validator.validate(spcDataList, result);
 		
 		if(result.hasErrors())
 		{
 			LOG.debug("APLSpcDataController:/SPC/saveSPCData:BindingError:"+result.getAllErrors());
 			mav.getModelMap().put(ERRORS, getErrors(result));
+			//Return the submitted measurements back to the user
+			mav.getModelMap().put("values",spcDataList.getMeasurement());
 		}
 		else
 		{
 			try
 			{
+				List<SPCData> data=spcDataList.getSPCData();
+				LOG.debug("SPCDATA:"+spcDataList);
 				spcDataDAO.addEntities((SPCMeasurement)session.getAttribute(CURRENT_SPC_MEASUREMENT),data);
 				LOG.debug("APLSpcDataController:SPC Data saved:"+data);
 				//Update Session values
@@ -257,5 +258,143 @@ public class APLSpcDataController
 		
 		
 		return errors;
+	}
+	
+	/**
+	 * A support class for APLSpcDataController. It's used as model attribute to store user submitted measurements.
+	 * The fields measurement and measurementNumber are set by the Spring container when used in a requestHanding method
+	 * The other fields have to be set.
+	 * Validate the SPCDataForm object before calling getSPCData() as the object could be in an inconsistent state.
+	 * @author Adrian McLaughlin
+	 *
+	 */
+	public static class SPCDataForm
+	{
+		private List<Float> measurement;
+		private List<Integer> measurementNumber;
+		private Date date;
+		private User user;
+		private SPCMeasurement spcMeasurement;
+		
+		public SPCDataForm()
+		{
+			LOG.info("SPCDataForm created");
+		}
+		
+		public void setMeasurement(List<Float> measurement)
+		{
+			this.measurement=measurement;
+		}
+		
+		public List<Float> getMeasurement()
+		{
+			return measurement;
+		}
+		
+		public void setMeasurementNumber(List<Integer> measurementNumber)
+		{
+			this.measurementNumber=measurementNumber;
+		}
+		
+		public List<Integer> getMeasurementNumber()
+		{
+			return this.measurementNumber;
+		}
+	
+		
+		public String toString()
+		{
+			StringBuilder output=new StringBuilder();
+			if(measurement!=null)
+			{
+				output.append(measurement.toString());
+			}
+			output.append('|');
+			if(measurementNumber!=null)
+			{
+				output.append(measurementNumber.toString());
+			}
+			output.append('|');
+			if(user!=null)
+			{
+				output.append(user.toString());
+			}
+			output.append('|');
+			if(spcMeasurement!=null)
+			{
+				output.append(spcMeasurement);
+			}
+			
+			return output.toString();
+		}
+		
+		public void setDate(Date date)
+		{
+			this.date=date;
+		}
+		
+		public void setUser(User user)
+		{
+			this.user=user;
+		}
+		
+		public void setSPCMeasurement(SPCMeasurement spcMeasurement)
+		{
+			this.spcMeasurement=spcMeasurement;
+		}
+		
+		/**
+		 * Validate the SPCDataForm object before calling this function as the object could be in an inconsistent state
+		 * @return List of SPCData
+		 */
+		public List<SPCData> getSPCData()
+		{
+			List<SPCData> spcDataList=new ArrayList<SPCData>();
+			try
+			{
+				for(int i=0;i<measurement.size();i++)
+				{
+					SPCData spcData=new SPCData();
+					spcData.setMeasurement(measurement.get(i));
+					spcData.setMeasurementNumber(measurementNumber.get(i));
+					spcData.setSpcMeasurement(spcMeasurement);
+					spcData.setUser(user);
+					spcData.setDate(date);
+					spcDataList.add(spcData);
+				}
+			}
+			catch(NullPointerException npe)
+			{
+				LOG.error(npe.getMessage());
+				throw new IllegalStateException(npe);
+			}
+				return spcDataList;
+		}
+
+		/**
+		 * @return the spcMeasurement
+		 */
+		public SPCMeasurement getSpcMeasurement()
+		{
+			return spcMeasurement;
+		}
+
+		/**
+		 * @return the date
+		 */
+		public Date getDate()
+		{
+			return date;
+		}
+
+		/**
+		 * @return the user
+		 */
+		public User getUser()
+		{
+			return user;
+		}
+		
+		
 	}
 }

@@ -74,15 +74,15 @@
 <form action="post">
 <table id="measurements">
 <c:forEach begin="1" end="${CURRENT_SPC_MEASUREMENT.noOfMeasurements}" var="count">
-<tr><td>${count}</td><td><input name="measurement" type="text"/></td></tr>
+<tr><td>${count}</td><td><input name="measurement" type="text" value="${values[count-1]}" /></td></tr>
 <tr><td></td><td><input name="measurementNumber" type="hidden" value="${count}"/></td></tr>
-<tr><td></td><td><input name="date" type="hidden" value="2013-01-19"/></td></tr>
 </c:forEach>
 </table>
 <input id="submitButton" type="submit" name="Engaged" formaction="${pageContext.request.contextPath}/app/spc/SPC/saveSPCData"/>
 </form>
 <div id="message">
-	${message}
+	${message}<br/>
+	${errors}<br/>
 </div>
 </body>
 </html>
