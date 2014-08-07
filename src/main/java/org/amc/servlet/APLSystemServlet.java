@@ -79,15 +79,15 @@ public class APLSystemServlet extends HttpServlet
 		if(referal.endsWith("Part_save"))
 		{
 			
-			saveJobTemplate(request, response);
+			savePart(request, response);
 		}
 		else if(referal.endsWith("Part_display"))
 		{
-			displayJobTemplate(request, response);
+			displayPart(request, response);
 		}
 		else if(referal.endsWith("Part_search"))
 		{
-			searchJobTemplate(request, response);
+			searchForPart(request, response);
 		}// To log out the current user
 		else if(referal.endsWith("logout"))
 		{
@@ -95,16 +95,6 @@ public class APLSystemServlet extends HttpServlet
 		}
 		else if(referal.endsWith("APLSystemServlet"))
 		{
-//			PrintWriter writer=response.getWriter();
-//			response.setContentType("text/html");
-//			
-//			writer.println("<!doctype html>"
-//					+ "<HTML>"
-//					+ "<BODY>"
-//					+ "<a href='JobTemplate_display'>JobTemplate</a>"
-//					+ "</BODY>"
-//					+ "</HTML>");
-//			writer.flush();
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
 			rd.forward(request, response);
 		}
@@ -118,7 +108,7 @@ public class APLSystemServlet extends HttpServlet
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void saveJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void savePart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
 		//check if page is in create or edit mode
@@ -167,15 +157,15 @@ public class APLSystemServlet extends HttpServlet
 		{
 		
 			//create model
-			Part job=new Part();
-			job.setCompany(jForm.getCompany());
-			job.setName(jForm.getName());
-			job.setColour(jForm.getColour());
-			job.setExternal(jForm.isExternal());
-			job.setQss_no(jForm.getQss_no());
-			job.setRevision(jForm.getRevision());
-			job.setVersion(jForm.getVersion());
-			job.setPart_id(jForm.getPart_id());
+			Part part=new Part();
+			part.setCompany(jForm.getCompany());
+			part.setName(jForm.getName());
+			part.setColour(jForm.getColour());
+			part.setExternal(jForm.isExternal());
+			part.setQss_no(jForm.getQss_no());
+			part.setRevision(jForm.getRevision());
+			part.setVersion(jForm.getVersion());
+			part.setPart_id(jForm.getPart_id());
 			
 			String dispatcherURL="";
 			SavePartAction action=partActionFactory.getSaveJobTemplateAction();
@@ -184,16 +174,16 @@ public class APLSystemServlet extends HttpServlet
 				// New Part to Database
 				if(mode==null||"Enter".equals(mode))
 				{
-					action.save(job);
+					action.save(part);
 					request.setAttribute("form",jForm);
-					request.setAttribute("result", job.toString()+" saved");
+					request.setAttribute("result", part.toString()+" saved");
 					dispatcherURL="/WEB-INF/JSP/Part.jsp";
 				}
 				else if("Edit".equals(mode))
 				{
 					//Current Part is updated in the Database
-					job.setId(Integer.parseInt(jForm.getId()));
-					action.edit(job);
+					part.setId(Integer.parseInt(jForm.getId()));
+					action.edit(part);
 					dispatcherURL="Part_search";
 					response.sendRedirect(request.getContextPath()+"/app/Part_search"); // Goto the Search Window
 					return; // Exit function 
@@ -239,7 +229,7 @@ public class APLSystemServlet extends HttpServlet
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void displayJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void displayPart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Part.jsp");
 		rd.forward(request, response);
@@ -252,7 +242,7 @@ public class APLSystemServlet extends HttpServlet
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void searchJobTemplate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void searchForPart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
 		//check to if in search or edit mode TODO add delete mode
@@ -294,20 +284,6 @@ public class APLSystemServlet extends HttpServlet
 				dispatchURL="/WEB-INF/JSP/PartsSearchPage.jsp";
 				
 			}
-//			else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
-//			{
-//				//open the Part JSPage in edit mode
-//				Part job=sjt.getPart(idValue);
-//				dispatchURL="/JSP/Part.jsp";
-//				request.setAttribute("form", job);
-//				request.setAttribute("mode","edit");
-//				
-//			}
-//			else if(mode!=null && mode.equals("add"))
-//			{
-//				//open the Part JSPage in add mode
-//				dispatchURL="/JSP/Part.jsp";
-//			}
 			else if(mode!=null)
 			{
 				if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
@@ -318,9 +294,9 @@ public class APLSystemServlet extends HttpServlet
 				else if("edit".equals(mode)&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
-					Part job=sjt.getPart(idValue);
+					Part part=sjt.getPart(idValue);
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
-					request.setAttribute("form", job);
+					request.setAttribute("form", part);
 					request.setAttribute("mode","edit");
 				}
 			}
@@ -350,7 +326,7 @@ public class APLSystemServlet extends HttpServlet
 	}
 	
 	
-	public void setJobActionFactory(PartActionFactory partActionFactory)
+	public void setPartActionFactory(PartActionFactory partActionFactory)
 	{
 		this.partActionFactory=partActionFactory;
 	}
@@ -361,7 +337,7 @@ public class APLSystemServlet extends HttpServlet
 	{
 		super.init();
 		ApplicationContext context2=(ApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
-		setJobActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
+		setPartActionFactory((PartActionFactory)context2.getBean("partActionFactory"));
 
 	}
 }
