@@ -1,7 +1,11 @@
 package org.amc.servlet;
 
 import java.io.IOException;
+
 import org.amc.DAOException;
+
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,6 +20,7 @@ import org.amc.model.Part;
 import org.amc.servlet.action.PartActionFactory;
 import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
+import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.*;
 import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
@@ -247,13 +252,11 @@ public class APLSystemServlet extends HttpServlet
 		
 		//check to if in search or edit mode TODO add delete mode
 		String mode=request.getParameter("mode");
-		//Passed to use as a search term
-		String searchWord=request.getParameter("search");
 		//Passed if an entry is to be edited
 		String idValue=request.getParameter("edit");
 		
 		//Debug
-		logger.debug(String.format("mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
+		logger.debug(String.format("mode:[%s] ID:[%s]%n", mode,idValue));
 		
 		
 		
@@ -266,16 +269,38 @@ public class APLSystemServlet extends HttpServlet
 			if(mode==null || "search".equals(mode))
 			{
 				List<Part> list=null;
-				//To check to search for all entries or entries where name=searchWord
-				if(searchWord==null||searchWord.equals(""))// search for all entries
+				
+				PartSearchForm partSearchForm=new PartSearchForm();
+				partSearchForm.setCompany(request.getParameter("company"));
+				partSearchForm.setPart(request.getParameter("partName"));
+				partSearchForm.setQSSNumber(request.getParameter("qssNumber"));
+				partSearchForm.setStartDate(request.getParameter("startDate"));
+				partSearchForm.setEndDate(request.getParameter("endDate"));
+				
+				PartSearchFormValidator validator=new PartSearchFormValidator();
+				
+				validator.validate(partSearchForm);
+				
+				if(validator.hasErrors())
 				{
-					list=sjt.search();
+					request.setAttribute(ControllerConstants.MESSAGE, validator.getErrors());
 				}
-				else //search for entry where name=searchWord 
+				else
 				{
+					PartSearch partSearch=null;
+					try
+					{
+						partSearch=PartSearchFormValidator.PartSearchBinder.getPartSearch(partSearchForm);
+						list=sjt.search(partSearch);
+					}
+					catch(ParseException pe)
+					{
+						request.setAttribute(ControllerConstants.MESSAGE, "Search Parameters couldn't be parsed");
+						list=new ArrayList<Part>();
+					}
 					
-					list=sjt.search("name",searchWord);
 				}
+				
 				request.setAttribute("parts", list); //Add the result list to the request object to be used by the JSP page
 				
 				//debug
