@@ -10,11 +10,11 @@ import org.amc.servlet.model.MaterialForm;
  * @version 1
  */
 
-public class MaterialForm_Validator 
+public class MaterialForm_Validator extends WebPageFormValidator
 {
 	public List<String> validate(MaterialForm form)
 	{
-		List<String> errors=new ArrayList<String>();
+		List<String> errors=getErrors();
 		String name=form.getName();
 		String type=form.getType();
 		String company=form.getCompany();

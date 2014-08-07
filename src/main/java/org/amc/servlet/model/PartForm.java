@@ -4,7 +4,7 @@ package org.amc.servlet.model;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class PartForm 
+public class PartForm implements WebPageForm
 {
 	private String id;
 	
