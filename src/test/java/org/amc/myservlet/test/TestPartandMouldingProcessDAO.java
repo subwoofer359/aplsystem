@@ -144,7 +144,7 @@ public class TestPartandMouldingProcessDAO
 	}
 
 
-	public Part getPart(String testPartName) 
+	public static Part getPart(String testPartName) 
 	{
 		Part p=new Part();
 		p.setCompany("Tosara");
