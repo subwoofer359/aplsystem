@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
+import org.amc.dao.parsers.NoSuchWebFormParser;
 import org.amc.dao.parsers.PartSearchParser;
 import org.amc.dao.parsers.WebFormSearchParserFactory;
 import org.amc.dao.parsers.WebFormSearchToJPQLParser;
@@ -246,6 +247,11 @@ public class DAO<T extends WorkEntity> implements Serializable
 		{
 			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
 			throw new DAOException(pe);
+		}
+		catch(NoSuchWebFormParser nswe)
+		{
+			LOG.error(nswe.getMessage());
+			throw new DAOException(nswe);
 		}
 	}
 	
