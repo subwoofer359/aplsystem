@@ -53,11 +53,11 @@ public class TestSPCFixture
 		}
 		//Get DAO object
 		DAO<Part> partDAO=new DAO<Part>(Part.class);
-		String[] colours={"red","blue","green"};
-		String[] companies={"HMV","Granada","Apple"};
-		String[] names={"CD","Car","IPOD"};
-		String[] part_ids={"393939","99w2933","ap3003"};
-		String[] qss_nos={"CD 001","GA 002","A 001"};
+		String[] colours={"red","blue","green","yellow"};
+		String[] companies={"HMV","Granada","Apple","Apple"};
+		String[] names={"CD","Car","IPOD","IPHONE"};
+		String[] part_ids={"393939","99w2933","ap3003","ap2202"};
+		String[] qss_nos={"CD 001","GA 002","A 001","A 002"};
 		
 		Part part=null;
 		for(int i=0;i<colours.length;i++)
