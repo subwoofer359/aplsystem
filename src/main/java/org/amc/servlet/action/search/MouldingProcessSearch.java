@@ -25,6 +25,8 @@ public class MouldingProcessSearch  extends WebFormSearch
 		{
 			return name;
 		}
+		
+		
 	}
 	public MouldingProcessSearch()
 	{
@@ -36,7 +38,7 @@ public class MouldingProcessSearch  extends WebFormSearch
 		getFieldMap().put(ProcessSearchFields.PART_NAME,partId);
 	}
 	
-	public void setMachineNo(int machineNo)
+	public void setMachineNo(String machineNo)
 	{
 		getFieldMap().put(ProcessSearchFields.MACHINE_NO,machineNo);
 	}
@@ -71,9 +73,9 @@ public class MouldingProcessSearch  extends WebFormSearch
 		return (Integer)getFieldMap().get(ProcessSearchFields.PART_NAME);
 	}
 	
-	public Integer getMachineNo()
+	public String getMachineNo()
 	{
-		return (Integer)getFieldMap().get(ProcessSearchFields.MACHINE_NO);
+		return String.valueOf(getFieldMap().get(ProcessSearchFields.MACHINE_NO));
 	}
 	
 	public Integer getMaterial()

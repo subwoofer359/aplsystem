@@ -19,7 +19,8 @@ import org.amc.myservlet.test.ui.*;
 				TestAPLSpcControllerIntegration.class,
 				TestAPLSpcDataController.class,
 				TestSPCDataDAO.class,
-				DAOIntegrationTest.class
+				DAOPartIntegrationTest.class,
+				DAOMouldingProcessIntegrationTest.class
 				//TestPartUI.class,
 				//TestUserUI.class
 				})

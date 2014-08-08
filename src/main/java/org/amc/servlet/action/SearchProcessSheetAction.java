@@ -5,9 +5,11 @@ package org.amc.servlet.action;
  * @version 1
  */
 import org.amc.DAOException;
+
 import java.util.List;
 
 import org.amc.model.MouldingProcess;
+import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.dao.DAO;
 
 public class SearchProcessSheetAction 
@@ -35,6 +37,11 @@ public class SearchProcessSheetAction
 	public MouldingProcess getMouldingProcess(String id) throws DAOException
 	{
 		return mouldingProcessDAO.getEntity(id);
+	}
+	
+	public List<MouldingProcess> search(MouldingProcessSearch mouldingProcessSearch) throws DAOException
+	{
+		return mouldingProcessDAO.findEntities(mouldingProcessSearch);
 	}
 
 }

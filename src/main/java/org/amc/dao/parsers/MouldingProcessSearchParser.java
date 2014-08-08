@@ -21,16 +21,18 @@ public class MouldingProcessSearchParser implements WebFormSearchToJPQLParser
 			
 			for(Iterator<SearchFields> i=search.getFields().iterator();i.hasNext();)
 			{
-				textQuery.append("x.");
-				textQuery.append(i.next());
 				
-				if(i.equals(MouldingProcessSearch.ProcessSearchFields.START_DATE) || i.equals(MouldingProcessSearch.ProcessSearchFields.END_DATE))
+				textQuery.append("x.");
+				SearchFields currentField=i.next();
+				textQuery.append(currentField);
+				
+				if(currentField.equals(MouldingProcessSearch.ProcessSearchFields.START_DATE) || currentField.equals(MouldingProcessSearch.ProcessSearchFields.END_DATE))
 				{
-					if(i.equals(MouldingProcessSearch.ProcessSearchFields.START_DATE))
+					if(currentField.equals(MouldingProcessSearch.ProcessSearchFields.START_DATE))
 					{
 						textQuery.append(" > ?");
 					}
-					else if(i.equals(MouldingProcessSearch.ProcessSearchFields.END_DATE))
+					else if(currentField.equals(MouldingProcessSearch.ProcessSearchFields.END_DATE))
 					{
 						textQuery.append(" < ?");
 					}
