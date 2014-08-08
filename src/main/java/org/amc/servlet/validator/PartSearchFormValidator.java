@@ -22,9 +22,18 @@ public class PartSearchFormValidator extends WebPageFormValidator
 		{
 			PartSearch partSearch=new PartSearch();
 			
-			partSearch.setCompany(form.getCompany());
-			partSearch.setPartName(form.getPart());
-			partSearch.setQSSNumber(form.getQSSNumber());
+			if(form.getCompany()!=null && !"".equals(form.getCompany()))
+			{
+				partSearch.setCompany(form.getCompany());
+			}
+			if(form.getPartName()!=null && !"".equals(form.getPartName()))
+			{
+				partSearch.setPartName(form.getPartName());
+			}
+			if(form.getQSSNumber()!=null && !"".equals(form.getQSSNumber()))
+			{	
+				partSearch.setQSSNumber(form.getQSSNumber());
+			}
 
 			return partSearch;
 		}
