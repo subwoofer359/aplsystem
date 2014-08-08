@@ -10,4 +10,6 @@ import java.util.Set;
 public interface Search
 {
 	public Set<SearchParameters> getFields();
+	
+	public Object getField(SearchParameters field);
 }

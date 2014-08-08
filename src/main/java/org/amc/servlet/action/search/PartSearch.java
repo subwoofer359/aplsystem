@@ -87,4 +87,9 @@ public class PartSearch implements Search
 		return values.keySet();
 	}
 	
+	public Object getField(SearchParameters field)
+	{
+		return values.get(field);
+	}
+	
 }
