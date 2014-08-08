@@ -227,7 +227,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 			LOG.debug("FindEntities(Search) query is :"+textQuery.toString());
 			
 			Query query=getEntityManager().createQuery(textQuery.toString());
-			queryIndex=0;
+			queryIndex=1;
 			
 			for(Iterator<SearchParameters> i=search.getFields().iterator();i.hasNext();)
 			{
