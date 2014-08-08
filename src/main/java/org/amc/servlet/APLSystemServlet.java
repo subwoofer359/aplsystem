@@ -272,10 +272,8 @@ public class APLSystemServlet extends HttpServlet
 				
 				PartSearchForm partSearchForm=new PartSearchForm();
 				partSearchForm.setCompany(request.getParameter("company"));
-				partSearchForm.setPart(request.getParameter("partName"));
+				partSearchForm.setPartName(request.getParameter("partName"));
 				partSearchForm.setQSSNumber(request.getParameter("qssNumber"));
-				partSearchForm.setStartDate(request.getParameter("startDate"));
-				partSearchForm.setEndDate(request.getParameter("endDate"));
 				
 				PartSearchFormValidator validator=new PartSearchFormValidator();
 				
