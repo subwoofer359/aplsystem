@@ -1,6 +1,7 @@
 package org.amc.servlet.action.search;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.amc.model.User;
 import org.amc.model.spc.SPCMeasurement;
@@ -98,5 +99,9 @@ public class SPCDataSearch implements Search
 		this.upperBoundMeasurement = upperBoundMeasurement;
 	}
 	
+	public Set<SearchParameters> getFields()
+	{
+		return null;
+	}
 	
 }

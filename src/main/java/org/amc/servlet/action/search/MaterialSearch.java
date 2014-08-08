@@ -1,5 +1,7 @@
 package org.amc.servlet.action.search;
 
+import java.util.Set;
+
 /**
  * 
  * @author Adrian McLaughlin
@@ -53,5 +55,8 @@ public class MaterialSearch implements Search
 		this.type = type;
 	}
 	
-	
+	public Set<SearchParameters> getFields()
+	{
+		return null;
+	}
 }
