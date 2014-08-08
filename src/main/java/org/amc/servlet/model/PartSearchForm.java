@@ -2,15 +2,15 @@ package org.amc.servlet.model;
 
 public class PartSearchForm implements WebPageForm
 {
-	private String part;
+	private String partName;
 	private String qSSNumber;
 	private String company;
 	/**
 	 * @return the part
 	 */
-	public String getPart()
+	public String getPartName()
 	{
-		return part;
+		return partName;
 	}
 	/**
 	 * @return the qSSNumber
@@ -29,9 +29,9 @@ public class PartSearchForm implements WebPageForm
 	/**
 	 * @param part the part to set
 	 */
-	public void setPart(String part)
+	public void setPartName(String part)
 	{
-		this.part = part;
+		this.partName = part;
 	}
 
 	/**
