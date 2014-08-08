@@ -1,6 +1,12 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,13 +115,13 @@ select
 <H1> Process:${process.partId }</H1>
 </DIV>
 <%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/ProcessSheet_search" value="Search Page" position="220px"/>
+<tags:Navbox href="${pageContext.request.contextPath}/app/ProcessSheet_search" value="Search Page" position="220px"/>
 
 <DIV class="informationbox">
 <TABLE>
 <TR><TD class="header">Machine Size:</TD><TD>${process.machineSize}</TD></TR>
 <TR><TD class="header">Machine No.</TD><TD>${process.machineNo}</TD></TR>
-<TR><TD class="header">Material:</TD><TD>${process.material}</TD></TR>
+<TR><TD class="header">Material:</TD><TD><c:out value='${myfunc:toString(materials[process.material])}'></c:out></TD></TR>
 <TR><TD class="header">Masterbatch:</TD><TD>${process.masterbatchNo}</TD></TR>
 <TR><TD class="header">Date of Issue:</TD><TD>${process.dateOfIssue}</TD></TR>
 <TR><TD class="header">Signed of by:</TD><TD>${process.signOffBy}</TD></TR>

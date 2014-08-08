@@ -1,27 +1,31 @@
 package org.amc.servlet.action;
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 
-import java.sql.SQLException;
 
-import org.amc.servlet.dao.PartDAO;
-import org.amc.servlet.model.Part;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.amc.DAOException;
+import org.amc.dao.DAO;
+import org.amc.model.Part;
 
 public class SavePartAction 
 {
-	private PartDAO partDAO;
+	private final DAO<Part> partDAO;
 	
-	public SavePartAction(PartDAO jobTemplateDAO)
+	public SavePartAction(DAO<Part> jobTemplateDAO)
 	{
 		this.partDAO=jobTemplateDAO;
 	}
 	/**
 	 * Saves Job to the database as a new entry
 	 * @param job
-	 * @throws SQLException
+	 * @throws DAOException
 	 */
-	public void save(Part job) throws SQLException
+	public void save(Part job) throws DAOException
 	{
-		partDAO.addPart(job);
+		partDAO.addEntity(job);
 		
 		
 	}
@@ -29,10 +33,10 @@ public class SavePartAction
 	/**
 	 * Updates database entry
 	 * @param job
-	 * @throws SQLException
+	 * @throws DAOException
 	 */
-	public void edit(Part job) throws SQLException
+	public void edit(Part job) throws DAOException
 	{
-		partDAO.updatePart(job);
+		partDAO.updateEntity(job);
 	}
 }

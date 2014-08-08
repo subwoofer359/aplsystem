@@ -1,15 +1,24 @@
 <!doctype html>
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <html>
 <head>
-
+<title>Adrian McLaughlin</title>
+<meta charset="ISO-8859-1">
 <meta name="description" content="Homepage of Adrian McLaughlin"/>
 <meta name="author" content="Adrian McLaughlin"/>
 <meta name="keywords" content="Adrian,McLaughlin,Java,JavaSE 7,Oracle,Web Developer,Servlets,JSP,Developer"/>
+
+<link rel="icon" type="image/png" href="./favicon.png"/>
+<link rel="shortcut icon" type="image/png" href="./favicon.png"/>
+
 <script type="text/javascript">
 
 function toMyServlet()
 {
-	window.location="APLSystemServlet";
+	window.location="app/APLSystemServlet";
 }
 
 </script>
@@ -24,7 +33,7 @@ function toMyServlet()
 	z-index:1;
 
 	width:100%;
-	height:100px;
+	height:80px;
 	background-color:#6326ff;
 
 }
@@ -55,8 +64,11 @@ function toMyServlet()
 
 .page
 {
+	/* Set Background to image */
+        background-image: URL('images/background_1.jpg');
+        background-size:cover;
 	position:fixed;
-	top:100px;
+	top:80px;
 	left:0px;
 
 	height:100%;
@@ -74,6 +86,14 @@ function toMyServlet()
 	top:0;
 	width:33%;
 
+}
+.feed
+{
+	position: absolute;
+	top: 400px;
+	right: 0%;
+	width:33%;
+	z-index: -1;
 }
 .profileimg
 {
@@ -100,10 +120,9 @@ function toMyServlet()
 	background-color: white;
 	
 	position:relative;
-	
 	width:55%;
 	padding: 20px;
-	margin-top:20px;
+	margin-top:5px;
 	
 
 }
@@ -198,10 +217,8 @@ I'm studying J2EE technology including Java Enterprise Beans and the Spring fram
 <DIV class="twitter">
 <a class="twitter-timeline" href="https://twitter.com/adrianjmc359" data-widget-id="402726554922278912">Tweets by @adrianjmc359</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
- 
-
 </DIV>
-
+<div class="feed"><!-- start feedwind code --><script type="text/javascript">document.write('<script type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js"><\/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "https://github.com/subwoofer359/aplsystem/commits/master.atom",rssmikle_frame_width: "475",rssmikle_frame_height: "300",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "on",responsive: "off",rssmikle_css_url: "",text_align: "left",corner: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "3",mcspeed: "20",sort: "Off",rssmikle_title: "on",rssmikle_title_sentence: "ACME Plastic Systems:Commits",rssmikle_title_link: "",rssmikle_title_bgcolor: "#2A51A3",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#859EF7",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#2A51A3",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#544766",rssmikle_item_date: "gl1",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",rssmikle_item_description_tag: "off",rssmikle_item_description_image_scaling: "off",article_num: "15",rssmikle_item_podcast: "off"};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; width:400px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code --></div>
 </DIV>
 
 </body>

@@ -1,4 +1,9 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page session="false" %>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
@@ -9,6 +14,7 @@
 <title>ACME Plastics:Part Description Page</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <SCRIPT>
 function home()
 {
@@ -16,36 +22,6 @@ function home()
 }
 </SCRIPT>
 <STYLE>
-
-TABLE
-{
-	position:fixed;
-	top:110px;
-	background-color:white;
-	width:95%;	
-	margin-left:2%;
-	margin-right:auto;
-
-}
-
-TD
-{
-	text-align:left;
-	font-size:xx-large;
-	line-height: 77px;
-}
-
-TH
-{
-	text-align:left;
-	font-size:xx-large;
-}
-
-input[type="text"]
-{
-	width:70%;
-	font-size:xx-large;
-}
 
 </STYLE>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
@@ -56,7 +32,7 @@ input[type="text"]
 </DIV>
 
 <%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/Part_search" value="Search Page" position="220px"></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/Part_search" value="Search Page" position="220px"></tags:Navbox>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("${errors}");</SCRIPT>
@@ -64,6 +40,7 @@ input[type="text"]
 <%-- The Form to get the values for the new or edited JobTemplate Object--%>
 
 <FORM method='post' action='./Part_save'>
+<div class="entry">
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 <TABLE>
 <%-- To be used in edit mode to store the id of the object being edited --%>
@@ -105,6 +82,7 @@ input[type="text"]
 	<input type='submit'  name="mode" value='Edit'/>
 </c:if>
 </span>
+</div>
 </FORM>
 
 <DIV class="result">

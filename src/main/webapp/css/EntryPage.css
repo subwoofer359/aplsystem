@@ -1,6 +1,12 @@
 @CHARSET "UTF-8";
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 /* Layout for Entry pages */
-TABLE
+
+.entry table
 {
 	position:fixed;
 	top:110px;
@@ -10,13 +16,17 @@ TABLE
 	margin-right:auto;
 
 }
+.entry td
+{
+	font-size:xx-large;
+}
 
 .description /* TD */
 {
 	width:25%;
 }
 
-input[type="text"]
+.results input[type="text"],.entry input[type="text"],.entry input[type="password"]
 {
 	width:70%;
 	font-size:xx-large;

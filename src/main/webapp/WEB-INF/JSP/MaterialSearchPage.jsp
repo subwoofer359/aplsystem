@@ -1,4 +1,9 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +15,8 @@
 <STYLE>
 
 </STYLE>
-<script src="js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 </head>
 <body>
 <DIV class="title">
@@ -19,20 +25,28 @@
 <%@ include file="NavigationDiv.jspf" %>
 
 
-<FORM action="${pageContext.request.contextPath}/Material_search" method="post">
+<FORM action="${pageContext.request.contextPath}/app/Material_search" method="post" onsubmit="return isChecked(this,'material')">
 <DIV class="results">
 <TABLE>
-<TR><TH>Company</TH><TH>Name</TH><TH>Type</TH><TH></TH></TR>
+<thead>
+<TR><TH onclick="tableSort(this, 'Company');selected(null);">Company</TH>
+	<TH onclick="tableSort(this, 'Name');selected(null);">Name</TH>
+	<TH onclick="tableSort(this, 'Type');selected(null);">Type</TH>
+	<TH></TH>
+</TR>
+</thead>
+<tbody>
 <c:forEach items="${materials}" var="material">
 <TR  onclick="selected(this)"><TD><c:out value="${material.value.company}"/></TD><TD><c:out value="${material.value.name}"/></TD><TD><c:out value="${material.value.type}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
 </c:forEach>
-<TR><TD></TD><TD></TD><TD></TD></TR>
+<!-- <TR><TD></TD><TD></TD><TD></TD></TR>--> 
+</tbody>
 </TABLE>
 </DIV>
 <SPAN class="search">
-<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
+<input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
-<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /></SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit"  /></SPAN>
 </FORM>
 
 </body>

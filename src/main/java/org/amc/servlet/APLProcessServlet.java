@@ -1,10 +1,9 @@
 package org.amc.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import org.amc.DAOException;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,25 +15,26 @@ import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
-import org.amc.servlet.model.Material;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.Material;
+import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
  * Servlet implementation class APLProcessServlet
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebServlet(description = "To serve up Process Sheet Data", 
 			urlPatterns = 
 			{
-				"/APLProcessServlet",
-				"/ProcessSheet_display",
-				"/ProcessSheet_search",
-				"/ProcessSheet_save", 
-				"/ProcessSheet_analysis"
+				"/app/APLProcessServlet",
+				"/app/ProcessSheet_display",
+				"/app/ProcessSheet_search",
+				"/app/ProcessSheet_save", 
+				"/app/ProcessSheet_analysis"
 			},loadOnStartup=2)
 
 
@@ -144,21 +144,21 @@ public class APLProcessServlet extends HttpServlet
 			{
 				processSheet=MouldingProcessForm.getMouldingProcess(jForm);
 				// New JobTemplate to Database
-				if(mode==null||mode.equals("Enter"))
+				if(mode==null||"Enter".equals(mode))
 				{
 					logger.debug(String.format("SaveProcessSheet:Entering entry into database"));
 					action.save(processSheet);
-					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
-				else if(mode.equals("edit"))
+				else if("edit".equals(mode))
 				{
 					logger.debug(String.format("SaveProcessSheet:Editing entry into database"));
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					processSheet.setId(Integer.parseInt(jForm.getId()));
 					action.edit(processSheet);
-					response.sendRedirect(request.getContextPath()+"/ProcessSheet_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else
@@ -176,7 +176,7 @@ public class APLProcessServlet extends HttpServlet
 			{
 				throw new ServletException(se);
 			}
-			catch(SQLException se)
+			catch(DAOException se)
 			{
 				
 				throw new ServletException(se);
@@ -194,7 +194,7 @@ public class APLProcessServlet extends HttpServlet
 			{
 			//if the form doesn't validate without errors then
 			//Remember page is in edit mode
-				if(mode.equals("edit")) 
+				if("edit".equals(mode)) 
 				{
 					request.setAttribute("mode", mode);
 				}
@@ -208,7 +208,7 @@ public class APLProcessServlet extends HttpServlet
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/ProcessPage.jsp");
 				rd.forward(request, response);
 			}
-			catch(SQLException sqle)
+			catch(DAOException sqle)
 			{
 				throw new ServletException(sqle);
 			}
@@ -219,7 +219,12 @@ public class APLProcessServlet extends HttpServlet
 	{
 		//Selected Process Page
 		String idValue=request.getParameter("edit");
-		if(idValue!=null && (!idValue.equals("")))
+		if(idValue==null || ("".equals(idValue)))
+		{
+			// No Process selected return to ProcessSearchPage
+			response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search");
+		}
+		else 
 		{
 			try
 			{
@@ -227,18 +232,18 @@ public class APLProcessServlet extends HttpServlet
 				MouldingProcess process=spt.getMouldingProcess(idValue);
 				request.setAttribute("process",process);
 				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/DisplayProcess.jsp");
+				
+				//Get List of Material and add to the request for DisplayProcess.jsp to use.
+				Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
+				request.setAttribute("materials", materials);
+				
 				rd.forward(request, response);
-			} catch (SQLException e)
+			} catch (DAOException e)
 			{
 				getServletContext().log(e.getMessage());
 				e.printStackTrace();
-				throw new ServletException("Database not available");			
+				throw (ServletException)new ServletException("Database not available").initCause(e);			
 			}
-			
-		}
-		else // No Process selected return to ProcessSearchPage
-		{
-			response.sendRedirect(request.getContextPath()+"/ProcessSheet_search");
 		}
 	}
 	
@@ -262,7 +267,7 @@ public class APLProcessServlet extends HttpServlet
 				try
 				{
 					//if the page is to do a search
-					if(mode==null || mode.equals("search"))
+					if(mode==null || "search".equals(mode))
 					{
 						List<MouldingProcess> list=null;
 						//To check to search for all entries or entries where name=searchWord
@@ -298,7 +303,7 @@ public class APLProcessServlet extends HttpServlet
 //					}
 					else if(mode!=null)
 					{
-						if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
+						if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
 							//open the JobTemplate JSPage in add mode
@@ -306,7 +311,7 @@ public class APLProcessServlet extends HttpServlet
 							request.setAttribute("form", process);
 							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 						}
-						else if(mode.equals("edit")&&idValue!=null)
+						else if("edit".equals(mode)&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
@@ -325,10 +330,10 @@ public class APLProcessServlet extends HttpServlet
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);
 				}
-				catch(SQLException se)
+				catch(org.amc.DAOException se)
 				{
 					se.printStackTrace();
-					throw new ServletException("Database not available:"+se.getMessage());
+					throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 				}
 		
 	}
@@ -336,13 +341,13 @@ public class APLProcessServlet extends HttpServlet
 	/*
 	 * Required by Spring
 	 */
-	@Autowired
+
 	public void setProcessActionFactory(ProcessActionFactory processActionFactory)
 	{
 		this.processActionFactory = processActionFactory;
 	}
 	
-	@Autowired
+	
 	public void setMaterialActionFactory(MaterialActionFactory materialActionFactory)
 	{
 		this.materialActionFactory = materialActionFactory;
@@ -351,10 +356,9 @@ public class APLProcessServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setProcessActionFactory((ProcessActionFactory)context2.getBean("processActionFactory"));
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-		super.init();
 	}
-	
 }

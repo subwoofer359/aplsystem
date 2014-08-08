@@ -1,3 +1,7 @@
+/**  
+*	@author Adrian Mclaughlin
+* 	@version 1
+*/
 /**
  * Javascript Functions required by the JSP search pages
  */
@@ -8,7 +12,7 @@
 function selected(element)
 {
 	var elementsArray=document.getElementsByTagName("input");
-	for(var i=0;i<elementsArray.length;i++)
+	for(var i=0,elen=elementsArray.length;i<elen;i++)
 	{
 		if(elementsArray[i].type=="checkbox")
 		{
@@ -19,22 +23,35 @@ function selected(element)
 	}
 	
 	console.log(element);
-	var checkbox=element.getElementsByTagName("input");
-	if(checkbox != null || checkbox.length>0)
+	if(element!=null)
 	{
-		console.log(checkbox[0]);
-		checkbox[0].checked=true;
-		element.style.backgroundColor="red";
-	}
-	else
-	{
-		console.log("Checkbox element not found");
+		var checkbox=element.getElementsByTagName("input");
+		if(checkbox != null || checkbox.length>0)
+		{
+			console.log(checkbox[0]);
+			checkbox[0].checked=true;
+			element.style.backgroundColor="red";
+		}
+		else
+		{
+			console.log("Checkbox element not found");
+		}
 	}
 	
 }
 
 
-function isChecked(id)
+
+function addClicked(button)
+{
+	var forms=document.getElementsByTagName("form");
+	if(forms!=null && forms.length>0)
+	{
+		 forms[0].onsubmit="";
+	}
+}
+
+function isChecked(form,itemName)
 {
 	var list=document.getElementsByName("edit");
 	console.log(list.length+"\n");
@@ -49,11 +66,12 @@ function isChecked(id)
 	}
 	if(!checked)
 	{
-		id.value="add";
+		alert("A "+itemName+" is not selected");
+		return false;
 	}
 	else
 	{
-		id.value="edit";
+		return true;
 	}	
 }
 

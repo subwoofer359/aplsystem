@@ -1,28 +1,32 @@
 package org.amc.servlet.action;
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
+import org.amc.DAOException;
 
-import java.sql.SQLException;
-
-import org.amc.servlet.dao.MouldingProcessDAO;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.model.MouldingProcess;
+import org.amc.dao.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveProcessSheetAction 
 {
-	private MouldingProcessDAO mouldingProcessDAO;
+	private final DAO<MouldingProcess> mouldingProcessDAO;
 	
 	@Autowired
-	public SaveProcessSheetAction(MouldingProcessDAO mouldingProcessDAO)
+	public SaveProcessSheetAction(DAO<MouldingProcess> mouldingProcessDAO)
 	{
 		this.mouldingProcessDAO=mouldingProcessDAO;
 	}
 	/**
 	 * Saves Job to the database as a new entry
 	 * @param job
-	 * @throws SQLException
+	 * @throws DAOException
 	 */
-	public void save(MouldingProcess processSheet) throws SQLException
+	public void save(MouldingProcess processSheet) throws DAOException
 	{
-		mouldingProcessDAO.addProcessSheet(processSheet);
+		mouldingProcessDAO.addEntity(processSheet);
 		
 		
 	}
@@ -30,10 +34,10 @@ public class SaveProcessSheetAction
 	/**
 	 * Updates database entry
 	 * @param job
-	 * @throws SQLException
+	 * @throws DAOException
 	 */
-	public void edit(MouldingProcess processSheet) throws SQLException
+	public void edit(MouldingProcess processSheet) throws DAOException
 	{
-		mouldingProcessDAO.updateProcessSheet(processSheet);
+		mouldingProcessDAO.updateEntity(processSheet);
 	}
 }

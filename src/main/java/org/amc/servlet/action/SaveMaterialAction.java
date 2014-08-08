@@ -1,16 +1,19 @@
 package org.amc.servlet.action;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 import java.sql.SQLException;
 
-import org.amc.servlet.dao.MaterialDAO;
-import org.amc.servlet.dao.MouldingProcessDAO;
-import org.amc.servlet.model.Material;
-import org.amc.servlet.model.MouldingProcess;
+import org.amc.DAOException;
+import org.amc.model.Material;
+import org.amc.dao.MaterialDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class SaveMaterialAction 
 {
-	private MaterialDAO materialDAO;
+	private final MaterialDAO materialDAO;
 	
 	@Autowired
 	public SaveMaterialAction(MaterialDAO materialDAO)
@@ -22,9 +25,9 @@ public class SaveMaterialAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void save(Material material) throws SQLException
+	public void save(Material material) throws DAOException
 	{
-		this.materialDAO.addMaterial(material);
+		this.materialDAO.addEntity(material);
 		
 		
 	}
@@ -34,8 +37,8 @@ public class SaveMaterialAction
 	 * @param job
 	 * @throws SQLException
 	 */
-	public void edit(Material material) throws SQLException
+	public void edit(Material material) throws DAOException
 	{
-		this.materialDAO.updateMaterial(material);
+		this.materialDAO.updateEntity(material);
 	}
 }

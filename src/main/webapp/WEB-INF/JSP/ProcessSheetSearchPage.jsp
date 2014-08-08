@@ -1,5 +1,11 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +16,8 @@
 <style>
 
 </style>
-<script src="js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script type="text/javascript">
 /**
  * Needs to be in JSP. Contains EL Expression 
@@ -30,7 +37,7 @@ function isDisplayChecked(id)
 	}
 	if(checked)
 	{
-		id.formAction="${pageContext.request.contextPath}/ProcessSheet_display";
+		id.formAction="${pageContext.request.contextPath}/app/ProcessSheet_display";
 	}
 	else
 	{
@@ -51,21 +58,31 @@ function isDisplayChecked(id)
 <%@ include file="NavigationDiv.jspf" %>
 
 
-<FORM action="${pageContext.request.contextPath}/ProcessSheet_search" method="post">
+<FORM action="${pageContext.request.contextPath}/app/ProcessSheet_search" method="post" onsubmit="return isChecked(this,'Process Sheet')">
 <DIV class="results">
 <TABLE>
-<thead><tr><TH>Date Of Issue</TH><TH>Product</TH><TH>Machine Size</TH><TH>Machine No.</TH><TH>Material</TH><TH></TH></tr></thead>
+<thead>
+	<tr>
+		<TH onclick="tableSort(this, 'Date Of Issue');selected(null);">Date Of Issue</TH>
+		<TH onclick="tableSort(this, 'Product');selected(null);">Product</TH>
+		<TH onclick="tableSort(this, 'Machine Size');selected(null);">Machine Size</TH>
+		<TH onclick="tableSort(this, 'Machine No.');selected(null);">Machine No.</TH>
+		<TH onclick="tableSort(this, 'Material');selected(null);">Material</TH>
+		<TH></TH>
+	</tr>
+</thead>
 <tbody>
 <c:forEach items="${processSheets}" var="part">
-<TR onclick="selected(this)"><TD><c:out value="${part.dateOfIssue}"/></TD><TD><c:out value="${part.partId}"/></TD><TD><c:out value="${part.machineSize}"/></TD><TD><c:out value="${part.machineNo}"/></TD><TD><c:out value='${materials[part.material]}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
+<TR onclick="selected(this)"><TD><c:out value="${part.dateOfIssue}"/></TD><TD><c:out value="${part.partId}"/></TD><TD><c:out value="${part.machineSize}"/></TD><TD><c:out value="${part.machineNo}"/></TD><TD><c:out value='${myfunc:toString(materials[part.material])}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
-<TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR>
+<!-- <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR> -->
+<tbody>
 </TABLE>
 </DIV>
 <SPAN class="search">
-<input type="text" name="search"/><input type="submit" name="mode" value="search"/>
+<input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
-<SPAN class="buttons"><input type="submit" name="mode" value="add"/><input type="submit" name="mode" value="edit" onmouseout="enable(this)" onmouseover="isChecked(this)" /><input type="submit" name="mode" value="display" onclick="isDisplayChecked(this)" formaction="${pageContext.request.contextPath}/ProcessSheet_display"/></SPAN>
+<SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"/></SPAN>
 </FORM>
 
 </body>

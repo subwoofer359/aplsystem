@@ -1,14 +1,17 @@
+<%--  
+	@author Adrian Mclaughlin
+ 	@version 1
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<!DOCTYPE html>
 
-<a href="${pageContext.request.contextPath }/UserInfo">
-<DIV class="navbox" style="right:0;">
+<a href="${pageContext.request.contextPath }/app/UserInfo">
+<DIV id="userBox" class="navbox" style="right:0;">
 	<span><c:out value='${pageContext.request.remoteUser}'/></span>
 </DIV>
 </a>
 <c:if test="${pageContext.request.servletPath != '/WEB-INF/JSP/Main.jsp' }">
-<a href="${pageContext.request.contextPath}/APLSystemServlet">
+<a href="${pageContext.request.contextPath}/app/APLSystemServlet">
 <DIV class="navbox"  style="right:110px;">
 Main<br/>
 </DIV>

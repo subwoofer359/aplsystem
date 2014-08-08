@@ -1,4 +1,9 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
@@ -12,6 +17,6 @@
 <jsp:useBean id="material" class="org.amc.servlet.model.MaterialForm" scope="request"/>
 
 <jsp:setProperty name="material" property="*" />
-<jsp:forward page="/Material_save"/>
+<jsp:forward page="/app/Material_save"/>
 </body>
 </html>

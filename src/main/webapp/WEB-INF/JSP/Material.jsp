@@ -1,6 +1,12 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page session="false" %>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +16,18 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <style type="text/css">
-TD
+
+.entry td
 {
 	font-size: x-large;
 	line-height: 50px;
 }
-input[type="text"]
+.entry input[type="text"]
 {
 	width:70%;
 	font-size:x-large;
 }
+
 </style>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
@@ -27,17 +35,16 @@ input[type="text"]
 <body>
 <div class="title"><h1>Material</h1></div>
 <%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/Material_search" value="Search Page" position="220px"/>
+<tags:Navbox href="${pageContext.request.contextPath}/app/Material_search" value="Search Page" position="220px"/>
 <%-- Display errors if there any --%>
 <c:if test="${errors ne null }">
 <SCRIPT>alert("${errors}");</SCRIPT>
 </c:if>
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
-<FORM method="post" action="${pageContext.request.contextPath}/Processing/MaterialBean"> 
+<FORM method="post" action="${pageContext.request.contextPath}/app/Processing/MaterialBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
+<div class="entry">
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
-
-
 <TABLE>
 <TR><TD class="description">Company:</TD><TD><input type="text" name="company"  value="<c:out value='${form.company}' />" autofocus="autofocus"/></TD></TR>
 <TR><TD class="description">Name:</TD><TD><input type="text" name="name" value="<c:out value='${form.name}' />" /></TD></TR>
@@ -61,6 +68,7 @@ input[type="text"]
 	<input type='submit'  name="mode" value='edit'/>
 </c:if>
 </span>
+</div>
 </FORM>
 
 </body>

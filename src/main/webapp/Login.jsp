@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%@page session="false" %>
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,6 +36,7 @@ input
 {
 	font-size:xx-large;
 }
+
 </style>
 </head>
 <body>
@@ -45,5 +51,6 @@ input
 <span class="buttons"><INPUT type="submit" value="login"/></span>
 </FORM>
 </DIV>
+
 </body>
 </html>

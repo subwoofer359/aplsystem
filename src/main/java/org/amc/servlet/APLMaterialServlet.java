@@ -1,7 +1,10 @@
 package org.amc.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
+import org.amc.Constants.Roles;
+import org.amc.DAOException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,23 +18,34 @@ import javax.servlet.http.HttpServletResponse;
 import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.SaveMaterialAction;
 import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.servlet.model.Material;
+import org.amc.model.Material;
 import org.amc.servlet.model.MaterialForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.amc.servlet.ControllerConstants.MODE;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.MODE_ADD;
+import static org.amc.servlet.ControllerConstants.MODE_ENTER;
+import static org.amc.servlet.ControllerConstants.MATERIAL;
+import static org.amc.servlet.ControllerConstants.MATERIALS;
+import static org.amc.servlet.ControllerConstants.PROCESS;
+import static org.amc.servlet.ControllerConstants.SEARCH;
 /**
  * Servlet implementation class APLMaterialServlet
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebServlet(
 		description = "To Process Material Requests", 
 		urlPatterns = { 
-				"/Material_display",
-				"/Material_save",
-				"/Material_search",
-				"/MaterialServlet"
+				"/app/Material_display",
+				"/app/Material_save",
+				"/app/Material_search",
+				"/app/MaterialServlet"
 				}
 		,loadOnStartup=3)
 public class APLMaterialServlet extends HttpServlet 
@@ -41,14 +55,13 @@ public class APLMaterialServlet extends HttpServlet
 	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
 	
 	private MaterialActionFactory materialActionFactory;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public APLMaterialServlet() 
-    {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	
+	private static final String FORM="form";
+	
+	private static final String MATERIAL_ADD_EDIT_VIEW="/WEB-INF/JSP/Material.jsp";
+	private static final String MATERIAL_SEARCH_VIEW="/app/Material_search";
+	private static final String MAIN_VIEW="/WEB-INF/JSP/Main.jsp";
+	private static final String MATERIAL_SEARCH_PAGE="/WEB-INF/JSP/MaterialSearchPage.jsp";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -104,7 +117,7 @@ public class APLMaterialServlet extends HttpServlet
 //					+ "</BODY>"
 //					+ "</HTML>");
 //			writer.flush();
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher(MAIN_VIEW);
 			rd.forward(request, response);
 		}
 	}
@@ -113,12 +126,12 @@ public class APLMaterialServlet extends HttpServlet
 	{
 		logger.debug(String.format("Context Path:"+request.getContextPath()));
 		//check if page is in create or edit mode
-		String mode=request.getParameter("mode");
+		String mode=request.getParameter(MODE);
 		logger.debug(String.format("SaveMaterial:mode:[%s]%n", mode));//debug
 		//create form
 		
 		//If an ID parameter is passed add it to the form
-		MaterialForm jForm=(MaterialForm)request.getAttribute("material");
+		MaterialForm jForm=(MaterialForm)request.getAttribute(MATERIAL);
 		logger.debug(String.format("\nSubmitted Process:"+jForm));
 
 		
@@ -127,7 +140,7 @@ public class APLMaterialServlet extends HttpServlet
 		List<String> errors=validator.validate(jForm);
 		
 		//Check if user is a role to allow changes to the database
-		if(!(request.isUserInRole("qc")||(request.isUserInRole("manager"))))
+		if(!(request.isUserInRole(Roles.QC.toString())||(request.isUserInRole(Roles.MANAGER.toString()))))
 		{
 				errors.add("User has no permissions to alter Material definitions!");
 		}
@@ -146,21 +159,23 @@ public class APLMaterialServlet extends HttpServlet
 			{
 				material=MaterialForm.getMaterial(jForm);
 				// New JobTemplate to Database
-				if(mode==null||mode.equals("Enter"))
+				//if(mode==null||mode.equals("Enter"))
+				if(mode==null || MODE_ENTER.equals(mode))
 				{
 					logger.debug(String.format("SaveMaterial:Entering entry into database"));
 					action.save(material);
-					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+MATERIAL_SEARCH_VIEW); // Goto the Search Window
 					return; // Exit function 
 				}
-				else if(mode.equals("edit"))
+				//else if(mode.equals("edit"))
+				else if(MODE_EDIT.equals(mode))
 				{
 					logger.debug(String.format("SaveMaterial:Editing entry into database"));
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					material.setId(Integer.parseInt(jForm.getId()));
 					action.edit(material);
-					response.sendRedirect(request.getContextPath()+"/Material_search"); // Goto the Search Window
+					response.sendRedirect(request.getContextPath()+MATERIAL_SEARCH_VIEW); // Goto the Search Window
 					return; // Exit function 
 				}
 				else
@@ -178,7 +193,7 @@ public class APLMaterialServlet extends HttpServlet
 			{
 				throw new ServletException(se);
 			}
-			catch(SQLException se)
+			catch(DAOException se)
 			{	
 				throw new ServletException(se);
 			}
@@ -192,52 +207,56 @@ public class APLMaterialServlet extends HttpServlet
 		else
 		{
 			//if the form doesn't validate without errors then
-			if(mode.equals("edit")) //Remember page is in edit mode
+			//if(mode.equals("edit")) //Remember page is in edit mode
+			if(MODE_EDIT.equals(mode))
 			{
-				request.setAttribute("mode", mode);
+				request.setAttribute(MODE, mode);
 			}
-			request.setAttribute("errors", errors);
-			request.setAttribute("form", jForm);			
+			request.setAttribute(ERRORS, errors);
+			request.setAttribute(FORM, jForm);			
 			
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
+			RequestDispatcher rd=request.getRequestDispatcher(MATERIAL_ADD_EDIT_VIEW);
 			rd.forward(request, response);
 		}
 	}
 	private void displayMaterial(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException
 	{
 		//Selected Process Page
-		String idValue=request.getParameter("edit");
-		if(idValue!=null && (!idValue.equals("")))
+		String idValue=request.getParameter(MODE_EDIT);
+		//if(idValue!=null && (!idValue.equals("")))
+		if(idValue==null || "".equals(idValue))
+		{
+			// No Process selected return to ProcessSearchPage
+			response.sendRedirect(request.getContextPath()+MATERIAL_SEARCH_VIEW);	
+		}
+		else
 		{
 			try
 			{
 				SearchMaterialAction spt=materialActionFactory.getSearchMaterialAction();
 				Material process=spt.getMaterial(idValue);
-				request.setAttribute("process",process);
-				RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Material.jsp");
+				request.setAttribute(PROCESS,process);
+				RequestDispatcher rd=request.getRequestDispatcher(MATERIAL_ADD_EDIT_VIEW);
 				rd.forward(request, response);
-			} catch (SQLException e)
+			} catch (DAOException e)
 			{
 				getServletContext().log(e.getMessage());
 				e.printStackTrace();
-				throw new ServletException("Database not available");			
+				throw (ServletException)new ServletException("Database not available").initCause(e);			
 			}
 			
 		}
-		else // No Process selected return to ProcessSearchPage
-		{
-			response.sendRedirect(request.getContextPath()+"/Material_search");
-		}
+		
 	}
 	
 	private void searchMaterial(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException
 	{
 		//check to if in search or edit mode TODO add delete mode
-				String mode=request.getParameter("mode");
+				String mode=request.getParameter(MODE);
 				//Passed to use as a search term
-				String searchWord=request.getParameter("search");
+				String searchWord=request.getParameter(SEARCH);
 				//Passed if an entry is to be edited
-				String idValue=request.getParameter("edit");
+				String idValue=request.getParameter(MODE_EDIT);
 				
 				//Debug
 				logger.debug(String.format("searchMaterial:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
@@ -250,7 +269,8 @@ public class APLMaterialServlet extends HttpServlet
 				try
 				{
 					//if the page is to do a search
-					if(mode==null || mode.equals("search"))
+					//if(mode==null || mode.equals("search"))
+					if(mode==null || SEARCH.equals(mode))
 					{
 						Map<Integer,Material> list=null;
 						//To check to search for all entries or entries where name=searchWord
@@ -263,11 +283,12 @@ public class APLMaterialServlet extends HttpServlet
 							
 							list=spt.search("type",searchWord);
 						}
-						request.setAttribute("materials", list); //Add the result list to the request object to be used by the JSP page
+						request.setAttribute(MATERIALS, list); //Add the result list to the request object to be used by the JSP page
 						//debug
+						logger.debug(list.keySet());
 						logger.debug(String.format("%d results returned %n",list.size()));
 					
-						dispatchURL="/WEB-INF/JSP/MaterialSearchPage.jsp";
+						dispatchURL=MATERIAL_SEARCH_PAGE;
 						
 					}
 //					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
@@ -286,32 +307,32 @@ public class APLMaterialServlet extends HttpServlet
 //					}
 					else if(mode!=null)
 					{
-						if(mode.equals("add")||idValue==null) //idValue will equal null if the checked box isn't selected
+						if(MODE_ADD.equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
 							logger.debug(String.format("searchMaterial:Opening Material.jsp"));
 							//open the JobTemplate JSPage in add mode
 							Material material =new Material();
-							request.setAttribute("form", material);
-							dispatchURL="/WEB-INF/JSP/Material.jsp";
+							request.setAttribute(FORM, material);
+							dispatchURL=MATERIAL_ADD_EDIT_VIEW;
 						}
-						else if(mode.equals("edit")&&idValue!=null)
+						else if(MODE_EDIT.equals(mode) && idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
 							logger.debug(String.format("searchMaterial:Opening Material.jsp in edit mode"));
 							Material material=spt.getMaterial(idValue);
-							dispatchURL="/WEB-INF/JSP/Material.jsp";
-							request.setAttribute("form", material);
-							request.setAttribute("mode","edit");
+							dispatchURL=MATERIAL_ADD_EDIT_VIEW;
+							request.setAttribute(FORM, material);
+							request.setAttribute(MODE,MODE_EDIT);
 						}
 					}
 					
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);
 				}
-				catch(SQLException se)
+				catch(DAOException se)
 				{
 					se.printStackTrace();
-					throw new ServletException("Database not available:"+se.getMessage());
+					throw (ServletException)new ServletException("Database not available:"+se.getMessage()).initCause(se);
 				}
 		
 	}
@@ -324,8 +345,10 @@ public class APLMaterialServlet extends HttpServlet
 	@Override
 	public void init() throws ServletException
 	{
+		super.init();
 		WebApplicationContext context2=(WebApplicationContext)getServletContext().getAttribute("org.springframework.web.context.WebApplicationContext.ROOT");
 		setMaterialActionFactory((MaterialActionFactory)context2.getBean("materialActionFactory"));
-		super.init();
 	}
+
+	
 }

@@ -1,0 +1,10 @@
+userName.empty=User name is missing
+emailAddress.wrong.format=Email in the wrong format
+SPCDataForm.measurement.missing=Values are missing form the submitted form
+SPCDataForm.measurementNumber.missing=measurementNumbers are missing from the form submission
+SPCDataForm.spcmeasurement.missing=Missing SPCMeasurement object
+SPCDataForm.measurement.size=Too many/few values for the measurement field submitted
+SPCDataForm.measurementNumber.size=Too many/few values for the measurementNumber field submitted
+SPCDataForm.date.inTheFuture=The date submitted is in the future and is not acceptable
+SPCDataForm.measurement.format=Values for measurements are not floating point numbers
+SPCDataForm.measurementNumber.format=Values for measurementNumbers are not Integer numbers

@@ -1,5 +1,11 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page session="false" %>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -121,7 +127,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <div class="navbox" style="right:220px;">Search Page</div>
 </a>
 -->
-<tags:Navbox href="${pageContext.request.contextPath}/ProcessSheet_search" value="Search Page" position="220px" ></tags:Navbox>
+<tags:Navbox href="${pageContext.request.contextPath}/app/ProcessSheet_search" value="Search Page" position="220px" ></tags:Navbox>
 <!-- Selection box -->
 <select id="pageSelect" onchange='displayDiv(this,tabs)'>
 <option value="info">Information</option>
@@ -141,7 +147,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <SCRIPT>alert("${errors}");</SCRIPT>
 </c:if>
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
-<FORM method="post" action="${pageContext.request.contextPath}/Processing/ProcessSheetBean"> 
+<FORM method="post" action="${pageContext.request.contextPath}/app/Processing/ProcessSheetBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
@@ -158,7 +164,7 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <select name="material">
 	<c:forEach items='${materials}' var='material'>
 		<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-				<c:out value="${material.value}"/>
+				<c:out value="${myfunc:toString(material.value)}"/>
 		</option>
 	</c:forEach>
 </select>

@@ -1,27 +1,35 @@
 package org.amc.servlet.listener;
-import java.util.Properties;
+
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.util.Enumeration;
+import java.util.Set;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
 
-
-
-public class StartupShutdownListener implements ServletContextListener 
+import com.mysql.jdbc.AbandonedConnectionCleanupThread;
+import org.amc.Constants.Roles;
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
+public final class StartupShutdownListener implements ServletContextListener 
 {
+	/**
+	 * Roles defined here must be the same as the roles defined in the deployment descriptor
+	 */ 
+	private final static String ROLES="SECURITY_ROLES";
 
+	public final static Logger log = Logger.getLogger(StartupShutdownListener.class);
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) 
 	{
-		Logger log=(Logger)org.apache.log4j.Logger.getLogger(StartupShutdownListener.class);
 		log.info("Servlet shut down....");
-		//sendEmail("MyServlet:Has Shut down");
+		deregisterDatabaseDrivers();
 	}
 
 	@Override
@@ -30,76 +38,53 @@ public class StartupShutdownListener implements ServletContextListener
 		//Setting up logger
 		//System.out.println(arg0.getServletContext().getRealPath("/")+"WEB-INF/log4j.properties");
 		//PropertyConfigurator.configure("log4j.properties");
-		
-		Logger log = Logger.getLogger(StartupShutdownListener.class.toString());
-	
 		log.info("Servlet started up....");
 		
+		//adding security roles to the servlet context for use by User.jsp
+		
+		arg0.getServletContext().setAttribute(ROLES,Roles.getStringValues());
+		
 	}
-
-	public boolean sendEmail(String message)
+	
+	/**
+	 * When the application is stopped JDBC drivers ared deregistered to help prevent a memory leak
+	 */
+	public void deregisterDatabaseDrivers()
 	{
-		boolean result=false;
-		String smtpHost="smtp.gmail.com";
-		final String smtpUsername="subwoofer359@gmail.com";
-		final String smtpPassword="edomoisac1";
-		
-		String from="subwoofer359@gmail.com";
-		String to="adrianjmclaughlin@gmail.com";
-		
-		int smtpPort=465;
-		System.out.println("Sending email...");
-		try
+		Enumeration<Driver> list=DriverManager.getDrivers();
+		while(list.hasMoreElements())
 		{
-			Properties prop=new Properties();
-			prop.put("mail.smtp.host",smtpHost);
-			prop.put("mail.smtp.port", "465");
-			prop.put("mail.smtp.auth","true");
-			prop.put("mail.smtp.starttls.enable","true");
-			prop.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-			prop.put("mail.smtp.socketFactory.port", "465");
-
-			         
-			
-			
-//			Session session=Session.getInstance(prop);
-			Session session=Session.getDefaultInstance(prop,new Authenticator() {
-
-	            @Override
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(smtpUsername, smtpPassword);
-	            }
-
-	        });
-			session.setDebug(true);
-			
-			Message msg=new MimeMessage(session);
-			
-			InternetAddress addressFrom =new InternetAddress(from);
-			msg.setFrom(addressFrom);
-			
-			InternetAddress[] address=new InternetAddress[1];
-			address[0]=new InternetAddress(to);
-			msg.setRecipients(Message.RecipientType.TO, address);
-			
-			msg.setSubject(message);
-			msg.setContent(message,"text/plain");
-			
-//			Transport transport=session.getTransport("smtp");
-//			
-//			transport.connect(smtpHost,smtpPort,smtpUsername,smtpPassword);
-		
-			Transport.send(msg);
-			
-			
+			Driver driver=list.nextElement();
+			try
+			{
+				DriverManager.deregisterDriver(driver);
+				log.debug(driver.toString()+" deregistered");
+			}
+			catch(Exception e)
+			{
+				log.debug("In attempt to deregister driver:"+driver+" an exception has thrown:"+e.getMessage());
+			}
 		}
-		catch(javax.mail.MessagingException ex)
-		{
-			ex.printStackTrace();
-			result=false;
+		/*
+		 * Force closing down of the MySQL Abandoned connection cleanup thread
+		 * solution found on website: http://stackoverflow.com/questions/11872316/tomcat-guice-jdbc-memory-leak
+		 */
+		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
+		for(Thread t:threadArray) {
+		    if(t.getName().contains("Abandoned connection cleanup thread")) {
+		        synchronized(t) {
+		        	try
+		        	{
+		        		AbandonedConnectionCleanupThread.shutdown();
+		        	}
+		        	catch(InterruptedException ie)
+		        	{
+		        		log.warn("Problem stopping AbandonedConnectionCleanupThread:"+ie.getMessage());
+		        	}
+		        	
+		        }
+		    }
 		}
-		
-		
-		return result;
 	}
 }

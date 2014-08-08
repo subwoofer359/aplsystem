@@ -1,8 +1,14 @@
 package org.amc.servlet.validator;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import org.amc.servlet.model.MaterialForm;
+
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 
 public class MaterialForm_Validator 
 {
@@ -64,7 +70,7 @@ public class MaterialForm_Validator
 			}
 			catch(NullPointerException npe)
 			{
-				
+				errors.add(s[0]+" is null");
 			}
 		}
 			
@@ -79,7 +85,7 @@ public class MaterialForm_Validator
 		}
 		catch(NumberFormatException nfe)
 		{
-			
+			errors.add("Mould Temperatures are not numbers");
 		}
 		
 		

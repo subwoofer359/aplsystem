@@ -1,6 +1,13 @@
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <%@ page language="java" contentType="text/html; charset=UTF-8"   pageEncoding="UTF-8" %>
+<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
-<%@ taglib uri="/WEB-INF/tags/mytagsandfunctions.tld" prefix="my"  %>
+<%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="my"  %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +62,7 @@ table
 <table>
 <tr>
 <td>
-	<a href="${pageContext.request.contextPath}/Part_search">
+	<a href="${pageContext.request.contextPath}/app/Part_search">
 	<DIV id="partsearch" class="icon">
  		Part Search
 	</DIV>
@@ -67,7 +74,7 @@ table
 	</DIV>
 </td>
 <td>
-	<a href="${pageContext.request.contextPath}/ProcessSheet_search">
+	<a href="${pageContext.request.contextPath}/app/ProcessSheet_search">
 	<DIV id="process" class="icon">
 		Process Sheets
 	</DIV>
@@ -76,7 +83,7 @@ table
 </tr>
 <tr>
 <td>
-	<a href="${pageContext.request.contextPath}/Material_search">
+	<a href="${pageContext.request.contextPath}/app/Material_search">
 	<DIV id="material" class="icon">
 		Material list
 	</DIV>
@@ -84,15 +91,22 @@ table
 </td>
 <td>
 	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
-	<a href="${pageContext.request.contextPath}/security">
-	<DIV id="security" class="icon">
-		Security Panel
+	<a href="${pageContext.request.contextPath}/app/user/Users">
+	<DIV id="users" class="icon">
+		Users
 	</DIV>
 	</a>
 	</c:if>
 	
 </td>
 <td>
+	<c:if test="${my:isUserInRole(pageContext.request,'qc')}">
+	<a href="${pageContext.request.contextPath}/app/spc/SPCListParts">
+	<DIV id="spc" class="icon">
+		Statistical process control
+	</DIV>
+	</a>
+	</c:if>
 </td>
 </tr>
 </table>

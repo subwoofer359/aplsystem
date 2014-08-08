@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!--  
+	@author Adrian Mclaughlin
+ 	@version 1
+-->
 <Context>
 	
 	<Realm className="org.apache.catalina.realm.DataSourceRealm"
 			dataSourceName="jdbc/APLSystem"
 			userTable="users" userNameCol="user_name" userCredCol="user_pass"
 			userRoleTable="user_roles" roleNameCol="role_name"
-			localDataSource="true"/>
+			localDataSource="true"
+			digest="SHA-256"
+			/>
 	
 	<Resource name="jdbc/APLSystem"
 				auth="Container"

@@ -1,7 +1,14 @@
 package org.amc.servlet.action;
 
+import java.io.Serializable;
 
-public interface ProcessActionFactory
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
+
+public interface ProcessActionFactory extends Serializable
 {
 	public  SaveProcessSheetAction getSaveProcessSheetAction();
 	public  SearchProcessSheetAction getSearchProcessSheetAction();

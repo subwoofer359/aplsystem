@@ -1,6 +1,10 @@
+<%--  
+  @author Adrian Mclaughlin
+  @version 1
+--%>
 <%@ tag language="java" pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.servlet.model.MouldingProcess"  %>
-<%@ attribute name="process" required="true" type="org.amc.servlet.model.MouldingProcess" %>
+<%@ tag import="java.util.ArrayList" import="java.util.List" import="org.amc.model.MouldingProcess"  %>
+<%@ attribute name="process" required="true" type="org.amc.model.MouldingProcess" %>
 <%!
 	float startPosition=0;
 	float totalInjectionTime;

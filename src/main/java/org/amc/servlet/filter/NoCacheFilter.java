@@ -13,22 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet Filter implementation class NoCacheFilter
+ * @author Adrian Mclaughlin
+ * @version 1
  */
 @WebFilter("/*")
 public class NoCacheFilter implements Filter {
-
-    private FilterConfig filterConfig;
-    public NoCacheFilter() 
-    {
-      
-    }
-
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() 
 	{
-		
+		//Nothing to clean up
 	}
 
 	/**
@@ -50,7 +45,7 @@ public class NoCacheFilter implements Filter {
 	 */
 	public void init(FilterConfig fConfig) throws ServletException 
 	{
-		this.filterConfig=fConfig;
+		//No need to use the FilterConfig
 	}
 
 }

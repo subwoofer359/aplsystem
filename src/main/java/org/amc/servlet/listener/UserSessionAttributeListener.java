@@ -1,12 +1,17 @@
 package org.amc.servlet.listener;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 import java.security.Principal;
-import java.util.logging.Level;
+
+import org.amc.model.User;
 import org.apache.log4j.Logger;
 
 /**
@@ -22,7 +27,7 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
      */
     public void attributeRemoved(HttpSessionBindingEvent arg0) 
     {
-    	Logger log=(Logger)Logger.getLogger(UserSessionAttributeListener.class);
+    	Logger log=Logger.getLogger(UserSessionAttributeListener.class);
     	if(arg0.getName().equals("USER"))
     	{
         	Object temp=arg0.getValue();
@@ -30,8 +35,8 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         	{
         		if(temp!=null)
         		{
-        			Principal user=(Principal)temp;
-        			log.info("User:"+user.getName()+" has logged out");
+        			User user=(User)temp;
+        			log.info("User:"+user.getUserName()+" has logged out");
         		}
         	}
         	catch(ClassCastException cce)
@@ -47,7 +52,7 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
     public void attributeAdded(HttpSessionBindingEvent arg0) //FIX
     {
         HttpSession session=arg0.getSession();
-        Logger log=(Logger)Logger.getLogger(UserSessionAttributeListener.class);
+        Logger log=Logger.getLogger(UserSessionAttributeListener.class);
        
         synchronized(session)
         {
@@ -59,9 +64,8 @@ public class UserSessionAttributeListener implements HttpSessionAttributeListene
         			
         			if(temp!=null)
         			{
-        				Principal user=(Principal)temp;	
-        				log.info("User:"+user.getName()+" has logged in from "+REMOTE_ADDRESS);
-        			//	System.out.println("User:"+user.getName()+" has logged in");
+        				User user=(User)temp;	
+        				log.info("User:"+user.getUserName()+" has logged in from "+REMOTE_ADDRESS);
         			}
         		}
         		else

@@ -1,17 +1,21 @@
 package org.amc.servlet.model;
-
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
 public class PartForm 
 {
-	String id;
+	private String id;
 	
-	String colour;
-	String company;
-	boolean external;
-	String name;
-	String part_id;
-	String qss_no;
-	String revision;
-	String version;
+	private String colour;
+	private String company;
+	private boolean external;
+	private String name;
+	private String part_id;
+	private String qss_no;
+	private String revision;
+	private String version;
 	
 	public String getColour() {
 		return colour;
@@ -25,7 +29,7 @@ public class PartForm
 	public void setCompany(String company) {
 		this.company = company;
 	}
-	public boolean getExternal() {
+	public boolean isExternal() {
 		return external;
 	}
 	public void setExternal(boolean external) {

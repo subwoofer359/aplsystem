@@ -1,15 +1,22 @@
 package org.amc.servlet.action;
-
-import org.amc.servlet.dao.MouldingProcessDAO;
+/**
+ * 
+ * @author Adrian Mclaughlin
+ * @version 1
+ */
+import org.amc.dao.DAO;
+import org.amc.model.MouldingProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ProcessActionFactoryImpl implements ProcessActionFactory
 {
 
-	private MouldingProcessDAO mouldingProcessDAO;
+	private static final long serialVersionUID = 4706570566006585224L;
+	
+	private final DAO<MouldingProcess> mouldingProcessDAO;
 	
 	@Autowired
-	public ProcessActionFactoryImpl(MouldingProcessDAO mouldingProcessDAO)
+	public ProcessActionFactoryImpl(DAO<MouldingProcess> mouldingProcessDAO)
 	{
 		this.mouldingProcessDAO=mouldingProcessDAO;
 	}
