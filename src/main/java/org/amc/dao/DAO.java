@@ -12,7 +12,7 @@ import javax.persistence.Query;
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
-import org.amc.servlet.action.search.Search;
+import org.amc.servlet.action.search.WebFormSearch;
 import org.amc.servlet.action.search.SearchFields;
 import org.apache.log4j.Logger;
 
@@ -209,7 +209,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 	 * @return a List of Entities from the Database
 	 * @throws DAOException if the database raises an error
 	 */
-	public List<T> findEntities(Search search) throws DAOException
+	public List<T> findEntities(WebFormSearch search) throws DAOException
 	{
 		try
 		{

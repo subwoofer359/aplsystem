@@ -9,7 +9,7 @@ import java.util.Set;
  * @author Adrian McLaughlin
  *
  */
-public class PartSearch implements Search
+public class PartSearch implements WebFormSearch
 {
 	public enum PartSearchFields implements SearchFields
 	{

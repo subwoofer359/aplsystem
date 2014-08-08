@@ -1,7 +1,7 @@
 package org.amc.servlet.action.search;
 
 /**
- * Joins together the search field enums of Search classes
+ * Joins together the search field enums of WebFormSearch classes
  * @author Adrian McLaughlin
  *
  */

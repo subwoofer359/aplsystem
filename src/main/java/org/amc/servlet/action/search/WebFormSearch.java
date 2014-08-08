@@ -7,7 +7,7 @@ import java.util.Set;
  * @author Adrian McLaughlin
  *
  */
-public interface Search
+public interface WebFormSearch
 {
 	public Set<SearchFields> getFields();
 	
