@@ -11,9 +11,9 @@ import java.util.Set;
  */
 public class PartSearch implements Search
 {
-	public enum PartSearchFields implements SearchParameters
+	public enum PartSearchFields implements SearchFields
 	{
-		PART_NAME("part"),
+		PART_NAME("name"),
 		QSS_NUMBER("qss_no"),
 		COMPANY("company");
 		
@@ -33,11 +33,11 @@ public class PartSearch implements Search
 		}
 	}
 	
-	private Map<SearchParameters, Object> values;
+	private Map<SearchFields, Object> values;
 	
 	public PartSearch()
 	{
-		values=new HashMap<SearchParameters, Object>();
+		values=new HashMap<SearchFields, Object>();
 	}
 	/**
 	 * @return the part
@@ -82,12 +82,12 @@ public class PartSearch implements Search
 		values.put(PartSearchFields.COMPANY, company);
 	}
 	
-	public Set<SearchParameters> getFields()
+	public Set<SearchFields> getFields()
 	{
 		return values.keySet();
 	}
 	
-	public Object getField(SearchParameters field)
+	public Object getField(SearchFields field)
 	{
 		return values.get(field);
 	}

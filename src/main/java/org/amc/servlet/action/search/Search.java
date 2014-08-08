@@ -9,7 +9,7 @@ import java.util.Set;
  */
 public interface Search
 {
-	public Set<SearchParameters> getFields();
+	public Set<SearchFields> getFields();
 	
-	public Object getField(SearchParameters field);
+	public Object getField(SearchFields field);
 }

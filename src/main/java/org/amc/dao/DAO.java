@@ -13,7 +13,7 @@ import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
 import org.amc.servlet.action.search.Search;
-import org.amc.servlet.action.search.SearchParameters;
+import org.amc.servlet.action.search.SearchFields;
 import org.apache.log4j.Logger;
 
 
@@ -216,7 +216,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 			StringBuilder textQuery=new StringBuilder();
 			int queryIndex=1;
 			
-			for(Iterator<SearchParameters> i=search.getFields().iterator();i.hasNext();)
+			for(Iterator<SearchFields> i=search.getFields().iterator();i.hasNext();)
 			{
 				textQuery.append("x.");
 				textQuery.append(i.next());
@@ -235,7 +235,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 			Query query=getEntityManager().createQuery(textQuery.toString());
 			queryIndex=1;
 			
-			for(Iterator<SearchParameters> i=search.getFields().iterator();i.hasNext();)
+			for(Iterator<SearchFields> i=search.getFields().iterator();i.hasNext();)
 			{
 				Object value=search.getField(i.next());
 				query.setParameter(queryIndex++, value);
