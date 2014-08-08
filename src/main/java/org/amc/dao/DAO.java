@@ -1,6 +1,7 @@
 package org.amc.dao;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,6 +12,8 @@ import javax.persistence.Query;
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.model.WorkEntity;
+import org.amc.servlet.action.search.Search;
+import org.amc.servlet.action.search.SearchParameters;
 import org.apache.log4j.Logger;
 
 
@@ -198,6 +201,50 @@ public class DAO<T extends WorkEntity> implements Serializable
 			throw new DAOException(pe);
 		}
 		
+	}
+	
+	public List<T> findEntities(Search search) throws DAOException
+	{
+		try
+		{
+			StringBuilder textQuery=new StringBuilder();
+			int queryIndex=1;
+			
+			for(Iterator<SearchParameters> i=search.getFields().iterator();i.hasNext();)
+			{
+				textQuery.append("x.");
+				textQuery.append(i.next());
+				textQuery.append("=?");
+				textQuery.append(queryIndex++);
+				if(i.hasNext())
+				{
+					textQuery.append(" AND ");
+				}
+			}
+			
+			textQuery.insert(0, "Select x from "+entityClass.getSimpleName()+" x WHERE ");
+			
+			LOG.debug("FindEntities(Search) query is :"+textQuery.toString());
+			
+			Query query=getEntityManager().createQuery(textQuery.toString());
+			queryIndex=0;
+			
+			for(Iterator<SearchParameters> i=search.getFields().iterator();i.hasNext();)
+			{
+				Object value=search.getField(i.next());
+				query.setParameter(queryIndex++, value);
+			}
+			
+			@SuppressWarnings("unchecked")
+			List<T> resultList=query.getResultList();
+			return resultList;
+			
+		}
+		catch(PersistenceException pe)
+		{
+			LOG.error("DAO<"+entityClass.getSimpleName()+">:Error has occurred when trying to find entities");
+			throw new DAOException(pe);
+		}
 	}
 	
 	/**
