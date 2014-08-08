@@ -1,15 +1,11 @@
 package org.amc.servlet.action.search;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * Class that store information of a User's search parameters for a org.amc.model.Part
  * @author Adrian McLaughlin
  *
  */
-public class PartSearch implements WebFormSearch
+public class PartSearch extends WebFormSearch
 {
 	public enum PartSearchFields implements SearchFields
 	{
@@ -33,63 +29,50 @@ public class PartSearch implements WebFormSearch
 		}
 	}
 	
-	private Map<SearchFields, Object> values;
-	
 	public PartSearch()
 	{
-		values=new HashMap<SearchFields, Object>();
+		super();
 	}
 	/**
 	 * @return the part
 	 */
 	public String getPartName()
 	{
-		return String.valueOf(values.get(PartSearchFields.PART_NAME));
+		return String.valueOf(getFieldMap().get(PartSearchFields.PART_NAME));
 	}
 	/**
 	 * @return the qSSNumber
 	 */
 	public String getQSSNumber()
 	{
-		return String.valueOf(values.get(PartSearchFields.QSS_NUMBER));
+		return String.valueOf(getFieldMap().get(PartSearchFields.QSS_NUMBER));
 	}
 	/**
 	 * @return the company
 	 */
 	public String getCompany()
 	{
-		return String.valueOf(values.get(PartSearchFields.COMPANY));
+		return String.valueOf(getFieldMap().get(PartSearchFields.COMPANY));
 	}
 	/**
 	 * @param part the part to set
 	 */
 	public void setPartName(String partName)
 	{
-		values.put(PartSearchFields.PART_NAME,partName);
+		getFieldMap().put(PartSearchFields.PART_NAME,partName);
 	}
 	/**
 	 * @param qSSNumber the qSSNumber to set
 	 */
 	public void setQSSNumber(String qSSNumber)
 	{
-		values.put(PartSearchFields.QSS_NUMBER, qSSNumber);
+		getFieldMap().put(PartSearchFields.QSS_NUMBER, qSSNumber);
 	}
 	/**
 	 * @param company the company to set
 	 */
 	public void setCompany(String company)
 	{
-		values.put(PartSearchFields.COMPANY, company);
-	}
-	
-	public Set<SearchFields> getFields()
-	{
-		return values.keySet();
-	}
-	
-	public Object getField(SearchFields field)
-	{
-		return values.get(field);
-	}
-	
+		getFieldMap().put(PartSearchFields.COMPANY, company);
+	}	
 }

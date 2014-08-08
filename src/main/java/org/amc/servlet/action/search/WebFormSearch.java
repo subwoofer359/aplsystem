@@ -1,5 +1,7 @@
 package org.amc.servlet.action.search;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -7,9 +9,27 @@ import java.util.Set;
  * @author Adrian McLaughlin
  *
  */
-public interface WebFormSearch
+public abstract class WebFormSearch
 {
-	public Set<SearchFields> getFields();
+	private Map<SearchFields, Object> values;
 	
-	public Object getField(SearchFields field);
+	public WebFormSearch()
+	{
+		values=new HashMap<SearchFields, Object>();
+	}
+	
+	public Set<SearchFields> getFields()
+	{
+		return values.keySet();
+	}
+	
+	public Object getField(SearchFields field)
+	{
+		return values.get(field);
+	}
+	
+	protected Map<SearchFields,Object> getFieldMap()
+	{
+		return values;
+	}
 }
