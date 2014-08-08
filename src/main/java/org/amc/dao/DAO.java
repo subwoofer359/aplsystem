@@ -203,6 +203,12 @@ public class DAO<T extends WorkEntity> implements Serializable
 		
 	}
 	
+	/**
+	 * 
+	 * @param search Fields for the search
+	 * @return a List of Entities from the Database
+	 * @throws DAOException if the database raises an error
+	 */
 	public List<T> findEntities(Search search) throws DAOException
 	{
 		try
