@@ -59,8 +59,6 @@ window.onload=function()
 <SPAN class="search">
 Company<input type="text" name="company"/>
 Name<input type="text" name="partName"/>
-Start Date<input type="date" name="startDate"/>
-End Date<input type="date" name="endDate"/>
 QSS No.<input type="text" name="qssNumber"/>
 <input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
