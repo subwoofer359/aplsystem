@@ -12,6 +12,9 @@ import javax.persistence.Query;
 
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
+import org.amc.dao.parsers.PartSearchParser;
+import org.amc.dao.parsers.WebFormSearchParserFactory;
+import org.amc.dao.parsers.WebFormSearchToJPQLParser;
 import org.amc.model.WorkEntity;
 import org.amc.servlet.action.search.WebFormSearch;
 import org.amc.servlet.action.search.SearchFields;
@@ -214,33 +217,19 @@ public class DAO<T extends WorkEntity> implements Serializable
 	{
 		try
 		{
-			StringBuilder textQuery=new StringBuilder();
-			int queryIndex=1;
-			
-			for(Iterator<SearchFields> i=search.getFields().iterator();i.hasNext();)
-			{
-				textQuery.append("x.");
-				textQuery.append(i.next());
-				textQuery.append(" LIKE ?");
-				textQuery.append(queryIndex++);
-				if(i.hasNext())
-				{
-					textQuery.append(" AND ");
-				}
-			}
-			
+			WebFormSearchToJPQLParser parser=WebFormSearchParserFactory.getWebFormSearchParser(search);
+			String textQuery=parser.parse(this.entityClass,search);
+						
 			//If there are no search fields then return an empty List
 			if(textQuery.length()==0)
 			{
 				return new ArrayList<T>();
 			}
 			
-			textQuery.insert(0, "Select x from "+entityClass.getSimpleName()+" x WHERE ");
+			LOG.debug("FindEntities(Search) query is :"+textQuery);
 			
-			LOG.debug("FindEntities(Search) query is :"+textQuery.toString());
-			
-			Query query=getEntityManager().createQuery(textQuery.toString());
-			queryIndex=1;
+			Query query=getEntityManager().createQuery(textQuery);
+			int queryIndex=1;
 			
 			for(Iterator<SearchFields> i=search.getFields().iterator();i.hasNext();)
 			{
