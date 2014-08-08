@@ -102,5 +102,26 @@ public class DAOIntegrationTest
 		}
 		
 	}
+	
+	@Test
+	public void testFindEntitiesSearch_EmptyPartSearch()
+	{
+		PartSearch search=new PartSearch();
+		DAO<Part> partDAO=new DAO<Part>(Part.class);
+		
+		SearchPartAction action =new SearchPartAction(partDAO);
+		
+		try
+		{
+			List<Part> result=action.search(search);
+			assertNotNull(result);
+			assertEquals(result.size(), 0);
+		}
+		catch(DAOException de)
+		{
+				de.printStackTrace();
+				fail("DAOException thrown");
+		}
+	}
 
 }

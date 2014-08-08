@@ -1,6 +1,7 @@
 package org.amc.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -220,12 +221,18 @@ public class DAO<T extends WorkEntity> implements Serializable
 			{
 				textQuery.append("x.");
 				textQuery.append(i.next());
-				textQuery.append("=?");
+				textQuery.append(" LIKE ?");
 				textQuery.append(queryIndex++);
 				if(i.hasNext())
 				{
 					textQuery.append(" AND ");
 				}
+			}
+			
+			//If there are no search fields then return an empty List
+			if(textQuery.length()==0)
+			{
+				return new ArrayList<T>();
 			}
 			
 			textQuery.insert(0, "Select x from "+entityClass.getSimpleName()+" x WHERE ");
