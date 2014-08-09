@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.parsers.NoSuchWebFormParser;
-import org.amc.dao.parsers.PartSearchParser;
 import org.amc.dao.parsers.WebFormSearchParserFactory;
 import org.amc.dao.parsers.WebFormSearchToJPQLParser;
 import org.amc.model.WorkEntity;
