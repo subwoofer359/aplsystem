@@ -1,8 +1,10 @@
 package org.amc.servlet.action;
 import org.amc.DAOException;
+
 import java.util.Map;
 
 import org.amc.model.Material;
+import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.dao.MaterialDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 /**
@@ -34,9 +36,16 @@ public class SearchMaterialAction
 		
 	}
 	
+	public Map<Integer,Material> search(MaterialSearch materialSearch) throws DAOException
+	{
+		return materialDAO.findMaterials(materialSearch);
+		
+	}
+	
 	public Material getMaterial(String id) throws DAOException
 	{
 		return materialDAO.getEntity(id);
 	}
 
+	
 }

@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.amc.Constants.Roles;
 import org.amc.DAOException;
 
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.SaveMaterialAction;
 import org.amc.servlet.action.SearchMaterialAction;
+import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.model.Material;
 import org.amc.servlet.model.MaterialForm;
+import org.amc.servlet.model.MaterialSearchForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
+import org.amc.servlet.validator.MaterialSearchValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
@@ -268,43 +273,43 @@ public class APLMaterialServlet extends HttpServlet
 				String dispatchURL=null;
 				try
 				{
-					//if the page is to do a search
-					//if(mode==null || mode.equals("search"))
 					if(mode==null || SEARCH.equals(mode))
 					{
 						Map<Integer,Material> list=null;
-						//To check to search for all entries or entries where name=searchWord
-						if(searchWord==null||searchWord.equals(""))// search for all entries
+						
+						MaterialSearchForm materialForm=new MaterialSearchForm();
+						materialForm.setCompany(request.getParameter("company"));
+						materialForm.setName(request.getParameter("name"));
+						materialForm.setType(request.getParameter("type"));
+						
+						MaterialSearchValidator validator =new MaterialSearchValidator();
+						
+						validator.validate(materialForm);
+						if(validator.hasErrors())
 						{
-							list=spt.search();
+							request.setAttribute(ControllerConstants.MESSAGE, validator.getErrors());
 						}
-						else //search for entry where name=searchWord 
+						else
 						{
-							
-							list=spt.search("type",searchWord);
+							try
+							{
+								MaterialSearch materialSearch=MaterialSearchValidator.MaterialSearchBinder.getMaterialSearch(materialForm);
+								list=spt.search(materialSearch);
+							}
+							catch(ParseException pe)
+							{
+								request.setAttribute(ControllerConstants.MESSAGE, "Search Parameters couldn't be parsed");
+								list=new HashMap<Integer,Material>();
+							}
 						}
 						request.setAttribute(MATERIALS, list); //Add the result list to the request object to be used by the JSP page
-						//debug
+	
 						logger.debug(list.keySet());
 						logger.debug(String.format("%d results returned %n",list.size()));
 					
 						dispatchURL=MATERIAL_SEARCH_PAGE;
 						
 					}
-//					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
-//					{
-//						//open the JobTemplate JSPage in edit mode
-//						JobTemplate job=sjt.getJobTemplate(idValue);
-//						dispatchURL="/JSP/JobTemplate.jsp";
-//						request.setAttribute("form", job);
-//						request.setAttribute("mode","edit");
-//						
-//					}
-//					else if(mode!=null && mode.equals("add"))
-//					{
-//						//open the JobTemplate JSPage in add mode
-//						dispatchURL="/JSP/JobTemplate.jsp";
-//					}
 					else if(mode!=null)
 					{
 						if(MODE_ADD.equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected

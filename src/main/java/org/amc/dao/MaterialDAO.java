@@ -8,6 +8,7 @@ import java.util.TreeMap;
 
 import org.amc.DAOException;
 import org.amc.model.Material;
+import org.amc.servlet.action.search.WebFormSearch;
 import org.apache.log4j.Logger;
 
 import javax.persistence.EntityManager;
@@ -72,6 +73,18 @@ public class MaterialDAO extends DAO<Material> implements Serializable
 			em.getTransaction().rollback();
 			logger.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to find entities");
 			throw new DAOException(pe);
+		}
+		return list;
+	}
+	
+	
+	public Map<Integer,Material> findMaterials(WebFormSearch search) throws DAOException
+	{
+		Map<Integer, Material> list=new TreeMap<Integer,Material>();
+		List<Material> materials=super.findEntities(search);
+		for(Material m:materials)
+		{
+			list.put(m.getId(),m);
 		}
 		return list;
 	}
