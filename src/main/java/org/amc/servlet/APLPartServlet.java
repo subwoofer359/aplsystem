@@ -26,6 +26,8 @@ import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
+import static org.amc.servlet.ControllerConstants.SEARCH;
+
 /**
  * Servlet implementation class APLSystemServlet 
  * @author Adrian Mclaughlin
@@ -46,13 +48,13 @@ import org.springframework.context.ApplicationContext;
 				"/app/logout"
 		},loadOnStartup=1)
 
-public class APLSystemServlet extends HttpServlet 
+public class APLPartServlet extends HttpServlet 
 {
 	private static final long serialVersionUID = 334034039L;
 
 	private PartActionFactory partActionFactory;
 	
-	private static Logger logger=Logger.getLogger(APLSystemServlet.class);
+	private static Logger logger=Logger.getLogger(APLPartServlet.class);
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -266,7 +268,7 @@ public class APLSystemServlet extends HttpServlet
 		try
 		{
 			//if the page is to do a search
-			if(mode==null || "search".equals(mode))
+			if(mode==null || SEARCH.equals(mode))
 			{
 				List<Part> list=null;
 				
@@ -285,10 +287,9 @@ public class APLSystemServlet extends HttpServlet
 				}
 				else
 				{
-					PartSearch partSearch=null;
 					try
 					{
-						partSearch=PartSearchFormValidator.PartSearchBinder.getPartSearch(partSearchForm);
+						PartSearch partSearch=PartSearchFormValidator.PartSearchBinder.getPartSearch(partSearchForm);
 						list=sjt.search(partSearch);
 					}
 					catch(ParseException pe)
