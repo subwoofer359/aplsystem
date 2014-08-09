@@ -2,6 +2,7 @@ package org.amc.servlet;
 
 import java.io.IOException;
 
+import org.amc.Constants;
 import org.amc.DAOException;
 
 import java.text.ParseException;
@@ -26,7 +27,13 @@ import org.amc.servlet.validator.*;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
+import static org.amc.servlet.ControllerConstants.MODE;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.MODE_ADD;
+import static org.amc.servlet.ControllerConstants.PARTS;
 import static org.amc.servlet.ControllerConstants.SEARCH;
+import static org.amc.servlet.ControllerConstants.FORM;
 
 /**
  * Servlet implementation class APLSystemServlet 
@@ -119,7 +126,7 @@ public class APLPartServlet extends HttpServlet
 	{
 		
 		//check if page is in create or edit mode
-		String mode=request.getParameter("mode");
+		String mode=request.getParameter(MODE);
 		logger.debug(String.format("mode:[%s]", mode));//debug
 		//create form
 		PartForm jForm=new PartForm();
@@ -154,7 +161,7 @@ public class APLPartServlet extends HttpServlet
 		List<String> errors=validator.validate(jForm);
 		
 		//Check if user is a role to allow changes to the database
-		if(!(request.isUserInRole("qc")||(request.isUserInRole("manager"))))
+		if(!(request.isUserInRole(Constants.Roles.QC.toString())||(request.isUserInRole(Constants.Roles.MANAGER.toString()))))
 		{
 			errors.add("User has no permissions to alter Part definitions!");
 		}
@@ -182,7 +189,7 @@ public class APLPartServlet extends HttpServlet
 				if(mode==null||"Enter".equals(mode))
 				{
 					action.save(part);
-					request.setAttribute("form",jForm);
+					request.setAttribute(FORM,jForm);
 					request.setAttribute("result", part.toString()+" saved");
 					dispatcherURL="/WEB-INF/JSP/Part.jsp";
 				}
@@ -200,8 +207,8 @@ public class APLPartServlet extends HttpServlet
 					throw new ServletException("Form received can't be processed");
 				}
 
-				//request.removeAttribute("form");
-				request.removeAttribute("errors");
+				//request.removeAttribute(FORM);
+				request.removeAttribute(ERRORS);
 				RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
 				
 				rd.forward(request, response);
@@ -221,8 +228,8 @@ public class APLPartServlet extends HttpServlet
 		else
 		{
 			//if the form doesn't validate without errors then
-			request.setAttribute("errors", errors);
-			request.setAttribute("form", jForm);			
+			request.setAttribute(ERRORS, errors);
+			request.setAttribute(FORM, jForm);			
 			
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Part.jsp");
 			rd.forward(request, response);
@@ -253,9 +260,9 @@ public class APLPartServlet extends HttpServlet
 	{
 		
 		//check to if in search or edit mode TODO add delete mode
-		String mode=request.getParameter("mode");
+		String mode=request.getParameter(MODE);
 		//Passed if an entry is to be edited
-		String idValue=request.getParameter("edit");
+		String idValue=request.getParameter(MODE_EDIT);
 		
 		//Debug
 		logger.debug(String.format("mode:[%s] ID:[%s]%n", mode,idValue));
@@ -300,7 +307,7 @@ public class APLPartServlet extends HttpServlet
 					
 				}
 				
-				request.setAttribute("parts", list); //Add the result list to the request object to be used by the JSP page
+				request.setAttribute(PARTS, list); //Add the result list to the request object to be used by the JSP page
 				
 				//debug
 				logger.debug(String.format("%d results returned %n",list.size()));
@@ -310,18 +317,18 @@ public class APLPartServlet extends HttpServlet
 			}
 			else if(mode!=null)
 			{
-				if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
+				if(MODE_ADD.equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 				{
 					//open the Part JSPage in add mode
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
 				}
-				else if("edit".equals(mode)&&idValue!=null)
+				else if(MODE_EDIT.equals(mode)&&idValue!=null)
 				{
 					//open the Part JSPage in edit mode
 					Part part=sjt.getPart(idValue);
 					dispatchURL="/WEB-INF/JSP/Part.jsp";
-					request.setAttribute("form", part);
-					request.setAttribute("mode","edit");
+					request.setAttribute(FORM, part);
+					request.setAttribute(MODE,MODE_EDIT);
 				}
 			}
 			RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
