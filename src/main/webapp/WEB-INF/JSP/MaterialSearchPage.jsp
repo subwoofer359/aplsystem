@@ -39,13 +39,17 @@
 <c:forEach items="${materials}" var="material">
 <TR  onclick="selected(this)"><TD><c:out value="${material.value.company}"/></TD><TD><c:out value="${material.value.name}"/></TD><TD><c:out value="${material.value.type}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
 </c:forEach>
-<!-- <TR><TD></TD><TD></TD><TD></TD></TR>--> 
 </tbody>
 </TABLE>
 </DIV>
-<SPAN class="search">
-<input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
-</SPAN>
+
+<table class="search">
+<tbody>
+<tr><td>Company</td><td><input type="text" name="company"/></td><td></td></tr>
+<tr><td>Name</td><td><input type="text" name="name"/></td><td></td></tr>
+<tr><td>Type</td><td><input type="text" name="type"/></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
+</tbody>
+</table>
 <SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit"  /></SPAN>
 </FORM>
 
