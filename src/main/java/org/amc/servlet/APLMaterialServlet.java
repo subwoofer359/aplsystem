@@ -39,6 +39,7 @@ import static org.amc.servlet.ControllerConstants.MATERIAL;
 import static org.amc.servlet.ControllerConstants.MATERIALS;
 import static org.amc.servlet.ControllerConstants.PROCESS;
 import static org.amc.servlet.ControllerConstants.SEARCH;
+import static org.amc.servlet.ControllerConstants.FORM;
 /**
  * Servlet implementation class APLMaterialServlet
  * @author Adrian Mclaughlin
@@ -60,8 +61,6 @@ public class APLMaterialServlet extends HttpServlet
 	private static Logger logger=Logger.getLogger(APLMaterialServlet.class);
 	
 	private MaterialActionFactory materialActionFactory;
-	
-	private static final String FORM="form";
 	
 	private static final String MATERIAL_ADD_EDIT_VIEW="/WEB-INF/JSP/Material.jsp";
 	private static final String MATERIAL_SEARCH_VIEW="/app/Material_search";
@@ -258,13 +257,11 @@ public class APLMaterialServlet extends HttpServlet
 	{
 		//check to if in search or edit mode TODO add delete mode
 				String mode=request.getParameter(MODE);
-				//Passed to use as a search term
-				String searchWord=request.getParameter(SEARCH);
 				//Passed if an entry is to be edited
 				String idValue=request.getParameter(MODE_EDIT);
 				
 				//Debug
-				logger.debug(String.format("searchMaterial:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
+				logger.debug(String.format("searchMaterial:mode:[%s] ID:[%s]%n", mode,idValue));
 				
 				
 				
