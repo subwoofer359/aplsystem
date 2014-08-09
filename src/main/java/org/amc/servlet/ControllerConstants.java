@@ -2,7 +2,7 @@ package org.amc.servlet;
 
 final class ControllerConstants 
 {
-	
+	static final String FORM="form";
 	static final String USERS="users";
 	static final String USER="user";
 	static final String PROCESS="process";
