@@ -33,21 +33,22 @@ public class MaterialSearch extends WebFormSearch
 	 */
 	public String getCompany()
 	{
-		return String.valueOf(getFieldMap().get(MaterialSearchFields.COMPANY));
+		
+		return (getFieldMap().get(MaterialSearchFields.COMPANY)==null)?null:String.valueOf(getFieldMap().get(MaterialSearchFields.COMPANY));
 	}
 	/**
 	 * @return the name
 	 */
 	public String getName()
 	{
-		return String.valueOf(getFieldMap().get(MaterialSearchFields.NAME));
+		return (getFieldMap().get(MaterialSearchFields.NAME)==null)?null:String.valueOf(getFieldMap().get(MaterialSearchFields.NAME));
 	}
 	/**
 	 * @return the type
 	 */
 	public String getType()
 	{
-		return String.valueOf(getFieldMap().get(MaterialSearchFields.TYPE));
+		return (getFieldMap().get(MaterialSearchFields.TYPE)==null)?null:String.valueOf(getFieldMap().get(MaterialSearchFields.TYPE));
 	}
 	/**
 	 * @param company the company to set

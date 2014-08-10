@@ -38,21 +38,21 @@ public class PartSearch extends WebFormSearch
 	 */
 	public String getPartName()
 	{
-		return String.valueOf(getFieldMap().get(PartSearchFields.PART_NAME));
+		return (getFieldMap().get(PartSearchFields.PART_NAME)==null)?null:String.valueOf(getFieldMap().get(PartSearchFields.PART_NAME));
 	}
 	/**
 	 * @return the qSSNumber
 	 */
 	public String getQSSNumber()
 	{
-		return String.valueOf(getFieldMap().get(PartSearchFields.QSS_NUMBER));
+		return (getFieldMap().get(PartSearchFields.QSS_NUMBER)==null)?null:String.valueOf(getFieldMap().get(PartSearchFields.QSS_NUMBER));
 	}
 	/**
 	 * @return the company
 	 */
 	public String getCompany()
 	{
-		return String.valueOf(getFieldMap().get(PartSearchFields.COMPANY));
+		return (getFieldMap().get(PartSearchFields.COMPANY)==null)?null:String.valueOf(getFieldMap().get(PartSearchFields.COMPANY));
 	}
 	/**
 	 * @param part the part to set
@@ -75,4 +75,15 @@ public class PartSearch extends WebFormSearch
 	{
 		getFieldMap().put(PartSearchFields.COMPANY, company);
 	}	
+	
+	@Override
+	public String toString()
+	{
+		StringBuilder text=new StringBuilder();
+		text.append("PartSearch:");		
+		text.append("(Company=");text.append(getCompany());text.append(')');
+		text.append("(PartName=");text.append(getPartName());text.append(')');
+		text.append("(QSSNumber=");text.append(getQSSNumber());text.append(')');
+		return text.toString();
+	}
 }

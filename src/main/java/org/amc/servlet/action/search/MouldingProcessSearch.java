@@ -70,37 +70,37 @@ public class MouldingProcessSearch  extends WebFormSearch
 	
 	public Integer getPartId()
 	{
-		return (Integer)getFieldMap().get(ProcessSearchFields.PART_NAME);
+		return (getFieldMap().get(ProcessSearchFields.PART_NAME)==null)?null:(Integer)getFieldMap().get(ProcessSearchFields.PART_NAME);
 	}
 	
 	public String getMachineNo()
 	{
-		return String.valueOf(getFieldMap().get(ProcessSearchFields.MACHINE_NO));
+		return (getFieldMap().get(ProcessSearchFields.MACHINE_NO)==null)?null:String.valueOf(getFieldMap().get(ProcessSearchFields.MACHINE_NO));
 	}
 	
 	public Integer getMaterial()
 	{
-		return (Integer)getFieldMap().get(ProcessSearchFields.MATERIAL);
+		return (getFieldMap().get(ProcessSearchFields.MATERIAL)==null)?null:(Integer)getFieldMap().get(ProcessSearchFields.MATERIAL);
 	}
 	
 	public Integer getMasterBatchNo()
 	{
-		return (Integer)getFieldMap().get(ProcessSearchFields.MASTERBATCH);
+		return (getFieldMap().get(ProcessSearchFields.MASTERBATCH)==null)?null:(Integer)getFieldMap().get(ProcessSearchFields.MASTERBATCH);
 	}
 	
 	public String getSignOffBy()
 	{
-		return String.valueOf(getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY));
+		return (getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY)==null)?null:String.valueOf(getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY));
 	}
 	
 	public Date getStartDate()
 	{
-		return (Date)getFieldMap().get(ProcessSearchFields.START_DATE);
+		return (getFieldMap().get(ProcessSearchFields.START_DATE)==null)?null:(Date)getFieldMap().get(ProcessSearchFields.START_DATE);
 	}
 	
 	public Date getEndDate()
 	{
-		return (Date)getFieldMap().get(ProcessSearchFields.END_DATE);
+		return (getFieldMap().get(ProcessSearchFields.END_DATE)==null)?null:(Date)getFieldMap().get(ProcessSearchFields.END_DATE);
 	}
 	
 }
