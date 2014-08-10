@@ -54,7 +54,7 @@ public class DAOMouldingProcessIntegrationTest
 	public void testFindEntitiesSearch()
 	{
 		MouldingProcessSearch search=new MouldingProcessSearch();
-		search.setSignOffBy("John Malone");
+		search.setSignedOffBy("John Malone");
 		DAO<MouldingProcess> mpDAO=new DAO<MouldingProcess>(MouldingProcess.class);
 		
 		SearchProcessSheetAction action =new SearchProcessSheetAction(mpDAO);

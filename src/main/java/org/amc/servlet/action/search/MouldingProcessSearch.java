@@ -53,7 +53,7 @@ public class MouldingProcessSearch  extends WebFormSearch
 		getFieldMap().put(ProcessSearchFields.MASTERBATCH,masterbatchNo);
 	}
 	
-	public void setSignOffBy(String signee)
+	public void setSignedOffBy(String signee)
 	{
 		getFieldMap().put(ProcessSearchFields.SIGNED_OFF_BY,signee);
 	}
