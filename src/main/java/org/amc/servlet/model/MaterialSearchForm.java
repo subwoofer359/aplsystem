@@ -48,17 +48,18 @@ public class MaterialSearchForm implements WebPageForm
 	{
 		this.company = company;
 	}
-	/* (non-Javadoc)
-	 * @see org.amc.servlet.model.WebPageForm#isEmpty()
-	 */
+	
 	@Override
 	public boolean isEmpty()
 	{
-		if(company==null && name==null && type==null)
+		if((company==null||company.trim().equals("")) && 
+				(name==null||name.trim().equals("")) && 
+				(type==null||name.trim().equals("")))
 		{
 			return true;
 		}
-		return false;
+		else
+			return false;
 	}
 	
 	

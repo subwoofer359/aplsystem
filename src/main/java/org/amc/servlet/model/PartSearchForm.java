@@ -54,7 +54,9 @@ public class PartSearchForm implements WebPageForm
 	@Override
 	public boolean isEmpty()
 	{
-		if(this.company==null && this.partName==null && this.qSSNumber==null)
+		if((this.company==null||company.trim().equals("")) && 
+				(this.partName==null||partName.trim().equals("")) && 
+				(this.qSSNumber==null||qSSNumber.trim().equals("")))
 		{
 			return true;
 		}
