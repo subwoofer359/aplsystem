@@ -9,7 +9,7 @@ import org.amc.model.MouldingProcess;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class MouldingProcessForm implements WebPageForm
+public class MouldingProcessForm
 {
 	private String id;// Database ID
 	// Top Header
