@@ -3,7 +3,6 @@
  	@version 1
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -58,7 +57,10 @@ window.onload=function()
 </TABLE>
 </DIV>
 <SPAN class="search">
-<input type="text" name="search"/><input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
+Company<input type="text" name="company"/>
+Name<input type="text" name="partName"/>
+QSS No.<input type="text" name="qssNumber"/>
+<input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
 </SPAN>
 <SPAN class="buttons">
 	<input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>

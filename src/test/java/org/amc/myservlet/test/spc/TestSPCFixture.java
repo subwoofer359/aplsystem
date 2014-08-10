@@ -1,17 +1,18 @@
 package org.amc.myservlet.test.spc;
 
-import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
+import org.amc.model.Material;
+import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
 import org.amc.model.User;
 import org.amc.model.spc.SPCMeasurement;
@@ -53,11 +54,11 @@ public class TestSPCFixture
 		}
 		//Get DAO object
 		DAO<Part> partDAO=new DAO<Part>(Part.class);
-		String[] colours={"red","blue","green"};
-		String[] companies={"HMV","Granada","Apple"};
-		String[] names={"CD","Car","IPOD"};
-		String[] part_ids={"393939","99w2933","ap3003"};
-		String[] qss_nos={"CD 001","GA 002","A 001"};
+		String[] colours={"red","blue","green","yellow"};
+		String[] companies={"HMV","Granada","Apple","Apple"};
+		String[] names={"CD","Car","IPOD","IPHONE"};
+		String[] part_ids={"393939","99w2933","ap3003","ap2202"};
+		String[] qss_nos={"CD 001","GA 002","A 001","A 002"};
 		
 		Part part=null;
 		for(int i=0;i<colours.length;i++)
@@ -76,6 +77,81 @@ public class TestSPCFixture
 		//Set it to be garbage collected
 		partDAO=null;
 	}
+	
+	public void setUpMaterialTable() throws DAOException
+	{
+		//Delete moulding process table 
+		if(tableExists("material"))
+		{
+			Query q1=em.createNativeQuery("delete from material");
+			em.getTransaction().begin();
+			q1.executeUpdate();
+			em.getTransaction().commit();
+		}
+		DAO<Material> materialDAO=new DAO<Material>(Material.class);
+		String[] company={"Exxon Mobil"};
+		String[] type={"PC"};
+		String[] name={"Moplen 540P"};
+		
+		for(int i=0;i<company.length;i++)
+		{
+			Material material=new Material();
+			material.setCompany(company[i]);
+			material.setType(type[i]);
+			material.setName(name[i]);
+			
+			materialDAO.addEntity(material);
+		}
+	}
+	
+	/**
+	 * A Material table is set up when calling this method
+	 * @throws DAOException
+	 */
+	public void setUpMouldingProcessTable() throws DAOException
+	{
+		//Delete moulding process table 
+		if(tableExists("processSheets"))
+		{
+			Query q1=em.createNativeQuery("delete from processSheets");
+			em.getTransaction().begin();
+			q1.executeUpdate();
+			em.getTransaction().commit();
+		}
+		
+		setUpMaterialTable();
+		DAO<Material> materialDAO=new DAO<Material>(Material.class);
+		Material material=materialDAO.findEntities().get(0);
+		
+		
+		DAO<MouldingProcess> mpDAO=new DAO<MouldingProcess>(MouldingProcess.class);
+		
+		String[] partId ={"1","2","3","4"};
+		int[] machineSize={150,100,125,75};
+		String[] machineNo={"Fanuc 1","Fanuc 7","Fanuc 5","Boy 2"};
+		int[] materials={material.getId(),material.getId(),material.getId(),material.getId()};
+		String[] masterbatchNo={"20303","030030","303002","30302123"};
+		Date[] dateOfIssue={Date.valueOf("2014-06-12"),Date.valueOf("2013-05-11"),Date.valueOf("2010-02-12"),Date.valueOf("2004-01-02")};
+		String signOffBy="John Malone";
+		
+		for(int i=0;i<partId.length;i++)
+		{
+			MouldingProcess mp=new MouldingProcess();
+			mp.setPartId(partId[i]);
+			mp.setMachineSize(machineSize[i]);
+			mp.setMachineNo(machineNo[i]);
+			mp.setMaterial(materials[i]);
+			mp.setMasterbatchNo(masterbatchNo[i]);
+			mp.setDateOfIssue(dateOfIssue[i]);
+			mp.setSignOffBy(signOffBy);
+			mpDAO.addEntity(mp);
+		}
+		
+		mpDAO=null;
+		
+		
+	}
+	
 	public void setUpUserTable() throws DAOException
 	{
 		//Clear table users

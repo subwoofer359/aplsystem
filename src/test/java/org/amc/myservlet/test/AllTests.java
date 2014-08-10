@@ -12,12 +12,17 @@ import org.amc.myservlet.test.ui.*;
 				TestMaterialDAO.class,
 				TestPartandMouldingProcessDAO.class, 
 				TestUser.class,
+				TestUserFilter.class,
 				TestSPCMeasurment.class,
 				TestSPCData.class,
 				TestAPLSpcController.class,
 				TestAPLSpcControllerIntegration.class,
-				TestPartUI.class,
-				TestUserUI.class
+				TestAPLSpcDataController.class,
+				TestSPCDataDAO.class,
+				DAOPartIntegrationTest.class,
+				DAOMouldingProcessIntegrationTest.class
+				//TestPartUI.class,
+				//TestUserUI.class
 				})
 public class AllTests
 {

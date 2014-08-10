@@ -1,7 +1,6 @@
 package org.amc.servlet.validator;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.amc.model.MouldingProcess;
@@ -11,11 +10,11 @@ import org.amc.servlet.model.MouldingProcessForm;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class ProcessForm_Validator 
+public class ProcessForm_Validator extends WebPageFormValidator
 {
 	public List<String> validate(MouldingProcessForm form)
 	{
-		List<String> errors=new ArrayList<String>();
+		List<String> errors=getErrors();
 		
 		String id=form.getId();
 		try

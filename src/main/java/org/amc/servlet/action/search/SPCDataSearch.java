@@ -1,11 +1,12 @@
 package org.amc.servlet.action.search;
 
 import java.util.Date;
+import java.util.Set;
 
 import org.amc.model.User;
 import org.amc.model.spc.SPCMeasurement;
 
-public class SPCDataSearch implements Search
+public class SPCDataSearch extends WebFormSearch
 {
 	private Date startDate;
 	private Date endDate;
@@ -98,5 +99,13 @@ public class SPCDataSearch implements Search
 		this.upperBoundMeasurement = upperBoundMeasurement;
 	}
 	
+	public Set<SearchFields> getFields()
+	{
+		return null;
+	}
 	
+	public Object getField(SearchFields field)
+	{
+		return null;
+	}
 }

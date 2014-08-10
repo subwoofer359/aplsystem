@@ -10,7 +10,7 @@ import org.amc.model.Material;
  * @version 1
  */
  
-public class MaterialForm
+public class MaterialForm implements WebPageForm
 {
 	private String id;
 	private String company;

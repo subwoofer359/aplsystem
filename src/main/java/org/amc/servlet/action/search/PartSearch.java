@@ -1,91 +1,78 @@
 package org.amc.servlet.action.search;
 
-import java.util.Date;
-
-import org.amc.model.Part;
-
 /**
  * Class that store information of a User's search parameters for a org.amc.model.Part
  * @author Adrian McLaughlin
  *
  */
-public class PartSearch implements Search
+public class PartSearch extends WebFormSearch
 {
-	private Part part;
-	private Date startDate;
-	private Date endDate;
-	private String qSSNumber;
-	private String company;
+	public enum PartSearchFields implements SearchFields
+	{
+		PART_NAME("name"),
+		QSS_NUMBER("qss_no"),
+		COMPANY("company");
+		
+		/**
+		 * Database column name
+		 */
+		private String name;
+		private PartSearchFields(String name)
+		{
+			this.name=name;
+		}
+		
+		@Override
+		public String toString()
+		{
+			return name;
+		}
+	}
+	
+	public PartSearch()
+	{
+		super();
+	}
 	/**
 	 * @return the part
 	 */
-	public Part getPart()
+	public String getPartName()
 	{
-		return part;
-	}
-	/**
-	 * @return the startDate
-	 */
-	public Date getStartDate()
-	{
-		return startDate;
-	}
-	/**
-	 * @return the endDate
-	 */
-	public Date getEndDate()
-	{
-		return endDate;
+		return String.valueOf(getFieldMap().get(PartSearchFields.PART_NAME));
 	}
 	/**
 	 * @return the qSSNumber
 	 */
 	public String getQSSNumber()
 	{
-		return qSSNumber;
+		return String.valueOf(getFieldMap().get(PartSearchFields.QSS_NUMBER));
 	}
 	/**
 	 * @return the company
 	 */
 	public String getCompany()
 	{
-		return company;
+		return String.valueOf(getFieldMap().get(PartSearchFields.COMPANY));
 	}
 	/**
 	 * @param part the part to set
 	 */
-	public void setPart(Part part)
+	public void setPartName(String partName)
 	{
-		this.part = part;
-	}
-	/**
-	 * @param startDate the startDate to set
-	 */
-	public void setStartDate(Date startDate)
-	{
-		this.startDate = startDate;
-	}
-	/**
-	 * @param endDate the endDate to set
-	 */
-	public void setEndDate(Date endDate)
-	{
-		this.endDate = endDate;
+		getFieldMap().put(PartSearchFields.PART_NAME,partName);
 	}
 	/**
 	 * @param qSSNumber the qSSNumber to set
 	 */
 	public void setQSSNumber(String qSSNumber)
 	{
-		this.qSSNumber = qSSNumber;
+		getFieldMap().put(PartSearchFields.QSS_NUMBER, qSSNumber);
 	}
 	/**
 	 * @param company the company to set
 	 */
 	public void setCompany(String company)
 	{
-		this.company = company;
-	}
-	
-	
+		getFieldMap().put(PartSearchFields.COMPANY, company);
+	}	
 }
