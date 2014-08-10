@@ -3,7 +3,6 @@
  	@version 1
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -45,9 +44,9 @@
 
 <table class="search">
 <tbody>
-<tr><td>Company</td><td><input type="text" name="company"/></td><td></td></tr>
-<tr><td>Name</td><td><input type="text" name="name"/></td><td></td></tr>
-<tr><td>Type</td><td><input type="text" name="type"/></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
+<tr><td>Company</td><td><input type="text" name="company" <c:if test="${not empty MATERIALSEARCH and not empty MATERIALSEARCH.company}">value="${MATERIALSEARCH.company}"</c:if>/></td><td></td></tr>
+<tr><td>Name</td><td><input type="text" name="name" <c:if test="${not empty MATERIALSEARCH and not empty MATERIALSEARCH.name}">value="${MATERIALSEARCH.name}"</c:if>/></td><td></td></tr>
+<tr><td>Type</td><td><input type="text" name="type" <c:if test="${not empty MATERIALSEARCH and not empty MATERIALSEARCH.type}">value="${MATERIALSEARCH.type}"</c:if>/></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
 </tbody>
 </table>
 <SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit"  /></SPAN>
