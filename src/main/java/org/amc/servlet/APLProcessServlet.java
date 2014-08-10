@@ -85,16 +85,6 @@ public class APLProcessServlet extends HttpServlet
 		}
 		else if(referal.endsWith("APLProcessServlet"))
 		{
-//			PrintWriter writer=response.getWriter();
-//			response.setContentType("text/html");
-//			
-//			writer.println("<!doctype html>"
-//					+ "<HTML>"
-//					+ "<BODY>"
-//					+ "<a href='JobTemplate_display'>JobTemplate</a>"
-//					+ "</BODY>"
-//					+ "</HTML>");
-//			writer.flush();
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/JSP/Main.jsp");
 			rd.forward(request, response);
 		}
@@ -112,13 +102,7 @@ public class APLProcessServlet extends HttpServlet
 		//If an ID parameter is passed add it to the form
 		MouldingProcessForm jForm=(MouldingProcessForm)request.getAttribute("processSheet");
 		logger.debug(String.format("\nSubmitted Process:"+jForm));
-//		String id=request.getParameter("id");
-//		if(id!=null)
-//		{
-//			jForm.setId(id);
-//		}
 
-		
 		//Validate Form
 		ProcessForm_Validator validator=new ProcessForm_Validator();
 		List<String> errors=validator.validate(jForm);
@@ -166,11 +150,6 @@ public class APLProcessServlet extends HttpServlet
 					throw new ServletException("Form received can't be processed");
 				}
 
-				//request.removeAttribute("form");
-				//request.removeAttribute("errors");
-				//RequestDispatcher rd=request.getRequestDispatcher(dispatcherURL);
-				
-				//rd.forward(request, response);
 			}
 			catch(NumberFormatException se)
 			{
@@ -287,20 +266,6 @@ public class APLProcessServlet extends HttpServlet
 						dispatchURL="/WEB-INF/JSP/ProcessSheetSearchPage.jsp";
 						
 					}
-//					else if(mode!=null && mode.equals("edit") && idValue!=null)// Edit mode
-//					{
-//						//open the JobTemplate JSPage in edit mode
-//						JobTemplate job=sjt.getJobTemplate(idValue);
-//						dispatchURL="/JSP/JobTemplate.jsp";
-//						request.setAttribute("form", job);
-//						request.setAttribute("mode","edit");
-//						
-//					}
-//					else if(mode!=null && mode.equals("add"))
-//					{
-//						//open the JobTemplate JSPage in add mode
-//						dispatchURL="/JSP/JobTemplate.jsp";
-//					}
 					else if(mode!=null)
 					{
 						if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
