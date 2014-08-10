@@ -1,7 +1,7 @@
-<!--  
+<%--  
 	@author Adrian Mclaughlin
  	@version 1
--->
+--%>
 
 <%@ page import="org.amc.model.User"%>
 <%@ page session="true"%>

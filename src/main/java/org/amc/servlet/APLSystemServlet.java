@@ -346,7 +346,7 @@ public class APLSystemServlet extends HttpServlet
 		}
 		request.logout();
 		
-		response.sendRedirect(getServletContext().getContextPath()+"/APLSystemServlet");
+		response.sendRedirect(getServletContext().getContextPath()+"/");
 	}
 	
 	
