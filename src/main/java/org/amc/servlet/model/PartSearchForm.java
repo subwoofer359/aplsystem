@@ -48,4 +48,31 @@ public class PartSearchForm implements WebPageForm
 	{
 		this.company = company;
 	}
+	/* (non-Javadoc)
+	 * @see org.amc.servlet.model.WebPageForm#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty()
+	{
+		if(this.company==null && this.partName==null && this.qSSNumber==null)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	@Override
+	public String toString()
+	{
+		StringBuilder text=new StringBuilder();
+		text.append("PartSearch:");		
+		text.append("(Company=");text.append(getCompany());text.append("-"+(getCompany()==null));text.append(')');
+		text.append("(PartName=");text.append(getPartName());text.append(')');
+		text.append("(QSSNumber=");text.append(getQSSNumber());text.append(')');
+		
+		
+		return text.toString();
+	}
+	
 }

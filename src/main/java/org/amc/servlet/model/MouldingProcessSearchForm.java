@@ -107,6 +107,30 @@ public class MouldingProcessSearchForm implements WebPageForm
 	{
 		this.signOffBy = signOffBy;
 	}
+	/* (non-Javadoc)
+	 * @see org.amc.servlet.model.WebPageForm#isEmpty()
+	 */
+	@Override
+	public boolean isEmpty()
+	{
+		if(this.endDate==null && 
+				this.machineNo==null && 
+				this.masterbatchNo==null && 
+				this.material==null &&
+				this.partId==null &&
+				this.signOffBy==null &&
+				this.startDate==null
+				
+			)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
 	
 	
 }
