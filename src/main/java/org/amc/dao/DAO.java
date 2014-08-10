@@ -210,7 +210,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 	/**
 	 * 
 	 * @param search Fields for the search
-	 * @return a List of Entities from the Database
+	 * @return a List of Entities from the Database or an empty List if the WebFormSearch has no variables set.
 	 * @throws DAOException if the database raises an error
 	 */
 	public List<T> findEntities(WebFormSearch search) throws DAOException
