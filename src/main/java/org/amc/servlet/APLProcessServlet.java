@@ -42,7 +42,7 @@ public class APLProcessServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	
-	private static Logger logger=Logger.getLogger(APLProcessServlet.class);
+	private static final Logger LOG=Logger.getLogger(APLProcessServlet.class);
        
 	private ProcessActionFactory processActionFactory;
 	
@@ -67,7 +67,7 @@ public class APLProcessServlet extends HttpServlet
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String referal=request.getRequestURI();
-		logger.debug(referal);
+		LOG.debug(referal);
 		
 		
 		//Handle JobTemplate Page
@@ -92,16 +92,16 @@ public class APLProcessServlet extends HttpServlet
 
 	private void saveProcessSheet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		logger.debug(String.format("Context Path:"+request.getContextPath()));
+		LOG.debug(String.format("Context Path:"+request.getContextPath()));
 		//check if page is in create or edit mode
 		String mode=request.getParameter("mode");
-		logger.debug(String.format("SaveProcessSheet:mode:[%s]%n", mode));//debug
-		logger.debug(String.format("SaveProcessSheet:"+request.getParameter("dateOfIssue")));
+		LOG.debug(String.format("SaveProcessSheet:mode:[%s]%n", mode));//debug
+		LOG.debug(String.format("SaveProcessSheet:"+request.getParameter("dateOfIssue")));
 		//create form
 		
 		//If an ID parameter is passed add it to the form
 		MouldingProcessForm jForm=(MouldingProcessForm)request.getAttribute("processSheet");
-		logger.debug(String.format("\nSubmitted Process:"+jForm));
+		LOG.debug(String.format("\nSubmitted Process:"+jForm));
 
 		//Validate Form
 		ProcessForm_Validator validator=new ProcessForm_Validator();
@@ -130,14 +130,14 @@ public class APLProcessServlet extends HttpServlet
 				// New JobTemplate to Database
 				if(mode==null||"Enter".equals(mode))
 				{
-					logger.debug(String.format("SaveProcessSheet:Entering entry into database"));
+					LOG.debug(String.format("SaveProcessSheet:Entering entry into database"));
 					action.save(processSheet);
 					response.sendRedirect(request.getContextPath()+"/app/ProcessSheet_search"); // Goto the Search Window
 					return; // Exit function 
 				}
 				else if("edit".equals(mode))
 				{
-					logger.debug(String.format("SaveProcessSheet:Editing entry into database"));
+					LOG.debug(String.format("SaveProcessSheet:Editing entry into database"));
 					//Current JobTemplate is updated in the Database
 					//processSheet.setId(Integer.parseInt(jForm.getId()));
 					processSheet.setId(Integer.parseInt(jForm.getId()));
@@ -236,7 +236,7 @@ public class APLProcessServlet extends HttpServlet
 				String idValue=request.getParameter("edit");
 				
 				//Debug
-				logger.debug(String.format("searchProcessSheets:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
+				LOG.debug(String.format("searchProcessSheets:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
 				
 				
 				
@@ -261,7 +261,7 @@ public class APLProcessServlet extends HttpServlet
 						}
 						request.setAttribute("processSheets", list); //Add the result list to the request object to be used by the JSP page
 						//debug
-						logger.debug(String.format("%d results returned %n",list.size()));
+						LOG.debug(String.format("%d results returned %n",list.size()));
 					
 						dispatchURL="/WEB-INF/JSP/ProcessSheetSearchPage.jsp";
 						
@@ -270,7 +270,7 @@ public class APLProcessServlet extends HttpServlet
 					{
 						if("add".equals(mode)||idValue==null) //idValue will equal null if the checked box isn't selected
 						{
-							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
+							LOG.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp"));
 							//open the JobTemplate JSPage in add mode
 							MouldingProcess process =new MouldingProcess();
 							request.setAttribute("form", process);
@@ -279,7 +279,7 @@ public class APLProcessServlet extends HttpServlet
 						else if("edit".equals(mode)&&idValue!=null)
 						{
 							//open the JobTemplate JSPage in edit mode
-							logger.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
+							LOG.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
 							MouldingProcess process=spt.getMouldingProcess(idValue);
 							dispatchURL="/WEB-INF/JSP/ProcessPage.jsp";
 							request.setAttribute("form", process);
@@ -290,7 +290,7 @@ public class APLProcessServlet extends HttpServlet
 					Map<Integer,Material> materials=materialActionFactory.getSearchMaterialAction().search();
 
 					request.setAttribute("materials", materials);
-					logger.debug(String.format("Materials:"+materials));
+					LOG.debug(String.format("Materials:"+materials));
 					
 					RequestDispatcher rd=request.getRequestDispatcher(dispatchURL);
 					rd.forward(request, response);
