@@ -56,12 +56,13 @@ window.onload=function()
 </tbody>
 </TABLE>
 </DIV>
-<SPAN class="search">
-Company<input type="text" name="company"/>
-Name<input type="text" name="partName"/>
-QSS No.<input type="text" name="qssNumber"/>
-<input type="submit" name="mode" value="search" onclick="addClicked(this)"/>
-</SPAN>
+<table class="search">
+<tbody>
+<tr><td>Company</td><td><input type="text" name="company" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.company}">value="${PARTSEARCH.company}"</c:if> /></td><td></td></tr>
+<tr><td>Name</td><td><input type="text" name="partName"   <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.partName}">value="${PARTSEARCH.partName}"</c:if>/> </td><td></td></tr>
+<tr><td>QSS No.</td><td><input type="text" name="qssNumber" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.QSSNumber}">value="${PARTSEARCH.QSSNumber}"</c:if> /></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
+</tbody>
+</table>
 <SPAN class="buttons">
 	<input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
 	<input id="edit" type="submit" name="mode" value="edit"/>

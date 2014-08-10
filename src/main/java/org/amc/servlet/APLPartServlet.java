@@ -256,6 +256,7 @@ public class APLPartServlet extends HttpServlet
 	 * @throws ServletException
 	 * @throws IOException
 	 */
+	@SuppressWarnings("unchecked")
 	private void searchForPart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		
@@ -277,6 +278,7 @@ public class APLPartServlet extends HttpServlet
 			//if the page is to do a search
 			if(mode==null || SEARCH.equals(mode))
 			{
+				
 				List<Part> list=null;
 				
 				PartSearchForm partSearchForm=new PartSearchForm();
@@ -286,28 +288,55 @@ public class APLPartServlet extends HttpServlet
 				
 				PartSearchFormValidator validator=new PartSearchFormValidator();
 				
-				validator.validate(partSearchForm);
-				
-				if(validator.hasErrors())
+				if(partSearchForm.isEmpty())
 				{
-					request.setAttribute(ControllerConstants.MESSAGE, validator.getErrors());
+					synchronized (request.getSession())
+					{
+						if(request.getSession().getAttribute(PARTS)!=null)
+						{
+							
+							list=(List<Part>)request.getSession().getAttribute(PARTS);
+						}
+						else
+						{
+							list=new ArrayList<Part>();
+						}
+					}
 				}
 				else
 				{
-					try
+					validator.validate(partSearchForm);
+				
+					if(validator.hasErrors())
 					{
-						PartSearch partSearch=PartSearchFormValidator.PartSearchBinder.getPartSearch(partSearchForm);
-						list=sjt.search(partSearch);
+						request.setAttribute(ControllerConstants.MESSAGE, validator.getErrors());
 					}
-					catch(ParseException pe)
+					else
 					{
-						request.setAttribute(ControllerConstants.MESSAGE, "Search Parameters couldn't be parsed");
-						list=new ArrayList<Part>();
+						try
+						{
+							PartSearch partSearch=PartSearchFormValidator.PartSearchBinder.getPartSearch(partSearchForm);
+							list=sjt.search(partSearch);
+							synchronized(request.getSession())
+							{
+								request.getSession().setAttribute("PARTSEARCH",partSearch);
+							}
+							
+						}
+						catch(ParseException pe)
+						{
+							request.setAttribute(ControllerConstants.MESSAGE, "Search Parameters couldn't be parsed");
+							list=new ArrayList<Part>();
+						}
+						
 					}
+				}
+				synchronized(request.getSession())
+				{
+					request.getSession().setAttribute(PARTS, list);
 					
 				}
-				
-				request.setAttribute(PARTS, list); //Add the result list to the request object to be used by the JSP page
+				//request.setAttribute(PARTS, list); //Add the result list to the request object to be used by the JSP page
 				
 				//debug
 				logger.debug(String.format("%d results returned %n",list.size()));
