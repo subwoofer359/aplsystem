@@ -12,7 +12,7 @@ import org.amc.servlet.model.WebPageForm;
  */
 public abstract class WebPageFormValidator 
 {
-	private List<String> errors=new ArrayList<String>();
+	private final List<String> errors=new ArrayList<String>();
 	
 	//public abstract List<String> validate(WebForm form);
 	
@@ -23,13 +23,6 @@ public abstract class WebPageFormValidator
 	
 	public boolean hasErrors()
 	{
-		if(errors.size()==0)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return !errors.isEmpty();
 	}
 }

@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public abstract class WebFormSearch
 {
-	private Map<SearchFields, Object> values;
+	private final Map<SearchFields, Object> values;
 	
 	public WebFormSearch()
 	{
