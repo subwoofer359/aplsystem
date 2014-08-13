@@ -335,16 +335,8 @@ public class APLPartServlet extends HttpServlet
 					logger.debug(String.format("%d results returned %n",list.size()));
 				}
 				
-				synchronized(request.getSession())
-				{
-					request.getSession().setAttribute(PARTS, list);
+				request.setAttribute(PARTS, list);
 					
-				}
-				//request.setAttribute(PARTS, list); //Add the result list to the request object to be used by the JSP page
-				
-				//debug
-				
-			
 				dispatchURL="/WEB-INF/JSP/PartsSearchPage.jsp";
 				
 			}
