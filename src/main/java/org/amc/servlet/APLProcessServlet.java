@@ -6,6 +6,8 @@ import org.amc.Constants;
 import org.amc.Constants.Roles;
 import org.amc.DAOException;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +22,12 @@ import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
+import org.amc.servlet.model.MouldingProcessSearchForm;
+import org.amc.servlet.validator.MouldingProcessSearchFormValidator;
 import org.amc.servlet.validator.ProcessForm_Validator;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
@@ -36,6 +41,7 @@ import static org.amc.servlet.ControllerConstants.MODE_ENTER;
 import static org.amc.servlet.ControllerConstants.SEARCH;
 import static org.amc.servlet.ControllerConstants.MESSAGE;
 import static org.amc.servlet.ControllerConstants.FORM;
+import static org.amc.servlet.ControllerConstants.PROCESS_SHEETS;
 /**
  * Servlet implementation class APLProcessServlet
  * @author Adrian Mclaughlin
@@ -57,6 +63,8 @@ public class APLProcessServlet extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	
 	private static final Logger LOG=Logger.getLogger(APLProcessServlet.class);
+	
+	private static final String SESSION_PROCESS_SHEET_SEARCH="PROCESSSEARCH";
        
 	private ProcessActionFactory processActionFactory;
 	
@@ -253,13 +261,11 @@ public class APLProcessServlet extends HttpServlet
 	{
 		//check to if in search or edit mode TODO add delete mode
 				String mode=request.getParameter(MODE);
-				//Passed to use as a search term
-				String searchWord=request.getParameter(SEARCH);
 				//Passed if an entry is to be edited
 				String idValue=request.getParameter(MODE_EDIT);
 				
 				//Debug
-				LOG.debug(String.format("searchProcessSheets:mode:[%s] searchWord:[%s] ID:[%s]%n", mode,searchWord,idValue));
+				LOG.debug(String.format("searchProcessSheets:mode:[%s] ID:[%s]%n", mode,idValue));
 				
 				
 				
@@ -268,23 +274,74 @@ public class APLProcessServlet extends HttpServlet
 				String dispatchURL=null;
 				try
 				{
+					List<MouldingProcess> list=null;
 					//if the page is to do a search
 					if(mode==null || SEARCH.equals(mode))
 					{
-						List<MouldingProcess> list=null;
-						//To check to search for all entries or entries where name=searchWord
-						if(searchWord==null||searchWord.equals(""))// search for all entries
+						
+						MouldingProcessSearchForm mpform=new MouldingProcessSearchForm();
+						
+						mpform.setPartId(request.getParameter("partId"));
+						mpform.setMachineNo(request.getParameter("machineNo"));
+						mpform.setMasterbatchNo(request.getParameter("masterbatchNo"));
+						mpform.setMaterial(request.getParameter("material"));
+						mpform.setSignOffBy(request.getParameter("signedOffBy"));
+						mpform.setStartDate(request.getParameter("startDate"));
+						mpform.setEndDate(request.getParameter("endDate"));
+						
+						MouldingProcessSearchFormValidator validator=new MouldingProcessSearchFormValidator();
+						
+						validator.validate(mpform);
+						
+						if(validator.hasErrors())
 						{
-							list=spt.search();
+							LOG.debug("Form has errors");
+							LOG.debug(validator.getErrors());
+							request.setAttribute(MESSAGE, validator.getErrors());
 						}
-						else //search for entry where name=searchWord 
+						else
 						{
+							try
+							{
+								if(mpform.isEmpty())
+								{
+									LOG.debug("FORM is empty");
+									synchronized(request.getSession())
+									{
+										if(request.getSession().getAttribute(SESSION_PROCESS_SHEET_SEARCH)==null)
+										{
+											list=new ArrayList<MouldingProcess>();
+										}
+										else
+										{
+											MouldingProcessSearch mouldingProcessSearch=(MouldingProcessSearch)request.getSession().getAttribute(SESSION_PROCESS_SHEET_SEARCH);
+											LOG.debug(mouldingProcessSearch);
+											list=spt.search(mouldingProcessSearch);
+										}
+									}
+								}
+								else
+								{
+									MouldingProcessSearch mouldingProcessSearch=MouldingProcessSearchFormValidator.MouldingProcessSearchBinder.getMouldingProcessSearch(mpform);
+									LOG.debug(mouldingProcessSearch);
+									list=spt.search(mouldingProcessSearch);
+									synchronized(request.getSession())
+									{
+										request.getSession().setAttribute(SESSION_PROCESS_SHEET_SEARCH,mouldingProcessSearch);
+									}
+								}
+							}
+							catch(ParseException pe)
+							{
+								request.setAttribute(ControllerConstants.MESSAGE, "Search Parameters couldn't be parsed");
+								list=new ArrayList<MouldingProcess>();
+							}
+							LOG.debug(String.format("%d results returned %n",list.size()));
+						}
+						
+						request.setAttribute(PROCESS_SHEETS, list);
 							
-							list=spt.search("partId",searchWord);
-						}
-						request.setAttribute("processSheets", list); //Add the result list to the request object to be used by the JSP page
-						//debug
-						LOG.debug(String.format("%d results returned %n",list.size()));
+					
 					
 						dispatchURL=PROCESS_SEARCH_JSP;
 						
