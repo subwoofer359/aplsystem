@@ -33,7 +33,7 @@ public class MouldingProcessSearch  extends WebFormSearch
 		super();
 	}
 	
-	public void setPartId(int partId)
+	public void setPartId(String partId)
 	{
 		getFieldMap().put(ProcessSearchFields.PART_NAME,partId);
 	}
@@ -48,7 +48,7 @@ public class MouldingProcessSearch  extends WebFormSearch
 		getFieldMap().put(ProcessSearchFields.MATERIAL,materialId);
 	}
 	
-	public void setMasterBatchNo(int masterbatchNo)
+	public void setMasterBatchNo(String masterbatchNo)
 	{
 		getFieldMap().put(ProcessSearchFields.MASTERBATCH,masterbatchNo);
 	}
@@ -68,9 +68,9 @@ public class MouldingProcessSearch  extends WebFormSearch
 		getFieldMap().put(ProcessSearchFields.END_DATE,endDate);
 	}
 	
-	public Integer getPartId()
+	public String getPartId()
 	{
-		return (getFieldMap().get(ProcessSearchFields.PART_NAME)==null)?null:(Integer)getFieldMap().get(ProcessSearchFields.PART_NAME);
+		return (getFieldMap().get(ProcessSearchFields.PART_NAME)==null)?null:String.valueOf(getFieldMap().get(ProcessSearchFields.PART_NAME));
 	}
 	
 	public String getMachineNo()
@@ -83,9 +83,9 @@ public class MouldingProcessSearch  extends WebFormSearch
 		return (getFieldMap().get(ProcessSearchFields.MATERIAL)==null)?null:(Integer)getFieldMap().get(ProcessSearchFields.MATERIAL);
 	}
 	
-	public Integer getMasterBatchNo()
+	public String getMasterBatchNo()
 	{
-		return (getFieldMap().get(ProcessSearchFields.MASTERBATCH)==null)?null:(Integer)getFieldMap().get(ProcessSearchFields.MASTERBATCH);
+		return (getFieldMap().get(ProcessSearchFields.MASTERBATCH)==null)?null:String.valueOf(getFieldMap().get(ProcessSearchFields.MASTERBATCH));
 	}
 	
 	public String getSignOffBy()
@@ -103,4 +103,14 @@ public class MouldingProcessSearch  extends WebFormSearch
 		return (getFieldMap().get(ProcessSearchFields.END_DATE)==null)?null:(Date)getFieldMap().get(ProcessSearchFields.END_DATE);
 	}
 	
+	@Override
+	public String toString()
+	{
+		StringBuilder text=new StringBuilder();
+		text.append("MouldingProcessSearch:");		
+		text.append("(PartId=");text.append(getPartId());text.append(')');
+		text.append("(MachineNo=");text.append(getMachineNo());text.append(')');
+		text.append("(Masterbactch=");text.append(getMasterBatchNo());text.append(')');
+		return text.toString();
+	}
 }
