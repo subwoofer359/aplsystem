@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.amc.DAOException;
 import org.amc.EntityManagerThreadLocal;
@@ -229,12 +230,24 @@ public class DAO<T extends WorkEntity> implements Serializable
 			LOG.debug("FindEntities(Search) query is :"+textQuery);
 			
 			Query query=getEntityManager().createQuery(textQuery);
-			int queryIndex=1;
+		
 			
 			for(Iterator<SearchFields> i=search.getFields().iterator();i.hasNext();)
 			{
-				Object value=search.getField(i.next());
-				query.setParameter(queryIndex++, value);
+				SearchFields currentField=i.next();
+				Object value=search.getField(currentField);
+				
+//				if(value instanceof java.sql.Date)
+//				{
+//					
+//					query.setParameter(currentField.name(), (java.sql.Date)value,TemporalType.DATE);
+//					LOG.debug("Setting field:"+currentField.name()+" to "+value.toString());
+//				}
+//				else
+//				{
+					query.setParameter(currentField.name(), value);
+					LOG.debug("Setting field:"+currentField.name()+" to "+value.toString());
+				//}
 			}
 			
 			@SuppressWarnings("unchecked")

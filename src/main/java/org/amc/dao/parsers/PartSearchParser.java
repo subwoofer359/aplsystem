@@ -12,14 +12,14 @@ public class PartSearchParser implements WebFormSearchToJPQLParser
 	public String parse(Class<?> entityClass,WebFormSearch webFormSearch)
 	{
 		StringBuilder textQuery=new StringBuilder();
-		int queryIndex=1;
 		
 		for(Iterator<SearchFields> i=webFormSearch.getFields().iterator();i.hasNext();)
 		{
+			SearchFields currentField=i.next();
 			textQuery.append("x.");
-			textQuery.append(i.next());
-			textQuery.append(" LIKE ?");
-			textQuery.append(queryIndex++);
+			textQuery.append(currentField);
+			textQuery.append(" LIKE :");
+			textQuery.append(currentField.name());
 			if(i.hasNext())
 			{
 				textQuery.append(" AND ");
