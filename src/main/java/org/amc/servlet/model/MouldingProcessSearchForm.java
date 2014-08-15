@@ -54,7 +54,7 @@ public class MouldingProcessSearchForm implements WebPageForm
 	/**
 	 * @return the signOffBy
 	 */
-	public String getSignOffBy()
+	public String getSignedOffBy()
 	{
 		return signOffBy;
 	}
@@ -103,7 +103,7 @@ public class MouldingProcessSearchForm implements WebPageForm
 	/**
 	 * @param signOffBy the signOffBy to set
 	 */
-	public void setSignOffBy(String signOffBy)
+	public void setSignedOffBy(String signOffBy)
 	{
 		this.signOffBy = signOffBy;
 	}
@@ -131,6 +131,17 @@ public class MouldingProcessSearchForm implements WebPageForm
 		}
 	}
 	
-	
+	@Override
+	public String toString()
+	{
+		StringBuilder text=new StringBuilder();
+		text.append("MouldingProcessSearch:");		
+		text.append("(PartId=");text.append(getPartId());text.append(')');
+		text.append("(MachineNo=");text.append(getMachineNo());text.append(')');
+		text.append("(Masterbactch=");text.append(getMasterbatchNo());text.append(')');
+		text.append("(Start Date=");text.append(getStartDate());text.append(')');
+		text.append("(End Date=");text.append(getEndDate());text.append(')');
+		return text.toString();
+	}
 	
 }

@@ -9,7 +9,7 @@ import org.amc.servlet.model.MouldingProcessSearchForm;
 
 public class MouldingProcessSearchFormValidator extends WebPageFormValidator
 {
-	private static final SimpleDateFormat DATE_FORMAT=new SimpleDateFormat();
+	private static final SimpleDateFormat DATE_FORMAT=new SimpleDateFormat("yyyy-MM-dd");
 	
 	public List<String> validate(MouldingProcessSearchForm form)
 	{
@@ -79,19 +79,19 @@ public class MouldingProcessSearchFormValidator extends WebPageFormValidator
 				mpSearch.setMasterBatchNo(form.getMasterbatchNo());
 			}
 			
-			if(form.getSignOffBy()!=null && !"".trim().equals(form.getSignOffBy()))
+			if(form.getSignedOffBy()!=null && !"".trim().equals(form.getSignedOffBy()))
 			{
-				mpSearch.setSignedOffBy(form.getSignOffBy());
+				mpSearch.setSignedOffBy(form.getSignedOffBy());
 			}
 			
 			if(form.getStartDate()!=null && !"".trim().equals(form.getStartDate()))
 			{
-				mpSearch.setStartDate(DATE_FORMAT.parse(form.getStartDate()));
+				mpSearch.setStartDate(new java.sql.Date(DATE_FORMAT.parse(form.getStartDate()).getTime()));
 			}
 			
 			if(form.getEndDate()!=null && !"".trim().equals(form.getEndDate()))
 			{
-				mpSearch.setEndDate(DATE_FORMAT.parse(form.getEndDate()));
+				mpSearch.setEndDate(new java.sql.Date(DATE_FORMAT.parse(form.getEndDate()).getTime()));
 			}
 			
 			return mpSearch;
