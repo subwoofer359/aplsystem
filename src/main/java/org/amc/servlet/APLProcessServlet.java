@@ -285,9 +285,11 @@ public class APLProcessServlet extends HttpServlet
 						mpform.setMachineNo(request.getParameter("machineNo"));
 						mpform.setMasterbatchNo(request.getParameter("masterbatchNo"));
 						mpform.setMaterial(request.getParameter("material"));
-						mpform.setSignOffBy(request.getParameter("signedOffBy"));
+						mpform.setSignedOffBy(request.getParameter("signedOffBy"));
 						mpform.setStartDate(request.getParameter("startDate"));
 						mpform.setEndDate(request.getParameter("endDate"));
+						
+						LOG.debug("FORM:"+mpform);
 						
 						MouldingProcessSearchFormValidator validator=new MouldingProcessSearchFormValidator();
 						
