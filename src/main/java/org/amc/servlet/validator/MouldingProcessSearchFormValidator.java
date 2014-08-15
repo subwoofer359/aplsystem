@@ -8,13 +8,13 @@ import java.util.List;
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.servlet.model.MouldingProcessSearchForm;
 
-public class MouldingProcessSearchFormValidator extends WebPageFormValidator
+public final class MouldingProcessSearchFormValidator extends WebPageFormValidator
 {
 	private static final SimpleDateFormat DATE_FORMAT=new SimpleDateFormat();
 	private static final String DATE_PATTERN1="yyyy-MM-dd";
 	private static final String DATE_PATTERN2="dd-MM-yyyy";
 	
-	public List<String> validate(MouldingProcessSearchForm form)
+	public final List<String> validate(MouldingProcessSearchForm form)
 	{
 		List<String> errors=getErrors();
 		
@@ -78,9 +78,9 @@ public class MouldingProcessSearchFormValidator extends WebPageFormValidator
 		return result;
 	}
 	
-	public static class MouldingProcessSearchBinder
+	public static final class MouldingProcessSearchBinder
 	{
-		public static MouldingProcessSearch  getMouldingProcessSearch(MouldingProcessSearchForm form) throws ParseException
+		public static final MouldingProcessSearch  getMouldingProcessSearch(MouldingProcessSearchForm form) throws ParseException
 		{
 			MouldingProcessSearch mpSearch=new MouldingProcessSearch();
 			
