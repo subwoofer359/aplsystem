@@ -1,6 +1,6 @@
 package org.amc.servlet.action.search;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class MouldingProcessSearch  extends WebFormSearch
 {
@@ -111,6 +111,8 @@ public class MouldingProcessSearch  extends WebFormSearch
 		text.append("(PartId=");text.append(getPartId());text.append(')');
 		text.append("(MachineNo=");text.append(getMachineNo());text.append(')');
 		text.append("(Masterbactch=");text.append(getMasterBatchNo());text.append(')');
+		text.append("(Start Date=");text.append(getStartDate());text.append(')');
+		text.append("(End Date=");text.append(getEndDate());text.append(')');
 		return text.toString();
 	}
 }
