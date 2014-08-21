@@ -49,7 +49,7 @@ public final class MouldingProcessSearchParser implements WebFormSearchToJPQLPar
 				}
 				else
 				{
-					dateQuery.append("= :START_DATE");
+					dateQuery.append(" = :START_DATE");
 				}
 			}
 			

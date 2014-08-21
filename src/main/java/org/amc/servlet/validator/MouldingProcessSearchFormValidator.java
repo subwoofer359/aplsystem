@@ -2,16 +2,19 @@ package org.amc.servlet.validator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.servlet.model.MouldingProcessSearchForm;
 
-public class MouldingProcessSearchFormValidator extends WebPageFormValidator
+public final class MouldingProcessSearchFormValidator extends WebPageFormValidator
 {
-	private static final SimpleDateFormat DATE_FORMAT=new SimpleDateFormat("yyyy-MM-dd");
+	private static final SimpleDateFormat DATE_FORMAT=new SimpleDateFormat();
+	private static final String DATE_PATTERN1="yyyy-MM-dd";
+	private static final String DATE_PATTERN2="dd-MM-yyyy";
 	
-	public List<String> validate(MouldingProcessSearchForm form)
+	public final List<String> validate(MouldingProcessSearchForm form)
 	{
 		List<String> errors=getErrors();
 		
@@ -31,7 +34,7 @@ public class MouldingProcessSearchFormValidator extends WebPageFormValidator
 		{
 			if(form.getStartDate()!=null && !"".trim().equals(form.getStartDate()))
 			{
-				DATE_FORMAT.parse(form.getStartDate());
+				parseDate(form.getStartDate());
 			}
 		}
 		catch(ParseException pe)
@@ -43,7 +46,7 @@ public class MouldingProcessSearchFormValidator extends WebPageFormValidator
 		{
 			if(form.getEndDate()!=null && !"".trim().equals(form.getEndDate()))
 			{
-				DATE_FORMAT.parse(form.getEndDate());
+				parseDate(form.getEndDate());
 			}
 		}
 		catch(ParseException pe)
@@ -53,9 +56,31 @@ public class MouldingProcessSearchFormValidator extends WebPageFormValidator
 		return errors;
 	}
 	
-	public static class MouldingProcessSearchBinder
+	/**
+	 * 
+	 * @param dateString
+	 * @return java.util.Date
+	 * @throws ParseException if the date spring doesn't macth the defined date format
+	 */
+	private final java.util.Date parseDate(String dateString) throws ParseException
 	{
-		public static MouldingProcessSearch  getMouldingProcessSearch(MouldingProcessSearchForm form) throws ParseException
+		Date result=null;
+		try
+		{
+			DATE_FORMAT.applyPattern(DATE_PATTERN1);
+			result=DATE_FORMAT.parse(dateString);
+		}
+		catch(ParseException pe)
+		{
+				DATE_FORMAT.applyPattern(DATE_PATTERN2);
+				result=DATE_FORMAT.parse(dateString);
+		}
+		return result;
+	}
+	
+	public static final class MouldingProcessSearchBinder
+	{
+		public static final MouldingProcessSearch  getMouldingProcessSearch(MouldingProcessSearchForm form) throws ParseException
 		{
 			MouldingProcessSearch mpSearch=new MouldingProcessSearch();
 			
