@@ -84,13 +84,13 @@ function isDisplayChecked(id)
 </DIV>
 <table class="search">
 <tbody>
-<tr><td>Part Name:</td><td><input type="text" name="partId" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.partId}">value="${PROCESSSEARCH.partId}"</c:if>/></td><td></td></tr>
-<tr><td>Machine No.:</td><td><input type="text" name="machineNo" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.machineNo}">value="${PROCESSSEARCH.machineNo}"</c:if>/></td><td></td></tr>
-<tr><td>Material:</td><td><input type="text" name="material" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.material}">value="${PROCESSSEARCH.material}"</c:if>/></td><td></td></tr>
-<tr><td>Masterbatch:</td><td><input type="text" name="masterbatchNo" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.masterbatchNo}">value="${PROCESSSEARCH.masterbatchNo}"</c:if>/></td><td></td></tr>
-<tr><td>Date from:</td><td><input type="date" name="startDate" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.startDate}">value="${PROCESSSEARCH.startDate}"</c:if>/></td><td></td></tr>
-<tr><td>Date to:</td><td><input type="date" name="endDate" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.endDate}">value="${PROCESSSEARCH.endDate}"</c:if>/></td><td></td></tr>
-<tr><td>Signed Off By:</td><td><input type="text" name="signedOfBy" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSEARCH.signedOfBy}">value="${PROCESSSEARCH.signedOfBy}"</c:if>/></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
+<tr><td>Part Name:</td><td><input type="text" name="partId" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.partId}">value="${PROCESSSEARCH.partId}"</c:if>/></td><td></td></tr>
+<tr><td>Machine No.:</td><td><input type="text" name="machineNo" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.machineNo}">value="${PROCESSSEARCH.machineNo}"</c:if>/></td><td></td></tr>
+<tr><td>Material:</td><td><input type="text" name="material" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.material}">value="${PROCESSSEARCH.material}"</c:if>/></td><td></td></tr>
+<tr><td>Masterbatch:</td><td><input type="text" name="masterbatchNo" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.masterbatchNo}">value="${PROCESSSEARCH.masterbatchNo}"</c:if>/></td><td></td></tr>
+<tr><td>Date from:</td><td><input type="date" name="startDate" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.startDate}">value="${PROCESSSEARCH.startDate}"</c:if>/></td><td></td></tr>
+<tr><td>Date to:</td><td><input type="date" name="endDate" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.endDate}">value="${PROCESSSEARCH.endDate}"</c:if>/></td><td></td></tr>
+<tr><td>Signed Off By:</td><td><input type="text" name="signedOffBy" <c:if test="${not empty PROCESSSEARCH and not empty PROCESSSEARCH.signedOffBy}">value="${PROCESSSEARCH.signedOfBy}"</c:if>/></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
 </tbody>
 </table>
 <SPAN class="buttons"><input type="submit" name="mode" value="add" onclick="addClicked(this)"/><input type="submit" name="mode" value="edit" /><input type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"/></SPAN>

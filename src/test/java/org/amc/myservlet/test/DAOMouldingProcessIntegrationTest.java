@@ -87,12 +87,12 @@ public class DAOMouldingProcessIntegrationTest
 		
 		//Reset Search
 		search=new MouldingProcessSearch();
-		search.setStartDate(java.sql.Date.valueOf("2013-01-01"));
+		search.setStartDate(java.sql.Date.valueOf("2013-05-11"));
 		try
 		{
 			List<MouldingProcess> result=action.search(search);
 			assertNotNull(result);
-			assertEquals(result.size(), 2);
+			assertEquals(result.size(), 1);
 		}
 		catch(DAOException de)
 		{
@@ -113,6 +113,20 @@ public class DAOMouldingProcessIntegrationTest
 				de.printStackTrace();
 				fail("DAOException thrown");
 		}
+		
+		search.setSignedOffBy("John Malone");
+		try
+		{
+			List<MouldingProcess> result=action.search(search);
+			//assertNotNull(result);
+			//assertEquals(result.size(), 3);
+		}
+		catch(DAOException de)
+		{
+				de.printStackTrace();
+				fail("DAOException thrown");
+		}
+		
 	}
 	
 	@Test

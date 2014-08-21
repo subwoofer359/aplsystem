@@ -44,7 +44,7 @@ public class MouldingProcressSearchBinderTest
 		assertEquals(form.getPartId(),search.getPartId());
 		assertEquals(form.getMachineNo(),search.getMachineNo());
 		assertEquals(form.getMasterbatchNo(),search.getMasterBatchNo());
-		assertEquals(form.getSignedOffBy(),search.getSignOffBy());
+		assertEquals(form.getSignedOffBy(),search.getSignedOffBy());
 		
 		assertEquals(new java.sql.Date(sdf.parse(form.getStartDate()).getTime()),search.getStartDate());
 		assertEquals(new java.sql.Date(sdf.parse(form.getEndDate()).getTime()),search.getEndDate());

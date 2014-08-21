@@ -8,7 +8,7 @@ public class MouldingProcessSearchForm implements WebPageForm
 	private String masterbatchNo;
 	private String startDate;
 	private String endDate;
-	private String signOffBy;
+	private String signedOffBy;
 	/**
 	 * @return the partId
 	 */
@@ -56,7 +56,7 @@ public class MouldingProcessSearchForm implements WebPageForm
 	 */
 	public String getSignedOffBy()
 	{
-		return signOffBy;
+		return signedOffBy;
 	}
 	/**
 	 * @param partId the partId to set
@@ -105,7 +105,7 @@ public class MouldingProcessSearchForm implements WebPageForm
 	 */
 	public void setSignedOffBy(String signOffBy)
 	{
-		this.signOffBy = signOffBy;
+		this.signedOffBy = signOffBy;
 	}
 	/* (non-Javadoc)
 	 * @see org.amc.servlet.model.WebPageForm#isEmpty()
@@ -118,7 +118,7 @@ public class MouldingProcessSearchForm implements WebPageForm
 				this.masterbatchNo==null && 
 				this.material==null &&
 				this.partId==null &&
-				this.signOffBy==null &&
+				this.signedOffBy==null &&
 				this.startDate==null
 				
 			)
@@ -139,6 +139,8 @@ public class MouldingProcessSearchForm implements WebPageForm
 		text.append("(PartId=");text.append(getPartId());text.append(')');
 		text.append("(MachineNo=");text.append(getMachineNo());text.append(')');
 		text.append("(Masterbactch=");text.append(getMasterbatchNo());text.append(')');
+		text.append("(SignedOffBy=");text.append(getSignedOffBy());text.append(')');
+		
 		text.append("(Start Date=");text.append(getStartDate());text.append(')');
 		text.append("(End Date=");text.append(getEndDate());text.append(')');
 		return text.toString();

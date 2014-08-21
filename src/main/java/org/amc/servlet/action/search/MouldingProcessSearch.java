@@ -88,7 +88,7 @@ public class MouldingProcessSearch  extends WebFormSearch
 		return (getFieldMap().get(ProcessSearchFields.MASTERBATCH)==null)?null:String.valueOf(getFieldMap().get(ProcessSearchFields.MASTERBATCH));
 	}
 	
-	public String getSignOffBy()
+	public String getSignedOffBy()
 	{
 		return (getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY)==null)?null:String.valueOf(getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY));
 	}
@@ -111,6 +111,7 @@ public class MouldingProcessSearch  extends WebFormSearch
 		text.append("(PartId=");text.append(getPartId());text.append(')');
 		text.append("(MachineNo=");text.append(getMachineNo());text.append(')');
 		text.append("(Masterbactch=");text.append(getMasterBatchNo());text.append(')');
+		text.append("(SignedOffBy=");text.append(getSignedOffBy());text.append(')');
 		text.append("(Start Date=");text.append(getStartDate());text.append(')');
 		text.append("(End Date=");text.append(getEndDate());text.append(')');
 		return text.toString();
