@@ -11,32 +11,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 
 <style>
-.login
-{
-	position:fixed;
-	top:200px;
-	font-size:xx-large;
-	width: 75%;
-	left: 50%;
-	margin: 0 0 0 -37.5%;
-}
-
-input
-{
-	font-size:inherit;
-}
-
-.buttons
-{
-	position:fixed;
-	right:4px;
-	bottom:4px;
-}
-.buttons input,button
-{
-	font-size:xx-large;
-}
-
 </style>
 </head>
 <body>

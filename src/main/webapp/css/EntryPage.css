@@ -6,28 +6,3 @@
  */
 /* Layout for Entry pages */
 
-.entry table
-{
-	position:fixed;
-	top:110px;
-	background-color:white;
-	width:95%;	
-	margin-left:2%;
-	margin-right:auto;
-
-}
-.entry td
-{
-	font-size:xx-large;
-}
-
-.description /* TD */
-{
-	width:25%;
-}
-
-.results input[type="text"],.entry input[type="text"],.entry input[type="password"]
-{
-	width:70%;
-	font-size:xx-large;
-}

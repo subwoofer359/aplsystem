@@ -14,31 +14,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css"/>
 <style>
-#spcmeasurements
-{
-	position: absolute;
-	top: 10%;
-	left: 2%;
-	border-style: double;
-}
-#measurements 
-{
-	position: absolute;
-	left: 2%;
-	bottom: 10%;
-}
-#submitButton
-{
-	position:fixed;
-	right:2%;
-	bottom:2%;
-}
-#message
-{
-	position:absolute;
-	top:40%;
-	right:0;
-}
 </style>
 </head>
 

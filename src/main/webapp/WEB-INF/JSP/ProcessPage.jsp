@@ -13,83 +13,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>ACME Plastics: Process Setup Sheet</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
-
-
-<style type="text/css">
-select,textarea,fieldset legend
-{
-	font-size:xx-large;
-}
-
-
-.float input,#info input
-{
-	width:80%;
-	font-size:xx-large;
-}
-.float td,#info td
-{
-	font-size:xx-large;
-	
-}
-table
-{
-	
-}
-
-#info,
-#injection,
-#holding,
-#injExtOptions,
-#extrusion,
-#barrelTemperatures,
-#mouldOpening,
-#mouldClosing,
-#dme,
-#ejectors
-{
-	position:fixed;
-	top:200px;
-	width:98%;
-	height:100%;
-	z-index:-1;
-	
-}
-/* To make all divs invisible */
-#injection,
-#holding,
-#injExtOptions,
-#extrusion,
-#barrelTemperatures,
-#mouldOpening,
-#mouldClosing,
-#dme,
-#ejectors
-{
-	visibility:hidden;
-}
-
-/* To be removed in the future*/
-.buttons
-{
-	position:fixed;
-	right:4px;
-	bottom:4px;
-}
-.buttons input
-{
-	font-size:xx-large;
-}
-/* Tabs at the top of window */
-#pageSelect
-{
-	position:fixed; 
-	top:80px;
-}
-
-
+<style>
 </style>
-
 </head>
 
 <body>

@@ -41,20 +41,8 @@ function checkPassword(element)
 	}
 }
 </SCRIPT>
-<STYLE>
-.roles
-{
-	position: absolute;
-	border-style: dashed;
-	width: 400px;
-	background-color: cornflowerblue;
-	padding: 15px;
-	font-size: x-large;
-	top: 599px;
-	left: 25px;
-}
-
-</STYLE>
+<style>
+</style>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 
 </head>

@@ -16,22 +16,6 @@
 <title>ACME Plastics: User Information</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <style>
-.info
-{
-	position:relative;
-	top:100px;
-	font-size:xx-large;
-}
-.buttons
-{
-	position:fixed;
-	right:4px;
-	bottom:4px;
-}
-.buttons input,button
-{
-	font-size:xx-large;
-}
 </style>
 </head>
 <SCRIPT>

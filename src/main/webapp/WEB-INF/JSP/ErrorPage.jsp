@@ -10,19 +10,8 @@
 <html>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <head>
-<style type="text/css">
-.error_message
-{
+<style>
 
-	top:100px;
-	left:0;
-	width:90%;
-	margin-left:auto;
-	margin-right:auto;
-	text-align: left;
-	padding-left:20px;	
-	z-index:-1;	
-}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Error has occurred</title>

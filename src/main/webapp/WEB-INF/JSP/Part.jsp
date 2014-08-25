@@ -21,9 +21,8 @@ function home()
 	location="Part_search";
 }
 </SCRIPT>
-<STYLE>
-
-</STYLE>
+<style>
+</style>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
 <body>
