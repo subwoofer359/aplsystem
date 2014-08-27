@@ -6,14 +6,15 @@
 <html>
 <head>
 <title>Adrian McLaughlin</title>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="description" content="Homepage of Adrian McLaughlin"/>
 <meta name="author" content="Adrian McLaughlin"/>
-<meta name="keywords" content="Adrian,McLaughlin,Java,JavaSE 7,Oracle,Web Developer,Servlets,JSP,Developer"/>
+<meta name="keywords" content="Adrian McLaughlin,Java,JavaSE 7,Oracle,Web Developer,Servlets,JSP,Developer"/>
 
 <link rel="icon" type="image/png" href="./favicon.png"/>
 <link rel="shortcut icon" type="image/png" href="./favicon.png"/>
-
+<link rel="stylesheet" href="css/Homepage.css">
 <script type="text/javascript">
 
 function toMyServlet()
@@ -22,173 +23,22 @@ function toMyServlet()
 }
 
 </script>
-<STYLE>
-
-
-.title
-{
-	position:fixed;
-	top:0px;
-	left:0px;
-	z-index:1;
-
-	width:100%;
-	height:80px;
-	background-color:#6326ff;
-
-}
-
-.title h1
-{
-	text-align:center;
-	
-}
-.sidebar
-{
-	position:fixed;
-	top:100px;
-	left:0px;
-
-	width:100px;
-	height:100%;
-	background-color:#6326ff;
-}
-
-.sidetable
-{
-	position:relative;
-	top:50px;
-	width:100%;
-	text-align:center;
-}
-
-.page
-{
-	/* Set Background to image */
-        background-image: URL('images/background_1.jpg');
-        background-size:cover;
-	position:fixed;
-	top:80px;
-	left:0px;
-
-	height:100%;
-	width:100%;
-	background-color:#7287d4;
-
-	border-style:groove;
-	border-width:5px;
-	border-color:#001eff;
-}
-.twitter
-{
-	position:absolute;
-	right:0%;
-	top:0;
-	width:33%;
-
-}
-.feed
-{
-	position: absolute;
-	top: 400px;
-	right: 0%;
-	width:33%;
-	z-index: -1;
-}
-.profileimg
-{
-	width:100px;
-	height:100px;
-	border-style:groove;
-	
-	border-width:1px;
-	
-	border-color:#001eff;
-
-	overflow:hidden;
-	padding:3px;
-}
-
-.profileimg img
-{
-	height:100%;
-}
-.textblock
-{
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	
-	position:relative;
-	width:55%;
-	padding: 20px;
-	margin-top:5px;
-	
-
-}
-
-dd
-{
-	text-indent: 20%;
-}
-dt
-{
-	font-weight: bold;
-}
-
-#cert_JCP7
-{
-	height:84px;
-	position:absolute;
-	margin-left:10px;	
-}
-
-#cert_OCEJEE6WD
-{
-	height:94px;
-	
-}
-.login
-{
-	position: relative;
-	left: 23px;
-	height: 25px;
-	line-height: 25px;
-	min-width: 140px;
-	max-width: 200px;	
-	border-style: solid;
-	border-color: black;
-	border-radius: 20px;
-	background-color: silver;
-	text-align: center;
-}
-</style>
-
 </head>
 
 <body>
 
-
-<div class="title">
-
-<h1>Adrian McLaughlin's Projects</h1>
-</div>
-
-
+<div class="title"><h1>Adrian McLaughlin</h1></div>
 <div class="page">
-
-<div class="profileimg">
-<img src="./images/profile.jpg">
-</div>
+<div class="profileimg"><img src="./images/profile.jpg"></div>
 
 <div class="textblock">
 I'm a U.C.D. Computer Science graduate though I've an interest in most sciences and mathematics.
 <br/>
 I'm proficient in the Java programming language, Java Servlets and JavaServer Pages.
 <br/>
-<span>
-<img id="cert_OCEJEE6WD" src="images/OCE_JavaEE6WebCompDev_clr.gif"/><img id="cert_JCP7" src="images/OCP_JavaSE7Programmer.gif"/>
-</span>
+<div id="certs">
+<img id="cert_OCEJEE6WD" class="cert" src="images/OCE_JavaEE6WebCompDev_clr.gif"/><img class="cert" id="cert_JCP7" src="images/OCP_JavaSE7Programmer.gif"/>
+</div>
 <br/>
 I've achieved certification through Oracle as an Java EE 6 Web Component Developer. 
 <br/>
@@ -199,27 +49,27 @@ I'm studying J2EE technology including Java Enterprise Beans and the Spring fram
 <a href="http://ie.linkedin.com/pub/adrian-mclaughlin/65/5a0/85b/" target="_blank">
  <img src="https://static.licdn.com/scds/common/u/img/webpromo/btn_myprofile_160x33.png" width="160" height="33" border="0" alt="View Adrian McLaughlin's profile on LinkedIn" onclick="toLinkedIn()">
 </a>
-
 </div>
 <div  class="textblock">Current Project: Developing a web application to store and analyse information related to injection moulding process parameters using 
 <br/>
 <ul>
-<li><Strong>Java Servlets</Strong></li>
-<li><Strong>JavaServer Pages, HTML and JavaScript</Strong></li>
-<li><Strong>Spring</Strong> for dependency injection.</li>
-<li><Strong>MySQL database</Strong> to store the data.</li>
-<li><Strong>Google Charts</Strong></li>
-<li>Source code available for viewing at <a href="https://github.com/subwoofer359/aplsystem" target="_blank">Github</a></li>
+	<li><Strong>Java Servlets</Strong></li>
+	<li><Strong>JavaServer Pages, HTML and JavaScript</Strong></li>
+	<li><Strong>Spring</Strong> for dependency injection.</li>
+	<li><Strong>MySQL database</Strong> to store the data.</li>
+	<li><Strong>Google Charts</Strong></li>
+	<li>Source code available for viewing at <a class="homepage-button github-button" href="https://github.com/subwoofer359/aplsystem" target="_blank">Github</a></li>
+	<li>Application can be access here <a class="homepage-button login" href="app/APLSystemServlet"> Log in to Web App</a></li>
 </ul>
-<div class="login" onclick="toMyServlet()">Log in to Web App</div>
+</div><!--textblock-->
+</div><!--page-->
+<div class="info-sidebar">
+<div class="twitter">
+<a class="twitter-timeline" data-dnt="true" href="https://twitter.com/subwoofer359"  data-widget-id="504266529983049728">Tweets by @subwoofer359</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 </div>
-
-<DIV class="twitter">
-<a class="twitter-timeline" href="https://twitter.com/adrianjmc359" data-widget-id="402726554922278912">Tweets by @adrianjmc359</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-</DIV>
-<div class="feed"><!-- start feedwind code --><script type="text/javascript">document.write('<script type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js"><\/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "https://github.com/subwoofer359/aplsystem/commits/master.atom",rssmikle_frame_width: "475",rssmikle_frame_height: "300",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "on",responsive: "off",rssmikle_css_url: "",text_align: "left",corner: "on",autoscroll: "on",scrolldirection: "up",scrollstep: "3",mcspeed: "20",sort: "Off",rssmikle_title: "on",rssmikle_title_sentence: "ACME Plastic Systems:Commits",rssmikle_title_link: "",rssmikle_title_bgcolor: "#2A51A3",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#859EF7",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#2A51A3",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#544766",rssmikle_item_date: "gl1",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",rssmikle_item_description_tag: "off",rssmikle_item_description_image_scaling: "off",article_num: "15",rssmikle_item_podcast: "off"};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; width:400px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code --></div>
-</DIV>
+<div class="feed"><!-- start feedwind code --><script type="text/javascript">document.write('<script type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js"><' + '/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "https://github.com/subwoofer359/aplsystem/commits/master.atom",rssmikle_frame_width: "400",rssmikle_frame_height: "300",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "on",responsive: "on",rssmikle_css_url: "",text_align: "left",text_align2: "left",corner: "on",scrollbar: "off",autoscroll: "on",scrolldirection: "up",scrollstep: "3",mcspeed: "20",sort: "New",rssmikle_title: "on",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#D2CFFF",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#0066FF",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#666666",rssmikle_item_date: "gl1",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M:%S %p",rssmikle_item_description_tag: "off",rssmikle_item_description_image_scaling: "off",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();</script><div style="font-size:10px; text-align:center; "><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!-- end feedwind code --></div>
+</div>
 
 </body>
 </html> 

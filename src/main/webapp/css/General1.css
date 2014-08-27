@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+/**
+ * @author Adrian Mclaughlin
+ * @date   26/08/2014
+ * @version 2
+ */
+
+@import url(https://fonts.googleapis.com/css?family=Bitter|Oxygen:400,700);
+
+@viewport {width:device-width;}
+
+*{
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+
+html{
+	font-size:62.5%;
+	height:100%;
+}
+
+body{
+	background-color: #7287d4;
+	font-family:"Bitter",serif;
+	font-weight:normal;
+}
+
+h1{
+	font-family:"Oxygen",San-serif;
+	font-weight:normal;
+	font-size:4em;
+}
+
+h2{
+	font-family:"Oxygen",San-serif;
+	font-weight:normal;
+	font-size:3em;
+
+}
+
+strong{
+	font-family:"Bitter",serif;
+	font-weight: bold;
+	font-size:1.1em;
+}
+
+
