@@ -16,14 +16,13 @@
 
 html{
 	font-size:62.5%;
-	
+	height:100%;
 }
 
 body{
 	background-color: #7287d4;
 	font-family:"Bitter",serif;
 	font-weight:normal;
-	height:100%;
 }
 
 h1{
@@ -37,6 +36,12 @@ h2{
 	font-weight:normal;
 	font-size:3em;
 
+}
+
+strong{
+	font-family:"Bitter",serif;
+	font-weight: bold;
+	font-size:1.1em;
 }
 
 

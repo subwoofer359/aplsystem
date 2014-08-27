@@ -1,19 +1,11 @@
 @import url(Reset.css);
 @import url(General.css);
 
-#background-image{
-	background-image: url(../images/background_1.jpg);
-	background-repeat: repeat;
-	position: absolute;
-	width: 100%;
-	height:100%;
-	
-	z-index: -1;
-	opacity: 0.7;
-}
+
 
 body{
-	background-color:rgb(255,255,255);
+	background-image: url(../images/background_1.jpg);
+	background-repeat: repeat;
 }
 
 .title{
@@ -33,14 +25,18 @@ body{
 }
 
 .profileimg img{
+	display: block;
 	width:100%;
 }
 
 .page{
 	float: left;
-	width: 71%;
+	background-color: rgba(255,255,255,0.4);
+	border-radius: 25px;
+	width: 78%;
 	padding-bottom: 30px;
 	font-size: 2em;
+	line-height: 1.3em;
 }
 
 
@@ -65,19 +61,61 @@ body{
 
 .textblock{
 	margin-top: 20px;
-	margin-left: 10px;
+	margin-left: 13%;
 	
 }
 
 .info-sidebar{
-	float: left;
+	float: right;
 }
 
 .twitter{
 	float:right;
 	border-style:solid;
 	border-width:1px;
-	width:400px;
+	width:300px;
+}
+
+ul{
+	list-style-position: inside;
+	list-style-type: disc;
+}
+
+
+.homepage-button
+{
+	display: inline-block;
+	color: inherit;
+	text-decoration: none;
+	border-style: solid;
+	border-radius: 16px;
+	background-color: white;
+	border-width: 1px;
+	margin:3px;
+	padding: 7px 25px 7px 45px;
+	background-repeat: no-repeat;
+	background-position: 4px;
+}
+
+.github-button
+{	
+	background-image: url(../images/GitHub-Mark-64px.png);	
+	background-size: 25%;
+}
+
+.login
+{
+	background-image: url(../favicon.png);
+	background-size: 14%;
+	text-align: center;
+	width: 258px;
+}
+
+
+@media (min-width:1395px){
+	.info-sidebar{
+		margin-top: -70px;
+	}
 }
 @media (min-width:800px) and (max-width:1395px){
 	.page{
@@ -90,6 +128,9 @@ body{
 	.twitter
 	{
 		float:left;
+	}
+	.info-sidebar{
+		float: left;
 	}
 }
 @media (min-width:480px) and (max-width:800px){
@@ -104,6 +145,9 @@ body{
 	.twitter
 	{
 		float:left;
+	}
+	.info-sidebar{
+		float: left;
 	}
 	
 }
