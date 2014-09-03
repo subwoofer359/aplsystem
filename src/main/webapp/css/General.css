@@ -44,4 +44,13 @@ strong{
 	font-size:1.1em;
 }
 
+.page-title
+{
+	text-indent: 30px;
+	float: left;
+	width: 100%;
+	background-color: #2A51A3;
+	color: black;
+	font-size: 0.7em;
+}
 
