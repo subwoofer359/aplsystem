@@ -13,6 +13,16 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>ACME Plastics:Parts Search Page</title>
 <style>
+.alert{
+	position: relative;
+	top: 50px;
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	display:none;
+	text-align: center;
+	
+}
 </style>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
@@ -22,9 +32,15 @@ window.onload=function()
 			var message="${message}";
 			if(message!=null && message!="")
 			{
-				alert(message);
+				$(".alert").html("${message}");
+				$(".alert").show();
 			}
 		};
+
+function hide(element)
+{
+	element.style.display="none";
+}
 </script>
 </head>
 <body>
@@ -33,7 +49,7 @@ window.onload=function()
 </DIV>
 
 
-<FORM action="${pageContext.request.contextPath}/app/Part_search" method="post" onsubmit="return isChecked(this,'part')">
+<FORM action="${pageContext.request.contextPath}/app/Part_search" method="post" onsubmit="return isChecked(this,'part','alert')">
 <DIV class="container results">
 <div class="row">
 <TABLE class="table col-xs-12">
@@ -108,7 +124,7 @@ window.onload=function()
 									</div>
 								</div>
 								<div>
-									<input class="btn btn-primary form-control" type="submit" name="mode" value="search" onclick="addClicked(this)">
+									<input id="search-btn" class="btn btn-primary form-control" type="submit" name="mode" value="search" onclick="addClicked(this)">
 								</div>
 							</div>
 						</li>
@@ -133,6 +149,18 @@ window.onload=function()
     $('.navbar-form').click(function(e) {
         e.stopPropagation();
     });
+
+    /* The user's enter keypress on the search element should submit a search */
+    $('.navbar-form').keypress(function(e) {
+    	var code = (e.keyCode ? e.keyCode : e.which);
+    	if(code==13)
+    	{
+    		$("#search-btn").click();
+            e.stopPropagation();
+    		return false;
+    	}	
+        });
 </script>
+<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>

@@ -77,7 +77,7 @@ function home()
 <c:if test="${mode eq null }">
 	<input type='submit'  name="mode" value='Enter'/>
 </c:if>
-<c:if test="${mode eq 'edit' }">
+<c:if test="${mode eq 'edit Part' }">
 	<input type='submit'  name="mode" value='Edit'/>
 </c:if>
 </span>

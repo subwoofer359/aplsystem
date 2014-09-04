@@ -43,7 +43,7 @@ function selected(element)
 }
 
 
-
+/* Remove the event onsubmit for the add button */
 function addClicked(button)
 {
 	var forms=document.getElementsByTagName("form");
@@ -53,7 +53,7 @@ function addClicked(button)
 	}
 }
 
-function isChecked(form,itemName)
+function isChecked(form,itemName,alertDiv)
 {
 	var list=document.getElementsByName("edit");
 	console.log(list.length+"\n");
@@ -68,7 +68,17 @@ function isChecked(form,itemName)
 	}
 	if(!checked)
 	{
-		alert("A "+itemName+" is not selected");
+		var alertBox=document.getElementById(alertDiv);
+		if(alertBox!=null)
+		{
+			alertBox.innerHTML="<Strong>Error:</Strong>A "+itemName+" is not selected";
+			alertBox.style.display="block";
+		}
+		else
+		{
+			alert("A "+itemName+" is not selected");
+		}
+		
 		return false;
 	}
 	else
