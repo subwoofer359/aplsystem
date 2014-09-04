@@ -18,7 +18,8 @@ function selected(element)
 		{
 			elementsArray[i].checked=false;
 			//Set parent <TR> element background to original colour
-			elementsArray[i].parentNode.parentNode.style.backgroundColor="";  
+			elementsArray[i].parentNode.parentNode.style.backgroundColor="";
+			elementsArray[i].parentNode.parentNode.style.borderColor="";
 		}
 	}
 	
@@ -31,6 +32,7 @@ function selected(element)
 			console.log(checkbox[0]);
 			checkbox[0].checked=true;
 			element.style.backgroundColor="red";
+			element.style.borderColor="red";
 		}
 		else
 		{
