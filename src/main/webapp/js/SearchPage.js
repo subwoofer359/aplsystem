@@ -93,3 +93,9 @@ function enable(id)
 {
 	id.value="edit";	
 }
+
+/* Hide an HTML element */
+function hide(element)
+{
+	element.style.display="none";
+}

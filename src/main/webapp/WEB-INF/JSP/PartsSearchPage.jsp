@@ -13,16 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>ACME Plastics:Parts Search Page</title>
 <style>
-.alert{
-	position: relative;
-	top: 50px;
-	width: 40%;
-	margin-left: auto;
-	margin-right: auto;
-	display:none;
-	text-align: center;
-	
-}
+
 </style>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
@@ -37,10 +28,6 @@ window.onload=function()
 			}
 		};
 
-function hide(element)
-{
-	element.style.display="none";
-}
 </script>
 </head>
 <body>
