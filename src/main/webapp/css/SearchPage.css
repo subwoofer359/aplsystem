@@ -4,3 +4,40 @@
  * @author Adrian Mclaughlin
  * @version 1
  */
+.checkbox
+{
+	display:none;
+
+}
+.page-title
+{
+	position:fixed;
+}
+.results
+{
+	position: fixed;
+	top: 90px;
+	left: 1%;
+	width: 98%;
+	min-width: 70%;
+	max-width: 98%;
+	height: 80%;
+	min-height: 60%;
+	max-height: 80%;
+	margin-left: 4px;
+	overflow: auto;
+}
+
+.results TR:nth-child(even)
+{
+	background-color: gray;
+	border-style: solid;
+	border-color: gray;
+}
+
+.results TR:nth-child(odd)
+{
+	background-color: white;
+	border-style: solid;
+	border-color: white;
+}

@@ -9,7 +9,6 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!--  <link rel="SHORTCUT ICON" HREF="${pageContext.request.contextPath}/images/xbill_01.jpg">  --> <!--  To be placed in header --> 
 <title>ACME Plastics Systems' Main Page</title>
 <%@ include file="/BootStrapHeader.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
@@ -24,37 +23,51 @@
 
 <%@ include file="NavigationDiv.jspf" %>
 
-<div class="container">
-<div class="row">
-	<div class="col-sm-4">
-		<a href="${pageContext.request.contextPath}/app/Part_search">Part Search</a>
-	</div>
-	
-	<div id="problemdb" class="col-sm-4">
-		Problem Database
-	</div>
-	
-	<div class="col-sm-4">
-		<a href="${pageContext.request.contextPath}/app/ProcessSheet_search">Process Sheets</a>
+<nav role="navigation" class="navbar navbar-default navbar-fixed-bottom">
+<div class="container-fluid">
+	<div class="navbar-header">
+		<button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+			<span class="sr-only">Toggle Navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a href="#" class="navbar-brand">Menu</a>
 	</div>
 
-	<div class="col-sm-4">
-		<a href="${pageContext.request.contextPath}/app/Material_search">Material list</a>
-	</div>
-
-	<div class="col-sm-4">
-	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
-		<a href="${pageContext.request.contextPath}/app/user/Users">Users</a>
-	</c:if>
-	</div>
-
-	<div class="col-sm-4">
-	<c:if test="${my:isUserInRole(pageContext.request,'qc')}">
-	<a href="${pageContext.request.contextPath}/app/spc/SPCListParts">Statistical process control</a>
-	</c:if>
-	</div>
-</div>
-</div><!-- container -->
+	<div id="navbarCollapse" class="collapse navbar-collapse">
+	<ul class="nav navbar-nav">
+		<li>
+			<a href="${pageContext.request.contextPath}/app/Part_search">Part Search</a>
+		</li>
+		<li>
+			<a href="#" >Problem Database</a>
+		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/app/ProcessSheet_search">Process Sheets</a>
+		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/app/Material_search">Material list</a>
+		</li>
+		<li>
+		<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
+			<a href="${pageContext.request.contextPath}/app/user/Users">Users</a>
+		</c:if>
+		</li>
+		<li>
+		<c:if test="${my:isUserInRole(pageContext.request,'qc')}">
+			<a href="${pageContext.request.contextPath}/app/spc/SPCListParts">Statistical process control</a>
+		</c:if>
+		</li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li>
+			<a href="${pageContext.request.contextPath}/app/UserInfo">User:<c:out value='${pageContext.request.remoteUser}'/></a>
+		</li>
+	</ul>
+	<div>
+<div><!-- container -->
+</nav>
 <%@ include file="/BootStrapFooter.jsp" %>
 </body>
 </html>

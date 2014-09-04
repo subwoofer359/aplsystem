@@ -29,8 +29,6 @@ import org.springframework.context.ApplicationContext;
 
 import static org.amc.servlet.ControllerConstants.MODE;
 import static org.amc.servlet.ControllerConstants.ERRORS;
-import static org.amc.servlet.ControllerConstants.MODE_EDIT;
-import static org.amc.servlet.ControllerConstants.MODE_ADD;
 import static org.amc.servlet.ControllerConstants.PARTS;
 import static org.amc.servlet.ControllerConstants.SEARCH;
 import static org.amc.servlet.ControllerConstants.FORM;
@@ -62,6 +60,9 @@ public class APLPartServlet extends HttpServlet
 	private PartActionFactory partActionFactory;
 	
 	private static Logger logger=Logger.getLogger(APLPartServlet.class);
+	
+	private static final String MODE_EDIT="edit Part";
+	private static final String MODE_ADD="add Part";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

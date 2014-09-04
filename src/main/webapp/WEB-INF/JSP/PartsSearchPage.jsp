@@ -1,6 +1,6 @@
 <%--  
 	@author Adrian Mclaughlin
- 	@version 1
+ 	@version 1.1
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -8,6 +8,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="/BootStrapHeader.jsp" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>ACME Plastics:Parts Search Page</title>
@@ -27,45 +28,111 @@ window.onload=function()
 </script>
 </head>
 <body>
-<DIV class="title">
+<DIV class="page-title">
 <H1> Part Inventory</H1>
 </DIV>
-<%@ include file="NavigationDiv.jspf" %>
+
 
 <FORM action="${pageContext.request.contextPath}/app/Part_search" method="post" onsubmit="return isChecked(this,'part')">
-<DIV class="results">
-<TABLE>
+<DIV class="container results">
+<div class="row">
+<TABLE class="table col-xs-12">
 <thead>
 <TR>
-	<TH onclick="tableSort(this, 'Id');selected(null);">Id</TH>
-	<TH onclick="tableSort(this, 'Company');selected(null);">Company</TH>
-	<TH onclick="tableSort(this, 'Name');selected(null);">Name</TH>
-	<TH onclick="tableSort(this, 'Version');selected(null);">Version</TH>
-	<TH onclick="tableSort(this, 'Colour');selected(null);">Colour</TH>
-	<TH onclick="tableSort(this, 'QSS no.');selected(null);">QSS no.</TH>
-	<TH></TH>
+	<TH class="h3" onclick="tableSort(this, 'Id');selected(null);">Id</TH>
+	<TH class="h3" onclick="tableSort(this, 'Company');selected(null);">Company</TH>
+	<TH class="h3" onclick="tableSort(this, 'Name');selected(null);">Name</TH>
+	<TH class="h3" onclick="tableSort(this, 'Version');selected(null);">Version</TH>
+	<TH class="h3" onclick="tableSort(this, 'Colour');selected(null);">Colour</TH>
+	<TH class="h3" onclick="tableSort(this, 'QSS no.');selected(null);">QSS no.</TH>
+	<TH class="checkbox"></TH>
 </TR>
 </thead>
 <tbody>
 <c:forEach items="${parts}" var="part">
 <TR  onclick="selected(this)"><TD><c:out value="${part.id}"/></TD><TD><c:out value="${part.company}"/></TD><TD><c:out value="${part.name}"/></TD><TD><c:out value="${part.version}"/></TD><TD><c:out value="${part.colour}"/></TD><TD><c:out value="${part.qss_no}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
-<!-- <TR><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD></TR> -->
 </tbody>
 </TABLE>
-</DIV>
-<table class="search">
-<tbody>
-<tr><td>Company</td><td><input type="text" name="company" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.company}">value="${PARTSEARCH.company}"</c:if> /></td><td></td></tr>
-<tr><td>Name</td><td><input type="text" name="partName"   <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.partName}">value="${PARTSEARCH.partName}"</c:if>/> </td><td></td></tr>
-<tr><td>QSS No.</td><td><input type="text" name="qssNumber" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.QSSNumber}">value="${PARTSEARCH.QSSNumber}"</c:if> /></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
-</tbody>
-</table>
-<SPAN class="buttons">
-	<input id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
-	<input id="edit" type="submit" name="mode" value="edit"/>
-	<input id="edit" type="submit" value="add To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC"/>
-</SPAN>
+</div><!--  row -->
+</div><!--  container -->
+
+<nav role="navigation" class="navbar navbar-default navbar-fixed-bottom">
+	<div class="container-fluid">
+	<div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">Menu</a>
+    </div><!--navbar-header-->
+	
+	<div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet">Home</a></li>
+				<li class="dropdown">
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Actions<b class="caret"></b></a>
+					<ul role="menu" class="dropdown-menu">
+					<li>
+	            		<input class="btn btn-block" id="add" type="submit" name="mode" value="add Part" onclick="addClicked(this)">
+						<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
+						<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
+					</li>
+					</ul>
+				</li>
+	   		</ul>
+	   		<ul class="nav navbar-nav">
+				<li class="dropdown">
+					<a  data-toggle="dropdown" class="dropdown-toggle" href="#">Search<b class="caret"></b></a>
+					<ul role="menu" class="dropdown-menu">
+						<li>
+							<div role="search" class="navbar-form">
+								<div class="form-group">
+									<label for="company" class="hidden-xs">Company</label> 			
+									<div>
+										<input class="form-control" type="text" id="company" name="company" placeholder="Company" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.company}">value="${PARTSEARCH.company}"</c:if>/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="hidden-xs" for="partName">Name</label>
+									<div>
+										<input class="form-control" type="text" id="partName" name="partName"  placeholder="Name of Part"  <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.partName}">value="${PARTSEARCH.partName}"</c:if>/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="hidden-xs" for="qssNumber">QSS No.</label>
+									<div>
+										<input class="form-control" type="text" id="qssNumber" name="qssNumber"  placeholder="QSS Number" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.QSSNumber}">value="${PARTSEARCH.QSSNumber}"</c:if>/>
+									</div>
+								</div>
+								<div>
+									<input class="btn btn-primary form-control" type="submit" name="mode" value="search" onclick="addClicked(this)">
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                	<a href="${pageContext.request.contextPath}/app/UserInfo">User:<c:out value='${pageContext.request.remoteUser}'/></a>
+                </li>
+            </ul>
+        </div><!-- nav-collapse -->
+        
+    </div><!--container -->
+</nav>
+
 </FORM>
+<%@ include file="/BootStrapFooter.jsp" %>
+<!-- Stops the search menu closing when clicked on -->
+<%--http://stackoverflow.com/questions/10863821/bootstrap-dropdown-closing-when-clicked --%>
+<script type="text/javascript">
+    $('.navbar-form').click(function(e) {
+        e.stopPropagation();
+    });
+</script>
 </body>
 </html>
