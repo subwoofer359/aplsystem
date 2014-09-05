@@ -99,3 +99,25 @@ function hide(element)
 {
 	element.style.display="none";
 }
+
+
+
+window.addEventListener("load", function(){
+	/* 
+	 * Stops the search menu closing when clicked on 
+	 * http://stackoverflow.com/questions/10863821/bootstrap-dropdown-closing-when-clicked 
+	 */
+	$('.navbar-form').click(function(e) {
+	    e.stopPropagation();
+	});
+	/* The user's enter keypress on the search element should submit a search */
+	$('.navbar-form').keypress(function(e) {
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if(code==13)
+		{
+			$("#search-btn").click();
+			e.stopPropagation();
+			return false;
+		}	
+    });
+});

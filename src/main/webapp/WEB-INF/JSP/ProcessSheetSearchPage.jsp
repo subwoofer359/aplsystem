@@ -113,25 +113,6 @@ window.onload=function()
  --%>
 </FORM>
 <%@ include file="/BootStrapFooter.jsp" %>
-
-<!-- Stops the search menu closing when clicked on -->
-<%--http://stackoverflow.com/questions/10863821/bootstrap-dropdown-closing-when-clicked --%>
-<script type="text/javascript">
-    $('.navbar-form').click(function(e) {
-        e.stopPropagation();
-    });
-
-    /* The user's enter keypress on the search element should submit a search */
-    $('.navbar-form').keypress(function(e) {
-    	var code = (e.keyCode ? e.keyCode : e.which);
-    	if(code==13)
-    	{
-    		$("#search-btn").click();
-            e.stopPropagation();
-    		return false;
-    	}	
-        });
-</script>
 <div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>
