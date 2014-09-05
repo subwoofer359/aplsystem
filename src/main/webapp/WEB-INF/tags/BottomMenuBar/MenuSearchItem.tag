@@ -1,6 +1,8 @@
 <%--
-	Tag file for a Search menu item in a NavBar.
-	Depends on BootStrap 
+	A html list used as Search menu item in a bootstrap menu nav.
+	Depends on BootStrap and JQuery
+	To be used as child tag of BottomMenuBar.tag
+	
 	@author Adrian McLaughlin
 --%>
 <%@ tag language="java" pageEncoding="UTF-8"  trimDirectiveWhitespaces="true"%>

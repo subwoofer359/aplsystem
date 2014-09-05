@@ -60,94 +60,23 @@ window.onload=function()
 </TABLE>
 </div><!--  row -->
 </div><!--  container -->
-<%-- 
-<nav role="navigation" class="navbar navbar-default navbar-fixed-bottom">
-	<div class="container-fluid">
-	<div class="navbar-header">
-            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand">Menu</a>
-    </div><!--navbar-header-->
-	
-	<div id="navbarCollapse" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet">Home</a></li>
-				<li class="dropdown">
-					<a data-toggle="dropdown" class="dropdown-toggle" href="#">Actions<b class="caret"></b></a>
-					<ul role="menu" class="dropdown-menu">
-					<li>
-	            		<input class="btn btn-block" id="add" type="submit" name="mode" value="add Part" onclick="addClicked(this)">
-						<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
-						<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
-					</li>
-					</ul>
-				</li>
-	   		</ul>
-	   		
-	   		<ul class="nav navbar-nav">
-				<li class="dropdown">
-					<a  data-toggle="dropdown" class="dropdown-toggle" href="#">Search<b class="caret"></b></a>
-					<ul role="menu" class="dropdown-menu">
-						<li>
-							<div role="search" class="navbar-form">
-								<div class="form-group">
-									<label for="company" class="hidden-xs">Company</label> 			
-									<div>
-										<input class="form-control" type="text" id="company" name="company" placeholder="Company" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.company}">value="${PARTSEARCH.company}"</c:if>/>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="hidden-xs" for="partName">Name</label>
-									<div>
-										<input class="form-control" type="text" id="partName" name="partName"  placeholder="Name of Part"  <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.partName}">value="${PARTSEARCH.partName}"</c:if>/>
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="hidden-xs" for="qssNumber">QSS No.</label>
-									<div>
-										<input class="form-control" type="text" id="qssNumber" name="qssNumber"  placeholder="QSS Number" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH.QSSNumber}">value="${PARTSEARCH.QSSNumber}"</c:if>/>
-									</div>
-								</div>
-								<div>
-									<input id="search-btn" class="btn btn-primary form-control" type="submit" name="mode" value="search" onclick="addClicked(this)">
-								</div>
-							</div>
-						</li>
-					</ul>
-				</li>
-            </ul>
-             
-             <tags:MenuSearchItem company="Company" partName="Name of Part" QSSNumber="QSS No."/>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                	<a href="${pageContext.request.contextPath}/app/UserInfo">User:<c:out value='${pageContext.request.remoteUser}'/></a>
-                </li>
-            </ul>
-        </div><!-- nav-collapse -->
-        
-    </div><!--container -->
-</nav>
---%>
+
+
 <tags:BottomMenuBar>
-	<jsp:attribute name="user">
-		<tags:UserListItem userName="${pageContext.request.remoteUser}"></tags:UserListItem>
-	</jsp:attribute>
-	<jsp:attribute name="buttons">
-		<input class="btn btn-block" id="add" type="submit" name="mode" value="add Part" onclick="addClicked(this)">
-		<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
-		<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
-	</jsp:attribute>
 	<jsp:body>
+		<tags:ButtonsMenu>
+			<input class="btn btn-block" id="add" type="submit" name="mode" value="add Part" onclick="addClicked(this)">
+			<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
+			<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
+		</tags:ButtonsMenu>
+		<tags:UserListItem userName="${pageContext.request.remoteUser}"></tags:UserListItem>
 		<tags:MenuSearchItem company="Company" partName="Name of Part" QSSNumber="QSS No."/>
 	</jsp:body>
 </tags:BottomMenuBar>
 
 </FORM>
 <%@ include file="/BootStrapFooter.jsp" %>
+
 <!-- Stops the search menu closing when clicked on -->
 <%--http://stackoverflow.com/questions/10863821/bootstrap-dropdown-closing-when-clicked --%>
 <script type="text/javascript">
