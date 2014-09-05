@@ -6,6 +6,8 @@
 	@author Adrian McLaughlin
 --%>
 <%@ tag language="java" pageEncoding="UTF-8"  trimDirectiveWhitespaces="true"%>
+<%-- sessionVariable is a session variable holding the previous search values --%>
+<%@ attribute name="sessionVariable" required="true" %>
 <%@ tag dynamic-attributes="searchFields" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <ul class="nav navbar-nav">
@@ -18,7 +20,7 @@
 						<div class="form-group">
 							<label for="${searchField.key}" class="hidden-xs">${searchField.value}</label> 			
 							<div>
-								<input class="form-control" type="text" id="${searchField.key}" name="${searchField.key}" placeholder="${searchField.value}" <c:if test="${not empty PARTSEARCH and not empty PARTSEARCH[searchField.key]}">value="${PARTSEARCH[searchField.key]}"</c:if>/>
+								<input class="form-control" type="text" id="${searchField.key}" name="${searchField.key}" placeholder="${searchField.value}" <c:if test="${not empty sessionScope[sessionVariable] and not empty sessionScope[sessionVariable][searchField.key]}">value="${sessionScope[sessionVariable][searchField.key]}"</c:if>/>
 							</div>
 						</div>
 					</c:forEach>
