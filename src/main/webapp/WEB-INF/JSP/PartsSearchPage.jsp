@@ -4,6 +4,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags/BottomMenuBar" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +60,7 @@ window.onload=function()
 </TABLE>
 </div><!--  row -->
 </div><!--  container -->
-
+<%-- 
 <nav role="navigation" class="navbar navbar-default navbar-fixed-bottom">
 	<div class="container-fluid">
 	<div class="navbar-header">
@@ -86,6 +87,7 @@ window.onload=function()
 					</ul>
 				</li>
 	   		</ul>
+	   		
 	   		<ul class="nav navbar-nav">
 				<li class="dropdown">
 					<a  data-toggle="dropdown" class="dropdown-toggle" href="#">Search<b class="caret"></b></a>
@@ -118,6 +120,8 @@ window.onload=function()
 					</ul>
 				</li>
             </ul>
+             
+             <tags:MenuSearchItem company="Company" partName="Name of Part" QSSNumber="QSS No."/>
             <ul class="nav navbar-nav navbar-right">
                 <li>
                 	<a href="${pageContext.request.contextPath}/app/UserInfo">User:<c:out value='${pageContext.request.remoteUser}'/></a>
@@ -127,6 +131,20 @@ window.onload=function()
         
     </div><!--container -->
 </nav>
+--%>
+<tags:BottomMenuBar>
+	<jsp:attribute name="user">
+		<tags:UserListItem userName="${pageContext.request.remoteUser}"></tags:UserListItem>
+	</jsp:attribute>
+	<jsp:attribute name="buttons">
+		<input class="btn btn-block" id="add" type="submit" name="mode" value="add Part" onclick="addClicked(this)">
+		<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
+		<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
+	</jsp:attribute>
+	<jsp:body>
+		<tags:MenuSearchItem company="Company" partName="Name of Part" QSSNumber="QSS No."/>
+	</jsp:body>
+</tags:BottomMenuBar>
 
 </FORM>
 <%@ include file="/BootStrapFooter.jsp" %>
