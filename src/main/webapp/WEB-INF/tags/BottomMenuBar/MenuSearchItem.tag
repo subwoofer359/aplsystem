@@ -6,10 +6,11 @@
 	@author Adrian McLaughlin
 --%>
 <%@ tag language="java" pageEncoding="UTF-8"  trimDirectiveWhitespaces="true"%>
-<%-- sessionVariable is a session variable holding the previous search values --%>
-<%@ attribute name="sessionVariable" required="false" %>
 <%@ tag dynamic-attributes="searchFields" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- sessionVariable is a session variable holding the previous search values --%>
+<%@ attribute name="sessionVariable" required="true" rtexprvalue="false"%>
+<c:set var="sessionVariable" value="${pageScope['sessionVariable']}" scope="request"/>
 <ul class="nav navbar-nav">
 	<li class="dropdown">
 		<a  data-toggle="dropdown" class="dropdown-toggle" href="#">Search<b class="caret"></b></a>
@@ -26,10 +27,10 @@
 								<c:if test="${empty sessionVariable}">
 									<input class="form-control" type="text" id="${searchField.key}" name="${searchField.key}" placeholder="${searchField.value}" />
 								</c:if>
-								
 							</div>
 						</div>
 					</c:forEach>
+					<jsp:doBody/>
 					<div>
 						<input id="search-btn" class="btn btn-primary form-control" type="submit" name="mode" value="search" onclick="addClicked(this)">
 					</div>
