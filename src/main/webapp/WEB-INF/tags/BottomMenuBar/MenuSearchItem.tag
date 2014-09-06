@@ -8,8 +8,10 @@
 <%@ tag language="java" pageEncoding="UTF-8"  trimDirectiveWhitespaces="true"%>
 <%@ tag dynamic-attributes="searchFields" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- sessionVariable is a session variable holding the previous search values --%>
-<%@ attribute name="sessionVariable" required="true" rtexprvalue="false"%>
+<%-- sessionVariable is a session attribute holding a org.amc.servlet.action.search.WebFormSearch object --%>
+<%@ attribute name="sessionVariable" required="false" rtexprvalue="false"%>
+
+<%--Making  sessionVariable available to nested classes, variable action not use --%>
 <c:set var="sessionVariable" value="${pageScope['sessionVariable']}" scope="request"/>
 <ul class="nav navbar-nav">
 	<li class="dropdown">
