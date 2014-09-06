@@ -283,7 +283,7 @@ public class APLProcessServlet extends HttpServlet
 						
 						mpform.setPartId(request.getParameter("partId"));
 						mpform.setMachineNo(request.getParameter("machineNo"));
-						mpform.setMasterbatchNo(request.getParameter("masterbatchNo"));
+						mpform.setMasterbatchNo(request.getParameter("masterBatchNo"));
 						mpform.setMaterial(request.getParameter("material"));
 						mpform.setSignedOffBy(request.getParameter("signedOffBy"));
 						mpform.setStartDate(request.getParameter("startDate"));

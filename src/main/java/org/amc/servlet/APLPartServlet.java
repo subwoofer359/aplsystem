@@ -28,9 +28,8 @@ import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
 import static org.amc.servlet.ControllerConstants.MODE;
-import static org.amc.servlet.ControllerConstants.ERRORS;
-import static org.amc.servlet.ControllerConstants.MODE_EDIT;
 import static org.amc.servlet.ControllerConstants.MODE_ADD;
+import static org.amc.servlet.ControllerConstants.ERRORS;
 import static org.amc.servlet.ControllerConstants.PARTS;
 import static org.amc.servlet.ControllerConstants.SEARCH;
 import static org.amc.servlet.ControllerConstants.FORM;
@@ -62,6 +61,8 @@ public class APLPartServlet extends HttpServlet
 	private PartActionFactory partActionFactory;
 	
 	private static Logger logger=Logger.getLogger(APLPartServlet.class);
+	
+	private static final String MODE_EDIT="edit Part";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -262,7 +263,7 @@ public class APLPartServlet extends HttpServlet
 		//check to if in search or edit mode TODO add delete mode
 		String mode=request.getParameter(MODE);
 		//Passed if an entry is to be edited
-		String idValue=request.getParameter(MODE_EDIT);
+		String idValue=request.getParameter("edit");
 		
 		//Debug
 		logger.debug(String.format("mode:[%s] ID:[%s]%n", mode,idValue));
@@ -283,7 +284,7 @@ public class APLPartServlet extends HttpServlet
 				PartSearchForm partSearchForm=new PartSearchForm();
 				partSearchForm.setCompany(request.getParameter("company"));
 				partSearchForm.setPartName(request.getParameter("partName"));
-				partSearchForm.setQSSNumber(request.getParameter("qssNumber"));
+				partSearchForm.setQSSNumber(request.getParameter("QSSNumber"));
 				
 				PartSearchFormValidator validator=new PartSearchFormValidator();
 				

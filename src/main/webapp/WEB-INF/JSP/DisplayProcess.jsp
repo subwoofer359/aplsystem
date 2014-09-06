@@ -49,65 +49,6 @@ function hideInfo(element)
 </SCRIPT>
 
 <style>
-.title 
-{
-	z-index: 1;
-}
-
-.navbox
-{
-	z-index: 2;
-}
-
-.informationbox
-{
-	position:absolute;
-	border-style: solid;
-	border-radius: 25px;
-	background-color: white;
-	margin-top:4px;
-	top:85px;
-	width:50%;
-	left:10px;
-	padding: 10px;
-	overflow:auto;
-	font-size:xx-large;
-}
-
-.header
-{
-	font-weight: bold;
-}
-
-.chart
-{
-	position:absolute;
-	top:360px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	width:95%;
-	height:45%;
-	min-height:40%;
-	margin-top:40px;
-	margin-right:10px;
-	margin-left:10px;
-	visibility:hidden;
-	
-}
-
-select
-{
-	position:fixed;
-	top:100px;
-	right:5px;
-	font-size:xx-large;
-	z-index:4;
-}
-
-#injectionTimePressureChart
-{
-	visibility: visible;
-}
 </style>
 </head>
 <body>

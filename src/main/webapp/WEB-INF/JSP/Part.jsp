@@ -21,9 +21,8 @@ function home()
 	location="Part_search";
 }
 </SCRIPT>
-<STYLE>
-
-</STYLE>
+<style>
+</style>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
 <body>
@@ -78,7 +77,7 @@ function home()
 <c:if test="${mode eq null }">
 	<input type='submit'  name="mode" value='Enter'/>
 </c:if>
-<c:if test="${mode eq 'edit' }">
+<c:if test="${mode eq 'edit Part' }">
 	<input type='submit'  name="mode" value='Edit'/>
 </c:if>
 </span>

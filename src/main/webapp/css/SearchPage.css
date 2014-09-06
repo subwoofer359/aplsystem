@@ -4,104 +4,40 @@
  * @author Adrian Mclaughlin
  * @version 1
  */
-.title 
+.checkbox
 {
-	/* to be removed in the future already in General.css */
-	position: fixed;
-	background-color: #2A51A3;
-	width: 100%;
-	height: 77px;
-	top: 0;
-	left: 0;
-	text-indent:5%;
+	display:none;
+
 }
-.search
- {
- 	position: fixed;
- 	left:0;
- 	bottom:4px;
- 	border-style: solid;
- 	border-radius: 30px;
- 	padding: 10px;
- 	min-width:30%;
- 	max-width:70%;
- }
- 
- .search input[type="text"]
- {
- 	max-width:80%;
- 	font-size:xx-large;
- 	
- }
- .search input[type="submit"]
- {
- 	max-height:50px;
- 	font-size:xx-large;
- }
-.buttons
+.page-title
 {
 	position:fixed;
-	right:4px;
-	bottom:4px;
 }
-.buttons input,button
-{
-	font-size:xx-large;
-}
-
 .results
 {
 	position: fixed;
 	top: 90px;
-	left:1%;
-	/*border-style: solid;*/
-	width:98%;
-	min-width:70%;
-	max-width:98%;
-	height:77%;
-	min-height:60%;
-	max-height:77%;
-	margin-left:4px;
+	left: 1%;
+	width: 98%;
+	min-width: 70%;
+	max-width: 98%;
+	height: 80%;
+	min-height: 60%;
+	max-height: 80%;
+	margin-left: 4px;
 	overflow: auto;
 }
 
-.results table
-{
-	top:150px;
-	background-color:white;
-	width:100%;	
-}
-
-.results TD,.entry TD
-{
-	text-align:left;
-	font-size:x-large;
-	line-height: 77px;
-	white-space: nowrap;
-}
-
-.results TR:nth-child(even),.entry TR:nth-child(even)
+.results TR:nth-child(even)
 {
 	background-color: gray;
-}
-.results TR:nth-child(even),.entry TR:nth-child(even)
-{
 	border-style: solid;
 	border-color: gray;
 }
-.results TH
-{
-	text-align:left;
-	font-size:x-large;
-}
 
-.results INPUT[type="checkbox"]
+.results TR:nth-child(odd)
 {
-
-}
-/* Hide Checkboxes*/
-.checkbox
-{
-	visibility:hidden;
-	width:0;
+	background-color: white;
+	border-style: solid;
+	border-color: white;
 }

@@ -18,7 +18,8 @@ function selected(element)
 		{
 			elementsArray[i].checked=false;
 			//Set parent <TR> element background to original colour
-			elementsArray[i].parentNode.parentNode.style.backgroundColor="";  
+			elementsArray[i].parentNode.parentNode.style.backgroundColor="";
+			elementsArray[i].parentNode.parentNode.style.borderColor="";
 		}
 	}
 	
@@ -31,6 +32,7 @@ function selected(element)
 			console.log(checkbox[0]);
 			checkbox[0].checked=true;
 			element.style.backgroundColor="red";
+			element.style.borderColor="red";
 		}
 		else
 		{
@@ -41,7 +43,7 @@ function selected(element)
 }
 
 
-
+/* Remove the event onsubmit for the add button */
 function addClicked(button)
 {
 	var forms=document.getElementsByTagName("form");
@@ -51,7 +53,7 @@ function addClicked(button)
 	}
 }
 
-function isChecked(form,itemName)
+function isChecked(form,itemName,alertDiv)
 {
 	var list=document.getElementsByName("edit");
 	console.log(list.length+"\n");
@@ -66,7 +68,17 @@ function isChecked(form,itemName)
 	}
 	if(!checked)
 	{
-		alert("A "+itemName+" is not selected");
+		var alertBox=document.getElementById(alertDiv);
+		if(alertBox!=null)
+		{
+			alertBox.innerHTML="<Strong>Error:</Strong>A "+itemName+" is not selected";
+			alertBox.style.display="block";
+		}
+		else
+		{
+			alert("A "+itemName+" is not selected");
+		}
+		
 		return false;
 	}
 	else
@@ -81,3 +93,31 @@ function enable(id)
 {
 	id.value="edit";	
 }
+
+/* Hide an HTML element */
+function hide(element)
+{
+	element.style.display="none";
+}
+
+
+
+window.addEventListener("load", function(){
+	/* 
+	 * Stops the search menu closing when clicked on 
+	 * http://stackoverflow.com/questions/10863821/bootstrap-dropdown-closing-when-clicked 
+	 */
+	$('.navbar-form').click(function(e) {
+	    e.stopPropagation();
+	});
+	/* The user's enter keypress on the search element should submit a search */
+	$('.navbar-form').keypress(function(e) {
+		var code = (e.keyCode ? e.keyCode : e.which);
+		if(code==13)
+		{
+			$("#search-btn").click();
+			e.stopPropagation();
+			return false;
+		}	
+    });
+});

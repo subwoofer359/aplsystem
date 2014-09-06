@@ -15,19 +15,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
-<style type="text/css">
-
-.entry td
-{
-	font-size: x-large;
-	line-height: 50px;
-}
-.entry input[type="text"]
-{
-	width:70%;
-	font-size:x-large;
-}
-
+<style>
 </style>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 </head>
