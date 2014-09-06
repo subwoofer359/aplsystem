@@ -99,7 +99,7 @@ window.onload=function()
 		<tags:MenuSearchField name="startDate" displayName="Date from" type="date"/> 
 		<tags:MenuSearchField name="endDate" displayName="Date to" type="date"/>
 	</tags:MenuSearchItem>
-	<tags:UserListItem userName="${pageContext.request.remoteUser}"/>
+	<tags:UserListItem/>
 </tags:BottomMenuBar>
 
 </FORM>

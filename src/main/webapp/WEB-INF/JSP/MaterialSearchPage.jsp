@@ -60,7 +60,7 @@ window.onload=function()
 		<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit"/>
 	</tags:ButtonsMenu>
 	<tags:MenuSearchItem sessionVariable="MATERIALSEARCH" company="Company" name="Name" type="Type"/>
-	<tags:UserListItem userName="${pageContext.request.remoteUser}"></tags:UserListItem>
+	<tags:UserListItem/>
 </tags:BottomMenuBar>
 <!-- 
 <table class="search">

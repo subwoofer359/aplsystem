@@ -69,7 +69,7 @@ window.onload=function()
 			<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
 			<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
 		</tags:ButtonsMenu>
-		<tags:UserListItem userName="${pageContext.request.remoteUser}"></tags:UserListItem>
+		<tags:UserListItem/>
 		<tags:MenuSearchItem sessionVariable="PARTSEARCH" company="Company" partName="Name of Part" QSSNumber="QSS No."/>
 	</jsp:body>
 </tags:BottomMenuBar>
