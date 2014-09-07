@@ -9,6 +9,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <ul class="nav navbar-nav navbar-right">
     <li>
-       	<a href="${pageContext.request.contextPath}/app/UserInfo">User:<c:out value='${pageContext.request.remoteUser}'/></a>
+       	<a href="${pageContext.request.contextPath}/app/UserInfo"><span class="glyphicon glyphicon-user"></span> <c:out value='${pageContext.request.remoteUser}'/></a>
     </li>
 </ul>

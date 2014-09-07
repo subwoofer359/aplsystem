@@ -15,7 +15,7 @@
 <c:set var="sessionVariable" value="${pageScope['sessionVariable']}" scope="request"/>
 <ul class="nav navbar-nav">
 	<li class="dropdown">
-		<a  data-toggle="dropdown" class="dropdown-toggle" href="#">Search<b class="caret"></b></a>
+		<a  data-toggle="dropdown" class="dropdown-toggle" href="#"><span class="glyphicon glyphicon-search"></span> Search<b class="caret"></b></a>
 		<ul role="menu" class="dropdown-menu">
 			<li>
 				<div role="search" class="navbar-form">
