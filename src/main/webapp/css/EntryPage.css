@@ -6,3 +6,7 @@
  */
 /* Layout for Entry pages */
 
+.entry{
+	clear:both;
+	padding-top: 120px;
+}
