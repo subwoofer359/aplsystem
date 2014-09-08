@@ -65,9 +65,9 @@ window.onload=function()
 <tags:BottomMenuBar>
 	<jsp:body>
 		<tags:ButtonsMenu>
-			<input class="btn btn-block" id="add" type="submit" name="mode" value="add Part" onclick="addClicked(this)">
-			<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part">
-			<input class="btn btn-block" id="edit" type="submit" value="add Part To SPC" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC">
+			<button class="btn btn-block" id="add" type="submit" name="mode" onclick="addClicked(this)" value="add Part"><span class="glyphicon glyphicon-plus pull-left"></span> add Part</button>
+			<button class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part"><span class="glyphicon glyphicon-pencil pull-left"></span> edit Part</button>
+			<button class="btn btn-block" id="edit" type="submit" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC"><span class="glyphicon glyphicon-plus pull-left"></span> add Part To SPC</button>
 		</tags:ButtonsMenu>
 		<tags:UserListItem/>
 		<tags:MenuSearchItem sessionVariable="PARTSEARCH" company="Company" partName="Name of Part" QSSNumber="QSS No."/>
