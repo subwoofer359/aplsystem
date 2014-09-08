@@ -90,6 +90,9 @@ window.onload=function()
 </div><!-- row -->
 </div><!-- container -->
 <tags:BottomMenuBar>
+	<ul class="nav navbar-nav">
+			<li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet"><span class="glyphicon glyphicon-home"></span> Main</a></li>
+		</ul>
 	<tags:ButtonsMenu>
 		<input class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
 		<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit" />

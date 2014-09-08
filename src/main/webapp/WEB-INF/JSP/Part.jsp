@@ -91,8 +91,8 @@ function home()
 </div>
 
 <div class="form-group">
-	<label class="control-label col-sm-2 hidden-xs" for="external">External</label>
-	<div class="col-xs-1">
+	<label class="control-label col-xs-2 " for="external">External</label>
+	<div class="col-xs-1 col-offset-sm-0 col-offset-xs-2">
 		<input id="external" class="form-control" type='checkbox' name='external' <c:if test='${form ne null and form.external eq true}'>checked='checked'</c:if> />
 	</div>
 </div>
@@ -102,6 +102,10 @@ function home()
 <!-- <button type="button" value="home" onclick="home()">Home</button>  -->
 <%-- To tell the servlet which mode the page is submitting in --%>
 <tags:BottomMenuBar>
+<tags:NavLinks>
+	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet" active="true"/>
+	<tags:NavLink name="Search Page" glyphicon="glyphicon-search" link="${pageContext.request.contextPath}/app/Part_search"/>
+</tags:NavLinks>
 <tags:ButtonsMenu>
 <c:if test="${mode eq null }">
 	<button id="enter" class="btn btn-block" type='submit'  name="mode" value="Enter"><span class="glyphicon glyphicon-plus pull-left"></span>Enter</button>
@@ -111,6 +115,7 @@ function home()
 </c:if>
 </tags:ButtonsMenu>
 <tags:UserListItem/>
+
 </tags:BottomMenuBar>
 </FORM>
 </div><!-- row -->
