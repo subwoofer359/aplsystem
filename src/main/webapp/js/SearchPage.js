@@ -94,15 +94,7 @@ function enable(id)
 	id.value="edit";	
 }
 
-/* Hide an HTML element */
-function hide(element)
-{
-	element.style.display="none";
-}
-
-
-
-window.addEventListener("load", function(){
+$(document).ready(function(){
 	/* 
 	 * Stops the search menu closing when clicked on 
 	 * http://stackoverflow.com/questions/10863821/bootstrap-dropdown-closing-when-clicked 
