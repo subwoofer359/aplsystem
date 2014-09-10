@@ -62,7 +62,17 @@ strong{
 	margin-right: auto;
 	display:none;
 	text-align: center;
+	z-index:5;
 	
+}
+.alert-panel
+{
+	position: absolute;
+	top: 20%;
+	width: 40%;
+	left: 30%;
+	z-index: 3;
+	overflow:auto;
 }
 
 @media(max-width:480px){
