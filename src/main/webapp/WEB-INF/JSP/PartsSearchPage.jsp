@@ -16,26 +16,24 @@
 <style>
 
 </style>
+<script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script>
-window.onload=function()
-		{
-			var message="${message}";
-			if(message!=null && message!="")
-			{
-				$(".alert").html("${message}");
-				$(".alert").show();
-			}
-		};
-
+$(document)ready(function()
+{
+	
+	showAlertMessage("#alert","${message}"); /* General.js */
+}
 </script>
 </head>
+
 <body>
 <DIV class="page-title">
 <H1> Part Inventory</H1>
 </DIV>
-
+<!-- The Alert box for error and info messages -->
+<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 
 <FORM action="${pageContext.request.contextPath}/app/Part_search" method="post" onsubmit="return isChecked(this,'part','alert')">
 <DIV class="container results">
@@ -79,6 +77,5 @@ window.onload=function()
 
 </FORM>
 <%@ include file="/BootStrapFooter.jsp" %>
-<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>
