@@ -15,25 +15,32 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
-<SCRIPT>
-function home()
-{
-	location="Part_search";
-}
-</SCRIPT>
-<style>
 
-</style>
+<script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
+<script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script>
+	$(document).ready(function(){
+		showPanelMessage("${message}");
+		showPanelMessage("${errors}");
+		showPanelMessage("Test message One Test message One Test message One Test message One Test message One");
+		showPanelMessage("Test message Three");
+		showPanelMessage("Test Message Four");
+	});
+	
+</script>
+
 </head>
 <body>
 <DIV class="page-title"><H1> Part Description</H1></DIV>
 
-<%-- Display errors if there any --%>
-<c:if test="${errors ne null }">
-<SCRIPT>alert("${errors}");</SCRIPT>
-</c:if>
-<%-- The Form to get the values for the new or edited JobTemplate Object--%>
+<!-- The Alert box for error and info messages -->
+<div id="alert" class="alert-panel panel panel-danger" role="alert" onclick="hide(this)">
+	<div class="panel-heading">
+		<h3 class="panel-title">Error</h3>
+	</div>
+	<div class="panel-body"></div>
+</div>
 
 <div class="container entry">
 <div class=" row">
@@ -97,9 +104,6 @@ function home()
 	</div>
 </div>
 
-
-
-<!-- <button type="button" value="home" onclick="home()">Home</button>  -->
 <%-- To tell the servlet which mode the page is submitting in --%>
 <tags:BottomMenuBar>
 <tags:NavLinks>
@@ -128,6 +132,5 @@ Part:${result}<br/>
 </c:if>
 </DIV>
 <%@ include file="/BootStrapFooter.jsp" %>
-<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>
