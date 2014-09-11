@@ -52,6 +52,7 @@ strong{
 	background-color: #2A51A3;
 	color: black;
 	font-size: 0.7em;
+	z-index:100;
 }
 
 .alert{
