@@ -52,7 +52,7 @@ strong{
 	background-color: #2A51A3;
 	color: black;
 	font-size: 0.7em;
-	z-index:100;
+	z-index:50;
 }
 
 .alert{
@@ -63,7 +63,7 @@ strong{
 	margin-right: auto;
 	display:none;
 	text-align: center;
-	z-index:5;
+	z-index:52;
 	
 }
 .alert-panel
@@ -72,7 +72,7 @@ strong{
 	top: 20%;
 	width: 40%;
 	left: 30%;
-	z-index: 3;
+	z-index: 53;
 	overflow:auto;
 	display:none;
 }
