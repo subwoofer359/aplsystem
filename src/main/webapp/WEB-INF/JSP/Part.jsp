@@ -21,11 +21,9 @@
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script>
 	$(document).ready(function(){
-		showPanelMessage("${message}");
-		showPanelMessage("${errors}");
-		showPanelMessage("Test message One Test message One Test message One Test message One Test message One");
-		showPanelMessage("Test message Three");
-		showPanelMessage("Test Message Four");
+		showPanelMessage("#alert","${message}");
+		showPanelMessage("#alert","${errors}");
+		showPanelMessage("#result","${result}");
 	});
 	
 </script>
@@ -41,6 +39,17 @@
 	</div>
 	<div class="panel-body"></div>
 </div>
+
+
+<%-- To let the user know the part has been saved --%>
+
+<div id="result" class="alert-panel panel panel-info" role="alert" onclick="hide(this)">
+	<div class="panel-heading">
+		<h3 class="panel-title">Update</h3>
+	</div>
+	<div class="panel-body"></div>
+</div>
+
 
 <div class="container entry">
 <div class=" row">
@@ -125,12 +134,6 @@
 </div><!-- row -->
 </div><!-- container -->
 
-<DIV class="result">
-<%-- To let the user know the part has been saved --%>
-<c:if test="${result ne null }">
-Part:${result}<br/>
-</c:if>
-</DIV>
 <%@ include file="/BootStrapFooter.jsp" %>
 </body>
 </html>
