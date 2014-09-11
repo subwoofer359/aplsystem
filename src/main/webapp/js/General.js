@@ -4,40 +4,52 @@
  */
 
 /**
+ * Works on a bootstrap panel
  * @param message is added to the list of messages already in the Panel
+ * @param elementId html element which contains a child element with class "panel-body"
+ * which displays the message
  */
-function showPanelMessage(message)
+function showPanelMessage(elementId, message)
 	{
 		if(message!=null && message!="")
 		{
-			var currentText=$("#alert .panel-body").html();
+			var currentText=$(elementId+" .panel-body").html();
 			if(currentText!=null || currentText!="")
 			{
 				currentText=currentText+"<p>"+message+"</p>";
-				$("#alert .panel-body").html(currentText);
+				$(elementId+" .panel-body").html(currentText);
 			}
 			else
 			{
-				$("#alert .panel-body").html("<p>"+message+"</p>");
+				$(elementId+" .panel-body").html("<p>"+message+"</p>");
 			}
-			$("#alert").show();
+			$(document).click(function()
+			{
+				$(elementId).hide();
+			});
 			
+			$(elementId).show();
 		}
 	}
 
+/**
+ * @param elementId Element which displays the message
+ * @param message The message which is displayed to the user
+ */
 function showAlertMessage(elementId,message)
 {
 	if(message!=null && message!="")
 	{
-		$(elementId).html("${message}");
+		$(elementId).html(message);
+		$(document).click(function()
+		{
+			$(elementId).hide();
+		});
 		$(elementId).show();
 	}
 };
 
 /* Hide Alert div if document is clicked */
 $(document).ready(function(){
-		$(document).click(function()
-		{
-			$("#alert").hide();
-		});
+		
 });
