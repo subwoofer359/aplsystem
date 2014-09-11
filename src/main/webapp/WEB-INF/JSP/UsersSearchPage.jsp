@@ -44,9 +44,9 @@ $(document).ready(function()
 		<li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet"><span class="glyphicon glyphicon-home"></span> Main</a></li>
 	</ul>
 <tags:ButtonsMenu>
-	<input class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
-	<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit" />
-	<input class="btn btn-block" id="delete" type="submit" name="mode" value="delete"/>
+	<button class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"><span class="glyphicon glyphicon-plus pull-left"></span>Add</button>
+	<button class="btn btn-block" id="edit" type="submit" name="mode" value="edit" ><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
+	<button class="btn btn-block" id="delete" type="submit" name="mode" value="delete"><span class="glyphicon glyphicon-minus pull-left"></span>Delete</button>
 	</tags:ButtonsMenu>
 	<tags:UserListItem/>
 </tags:BottomMenuBar>

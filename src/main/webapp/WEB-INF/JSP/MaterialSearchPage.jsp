@@ -58,8 +58,8 @@ $(document).ready(function()
 			<li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet"><span class="glyphicon glyphicon-home"></span> Main</a></li>
 	</ul>
 	<tags:ButtonsMenu>
-		<input class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
-		<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit"/>
+		<button class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"><span class="glyphicon glyphicon-plus pull-left"></span>Add</button>
+		<button class="btn btn-block" id="edit" type="submit" name="mode" value="edit"><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button> 
 	</tags:ButtonsMenu>
 	<tags:MenuSearchItem sessionVariable="MATERIALSEARCH" company="Company" name="Name" type="Type"/>
 	<tags:UserListItem/>

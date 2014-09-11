@@ -90,9 +90,9 @@ $(document).ready(function()
 			<li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet"><span class="glyphicon glyphicon-home"></span> Main</a></li>
 		</ul>
 	<tags:ButtonsMenu>
-		<input class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"/>
-		<input class="btn btn-block" id="edit" type="submit" name="mode" value="edit" />
-		<input class="btn btn-block" id="display" type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"/>
+		<button class="btn btn-block" id="add" type="submit" name="mode" value="add" onclick="addClicked(this)"><span class="glyphicon glyphicon-plus pull-left"></span>Add</button>
+		<button class="btn btn-block" id="edit" type="submit" name="mode" value="edit" ><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
+		<button class="btn btn-block" id="display" type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"><span class="glyphicon glyphicon-info-sign pull-left"></span>Display Process</button>
 	</tags:ButtonsMenu>
 	<tags:MenuSearchItem sessionVariable="PROCESSSEARCH" partId="Part Name" machineNo="Machine No." material="Material" masterBatchNo="Masterbatch No." signedOffBy="Signed Off By">
 		<tags:MenuSearchField name="startDate" displayName="Date from" type="date"/> 
