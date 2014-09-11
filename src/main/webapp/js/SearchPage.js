@@ -53,6 +53,13 @@ function addClicked(button)
 	}
 }
 
+/**
+ * ToDo refactor to use jquery
+ * @param form element to be checked
+ * @param itemName The user friendly name of the element that should be selected
+ * @param alertDiv The div element to display an error message if required
+ * @returns true if an itemName has been selected
+ */
 function isChecked(form,itemName,alertDiv)
 {
 	var list=document.getElementsByName("edit");
@@ -78,7 +85,10 @@ function isChecked(form,itemName,alertDiv)
 		{
 			alert("A "+itemName+" is not selected");
 		}
-		
+		$(document).click(function()
+		{
+				$("#"+alertDiv).hide();
+		});
 		return false;
 	}
 	else
