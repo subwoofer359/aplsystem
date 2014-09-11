@@ -20,11 +20,12 @@
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script>
-$(document)ready(function()
+$(document).ready(function()
 {
 	
 	showAlertMessage("#alert","${message}"); /* General.js */
-}
+	
+});
 </script>
 </head>
 
@@ -33,7 +34,7 @@ $(document)ready(function()
 <H1> Part Inventory</H1>
 </DIV>
 <!-- The Alert box for error and info messages -->
-<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
+<div id="alert" class="alert alert-danger" role="alert"></div>
 
 <FORM action="${pageContext.request.contextPath}/app/Part_search" method="post" onsubmit="return isChecked(this,'part','alert')">
 <DIV class="container results">
