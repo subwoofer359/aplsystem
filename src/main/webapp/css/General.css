@@ -73,6 +73,7 @@ strong{
 	left: 30%;
 	z-index: 3;
 	overflow:auto;
+	display:none;
 }
 
 @media(max-width:480px){
