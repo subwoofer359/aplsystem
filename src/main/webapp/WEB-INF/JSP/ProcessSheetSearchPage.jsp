@@ -49,16 +49,11 @@ function isDisplayChecked(id)
 	}	
 }
 
-window.onload=function()
+$(document).ready(function()
 {
-	var message="${message}";
-	if(message!=null && message!="")
-	{
-		$(".alert").html("${message}");
-		$(".alert").show();
-	}
-};
-
+	showAlertMessage("#alert","${message}"); /* General.js */
+			
+});
 </script>
 </head>
 
@@ -66,6 +61,7 @@ window.onload=function()
 <DIV class="page-title">
 <H1> Process Sheets</H1>
 </DIV>
+<div id="alert" class="alert alert-danger" role="alert"></div>
 
 <FORM action="${pageContext.request.contextPath}/app/ProcessSheet_search" method="post" onsubmit="return isChecked(this,'Process Sheet','alert')">
 <DIV class="container results">
@@ -107,6 +103,5 @@ window.onload=function()
 
 </FORM>
 <%@ include file="/BootStrapFooter.jsp" %>
-<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>

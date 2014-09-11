@@ -15,16 +15,10 @@
 <title>Users</title>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script>
-window.onload=function()
+$(document).ready(function()
 {
-	var message="${message}";
-	if(message!=null && message!="")
-	{
-		$(".alert").html("${message}");
-		$(".alert").show();
-	}
-};
-
+	showAlertMessage("#alert","${message}"); /* General.js */					
+});
 </script>
 </head>
 <body>

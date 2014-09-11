@@ -18,22 +18,21 @@
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script>
-window.onload=function()
-		{
-			var message="${message}";
-			if(message!=null && message!="")
-			{
-				$(".alert").html("${message}");
-				$(".alert").show();
-			}
-		};
-
+$(document).ready(function()
+{
+			
+	showAlertMessage("#alert","${message}"); /* General.js */
+			
+});
 </script>
 </head>
 <body>
 <DIV class="page-title">
 <H1>Material</H1>
 </DIV>
+
+<!-- The Alert box for error and info messages -->
+<div id="alert" class="alert alert-danger" role="alert"></div>
 
 <form action="${pageContext.request.contextPath}/app/Material_search" method="post" onsubmit="return isChecked(this,'material','alert')">
 <div class="container results">
@@ -65,17 +64,7 @@ window.onload=function()
 	<tags:MenuSearchItem sessionVariable="MATERIALSEARCH" company="Company" name="Name" type="Type"/>
 	<tags:UserListItem/>
 </tags:BottomMenuBar>
-<!-- 
-<table class="search">
-<tbody>
-<tr><td>Company</td><td><input type="text" name="company" <c:if test="${not empty MATERIALSEARCH and not empty MATERIALSEARCH.company}">value="${MATERIALSEARCH.company}"</c:if>/></td><td></td></tr>
-<tr><td>Name</td><td><input type="text" name="name" <c:if test="${not empty MATERIALSEARCH and not empty MATERIALSEARCH.name}">value="${MATERIALSEARCH.name}"</c:if>/></td><td></td></tr>
-<tr><td>Type</td><td><input type="text" name="type" <c:if test="${not empty MATERIALSEARCH and not empty MATERIALSEARCH.type}">value="${MATERIALSEARCH.type}"</c:if>/></td><td><input type="submit" name="mode" value="search" onclick="addClicked(this)"/></td></tr>
-</tbody>
-</table>
--->
 </form>
 <%@ include file="/BootStrapFooter.jsp" %>
-<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>

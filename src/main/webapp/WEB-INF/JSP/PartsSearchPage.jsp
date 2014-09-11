@@ -22,9 +22,7 @@
 <script>
 $(document).ready(function()
 {
-	
 	showAlertMessage("#alert","${message}"); /* General.js */
-	
 });
 </script>
 </head>
