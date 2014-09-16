@@ -105,18 +105,17 @@
 		<input id="qss_no" class="form-control" type='text' name='qss_no' placeholder="QSS number" <c:if test='${form ne null}'>value="<c:out value='${form.qss_no}' />"</c:if> />
 	</div>
 </div>
-
 <div class="form-group">
-	<label class="control-label col-xs-2 " for="external">External</label>
-	<div class="col-xs-1 col-offset-sm-0 col-offset-xs-2">
-		<input id="external" class="form-control" type='checkbox' name='external' <c:if test='${form ne null and form.external eq true}'>checked='checked'</c:if> />
+	<label class="control-label col-xs-2" for="external">External</label>
+	<div class="col-sm-offset-3 col-xs-offset-4 checkbox">
+		<input id="external" type='checkbox' name='external' <c:if test='${form ne null and form.external eq true}'>checked='checked'</c:if> />
 	</div>
 </div>
 
 <%-- To tell the servlet which mode the page is submitting in --%>
 <tags:BottomMenuBar>
 <tags:NavLinks>
-	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet" active="true"/>
+	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet"/>
 	<tags:NavLink name="Search Page" glyphicon="glyphicon-search" link="${pageContext.request.contextPath}/app/Part_search"/>
 </tags:NavLinks>
 <tags:ButtonsMenu>
