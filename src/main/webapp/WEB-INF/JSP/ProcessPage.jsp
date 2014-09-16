@@ -1,18 +1,21 @@
 <%-- 
 	@author Adrian Mclaughlin
- 	@version 1
+ 	@version 1.1
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
-<%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://adrianmclaughlin.ie/myfunctions" prefix="myfunc" %>
-<%@taglib prefix="tags" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags/BottomMenuBar" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<%@ include file="/BootStrapHeader.jsp" %>
 <title>ACME Plastics: Process Setup Sheet</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <style>
 </style>
 </head>
@@ -20,6 +23,7 @@
 <body>
 
 <!-- Javascript function to work tabbing -->
+<script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/InputFocus.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/SelectDiv.js"></script>
 <script>
@@ -43,16 +47,18 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 
 </script>
 
-<div class="title">
-<H1>Process Setup Sheet</H1>
+<div class="page-title"><H1>Process Setup Sheet</H1></div>
+
+<!-- The Alert box for error and info messages -->
+<div id="alert" class="alert-panel panel panel-danger" role="alert" onclick="hide(this)">
+	<div class="panel-heading">
+		<h3 class="panel-title">Error</h3>
+	</div>
+	<div class="panel-body"></div>
 </div>
-<%@ include file="NavigationDiv.jspf" %>
-<!--  
-<a href="${pageContext.request.contextPath}/ProcessSheet_search">
-<div class="navbox" style="right:220px;">Search Page</div>
-</a>
--->
-<tags:Navbox href="${pageContext.request.contextPath}/app/ProcessSheet_search" value="Search Page" position="220px" ></tags:Navbox>
+
+<div class="container entry">
+<div class="row">
 <!-- Selection box -->
 <select id="pageSelect" onchange='displayDiv(this,tabs)'>
 <option value="info">Information</option>
@@ -66,40 +72,74 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <option value="ejectors">Ejectors</option>
 <option value="dme">DME</option>
 </select>
-
-<%-- Display errors if there any --%>
-<c:if test="${errors ne null }">
-<SCRIPT>alert("${errors}");</SCRIPT>
-</c:if>
+</div>
+<div class="row">
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
-<FORM method="post" action="${pageContext.request.contextPath}/app/Processing/ProcessSheetBean"> 
+<FORM class="form-horizontal" method="post" action="${pageContext.request.contextPath}/app/Processing/ProcessSheetBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
 <DIV id="info">
 <fieldset>
 <legend>Basic Information</legend>
-<TABLE>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="partId">Part ID</label>
+	<div class="col-xs-10">
+		<input id="partId" class="form-control" type="text" name="partId" value="<c:out value='${form.partId}' />" autofocus="autofocus" placeholder="Part Identification"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="machineSize">Machine Size</label>
+	<div class="col-xs-10">
+		<input id="machineSize" class="form-control" type="text" name="machineSize"  placeholder="Machine size (Tons)" value="<c:out value='${form.machineSize}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="machineNo">Machine No.</label>
+	<div class="col-xs-10">
+		<input id="machineNo" class="form-control" type="text" name="machineNo" placeholder="Machine Number" value="<c:out value='${form.machineNo}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="material">Material:</label>
+	<div class="col-xs-10">
+		<select id="material" name="material">
+			<c:forEach items='${materials}' var='material'>
+				<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
+					<c:out value="${myfunc:toString(material.value)}"/>
+				</option>
+			</c:forEach>
+		</select>
+	</div>
+</div>
 
-<TR><TD>Part ID:</TD><TD><input type="text" name="partId" value="<c:out value='${form.partId}' />" autofocus="autofocus"/></TD></TR>
-<TR><TD>Machine Size:</TD><TD><input type="text" name="machineSize"  value="<c:out value='${form.machineSize}' />"/></TD></TR>
-<TR><TD>Machine No:</TD><TD><input type="text" name="machineNo" value="<c:out value='${form.machineNo}' />"/></TD></TR>
-<TR><TD>Material:</TD><TD>
- 
-<select name="material">
-	<c:forEach items='${materials}' var='material'>
-		<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-				<c:out value="${myfunc:toString(material.value)}"/>
-		</option>
-	</c:forEach>
-</select>
 
-</TD></TR>
-<TR><TD>MasterBatch:</TD><TD><input type="text" name="masterbatchNo" value="<c:out value='${form.masterbatchNo}' />"/></TD></TR>
-<TR><TD>Date of Issue</TD><TD><input type="date" name="dateOfIssue" value="<c:out value='${form.dateOfIssue}' />"/></TD></TR>
-<TR><TD>Sign Off by:</TD><TD><input type="text" name="signOffBy"  value="<c:out value='${form.signOffBy}' />"/></TD></TR>
-<TR><TD>Notes:</TD><TD><input class="end" type="text" name="processNotes"  value="<c:out value='${form.processNotes}'/>" /></TD></TR>
-</TABLE>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="masterbatchNo">MasterBatch</label>
+	<div class="col-xs-10">
+		<input id="masterbatchNo" class="form-control" type="text" name="masterbatchNo" placeholder="Masterbatch" value="<c:out value='${form.masterbatchNo}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="dateOfIssue">Date of Issue</label>
+	<div class="col-xs-10">
+		<input id="dateOfIssue" class="form-control" type="date" name="dateOfIssue" placeholder="Date of Issue" value="<c:out value='${form.dateOfIssue}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-2" for="signOffBy">Signed Off by</label>
+	<div class="col-xs-10">
+		<input id="signOffBy" class="form-control" type="text" name="signOffBy" placeholder="Signed Off By" value="<c:out value='${form.signOffBy}' />"/>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-2" for="processNotes">Notes</label>
+	<div class="col-xs-10">
+		<input id="processNotes" class="end form-control" type="text" name="processNotes" placeholder="Notes" value="<c:out value='${form.processNotes}'/>" />
+	</div>
+</div>
+
 </fieldset>
 </DIV>
 <DIV id="injection">
@@ -261,6 +301,8 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 </c:if>
 </SPAN>
 </FORM>
-
+</div><!-- row -->
+</div><!-- container -->
+<%@ include file="/BootStrapFooter.jsp" %>
 </body>
 </html>
