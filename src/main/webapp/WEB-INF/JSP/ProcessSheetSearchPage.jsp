@@ -16,6 +16,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <style>
 </style>
+<script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
 <script type="text/javascript">

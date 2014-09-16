@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>Users</title>
+<script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script>
 $(document).ready(function()
