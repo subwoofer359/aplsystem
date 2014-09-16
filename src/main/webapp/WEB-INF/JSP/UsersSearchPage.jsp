@@ -24,6 +24,8 @@ $(document).ready(function()
 <body>
 <DIV class="page-title"><H1>Users</H1></DIV>
 
+<div id="alert" class="alert alert-danger" role="alert"></div>
+
 <form method="post" action="${pageContext.request.contextPath}/app/user/Users_edit" onsubmit="return isChecked(this, 'user','alert')">
 <div class="container results">
 <div class="row">
@@ -52,6 +54,5 @@ $(document).ready(function()
 </tags:BottomMenuBar>
 </form>
 <%@ include file="/BootStrapFooter.jsp" %>
-<div id="alert" class="alert alert-danger" role="alert" onclick="hide(this)"></div>
 </body>
 </html>
