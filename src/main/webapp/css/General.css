@@ -77,6 +77,25 @@ strong{
 	display:none;
 }
 
+.navbar-default,.dropdown-menu
+{
+	background-color:#2A51A3;
+	border-color:#2A51A3;
+	color:black;
+	
+}
+
+.navbar-default .navbar-brand
+{
+	background-color:#2A51A3;
+	color:black;
+}
+
+.navbar-default .navbar-nav>li>a
+{
+	color:black;
+}
+
 @media(max-width:480px){
 	.page-title	{
 		text-indent: 0;

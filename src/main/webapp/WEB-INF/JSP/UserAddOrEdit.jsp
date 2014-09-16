@@ -113,23 +113,6 @@ $(document).ready(function(){
 	</div>
 </div>
 
-
-<%-- To tell the servlet which mode the page is submitting in --%>
-<tags:BottomMenuBar>
-<tags:NavLinks>
-	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet" active="true"/>
-	<tags:NavLink name="Users Page" glyphicon="glyphicon-user" link="${pageContext.request.contextPath}/app/user/Users"/>
-</tags:NavLinks>
-<tags:ButtonsMenu>
-	<c:if test="${not(mode eq 'edit') }">
-		<button id="edit" type='submit' class="btn btn-block" name="mode" value='enter'><span class="glyphicon glyphicon-plus pull-left"></span>Enter</button>
-	</c:if>
-	<c:if test="${mode eq 'edit' }">
-		<button id="edit" type='submit' class="btn btn-block" name="mode" value='edit'><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
-	</c:if>
-</tags:ButtonsMenu>
-<tags:UserListItem/>
-</tags:BottomMenuBar>
 <fieldset>
 <legend>Roles</legend>
 <div class="container">
@@ -144,6 +127,23 @@ $(document).ready(function(){
 </div>
 </div>
 </fieldset>
+
+<%-- To tell the servlet which mode the page is submitting in --%>
+<tags:BottomMenuBar>
+<tags:NavLinks>
+	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet" />
+	<tags:NavLink name="Users Page" glyphicon="glyphicon-user" link="${pageContext.request.contextPath}/app/user/Users"/>
+</tags:NavLinks>
+<tags:ButtonsMenu>
+	<c:if test="${not(mode eq 'edit') }">
+		<button id="edit" type='submit' class="btn btn-block" name="mode" value='enter'><span class="glyphicon glyphicon-plus pull-left"></span>Enter</button>
+	</c:if>
+	<c:if test="${mode eq 'edit' }">
+		<button id="edit" type='submit' class="btn btn-block" name="mode" value='edit'><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
+	</c:if>
+</tags:ButtonsMenu>
+<tags:UserListItem/>
+</tags:BottomMenuBar>
 </form>
 </div> <!-- row -->
 </div> <!-- container -->

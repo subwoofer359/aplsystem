@@ -119,7 +119,7 @@ $(document).ready(function(){
 
 <tags:BottomMenuBar>
 <tags:NavLinks>
-	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet" active="true"/>
+	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet"/>
 	<tags:NavLink name="Search Page" glyphicon="glyphicon-search" link="${pageContext.request.contextPath}/app/Material_search"/>
 </tags:NavLinks>
 <tags:ButtonsMenu>
