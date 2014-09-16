@@ -224,19 +224,86 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 </DIV>
 </div><!-- row -->
 
+<div class="row">
 <DIV id="holding">
 <fieldset>
 <legend>Holding Phase</legend>
-<TABLE class="float">
-	<TR><TD>Pressure:</TD><TD><input type="text" name="holdingPressure_1" value="<c:out value='${form.holdingPressure_1}' />"/></TD><TD>Time:</TD><TD><input type="text" name="holdingTime_1" value="<c:out value='${form.holdingTime_1}' />"/></TD></TR>
-	 <TR><TD>Pressure 2:</TD><TD><input type="text" name="holdingPressure_2" value="<c:out value='${form.holdingPressure_2}' />"/></TD><TD>Time 2:</TD><TD><input type="text" name="holdingTime_2" value="<c:out value='${form.holdingTime_2}' />"/></TD></TR>
-	 <TR><TD>Pressure 3:</TD><TD><input type="text" name="holdingPressure_3" value="<c:out value='${form.holdingPressure_3}' />"/></TD><TD>Time 3:</TD><TD><input type="text" name="holdingTime_3" value="<c:out value='${form.holdingTime_3}' />"/></TD></TR>
-	 <TR><TD>Pressure 4:</TD><TD><input type="text" name="holdingPressure_4" value="<c:out value='${form.holdingPressure_4}' />"/></TD><TD>Time 4:</TD><TD><input type="text" name="holdingTime_4" value="<c:out value='${form.holdingTime_4}' />"/></TD></TR>
-	 <TR><TD>Pressure 5:</TD><TD><input type="text" name="holdingPressure_5" value="<c:out value='${form.holdingPressure_5}' />"/></TD><TD>Time 5:</TD><TD><input type="text" name="holdingTime_5" value="<c:out value='${form.holdingTime_5}' />"/></TD></TR>
-	 <TR><TD>Pressure 6:</TD><TD><input type="text" name="holdingPressure_6" value="<c:out value='${form.holdingPressure_6}' />"/></TD><TD>Time 6:</TD><TD><input class="end" type="text" name="holdingTime_6" value="<c:out value='${form.holdingTime_6}' />"/></TD></TR>
-</TABLE>
+	<div class="form-group col-xs-6">
+		<label class="control-label col-xs-5" for="holdingPressure_1">Pressure</label>
+		<div class="col-xs-7">
+			<input id="holdingPressure_1" class="form-control" type="text" name="holdingPressure_1" value="<c:out value='${form.holdingPressure_1}' />"/>
+		</div>
+	</div>
+	 <div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingTime_1">Time</label>
+		<div class="col-xs-7">
+			<input id="holdingTime_1" class="form-control" type="text" name="holdingTime_1" value="<c:out value='${form.holdingTime_1}' />"/>
+		</div>
+	</div>
+	 <div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingPressure_2">Pressure 2</label>
+		<div class="col-xs-7">
+			<input id="holdingPressure_2" class="form-control" type="text" name="holdingPressure_2" value="<c:out value='${form.holdingPressure_2}' />"/>
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="holdingTime_2">Time 2</label>
+	 <div class="col-xs-7">
+	 	<input id="holdingTime_2" class="form-control" type="text" name="holdingTime_2" value="<c:out value='${form.holdingTime_2}' />"/>
+	 </div>
+	</div>
+	<div class="form-group col-xs-6">
+		<label class="control-label col-xs-5" for="holdingPressure_3">Pressure 3</label>
+		<div class="col-xs-7">
+			<input id="holdingPressure_3" class="form-control" type="text" name="holdingPressure_3" value="<c:out value='${form.holdingPressure_3}' />"/>
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+		<label class="control-label col-xs-5" for="holdingTime_3">Time 3</label>
+		<div class="col-xs-7">
+			<input id="holdingTime_3" class="form-control" type="text" name="holdingTime_3" value="<c:out value='${form.holdingTime_3}' />"/>
+		</div>
+	</div>
+	 <div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingPressure_4">Pressure 4</label>
+		<div class="col-xs-7">
+			<input id="holdingPressure_4" class="form-control" type="text" name="holdingPressure_4" value="<c:out value='${form.holdingPressure_4}' />"/>
+		</div>
+	</div>
+	 <div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingTime_4">Time 4</label>
+		<div class="col-xs-7">
+			<input id="holdingTime_4" class="form-control" type="text" name="holdingTime_4" value="<c:out value='${form.holdingTime_4}' />"/>
+		</div>
+	</div>
+	 <div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingPressure_5">Pressure 5</label>
+		<div class="col-xs-7">
+			<input id="holdingPressure_5" class="form-control" type="text" name="holdingPressure_5" value="<c:out value='${form.holdingPressure_5}' />"/>
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+		<label class="control-label col-xs-5" for="holdingTime_5">Time 5</label>
+		<div class="col-xs-7">
+			<input id="holdingTime_5" class="form-control" type="text" name="holdingTime_5" value="<c:out value='${form.holdingTime_5}' />"/>
+		</div>
+	</div>
+	 <div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingPressure_6">Pressure 6:</label>
+		<div class="col-xs-7">
+			<input id="holdingPressure_6 "class="form-control" type="text" name="holdingPressure_6" value="<c:out value='${form.holdingPressure_6}' />"/>
+		</div>
+	</div>
+	<div class="form-group col-xs-6">
+	 	<label class="control-label col-xs-5" for="holdingTime_6">Time 6</label>
+		<div class="col-xs-7">
+			<input id="holdingTime_6" class="form-control end" type="text" name="holdingTime_6" value="<c:out value='${form.holdingTime_6}' />"/>
+		</div>
+	</div>
 </fieldset>
 </DIV>
+</div><!-- row -->
+
 <DIV id="injExtOptions">
 <fieldset>
 <legend>Injection Options</legend>
