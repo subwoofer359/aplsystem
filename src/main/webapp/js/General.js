@@ -49,6 +49,31 @@ function showAlertMessage(elementId,message)
 	}
 };
 
+/**
+ * 
+ * @param inputElementOne html form input whose value contains a password
+ * @param inputElementTwo html form input whose value contains a password
+ * @returns true if the passwords are the same
+ */
+function checkPassword(inputElementOne,inputElementTwo)
+{
+	console.log("Check Password function called");
+	var password1=document.getElementById(inputElementOne);
+	var password2=document.getElementById(inputElementTwo);
+	
+	if(password1.value != password2.value)
+	{
+		console.log("Passwords aren't the same");
+		alert("Passwords aren't the same");
+		return false
+	}
+	else
+	{
+		console.log("Passwords are the same");
+		return true;
+	}
+}
+
 /* Hide Alert div if document is clicked */
 $(document).ready(function(){
 		
