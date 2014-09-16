@@ -13,9 +13,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>ACME Plastics:Parts Search Page</title>
-<style>
 
-</style>
 <script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
@@ -61,16 +59,16 @@ $(document).ready(function()
 
 <tags:BottomMenuBar>
 	<jsp:body>
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="${pageContext.request.contextPath}/app/APLSystemServlet"><span class="glyphicon glyphicon-home"></span> Main</a></li>
-		</ul>
+		<tags:NavLinks>
+			<tags:NavLink name="Main" link="${pageContext.request.contextPath}/app/APLSystemServlet" glyphicon="glyphicon-home"></tags:NavLink>
+		</tags:NavLinks>
 		<tags:ButtonsMenu>
 			<button class="btn btn-block" id="add" type="submit" name="mode" onclick="addClicked(this)" value="add Part"><span class="glyphicon glyphicon-plus pull-left"></span> add Part</button>
 			<button class="btn btn-block" id="edit" type="submit" name="mode" value="edit Part"><span class="glyphicon glyphicon-pencil pull-left"></span> edit Part</button>
 			<button class="btn btn-block" id="edit" type="submit" formaction="${pageContext.request.contextPath}/app/spc/AddToSPC"><span class="glyphicon glyphicon-plus pull-left"></span> add Part To SPC</button>
 		</tags:ButtonsMenu>
-		<tags:UserListItem/>
 		<tags:MenuSearchItem sessionVariable="PARTSEARCH" company="Company" partName="Name of Part" QSSNumber="QSS No."/>
+		<tags:UserListItem/>
 	</jsp:body>
 </tags:BottomMenuBar>
 
