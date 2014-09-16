@@ -73,12 +73,12 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <option value="dme">DME</option>
 </select>
 </div>
-<div class="row">
+
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
 <FORM class="form-horizontal" method="post" action="${pageContext.request.contextPath}/app/Processing/ProcessSheetBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
-
+<div class="row">
 <DIV id="info">
 <fieldset>
 <legend>Basic Information</legend>
@@ -142,19 +142,87 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 
 </fieldset>
 </DIV>
+</div><!-- row -->
+<div class="row">
 <DIV id="injection">
 <fieldset>
 <legend>Injection</legend>
-<TABLE class="float">
-	 <TR><TD>Speed:</TD><TD><input  type="text" name="injectionSpeed_1" value="<c:out value='${form.injectionSpeed_1}' />"/></TD><TD>Position:</TD><TD><input type="text" name="injSpeedPosition_1" id="injSpeedPosition_1" value="<c:out value='${form.injSpeedPosition_1}' />"/></TD></TR>
-	 <TR><TD>Speed 2:</TD><TD><input type="text" name="injectionSpeed_2" value="<c:out value='${form.injectionSpeed_2}' />"/></TD><TD>Position 2:</TD><TD><input type="text" name="injSpeedPosition_2" id="injSpeedPosition_2" value="<c:out value='${form.injSpeedPosition_2}' />"/></TD></TR>
-	 <TR><TD>Speed 3:</TD><TD><input type="text" name="injectionSpeed_3" value="<c:out value='${form.injectionSpeed_3}' />"/></TD><TD>Position 3:</TD><TD><input type="text" name="injSpeedPosition_3" id="injSpeedPosition_3" value="<c:out value='${form.injSpeedPosition_3}' />"/></TD></TR>
-	 <TR><TD>Speed 4:</TD><TD><input type="text" name="injectionSpeed_4" value="<c:out value='${form.injectionSpeed_4}' />"/></TD><TD>Position 4:</TD><TD><input type="text" name="injSpeedPosition_4" id="injSpeedPosition_4" value="<c:out value='${form.injSpeedPosition_4}' />"/></TD></TR>
-	 <TR><TD>Speed 5:</TD><TD><input type="text" name="injectionSpeed_5" value="<c:out value='${form.injectionSpeed_5}' />"/></TD><TD>Position 5:</TD><TD><input type="text" name="injSpeedPosition_5" id="injSpeedPosition_5" value="<c:out value='${form.injSpeedPosition_5}' />"/></TD></TR>
-	 <TR><TD>Speed 6:</TD><TD><input type="text" name="injectionSpeed_6" value="<c:out value='${form.injectionSpeed_6}' />"/></TD><TD>Position 6:</TD><TD><input class="end" type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value="<c:out value='${form.injSpeedPosition_6}' />"/></TD></TR>
-</TABLE>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injectionSpeed_1">Speed</label>
+	<div class="col-xs-7">   
+	 	<input id="injectionSpeed_1" class="form-control" type="text" name="injectionSpeed_1" value="<c:out value='${form.injectionSpeed_1}' />"/>
+	</div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injSpeedPosition_1">Position</label>
+	 <div class="col-xs-7">
+	 	<input class="form-control" type="text" name="injSpeedPosition_1" id="injSpeedPosition_1" value="<c:out value='${form.injSpeedPosition_1}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injectionSpeed_2">Speed 2</label>
+	 <div class="col-xs-7">
+	 	<input id="injectionSpeed_5" class="form-control" type="text" name="injectionSpeed_2" value="<c:out value='${form.injectionSpeed_2}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injSpeedPosition_2">Position 2</label>
+	 <div class="col-xs-7">
+	 	<input class="form-control" type="text" name="injSpeedPosition_2" id="injSpeedPosition_2" value="<c:out value='${form.injSpeedPosition_2}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injectionSpeed_3">Speed 3</label>
+	 <div class="col-xs-7">
+	 	<input id="injectionSpeed_3" class="form-control" type="text" name="injectionSpeed_3" value="<c:out value='${form.injectionSpeed_3}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injSpeedPosition_3">Position 3</label>
+	 <div class="col-xs-7">
+	 	<input class="form-control" type="text" name="injSpeedPosition_3" id="injSpeedPosition_3" value="<c:out value='${form.injSpeedPosition_3}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injectionSpeed_4">Speed 4</label>
+	 <div class="col-xs-7">
+	 	<input id="injectionSpeed_4" class="form-control" type="text" name="injectionSpeed_4" value="<c:out value='${form.injectionSpeed_4}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injSpeedPosition_4">Position 4</label>
+	 <div class="col-xs-7">
+	 	<input class="form-control" type="text" name="injSpeedPosition_4" id="injSpeedPosition_4" value="<c:out value='${form.injSpeedPosition_4}' />"/>
+	</div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injectionSpeed_5">Speed 5</label>
+	 <div class="col-xs-7">
+	 	<input id="injectionSpeed_5" class="form-control" type="text" name="injectionSpeed_5" value="<c:out value='${form.injectionSpeed_5}' />"/>
+	</div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injSpeedPosition_5">Position 5</label>
+	 <div class="col-xs-7">
+	 	<input class="form-control" type="text" name="injSpeedPosition_5" id="injSpeedPosition_5" value="<c:out value='${form.injSpeedPosition_5}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injectionSpeed_6">Speed 6</label>
+	 <div class="col-xs-7">
+	 	<input id="injectionSpeed_6" class="form-control" type="text" name="injectionSpeed_6" value="<c:out value='${form.injectionSpeed_6}' />"/>
+	 </div>
+</div>
+<div class="form-group col-xs-6">
+	 <label class="control-label col-xs-5" for="injSpeedPosition_6">Position 6:</label>
+	 <div class="col-xs-7">
+	 	<input class="form-control end" type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value="<c:out value='${form.injSpeedPosition_6}' />"/>
+	 </div>
+</div>
+
 </fieldset>
 </DIV>
+</div><!-- row -->
 
 <DIV id="holding">
 <fieldset>
@@ -301,7 +369,6 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 </c:if>
 </SPAN>
 </FORM>
-</div><!-- row -->
 </div><!-- container -->
 <%@ include file="/BootStrapFooter.jsp" %>
 </body>
