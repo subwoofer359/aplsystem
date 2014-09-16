@@ -45,73 +45,73 @@ $(document).ready(function(){
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
 <div class="form-group">
-	<label class="control-label col-sm-2 hidden-xs" for="company">Company:</label>
+	<label class="control-label col-sm-2 " for="company">Company:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="company" class="form-control" type="text" name="company"  placeholder="Company" value="<c:out value='${form.company}' />" autofocus="autofocus"/>
 	</div>
 </div>
 <div class="form-group">
-	<label class="control-label col-sm-2 hidden-xs" for="name">Name:</label>
+	<label class="control-label col-sm-2 " for="name">Name:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="name" class="form-control" type="text" name="name" placeholder="Name" value="<c:out value='${form.name}' />" />
 	</div>
 </div>
 <div class="form-group">
-	<label class="control-label col-sm-2 hidden-xs" for="type">Type:</label>
+	<label class="control-label col-sm-2 " for="type">Type:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="type" class="form-control" type="text" name="type" placeholder="Type" value="<c:out value='${form.type}' />"/>
 	</div>
 </div>
 <div class="form-group">
-	<label class="control-label col-sm-2 hidden-xs" for="density">Density:</label>
+	<label class="control-label col-sm-2 " for="density">Density:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="density" class="form-control" type="text" name="density" placeholder="Density" value="<c:out value='${form.density}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="linear_expansion">Linear Expansion:</label>
+<label class="control-label col-sm-2 " for="linear_expansion">Linear Expansion:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="linear_expansion" class="form-control" type="text" name="linear_expansion" placeholder="Linear Expansion" value="<c:out value='${form.linear_expansion}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="water_absorption">Water Absorption:</label>
+<label class="control-label col-sm-2 " for="water_absorption">Water Absorption:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="water_absorption" class="form-control" type="text" name="water_absorption" placeholder="Water Absorption" value="<c:out value='${form.water_absorption}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="material_drying">Material Drying:</label>
+<label class="control-label col-sm-2 " for="material_drying">Material Drying:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="material_drying" class="form-control" type="text" name="material_drying" placeholder="Material Drying" value="<c:out value='${form.material_drying}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="melting_temp_lower">Lower Melting temperature:</label>
+<label class="control-label col-sm-2 " for="melting_temp_lower">Lower Melting temperature:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="melting_temp_lower" class="form-control" type="text" name="melting_temp_lower" placeholder="Lower Melting temperature" value="<c:out value='${form.melting_temp_lower}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="melting_temp_upper">Upper Melting temperature:</label>
+<label class="control-label col-sm-2 " for="melting_temp_upper">Upper Melting temperature:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="melting_temp_upper" class="form-control" type="text" name="melting_temp_upper"  placeholder="Upper Melting temperature" value="<c:out value='${form.melting_temp_upper}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="mould_shrinkage">Shrinkage:</label>
+<label class="control-label col-sm-2 " for="mould_shrinkage">Shrinkage:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="mould_shrinkage" class="form-control" type="text" name="mould_shrinkage"  placeholder="Shrinkage" value="<c:out value='${form.mould_shrinkage}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="mould_temp_low">Lower Mould temperature:</label>
+<label class="control-label col-sm-2 " for="mould_temp_low">Lower Mould temperature:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="mould_temp_low" class="form-control" type="text" name="mould_temp_low"  placeholder="Lower Mould temperature" value="<c:out value='${form.mould_temp_low}' />"/>
 	</div>
 </div>
 <div class="form-group">
-<label class="control-label col-sm-2 hidden-xs" for="mould_temp_upper">Upper Mould temperature:</label>
+<label class="control-label col-sm-2 " for="mould_temp_upper">Upper Mould temperature:</label>
 	<div class="col-xs-12 col-sm-5">
 		<input id="mould_temp_upper" class="form-control" type="text" name="mould_temp_upper"  placeholder="Upper Mould temperature" value="<c:out value='${form.mould_temp_upper}' />"/>
 	</div>
