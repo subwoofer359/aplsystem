@@ -51,7 +51,7 @@
  	}
  }
  .entryPane{
- 	margin-bottom:20px;
+ 	margin-bottom:50px;
  }
  #main-container
  {
