@@ -25,8 +25,12 @@
 <tags:BottomMenuBar>
 	<tags:NavLinks>
 	<tags:NavLink name="Part Search" link="${pageContext.request.contextPath}/app/Part_search"/>
+	<%-- Be careful of items in the navbar dropping down a line
 	<tags:NavLink name="Problem Database" link="#"/>
+	--%>
+	
 	<tags:NavLink name="Process Sheets" link="${pageContext.request.contextPath}/app/ProcessSheet_search"/>		
+	 
 	<tags:NavLink name="Material list" link="${pageContext.request.contextPath}/app/Material_search"/>	
 	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
 		<tags:NavLink name="Users" link="${pageContext.request.contextPath}/app/user/Users"/>
