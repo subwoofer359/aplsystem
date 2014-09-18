@@ -1,0 +1,62 @@
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+ <div class="container">
+<DIV id="mouldOpening">
+<fieldset>
+<legend>Mould Opening</legend>
+<div class="row">
+<label  class="col-xs-offset-4 col-xs-4">Position(MM)</label><label class="col-xs-4">Speed(MM/S)</label>
+<div class="form-group">
+	<label class="control-label col-xs-4">Breakaway</label>
+	<div class="col-xs-offset-4 col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenBreakAwaySpeed" value="<c:out value='${form.mouldOpenBreakAwaySpeed}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">Open 1 Step</label>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenStepPos_1" value="<c:out value='${form.mouldOpenStepPos_1}' />"/>
+	</div>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenStepSpeed_1" value="<c:out value='${form.mouldOpenStepSpeed_1}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">Open 2 Step</label>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenStepPos_2" value="<c:out value='${form.mouldOpenStepPos_2}' />"/>
+	</div>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenStepSpeed_2" value="<c:out value='${form.mouldOpenStepSpeed_2}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">Open 3 Step</label>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenStepPos_3" value="<c:out value='${form.mouldOpenStepPos_3}' />"/>
+	</div>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenStepSpeed_3" value="<c:out value='${form.mouldOpenStepSpeed_3}' />"/>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-4">Mould Open Time</label>
+	<div class=" col-xs-4">
+		<input class="form-control" type="text" name="mouldOpenTime" value="<c:out value='${form.mouldOpenTime}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">Eject Start</label>
+	<div class=" col-xs-4">
+		<input class="form-control end" type="text" name="ejectStart" placeholder="Eject Start" value="<c:out value='${form.ejectStart}' />"/>
+	</div>
+</div>
+</div><!-- row -->
+</fieldset>
+</DIV>
+</div><!-- container -->

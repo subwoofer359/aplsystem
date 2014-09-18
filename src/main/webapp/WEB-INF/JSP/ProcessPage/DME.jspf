@@ -1,0 +1,77 @@
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+ <div class="container entry">
+<DIV id="dme">
+
+<fieldset>
+<legend>DME and Water temperatures</legend>
+<div class="row">
+<label class="col-xs-12">DMEs</label>
+<label class="col-xs-3">1</label>
+<label class="col-xs-3">2</label>
+<label class="col-xs-3">3</label>
+<label class="col-xs-3">4</label>
+</div><!-- row -->
+<div class="row form-group">
+<div class="col-xs-3">
+	<input id="dme_1" class="form-control" type="text" name="dme_1" value="<c:out value='${form.dme_1}' />"/>
+</div>
+<div class="col-xs-3">
+	<input id="dme_2" class="form-control" type="text" name="dme_2" value="<c:out value='${form.dme_2}' />"/>
+</div>
+<div class="col-xs-3">
+	<input id="dme_3" class="form-control" type="text" name="dme_3" value="<c:out value='${form.dme_3}' />"/>
+</div>
+<div class="col-xs-3">
+	<input id="dme_4" class="form-control" type="text" name="dme_4" value="<c:out value='${form.dme_4}' />"/>
+</div>
+</div><!-- row -->
+<div class="row">
+<label class="col-xs-3">5</label>
+<label class="col-xs-3">6</label>
+<label class="col-xs-3">7</label>
+<label class="col-xs-3">8</label>
+</div><!-- row -->
+<div class="row  form-group">
+<div class="col-xs-3">
+	<input id="dme_5" class="form-control" type="text" name="dme_5" value="<c:out value='${form.dme_5}' />"/>
+</div>
+<div class="col-xs-3">
+	<input id="dme_6" class="form-control" type="text" name="dme_6" value="<c:out value='${form.dme_6}' />"/>
+</div>
+<div class="col-xs-3">
+	<input id="dme_7" class="form-control" type="text" name="dme_7" value="<c:out value='${form.dme_7}' />"/>
+</div>
+<div class="col-xs-3">
+	<input id="dme_8" class="form-control" type="text" name="dme_8" value="<c:out value='${form.dme_8}' />"/>
+</div>
+</div><!-- row -->
+
+<div class="row">
+<div class="form-group">
+	<label class="control-label col-xs-6 col-sm-2">Fixed Half Water Temp</label>
+	<div class="col-xs-5"> 
+		<input id="waterTempFixedHalf"  class="form-control" type="text" name="waterTempFixedHalf" value="<c:out value='${form.waterTempFixedHalf}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-6 col-sm-2">Moving Half Water Temp</label> 
+	<div class="col-xs-5">
+	 <input id="waterTempMovingHalf"  class="form-control" type="text" name="waterTempMovingHalf" value="<c:out value='${form.waterTempMovingHalf}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-2 col-sm-2">Notes</label>
+	<div class="col-xs-10 col-sm-5">
+		<textarea id="waterTempNotes"  class="form-control" name="waterTempNotes"><c:out value="${form.waterTempNotes}"/></textarea>
+	</div>
+</div>
+</div><!-- row -->
+</fieldset>
+</DIV>
+
+</div><!-- container -->

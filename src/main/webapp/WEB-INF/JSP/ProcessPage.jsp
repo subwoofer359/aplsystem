@@ -45,6 +45,11 @@ var tabs=["info",
 //When the last input element in the div is entered the script will display the next div
 window.addEventListener("load",function(){addChangePageListenerInput(tabs);},true);
 
+$(document).ready(function(){
+	showPanelMessage("#alert","${message}");
+	showPanelMessage("#alert","${errors}");
+	showPanelMessage("#result","${result}");
+});
 </script>
 
 <div class="page-title"><H1>Process Setup Sheet</H1></div>
@@ -72,371 +77,50 @@ window.addEventListener("load",function(){addChangePageListenerInput(tabs);},tru
 <option value="ejectors">Ejectors</option>
 <option value="dme">DME</option>
 </select>
-</div>
-
+</div><!-- row -->
+</div><!-- container -->
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
 <FORM class="form-horizontal" method="post" action="${pageContext.request.contextPath}/app/Processing/ProcessSheetBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
-<div class="row">
-<DIV id="info">
-<fieldset>
-<legend>Basic Information</legend>
-<div class="form-group">
-	<label class="control-label col-xs-2" for="partId">Part ID</label>
-	<div class="col-xs-10">
-		<input id="partId" class="form-control" type="text" name="partId" value="<c:out value='${form.partId}' />" autofocus="autofocus" placeholder="Part Identification"/>
-	</div>
-</div>
-<div class="form-group">
-	<label class="control-label col-xs-2" for="machineSize">Machine Size</label>
-	<div class="col-xs-10">
-		<input id="machineSize" class="form-control" type="text" name="machineSize"  placeholder="Machine size (Tons)" value="<c:out value='${form.machineSize}' />"/>
-	</div>
-</div>
-<div class="form-group">
-	<label class="control-label col-xs-2" for="machineNo">Machine No.</label>
-	<div class="col-xs-10">
-		<input id="machineNo" class="form-control" type="text" name="machineNo" placeholder="Machine Number" value="<c:out value='${form.machineNo}' />"/>
-	</div>
-</div>
-<div class="form-group">
-	<label class="control-label col-xs-2" for="material">Material:</label>
-	<div class="col-xs-10">
-		<select id="material" name="material">
-			<c:forEach items='${materials}' var='material'>
-				<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-					<c:out value="${myfunc:toString(material.value)}"/>
-				</option>
-			</c:forEach>
-		</select>
-	</div>
-</div>
 
+<%@ include file="ProcessPage/BasicInformation.jspf" %>
 
-<div class="form-group">
-	<label class="control-label col-xs-2" for="masterbatchNo">MasterBatch</label>
-	<div class="col-xs-10">
-		<input id="masterbatchNo" class="form-control" type="text" name="masterbatchNo" placeholder="Masterbatch" value="<c:out value='${form.masterbatchNo}' />"/>
-	</div>
-</div>
-<div class="form-group">
-	<label class="control-label col-xs-2" for="dateOfIssue">Date of Issue</label>
-	<div class="col-xs-10">
-		<input id="dateOfIssue" class="form-control" type="date" name="dateOfIssue" placeholder="Date of Issue" value="<c:out value='${form.dateOfIssue}' />"/>
-	</div>
-</div>
-<div class="form-group">
-	<label class="control-label col-xs-2" for="signOffBy">Signed Off by</label>
-	<div class="col-xs-10">
-		<input id="signOffBy" class="form-control" type="text" name="signOffBy" placeholder="Signed Off By" value="<c:out value='${form.signOffBy}' />"/>
-	</div>
-</div>
+<%@ include file="ProcessPage/Injection.jspf" %>
 
-<div class="form-group">
-	<label class="control-label col-xs-2" for="processNotes">Notes</label>
-	<div class="col-xs-10">
-		<input id="processNotes" class="end form-control" type="text" name="processNotes" placeholder="Notes" value="<c:out value='${form.processNotes}'/>" />
-	</div>
-</div>
+<%@ include file="ProcessPage/Holding.jspf" %>
 
-</fieldset>
-</DIV>
-</div><!-- row -->
-<div class="row">
-<DIV id="injection">
-<fieldset>
-<legend>Injection</legend>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injectionSpeed_1">Speed</label>
-	<div class="col-xs-7">   
-	 	<input id="injectionSpeed_1" class="form-control" type="text" name="injectionSpeed_1" value="<c:out value='${form.injectionSpeed_1}' />"/>
-	</div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injSpeedPosition_1">Position</label>
-	 <div class="col-xs-7">
-	 	<input class="form-control" type="text" name="injSpeedPosition_1" id="injSpeedPosition_1" value="<c:out value='${form.injSpeedPosition_1}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injectionSpeed_2">Speed 2</label>
-	 <div class="col-xs-7">
-	 	<input id="injectionSpeed_5" class="form-control" type="text" name="injectionSpeed_2" value="<c:out value='${form.injectionSpeed_2}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injSpeedPosition_2">Position 2</label>
-	 <div class="col-xs-7">
-	 	<input class="form-control" type="text" name="injSpeedPosition_2" id="injSpeedPosition_2" value="<c:out value='${form.injSpeedPosition_2}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injectionSpeed_3">Speed 3</label>
-	 <div class="col-xs-7">
-	 	<input id="injectionSpeed_3" class="form-control" type="text" name="injectionSpeed_3" value="<c:out value='${form.injectionSpeed_3}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injSpeedPosition_3">Position 3</label>
-	 <div class="col-xs-7">
-	 	<input class="form-control" type="text" name="injSpeedPosition_3" id="injSpeedPosition_3" value="<c:out value='${form.injSpeedPosition_3}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injectionSpeed_4">Speed 4</label>
-	 <div class="col-xs-7">
-	 	<input id="injectionSpeed_4" class="form-control" type="text" name="injectionSpeed_4" value="<c:out value='${form.injectionSpeed_4}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injSpeedPosition_4">Position 4</label>
-	 <div class="col-xs-7">
-	 	<input class="form-control" type="text" name="injSpeedPosition_4" id="injSpeedPosition_4" value="<c:out value='${form.injSpeedPosition_4}' />"/>
-	</div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injectionSpeed_5">Speed 5</label>
-	 <div class="col-xs-7">
-	 	<input id="injectionSpeed_5" class="form-control" type="text" name="injectionSpeed_5" value="<c:out value='${form.injectionSpeed_5}' />"/>
-	</div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injSpeedPosition_5">Position 5</label>
-	 <div class="col-xs-7">
-	 	<input class="form-control" type="text" name="injSpeedPosition_5" id="injSpeedPosition_5" value="<c:out value='${form.injSpeedPosition_5}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injectionSpeed_6">Speed 6</label>
-	 <div class="col-xs-7">
-	 	<input id="injectionSpeed_6" class="form-control" type="text" name="injectionSpeed_6" value="<c:out value='${form.injectionSpeed_6}' />"/>
-	 </div>
-</div>
-<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="injSpeedPosition_6">Position 6:</label>
-	 <div class="col-xs-7">
-	 	<input class="form-control end" type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value="<c:out value='${form.injSpeedPosition_6}' />"/>
-	 </div>
-</div>
+<%@ include file="ProcessPage/InjectionExtrusionOptions.jspf" %>
 
-</fieldset>
-</DIV>
-</div><!-- row -->
+<%@ include file="ProcessPage/Extrusion.jspf" %>
 
-<div class="row">
-<DIV id="holding">
-<fieldset>
-<legend>Holding Phase</legend>
-	<div class="form-group col-xs-6">
-		<label class="control-label col-xs-5" for="holdingPressure_1">Pressure</label>
-		<div class="col-xs-7">
-			<input id="holdingPressure_1" class="form-control" type="text" name="holdingPressure_1" value="<c:out value='${form.holdingPressure_1}' />"/>
-		</div>
-	</div>
-	 <div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingTime_1">Time</label>
-		<div class="col-xs-7">
-			<input id="holdingTime_1" class="form-control" type="text" name="holdingTime_1" value="<c:out value='${form.holdingTime_1}' />"/>
-		</div>
-	</div>
-	 <div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingPressure_2">Pressure 2</label>
-		<div class="col-xs-7">
-			<input id="holdingPressure_2" class="form-control" type="text" name="holdingPressure_2" value="<c:out value='${form.holdingPressure_2}' />"/>
-		</div>
-	</div>
-	<div class="form-group col-xs-6">
-	 <label class="control-label col-xs-5" for="holdingTime_2">Time 2</label>
-	 <div class="col-xs-7">
-	 	<input id="holdingTime_2" class="form-control" type="text" name="holdingTime_2" value="<c:out value='${form.holdingTime_2}' />"/>
-	 </div>
-	</div>
-	<div class="form-group col-xs-6">
-		<label class="control-label col-xs-5" for="holdingPressure_3">Pressure 3</label>
-		<div class="col-xs-7">
-			<input id="holdingPressure_3" class="form-control" type="text" name="holdingPressure_3" value="<c:out value='${form.holdingPressure_3}' />"/>
-		</div>
-	</div>
-	<div class="form-group col-xs-6">
-		<label class="control-label col-xs-5" for="holdingTime_3">Time 3</label>
-		<div class="col-xs-7">
-			<input id="holdingTime_3" class="form-control" type="text" name="holdingTime_3" value="<c:out value='${form.holdingTime_3}' />"/>
-		</div>
-	</div>
-	 <div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingPressure_4">Pressure 4</label>
-		<div class="col-xs-7">
-			<input id="holdingPressure_4" class="form-control" type="text" name="holdingPressure_4" value="<c:out value='${form.holdingPressure_4}' />"/>
-		</div>
-	</div>
-	 <div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingTime_4">Time 4</label>
-		<div class="col-xs-7">
-			<input id="holdingTime_4" class="form-control" type="text" name="holdingTime_4" value="<c:out value='${form.holdingTime_4}' />"/>
-		</div>
-	</div>
-	 <div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingPressure_5">Pressure 5</label>
-		<div class="col-xs-7">
-			<input id="holdingPressure_5" class="form-control" type="text" name="holdingPressure_5" value="<c:out value='${form.holdingPressure_5}' />"/>
-		</div>
-	</div>
-	<div class="form-group col-xs-6">
-		<label class="control-label col-xs-5" for="holdingTime_5">Time 5</label>
-		<div class="col-xs-7">
-			<input id="holdingTime_5" class="form-control" type="text" name="holdingTime_5" value="<c:out value='${form.holdingTime_5}' />"/>
-		</div>
-	</div>
-	 <div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingPressure_6">Pressure 6:</label>
-		<div class="col-xs-7">
-			<input id="holdingPressure_6 "class="form-control" type="text" name="holdingPressure_6" value="<c:out value='${form.holdingPressure_6}' />"/>
-		</div>
-	</div>
-	<div class="form-group col-xs-6">
-	 	<label class="control-label col-xs-5" for="holdingTime_6">Time 6</label>
-		<div class="col-xs-7">
-			<input id="holdingTime_6" class="form-control end" type="text" name="holdingTime_6" value="<c:out value='${form.holdingTime_6}' />"/>
-		</div>
-	</div>
-</fieldset>
-</DIV>
-</div><!-- row -->
+<%@ include file="ProcessPage/BarrelTemperatures.jspf" %>
 
-<DIV id="injExtOptions">
-<fieldset>
-<legend>Injection Options</legend>
-<TABLE class="float">
-	 <TR><TD>Max Pack Velocity:</TD><TD><input type="text" name="maxPackVel" value="<c:out value='${form.maxPackVel}' />"/></TD></TR>
-	 <TR><TD>PosTran:</TD><TD><input type="text" name="posTran" value="<c:out value='${form.posTran}' />"/></TD></TR><!-- Changeover -->
-	 <TR><TD>Max Injection Pre:</TD><TD><input type="text" name="maxInjPre" value="<c:out value='${form.maxInjPre}' />"/></TD></TR>
-	 <TR><TD>Max Injection Time:</TD><TD><input type="text" name="maxInjTime" value="<c:out value='${form.maxInjTime}' />" /></TD></TR>
-	 <TR><TD>Shot Size(CC):</TD><TD><input type="text" name="shotSize" value="<c:out value='${form.shotSize}' />"/></TD></TR>
-	 <TR><TD>Decompression Distance:</TD><TD><input type="text" name="decompressionDist" value="<c:out value='${form.decompressionDist}' />"/></TD></TR>
-	 <TR><TD>Decompression Velocity:</TD><TD><input type="text" name="decompressionVel" value="<c:out value='${form.decompressionVel}' />"/></TD></TR>
-	 <TR><TD>Cooling Time:</TD><TD><input class="end" type="text" name="coolTime" value="<c:out value='${form.coolTime}' />"/></TD></TR>
-	 
-</TABLE>
-</fieldset>
-</DIV>
-<DIV id="extrusion">
-<fieldset>
-<legend>Extrusion</legend>
-<TABLE class="float">
-	<TR><TH>Back Pressure(BAR)</TH><TH>Screw Speed(RPM)</TH><TH>Position(MM)</TH></TR>
-	<TR><TD><input type="text" name="backPressure_1" value="<c:out value='${form.backPressure_1}' />"/></TD><TD><input type="text" name="screwExtSpeed_1" value="<c:out value='${form.screwExtSpeed_1}' />"/></TD><TD><input type="text" name="extProfilePos_1" value="<c:out value='${form.extProfilePos_1}' />"/></TD></TR>
-	<TR><TD><input type="text" name="backPressure_2" value="<c:out value='${form.backPressure_2}' />"/></TD><TD><input type="text" name="screwExtSpeed_2" value="<c:out value='${form.screwExtSpeed_2}' />"/></TD><TD><input type="text" name="extProfilePos_2" value="<c:out value='${form.extProfilePos_2}' />"/></TD></TR>
-	<TR><TD><input type="text" name="backPressure_3" value="<c:out value='${form.backPressure_3}' />"/></TD><TD><input type="text" name="screwExtSpeed_3" value="<c:out value='${form.screwExtSpeed_3}' />"/></TD><TD><input type="text" name="extProfilePos_3" value="<c:out value='${form.extProfilePos_3}' />"/></TD></TR>
-	<TR><TD><input type="text" name="backPressure_4" value="<c:out value='${form.backPressure_4}' />"/></TD><TD><input type="text" name="screwExtSpeed_4" value="<c:out value='${form.screwExtSpeed_4}' />"/></TD><TD><input type="text" name="extProfilePos_4" value="<c:out value='${form.extProfilePos_4}' />"/></TD></TR>
-	<TR><TD><input type="text" name="backPressure_5" value="<c:out value='${form.backPressure_5}' />"/></TD><TD><input type="text" name="screwExtSpeed_5" value="<c:out value='${form.screwExtSpeed_5}' />"/></TD><TD><input type="text" name="extProfilePos_5" value="<c:out value='${form.extProfilePos_5}' />"/></TD></TR>
-	<TR><TD><input type="text" name="backPressure_6" value="<c:out value='${form.backPressure_6}' />"/></TD><TD><input type="text" name="screwExtSpeed_6" value="<c:out value='${form.screwExtSpeed_6}' />"/></TD><TD><input class="end" type="text" name="extProfilePos_6" value="<c:out value='${form.extProfilePos_6}' />"/></TD></TR>
-	
-</TABLE>
-</fieldset>
-</DIV>
+<%@ include file="ProcessPage/MouldClosing.jspf" %>
 
-<DIV id="barrelTemperatures">
-<fieldset>
-<legend>Barrel Temperatures</legend>
-<TABLE class="float">
-<TR><TH>Nozzel</TH><TH>T1</TH><TH>T2</TH><TH>T3</TH><TH>T4</TH><TH>Throat</TH></TR>
-<TR>
-<TD><input type="text" name="nozzelTemperature" value="<c:out value='${form.nozzelTemperature}' />"/></TD>
-<TD><input type="text" name="barrelTemperature_1" value="<c:out value='${form.barrelTemperature_1}' />"/></TD>
-<TD><input type="text" name="barrelTemperature_2" value="<c:out value='${form.barrelTemperature_2}' />"/></TD>
-<TD><input type="text" name="barrelTemperature_3" value="<c:out value='${form.barrelTemperature_3}' />"/></TD>
-<TD><input type="text" name="barrelTemperature_4" value="<c:out value='${form.barrelTemperature_4}' />"/></TD>
-<TD><input class="end" type="text" name="throatTemperature" value="<c:out value='${form.throatTemperature}' />"/></TD>
-</TR>
-</TABLE>
-</fieldset>
-</DIV>
-<DIV id="mouldClosing">
-<fieldset>
-<legend>Mould Closing</legend>
-<TABLE class="float">
-<TR><TH></TH><TH>Position(MM)</TH><TH>Speed(MM/S)</TH></TR>
-<TR><TD>Open Limit:</TD>
-<TD><input type="text" name="mouldClosingOpenLimitPos" value="<c:out value='${form.mouldClosingOpenLimitPos}' />"/></TD><TD><input type="text" name="mouldClosingOpenLimitSpeed" value="<c:out value='${form.mouldClosingOpenLimitSpeed}' />"/></TD></TR>
-<TR><TD>Closed Limit:</TD>
-<TD><input type="text" name="mouldClosedLimitPos" value="<c:out value='${form.mouldClosedLimitPos}' />"/></TD><TD><input type="text" name="mouldClosedLimitSpeed" value="<c:out value='${form.mouldClosedLimitSpeed}' />"/></TD></TR>
-<TR><TD>CLS Slow</TD><TD>
-<input type="text" name="clsSlowPos" value="<c:out value='${form.clsSlowPos}' />"/></TD><TD><input type="text" name="clsSlowSpeed" value="<c:out value='${form.clsSlowSpeed}' />"/></TD></TR>
-<TR><TD>Close SP</TD><TD>
-<input type="text" name="clsSPPos" value="<c:out value='${form.clsSPPos}' />"/></TD><TD><input class="end" type="text" name="clsSPSpeed" value="<c:out value='${form.clsSPSpeed}' />"/></TD></TR>
-</TABLE> 
-</fieldset>
-</DIV>
+<%@ include file="ProcessPage/MouldOpening.jspf" %>
 
+<%@ include file="ProcessPage/Ejectors.jspf" %>
 
-<DIV id="mouldOpening">
-<fieldset>
-<legend>Mould Opening</legend>
-<TABLE class="float">
-<TR><TH></TH><TH>Position(MM)</TH><TH>Speed(MM/S)</TH></TR>
-<TR><TD>Breakaway:</TD><TD></TD><TD><input type="text" name="mouldOpenBreakAwaySpeed" value="<c:out value='${form.mouldOpenBreakAwaySpeed}' />"/></TD></TR>
-<TR><TD>Open 1 Step:</TD><TD><input type="text" name="mouldOpenStepPos_1" value="<c:out value='${form.mouldOpenStepPos_1}' />"/></TD><TD><input type="text" name="mouldOpenStepSpeed_1" value="<c:out value='${form.mouldOpenStepSpeed_1}' />"/></TD></TR>
-<TR><TD>Open 2 Step:</TD><TD><input type="text" name="mouldOpenStepPos_2" value="<c:out value='${form.mouldOpenStepPos_2}' />"/></TD><TD><input type="text" name="mouldOpenStepSpeed_2" value="<c:out value='${form.mouldOpenStepSpeed_2}' />"/></TD></TR>
-<TR><TD>Open 3 Step:</TD><TD><input type="text" name="mouldOpenStepPos_3" value="<c:out value='${form.mouldOpenStepPos_3}' />"/></TD><TD><input type="text" name="mouldOpenStepSpeed_3" value="<c:out value='${form.mouldOpenStepSpeed_3}' />"/></TD></TR>
-<TR></TR>
-<TR><TD>Mould Open Time</TD><TD><input type="text" name="mouldOpenTime" value="<c:out value='${form.mouldOpenTime}' />"/></TD><TD></TD></TR>
-<TR><TD>Eject Start</TD><TD><input class="end" type="text" name="ejectStart" value="<c:out value='${form.ejectStart}' />"/></TD><TD></TD></TR>
-</TABLE>
-</fieldset>
-</DIV>
+<%@ include file="ProcessPage/DME.jspf" %>
 
-<DIV id="ejectors">
-<fieldset>
-<legend>Ejectors</legend>
-<TABLE class="float">
-	<TR><TD>Ejector Mode</TD><TD><input type="text" name="ejectMode" value="<c:out value='${form.ejectMode}' />"/></TD><TD></TD><TD></TD></TR>
-	<TR><TD>Ejector Pulse</TD><TD><input type="text" name="ejectPulse" value="<c:out value='${form.ejectPulse}' />"/></TD><TD>count</TD><TD></TD></TR>
-	<TR><TD>Ejector Delay</TD><TD><input type="text" name="ejectDelay" value="<c:out value='${form.ejectDelay}' />"/></TD><TD>secs</TD><TD></TD></TR>
-	<TR></TR>
-	<TR><TD>FWD</TD><TD><input type="text" name="ejectorsFwdPos" value="<c:out value='${form.ejectorsFwdPos}' />"/></TD><TD><input type="text" name="ejectorsFwdSpeed" value="<c:out value='${form.ejectorsFwdSpeed}' />"/></TD><TD><input type="text" name="ejectorsFwdTime" value="<c:out value='${form.ejectorsFwdTime}' />"/></TD></TR>
-	<TR><TD>STOP</TD><TD><input type="text" name="ejectorsStopPos" value="<c:out value='${form.ejectorsStopPos}' />"/></TD><TD><input type="text" name="ejectorsStopSpeed" value="<c:out value='${form.ejectorsStopSpeed}' />"/></TD><TD><input type="text" name="ejectorsStopTime" value="<c:out value='${form.ejectorsStopTime}' />"/></TD></TR>
-	<TR><TD>REV</TD><TD><input type="text" name="ejectorsRevPos" value="<c:out value='${form.ejectorsRevPos}' />"/></TD><TD><input type="text" name="ejectorsRevSpeed" value="<c:out value='${form.ejectorsRevSpeed}' />"/></TD><TD><input class="end" type="text" name="ejectorsRevTime" value="<c:out value='${form.ejectorsRevTime}' />"/></TD></TR>
-</TABLE>
-</fieldset>
-</DIV>
-
-<DIV id="dme">
-
-<fieldset>
-<legend>DME and Water temperatures</legend>
-<TABLE class="float">
-<TR><TH>DMEs</TH></TR>
-<TR><TD>1</TD><TD>2</TD><TD>3</TD><TD>4</TD><TD>5</TD><TD>6</TD><TD>7</TD><TD>8</TD></TR>
-<TR>
-	<TD><input type="text" name="dme_1" value="<c:out value='${form.dme_1}' />"/></TD>
-	<TD><input type="text" name="dme_2" value="<c:out value='${form.dme_2}' />"/></TD>
-	<TD><input type="text" name="dme_3" value="<c:out value='${form.dme_3}' />"/></TD>
-	<TD><input type="text" name="dme_4" value="<c:out value='${form.dme_4}' />"/></TD>
-	<TD><input type="text" name="dme_5" value="<c:out value='${form.dme_5}' />"/></TD>
-	<TD><input type="text" name="dme_6" value="<c:out value='${form.dme_6}' />"/></TD>
-	<TD><input type="text" name="dme_7" value="<c:out value='${form.dme_7}' />"/></TD>
-	<TD><input type="text" name="dme_8" value="<c:out value='${form.dme_8}' />"/></TD>
-</TR>
-</TABLE>
-<TABLE class="float">
-	<TR><TD>Fixed Half Water Temp </TD><TD><input type="text" name="waterTempFixedHalf" value="<c:out value='${form.waterTempFixedHalf}' />"/></TD></TR>
-	<TR><TD>Moving Half Water Temp </TD><TD><input type="text" name="waterTempMovingHalf" value="<c:out value='${form.waterTempMovingHalf}' />"/></TD></TR>
-	<TR><TD>Notes</TD><TD><textarea name="waterTempNotes"><c:out value="${form.waterTempNotes}"/></textarea></TD></TR>
-</TABLE>
-</fieldset>
-</DIV>
-<SPAN class="buttons">
-<%-- To tell the servlet which mode the page is submitting in --%>
+<tags:BottomMenuBar>
+<tags:NavLinks>
+	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet"/>
+	<tags:NavLink name="Search Page" glyphicon="glyphicon-search" link="${pageContext.request.contextPath}/app/ProcessSheet_search"/>
+</tags:NavLinks>
+<tags:ButtonsMenu>
 <c:if test="${mode eq null }">
-	<input type='submit'  name="mode" value='Enter'/>
+	<button id="enter" class="btn btn-block" type='submit'  name="mode" value="Enter"><span class="glyphicon glyphicon-plus pull-left"></span>Enter</button>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<input type='submit'  name="mode" value='edit'/>
+	<button id="edit" class="btn btn-block" type='submit' name="mode" value="Edit"><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
 </c:if>
-</SPAN>
+</tags:ButtonsMenu>
+<tags:UserListItem/>
+
+</tags:BottomMenuBar>
 </FORM>
-</div><!-- container -->
 <%@ include file="/BootStrapFooter.jsp" %>
 </body>
 </html>
