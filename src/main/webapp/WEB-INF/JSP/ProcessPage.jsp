@@ -17,6 +17,32 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <style>
+#info,
+ #injection,
+ #holding,
+ #injExtOptions,
+ #extrusion,
+ #barrelTemperatures,
+ #mouldClosing,
+ #mouldOpening,
+ #ejectors,
+ #dme{
+ 	position:absolute;
+ 	top:150px;
+ 	width:100%;
+ }
+ 
+ #injection,
+ #holding,
+ #injExtOptions,
+ #extrusion,
+ #barrelTemperatures,
+ #mouldClosing,
+ #mouldOpening,
+ #ejectors,
+ #dme{ 
+ 	visibility:hidden;
+ }
 </style>
 </head>
 
@@ -69,7 +95,7 @@ $(document).ready(function(){
 <option value="info">Information</option>
 <option value="injection">Injection</option>
 <option value="holding">Holding</option>
-<option value="injExtOptions">Inejection/Extrusion Options</option>
+<option value="injExtOptions">Injection/Extrusion Options</option>
 <option value="extrusion">Extrusion</option>
 <option value="barrelTemperatures">Barrel Temperatures</option>
 <option value="mouldClosing">Mould Closing</option>

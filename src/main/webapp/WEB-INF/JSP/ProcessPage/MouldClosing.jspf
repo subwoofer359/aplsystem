@@ -4,10 +4,9 @@
 	@author Adrian McLaughlin
 
  --%>
- <div class="container">
-<DIV id="mouldClosing">
-<fieldset>
+<fieldset  id="mouldClosing">
 <legend>Mould Closing</legend>
+<div class="container">
 <div class="row">
 <label  class="col-xs-offset-4 col-xs-4">Position(MM)</label><label class="col-xs-4">Speed(MM/S)</label>
 <div class="form-group">
@@ -47,6 +46,5 @@
 	</div>
 </div>
 </div><!-- row -->
-</fieldset>
-</DIV>
 </div><!-- container -->
+</fieldset>

@@ -4,11 +4,12 @@
 	@author Adrian McLaughlin
 
  --%>
-<div class="container entry">
-<div class="row">
-<DIV id="extrusion">
-<fieldset>
+
+
+<fieldset id="extrusion">
 <legend>Extrusion</legend>
+<div class="container">
+<div class="row">
 	<div class="col-xs-12">
 	<label class="col-xs-4">Back Pressure(BAR)</label><label class="col-xs-4">Screw Speed(RPM)</label><label class="col-xs-4">Position(MM)</label>
 	</div>
@@ -67,7 +68,6 @@
 	<input class="end form-control" type="text" name="extProfilePos_6" value="<c:out value='${form.extProfilePos_6}' />"/>
 	</div>
 
-</fieldset>
-</DIV>
 </div> <!-- row -->
 </div> <!-- container -->
+</fieldset>

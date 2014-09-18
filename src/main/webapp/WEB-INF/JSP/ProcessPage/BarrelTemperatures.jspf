@@ -4,10 +4,9 @@
 	@author Adrian McLaughlin
 
  --%>
- <div class="container entry">
-<DIV id="barrelTemperatures">
-<fieldset>
+ <fieldset  id="barrelTemperatures">
 <legend>Barrel Temperatures</legend>
+<div class="container">
 <div class="row">
 <label  class="col-xs-2">Nozzel</label>
 <label  class="col-xs-2">T1</label>
@@ -36,6 +35,5 @@
 <input class="end" type="text" name="throatTemperature" value="<c:out value='${form.throatTemperature}' />"/>
 </div>
 </div>
-</fieldset>
-</DIV>
 </div><!-- container -->
+</fieldset>

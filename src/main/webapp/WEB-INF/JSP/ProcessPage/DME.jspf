@@ -4,11 +4,9 @@
 	@author Adrian McLaughlin
 
  --%>
- <div class="container entry">
-<DIV id="dme">
-
-<fieldset>
+ <fieldset id="dme" >
 <legend>DME and Water temperatures</legend>
+<div class="container">
 <div class="row">
 <label class="col-xs-12">DMEs</label>
 <label class="col-xs-3">1</label>
@@ -71,7 +69,5 @@
 	</div>
 </div>
 </div><!-- row -->
-</fieldset>
-</DIV>
-
 </div><!-- container -->
+</fieldset>

@@ -4,11 +4,10 @@
 	@author Adrian McLaughlin
 
  --%>
-<div class="container entry">
-<div class="row">
-<DIV id="injection">
-<fieldset>
+<fieldset id="injection">
 <legend>Injection</legend>
+<div class="container">
+<div class="row">
 <div class="form-group col-xs-6">
 	 <label class="control-label col-xs-5" for="injectionSpeed_1">Speed</label>
 	<div class="col-xs-7">   
@@ -81,8 +80,6 @@
 	 	<input class="form-control end" type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value="<c:out value='${form.injSpeedPosition_6}' />"/>
 	 </div>
 </div>
-
-</fieldset>
-</DIV>
 </div><!-- row -->
 </div><!-- container -->
+</fieldset>

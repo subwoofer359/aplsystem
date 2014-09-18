@@ -4,11 +4,10 @@
 	@author Adrian McLaughlin
 
  --%>
+ <fieldset  id="info">
+<legend>Basic Information</legend>
 <div class="container">
 <div class="row">
-<DIV id="info">
-<fieldset>
-<legend>Basic Information</legend>
 <div class="form-group">
 	<label class="control-label col-xs-4 col-sm-2" for="partId">Part ID</label>
 	<div class="col-xs-12 col-sm-10">
@@ -66,8 +65,6 @@
 		<input id="processNotes" class="end form-control" type="text" name="processNotes" placeholder="Notes" value="<c:out value='${form.processNotes}'/>" />
 	</div>
 </div>
-
-</fieldset>
-</DIV>
 </div><!-- row -->
 </div><!-- container -->
+</fieldset>

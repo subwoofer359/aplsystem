@@ -4,11 +4,12 @@
 	@author Adrian McLaughlin
 
  --%>
-<div class="container entry">
-<div class="row">
-<DIV id="holding">
-<fieldset>
+
+
+<fieldset id="holding">
 <legend>Holding Phase</legend>
+<div class="container">
+<div class="row">
 	<div class="form-group col-xs-6">
 		<label class="control-label col-xs-5" for="holdingPressure_1">Pressure</label>
 		<div class="col-xs-7">
@@ -81,7 +82,6 @@
 			<input id="holdingTime_6" class="form-control end" type="text" name="holdingTime_6" value="<c:out value='${form.holdingTime_6}' />"/>
 		</div>
 	</div>
-</fieldset>
-</DIV>
 </div><!-- row -->
 </div><!--  container -->
+</fieldset>
