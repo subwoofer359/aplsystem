@@ -4,9 +4,8 @@
 	@author Adrian McLaughlin
 
  --%>
- <fieldset  id="barrelTemperatures">
+ <fieldset>
 <legend>Barrel Temperatures</legend>
-<div class="container">
 <div class="row">
 <label  class="col-xs-2">Nozzel</label>
 <label  class="col-xs-2">T1</label>
@@ -17,23 +16,22 @@
 </div>
 <div class="row">
 <div class="col-xs-2">
-<input type="text" name="nozzelTemperature" value="<c:out value='${form.nozzelTemperature}' />"/>
+<input class="form-control" type="text" name="nozzelTemperature" value="<c:out value='${form.nozzelTemperature}' />"/>
 </div>
 <div class="col-xs-2">
-<input type="text" name="barrelTemperature_1" value="<c:out value='${form.barrelTemperature_1}' />"/>
+<input class="form-control" type="text" name="barrelTemperature_1" value="<c:out value='${form.barrelTemperature_1}' />"/>
 </div>
 <div class="col-xs-2">
-<input type="text" name="barrelTemperature_2" value="<c:out value='${form.barrelTemperature_2}' />"/>
+<input class="form-control" type="text" name="barrelTemperature_2" value="<c:out value='${form.barrelTemperature_2}' />"/>
 </div>
 <div class="col-xs-2">
-<input type="text" name="barrelTemperature_3" value="<c:out value='${form.barrelTemperature_3}' />"/>
+<input class="form-control" type="text" name="barrelTemperature_3" value="<c:out value='${form.barrelTemperature_3}' />"/>
 </div>
 <div class="col-xs-2">
-<input type="text" name="barrelTemperature_4" value="<c:out value='${form.barrelTemperature_4}' />"/>
+<input class="form-control" type="text" name="barrelTemperature_4" value="<c:out value='${form.barrelTemperature_4}' />"/>
 </div>
 <div class="col-xs-2">
-<input class="end" type="text" name="throatTemperature" value="<c:out value='${form.throatTemperature}' />"/>
+<input class="form-control" type="text" name="throatTemperature" value="<c:out value='${form.throatTemperature}' />"/>
 </div>
 </div>
-</div><!-- container -->
 </fieldset>

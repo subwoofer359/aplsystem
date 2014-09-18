@@ -4,9 +4,8 @@
 	@author Adrian McLaughlin
 
  --%>
-<fieldset id="injection">
+<fieldset>
 <legend>Injection</legend>
-<div class="container">
 <div class="row">
 <div class="form-group col-xs-6">
 	 <label class="control-label col-xs-5" for="injectionSpeed_1">Speed</label>
@@ -81,5 +80,4 @@
 	 </div>
 </div>
 </div><!-- row -->
-</div><!-- container -->
 </fieldset>

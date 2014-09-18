@@ -4,9 +4,8 @@
 	@author Adrian McLaughlin
 
  --%>
- <fieldset id="dme" >
+ <fieldset>
 <legend>DME and Water temperatures</legend>
-<div class="container">
 <div class="row">
 <label class="col-xs-12">DMEs</label>
 <label class="col-xs-3">1</label>
@@ -51,23 +50,22 @@
 
 <div class="row">
 <div class="form-group">
-	<label class="control-label col-xs-6 col-sm-2">Fixed Half Water Temp</label>
+	<label class="control-label col-xs-6 col-sm-6">Fixed Half Water Temp</label>
 	<div class="col-xs-5"> 
 		<input id="waterTempFixedHalf"  class="form-control" type="text" name="waterTempFixedHalf" value="<c:out value='${form.waterTempFixedHalf}' />"/>
 	</div>
 </div>
 <div class="form-group">
-	<label class="control-label col-xs-6 col-sm-2">Moving Half Water Temp</label> 
+	<label class="control-label col-xs-6 col-sm-6">Moving Half Water Temp</label> 
 	<div class="col-xs-5">
 	 <input id="waterTempMovingHalf"  class="form-control" type="text" name="waterTempMovingHalf" value="<c:out value='${form.waterTempMovingHalf}' />"/>
 	</div>
 </div>
 <div class="form-group">
-	<label class="control-label col-xs-2 col-sm-2">Notes</label>
-	<div class="col-xs-10 col-sm-5">
+	<label class="control-label col-xs-2 col-sm-6">Notes</label>
+	<div class="col-xs-10 col-sm-6">
 		<textarea id="waterTempNotes"  class="form-control" name="waterTempNotes"><c:out value="${form.waterTempNotes}"/></textarea>
 	</div>
 </div>
 </div><!-- row -->
-</div><!-- container -->
 </fieldset>

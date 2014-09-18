@@ -5,9 +5,8 @@
 
  --%>
 
-<fieldset id="mouldOpening">
+<fieldset>
 <legend>Mould Opening</legend>
- <div class="container">
 <div class="row">
 <label  class="col-xs-offset-4 col-xs-4">Position(MM)</label><label class="col-xs-4">Speed(MM/S)</label>
 <div class="form-group">
@@ -57,5 +56,4 @@
 	</div>
 </div>
 </div><!-- row -->
-</div><!-- container -->
 </fieldset>

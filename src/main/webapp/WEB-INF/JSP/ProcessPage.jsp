@@ -17,33 +17,47 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/EntryPage.css">
 <style>
-#info,
- #injection,
- #holding,
- #injExtOptions,
- #extrusion,
- #barrelTemperatures,
- #mouldClosing,
- #mouldOpening,
- #ejectors,
- #dme{
- 	position:absolute;
- 	top:150px;
- 	width:100%;
- }
+
+@media(max-width:768px){
+	
+	#info, #injection, #holding, #injExtOptions,
+	#extrusion, #barrelTemperatures, #mouldClosing,
+	#mouldOpening, #ejectors, #dme{
+ 		position:absolute;
+ 		top:150px;
+ 		width:100%;
+ 	}
  
- #injection,
- #holding,
- #injExtOptions,
- #extrusion,
- #barrelTemperatures,
- #mouldClosing,
- #mouldOpening,
- #ejectors,
- #dme{ 
- 	visibility:hidden;
+ 	#injection, #holding, #injExtOptions, #extrusion, 
+ 	#barrelTemperatures, #mouldClosing, #mouldOpening, 
+ 	#ejectors, #dme{ 
+ 		visibility:hidden;
+ 	}
  }
-</style>
+ @media(min-width:769px){
+ 	#pageSelect
+ 	{
+ 		display:none;
+ 	}
+ 	#info, #injection, #holding, #injExtOptions,
+	#extrusion, #barrelTemperatures, #mouldClosing,
+	#mouldOpening, #ejectors, #dme{
+ 		visibility:visible;
+ 		position:static;
+ 	}
+ 	
+ 	#holding,#mouldClosing{
+ 		clear:both;
+ 	}
+ }
+ .entryPane{
+ 	margin-bottom:20px;
+ }
+ #main-container
+ {
+ 	padding-bottom:50px;
+ }
+ </style>
 </head>
 
 <body>
@@ -105,31 +119,45 @@ $(document).ready(function(){
 </select>
 </div><!-- row -->
 </div><!-- container -->
+
+<div id="main-container" class="container">
+<div class="row">
 <!-- Send info to JSP to be put into a bean todo integrate code into this page -->
 <FORM class="form-horizontal" method="post" action="${pageContext.request.contextPath}/app/Processing/ProcessSheetBean"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
-<%@ include file="ProcessPage/BasicInformation.jspf" %>
-
-<%@ include file="ProcessPage/Injection.jspf" %>
-
-<%@ include file="ProcessPage/Holding.jspf" %>
-
-<%@ include file="ProcessPage/InjectionExtrusionOptions.jspf" %>
-
-<%@ include file="ProcessPage/Extrusion.jspf" %>
-
-<%@ include file="ProcessPage/BarrelTemperatures.jspf" %>
-
-<%@ include file="ProcessPage/MouldClosing.jspf" %>
-
-<%@ include file="ProcessPage/MouldOpening.jspf" %>
-
-<%@ include file="ProcessPage/Ejectors.jspf" %>
-
-<%@ include file="ProcessPage/DME.jspf" %>
-
+<div id="info" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/BasicInformation.jspf" %>
+</div>
+<div id="injection" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/Injection.jspf" %>
+</div>
+<div class="clearfix visible-sm-block"></div>
+<div id="holding" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/Holding.jspf" %>
+</div>
+<div id="injExtOptions" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/InjectionExtrusionOptions.jspf" %>
+</div>
+<div id="extrusion" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/Extrusion.jspf" %>
+</div>
+<div id="barrelTemperatures" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/BarrelTemperatures.jspf" %>
+</div>
+<div id="mouldClosing" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/MouldClosing.jspf" %>
+</div>
+<div id="mouldOpening" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/MouldOpening.jspf" %>
+</div>
+<div id="ejectors" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/Ejectors.jspf" %>
+</div>
+<div id="dme" class="entryPane col-xs-12 col-sm-6">
+	<%@ include file="ProcessPage/DME.jspf" %>
+</div>
 <tags:BottomMenuBar>
 <tags:NavLinks>
 	<tags:NavLink name="Main" glyphicon="glyphicon-home" link="${pageContext.request.contextPath}/app/APLSystemServlet"/>
@@ -147,6 +175,9 @@ $(document).ready(function(){
 
 </tags:BottomMenuBar>
 </FORM>
+</div><!-- row -->
+</div><!-- container -->
+
 <%@ include file="/BootStrapFooter.jsp" %>
 </body>
 </html>

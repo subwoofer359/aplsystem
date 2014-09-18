@@ -4,11 +4,8 @@
 	@author Adrian McLaughlin
 
  --%>
-
-
-<fieldset id="extrusion">
+<fieldset>
 <legend>Extrusion</legend>
-<div class="container">
 <div class="row">
 	<div class="col-xs-12">
 	<label class="col-xs-4">Back Pressure(BAR)</label><label class="col-xs-4">Screw Speed(RPM)</label><label class="col-xs-4">Position(MM)</label>
@@ -69,5 +66,4 @@
 	</div>
 
 </div> <!-- row -->
-</div> <!-- container -->
 </fieldset>

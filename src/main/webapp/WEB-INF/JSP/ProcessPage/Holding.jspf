@@ -6,9 +6,8 @@
  --%>
 
 
-<fieldset id="holding">
+<fieldset>
 <legend>Holding Phase</legend>
-<div class="container">
 <div class="row">
 	<div class="form-group col-xs-6">
 		<label class="control-label col-xs-5" for="holdingPressure_1">Pressure</label>
@@ -83,5 +82,4 @@
 		</div>
 	</div>
 </div><!-- row -->
-</div><!--  container -->
 </fieldset>

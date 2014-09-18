@@ -5,9 +5,8 @@
 
  --%>
 
-<fieldset id="ejectors">
+<fieldset>
 <legend>Ejectors</legend>
-<div class="container">
 <div class="row">
 <div class="form-group">
 	<label class="control-label col-xs-3">Ejector Mode</label>
@@ -67,5 +66,4 @@
 	</div>
 </div>
 </div><!-- row -->
-</div><!-- container -->
 </fieldset>
