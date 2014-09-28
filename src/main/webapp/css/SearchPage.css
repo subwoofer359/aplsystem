@@ -41,3 +41,9 @@
 	border-style: solid;
 	border-color: white;
 }
+
+.checked
+{
+	background-color:red!important;
+	border-color:red!important;
+}

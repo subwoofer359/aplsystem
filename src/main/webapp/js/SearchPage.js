@@ -9,39 +9,21 @@
 /**
  * Highlights a selected row in a table and checks a checkbox and unchecks the other checkboxes in the table
  */
-function selected(element)
-{
-	var elementsArray=document.getElementsByTagName("input");
-	for(var i=0,elen=elementsArray.length;i<elen;i++)
-	{
-		if(elementsArray[i].type=="checkbox")
-		{
-			elementsArray[i].checked=false;
-			//Set parent <TR> element background to original colour
-			elementsArray[i].parentNode.parentNode.style.backgroundColor="";
-			elementsArray[i].parentNode.parentNode.style.borderColor="";
-		}
-	}
-	
-	console.log(element);
+function selected(element){
+	$(".checked").each(function(){
+		var checkbox=$(this);
+		checkbox.removeClass("checked");
+		checkbox.prop("checked",false);
+	});
 	if(element!=null)
 	{
-		var checkbox=element.getElementsByTagName("input");
-		if(checkbox != null || checkbox.length>0)
-		{
-			console.log(checkbox[0]);
-			checkbox[0].checked=true;
-			element.style.backgroundColor="red";
-			element.style.borderColor="red";
-		}
-		else
-		{
-			console.log("Checkbox element not found");
-		}
+		element=$(element);
+		element.addClass("checked");
+		element.find("input[type=\"checkbox\"]").prop("checked",true);
+		console.log(element);
 	}
 	
 }
-
 
 /* Remove the event onsubmit for the add button */
 function addClicked(button)
