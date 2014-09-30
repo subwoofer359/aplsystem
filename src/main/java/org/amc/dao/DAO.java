@@ -22,7 +22,7 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Fetches and holds a reference to the Persistence EntityManager
+ * Represents a general Data Access Object to provide the link between the business logic and database. 
  * @author Adrian Mclaughlin
  * @version 1
  * @param <T> WorkEntity
@@ -30,23 +30,24 @@ import org.apache.log4j.Logger;
 public class DAO<T extends WorkEntity> implements Serializable
 {
 	/**
-	 * Serializable
+	 * Serializable UID
 	 */
 	private static final long serialVersionUID = 854157422459241714L;
 	
 	/**
-	 * Logger used by the object
+	 * Logger used by this DAO object
 	 */
 	private static Logger LOG=Logger.getLogger(DAO.class);
 	
 	/**
-	 * The class this DAO is handling
+	 * The class this DAO is working with
 	 */
 	private final Class<? extends WorkEntity> entityClass;
 	
 	/**
-	 * Constructor
-	 * @param entityClass
+	 * Constructor.
+	 * 
+	 * @param entityClass the {@link WorkEntity} class this DAO object is working with
 	 */
 	public DAO(Class<? extends WorkEntity> entityClass)
 	{
@@ -54,8 +55,11 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 	
 	/**
+	 * Provides access to {@link EntityManagerThreadLocal} which contains the reference for the {@link EntityManager}
 	 * 
-	 * @return EntityManager for subclass to use
+	 * @return EntityManager for this class subclasses to use
+	 * @see EntityManager
+	 * @see EntityManagerThreadLocal
 	 */
 	public EntityManager getEntityManager()
 	{	
@@ -63,8 +67,10 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 	
 	/**
-	 * @param entity
-	 * @throws DAOException
+	 * Adds the {@link WorkEntity} object to the database
+	 * 
+	 * @param entity the new <code>WorkEntity</code> to be stored in the database
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	public void addEntity(T entity) throws DAOException
 	{
@@ -85,8 +91,10 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 
 	/**
-	 * @param entity
-	 * @throws DAOException
+	 * Updates the current {@link WorkEntity} object in the database. 
+	 * 
+	 * @param entity the <code>WorkEntity</code> to be updated.
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	public void updateEntity(T entity) throws DAOException
 	{
@@ -108,8 +116,10 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 
 	/**
-	 * @param entity
-	 * @throws DAOException
+	 * Deletes the {@link WorkEntity} object from the database
+	 * 
+	 * @param entity the <code>WorkEntity</code> to be deleted
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	public void deleteEntity(T entity) throws DAOException
 	{
@@ -130,9 +140,13 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 
 	/**
-	 * @param workEntityId
-	 * @return MouldingProcess or null if not found
-	 * @throws DAOException
+	 * Retrieves a {@link WorkEntity} object who's database ID value is equal to <code>workEntityId</code>
+	 * <p>
+	 * A DAOException is thrown if there is no entry in the database with the given <code>workEntityId</code>.
+	 * 
+	 * @param workEntityId The String representation of the number corresponding to the ID of the <code>WorkEntity</code> in the database.
+	 * @return a WorkEntity object
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	@SuppressWarnings("unchecked")
 	public T getEntity(String workEntityId) throws DAOException
@@ -160,10 +174,12 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 	
 	/**
-	 * @param col
-	 * @param value
+	 * Fetchs a list of objects of class {@link WorkEntity} stored in the underlying database. 
+	 * The results from the database are stored in a <code>java.util.List</code>.
+	 * @param col String name of the column in the database to query
+	 * @param value Object to query for in the database
 	 * @return List of WorkEntities
-	 * @throws DAOException
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findEntities(String col, Object value) throws DAOException
@@ -187,8 +203,13 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 
 	/**
-	 * @return List of WorkEntities
-	 * @throws DAOException
+	 * Fetchs a list of all objects of {@link WorkEntity} stored in the underlying database. 
+	 * The results from the database are stored in a <code>java.util.List</code>.
+	 * <p>
+	 * Caution if there are a lot of rows in the database if may return a very large <code>Collection</code> of objects.
+	 * 
+	 * @return List of all WorkEntities in the database 
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	@SuppressWarnings("unchecked")
 	public List<T> findEntities() throws DAOException
@@ -208,10 +229,13 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 	
 	/**
+	 * Given a {@link org.amc.servlet.action.search.WebFormSearch WebFormSearch} object this method fetchs a list of objects of class {@link WorkEntity}. 
+	 * The search is parsed and converted into a JPQL expression which is used to carry out a
+	 * Database query. The results from the query are stored in a <code>java.util.List</code>.
 	 * 
-	 * @param search Fields for the search
-	 * @return a List of Entities from the Database or an empty List if the WebFormSearch has no variables set.
-	 * @throws DAOException if the database raises an error
+	 * @param WebFormSearch object containing the search fields to construct a query
+	 * @return a list of WorkEntities from the Database or an empty list if the WebFormSearch has no variables set.
+	 * @throws DAOException if a problem occurs in the underlying database
 	 */
 	public List<T> findEntities(WebFormSearch search) throws DAOException
 	{
@@ -219,8 +243,7 @@ public class DAO<T extends WorkEntity> implements Serializable
 		{
 			WebFormSearchToJPQLParser parser=WebFormSearchParserFactory.getWebFormSearchParser(search);
 			String textQuery=parser.parse(this.entityClass,search);
-						
-			//If there are no search fields then return an empty List
+					
 			if(textQuery.length()==0)
 			{
 				return new ArrayList<T>();
@@ -235,18 +258,8 @@ public class DAO<T extends WorkEntity> implements Serializable
 			{
 				SearchFields currentField=i.next();
 				Object value=search.getField(currentField);
-				
-//				if(value instanceof java.sql.Date)
-//				{
-//					
-//					query.setParameter(currentField.name(), (java.sql.Date)value,TemporalType.DATE);
-//					LOG.debug("Setting field:"+currentField.name()+" to "+value.toString());
-//				}
-//				else
-//				{
-					query.setParameter(currentField.name(), value);
-					LOG.debug("Setting field:"+currentField.name()+" to "+value.toString());
-				//}
+				query.setParameter(currentField.name(), value);
+				LOG.debug("Setting field:"+currentField.name()+" to "+value.toString());
 			}
 			
 			@SuppressWarnings("unchecked")
@@ -267,8 +280,9 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 	
 	/**
-	 * 
-	 * @return Class which this DAO is handing
+	 * Returns a <code>Class</code> object of class <code>WorkEntity</code> which this DAO object has been initialised with 
+	 * @return Class object which this DAO is handling
+	 * @see WorkEntity
 	 */
 	protected Class<? extends WorkEntity> getEntityClass()
 	{
@@ -276,8 +290,8 @@ public class DAO<T extends WorkEntity> implements Serializable
 	}
 
 	/**
- 	 * Overrides Object toString()
- 	 * @return String representation 
+ 	 * Overrides <code>Object</code> class <code>toString</code> method
+ 	 * @return String representation
  	 */
 	@Override
 	public String toString()
