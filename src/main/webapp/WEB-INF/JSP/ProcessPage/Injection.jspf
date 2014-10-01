@@ -80,7 +80,7 @@
 	 	<input class="form-control end" type="text" name="injSpeedPosition_6" id="injSpeedPosition_6" value="<c:out value='${form.injSpeedPosition_6}' />"/>
 	 </div>
 </div>
-
+</div>
 
 </fieldset>
 
