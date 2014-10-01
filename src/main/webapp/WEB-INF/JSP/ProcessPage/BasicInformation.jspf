@@ -1,3 +1,5 @@
+<%@taglib prefix="myfunc" uri="http://adrianmclaughlin.ie/myfunctions"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%--
 	Form Fragment for ProcessPage.jsp
 	requires BootStrap

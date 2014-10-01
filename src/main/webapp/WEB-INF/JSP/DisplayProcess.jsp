@@ -55,8 +55,7 @@ function hideInfo(element)
 <DIV class="title">
 <H1> Process:${process.partId }</H1>
 </DIV>
-<%@ include file="NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/app/ProcessSheet_search" value="Search Page" position="220px"/>
+
 
 <DIV class="informationbox">
 <TABLE>

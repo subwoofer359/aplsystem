@@ -26,7 +26,7 @@ function goHome(button)
 </SCRIPT>
 <body>
 <DIV class="title"><H1>User Information</H1></DIV>
-<%@ include file="NavigationDiv.jspf" %>
+
 
 <DIV class="info">
 <fieldset>

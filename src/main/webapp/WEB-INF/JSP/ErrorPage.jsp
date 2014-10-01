@@ -17,7 +17,6 @@
 <title>Error has occurred</title>
 </head>
 <body>
-<%@ include file="NavigationDiv.jspf" %>
 <DIV class="title">
 <H1> An exception has occurred in the application</H1>
 </DIV>

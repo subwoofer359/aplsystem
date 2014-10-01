@@ -24,7 +24,7 @@
 <DIV class="title">
 <H1>Statistical Process Control:Parts list</H1>
 </DIV>
-<%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
+
 
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <DIV class="results">
