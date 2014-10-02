@@ -6,7 +6,7 @@
 <Context>
 	
 	<Realm className="org.apache.catalina.realm.DataSourceRealm"
-			dataSourceName="jdbc/APLSystemTest"
+			dataSourceName="jdbc/APLSystem"
 			userTable="users" userNameCol="user_name" userCredCol="user_pass"
 			userRoleTable="user_roles" roleNameCol="role_name"
 			localDataSource="true"
