@@ -4,13 +4,13 @@ package org.amc.servlet.listener;
  * @author Adrian Mclaughlin
  * @version 1
  */
+import org.amc.model.User;
+import org.apache.log4j.Logger;
+
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
-
-import org.amc.model.User;
-import org.apache.log4j.Logger;
 
 /**
  * Application Lifecycle Listener implementation class UserSessionAttributeListener

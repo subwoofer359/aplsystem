@@ -1,9 +1,10 @@
 package org.amc.dao.parsers;
 
 
-import java.util.Iterator;
 import org.amc.servlet.action.search.SearchFields;
 import org.amc.servlet.action.search.WebFormSearch;
+
+import java.util.Iterator;
 
 public class PartSearchParser implements WebFormSearchToJPQLParser
 {

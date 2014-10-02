@@ -1,8 +1,8 @@
 package org.amc.servlet.model;
 
-import javax.validation.ValidationException;
-
 import org.amc.model.MouldingProcess;
+
+import javax.validation.ValidationException;
 
 /**
  * 

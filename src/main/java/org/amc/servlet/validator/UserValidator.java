@@ -1,12 +1,11 @@
 package org.amc.servlet.validator;
 
-import java.util.regex.Pattern;
-
 import org.amc.model.User;
-import org.omg.PortableInterceptor.ACTIVE;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import java.util.regex.Pattern;
 
 public class UserValidator implements Validator
 {

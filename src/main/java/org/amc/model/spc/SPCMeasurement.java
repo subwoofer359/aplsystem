@@ -1,5 +1,8 @@
 package org.amc.model.spc;
 
+import org.amc.model.Part;
+import org.amc.model.WorkEntity;
+
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -10,16 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
-
-import org.amc.model.Part;
-import org.amc.model.WorkEntity;
 
 
 /**

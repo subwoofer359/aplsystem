@@ -1,10 +1,10 @@
 package org.amc.servlet.validator;
 
-import java.text.ParseException;
-import java.util.List;
-
 import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.servlet.model.MaterialSearchForm;
+
+import java.text.ParseException;
+import java.util.List;
 
 public class MaterialSearchValidator extends WebPageFormValidator
 {

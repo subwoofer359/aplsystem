@@ -1,7 +1,18 @@
 package org.amc.servlet.filter;
 
+import static org.amc.Constants.SESSIONVAR_REMOTE_ADDRESS;
+import static org.amc.Constants.SESSIONVAR_USER;
+import static org.amc.Constants.SPRING_WEBAPPCONTEXT;
+
+import org.amc.DAOException;
+import org.amc.dao.DAO;
+import org.amc.model.User;
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -10,14 +21,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.apache.log4j.Logger;
-import org.amc.DAOException;
-import org.amc.dao.DAO;
-import org.amc.model.User;
-import org.springframework.context.ApplicationContext;
-import static org.amc.Constants.SESSIONVAR_REMOTE_ADDRESS;
-import static org.amc.Constants.SESSIONVAR_USER;
-import static org.amc.Constants.SPRING_WEBAPPCONTEXT;;
 
 /**
  * Servlet Filter implementation class UserFilter

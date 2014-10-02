@@ -4,12 +4,12 @@ package org.amc.servlet.action;
  * @author Adrian Mclaughlin
  * @version 1
  */
-import java.sql.SQLException;
-
 import org.amc.DAOException;
-import org.amc.model.Material;
 import org.amc.dao.MaterialDAO;
+import org.amc.model.Material;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.sql.SQLException;
 
 public class SaveMaterialAction 
 {

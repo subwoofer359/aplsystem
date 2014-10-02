@@ -1,10 +1,10 @@
 package org.amc.servlet.validator;
 
-import java.lang.reflect.Field;
-import java.util.List;
-
 import org.amc.model.MouldingProcess;
 import org.amc.servlet.model.MouldingProcessForm;
+
+import java.lang.reflect.Field;
+import java.util.List;
 /**
  * 
  * @author Adrian Mclaughlin

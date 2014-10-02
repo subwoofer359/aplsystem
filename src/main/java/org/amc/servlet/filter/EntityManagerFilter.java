@@ -1,5 +1,9 @@
 package org.amc.servlet.filter;
 
+import org.amc.EntityManagerThreadLocal;
+import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+
 import java.io.IOException;
 
 import javax.persistence.EntityManagerFactory;
@@ -9,10 +13,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import org.amc.EntityManagerThreadLocal;
-import org.apache.log4j.Logger;
-import org.springframework.context.ApplicationContext;
 
 /**
  * Servlet Filter implementation class EntityManagerFilter

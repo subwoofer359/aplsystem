@@ -1,10 +1,10 @@
 package org.amc.servlet.action.search;
 
-import java.util.Date;
-import java.util.Set;
-
 import org.amc.model.User;
 import org.amc.model.spc.SPCMeasurement;
+
+import java.util.Date;
+import java.util.Set;
 
 public class SPCDataSearch extends WebFormSearch
 {

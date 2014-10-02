@@ -1,5 +1,40 @@
 package org.amc.servlet;
 
+import static org.amc.Constants.PASSWORD_DEFAULT;
+import static org.amc.Constants.PASSWORD_DIGEST;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
+import static org.amc.servlet.ControllerConstants.MESSAGE;
+import static org.amc.servlet.ControllerConstants.MODE;
+import static org.amc.servlet.ControllerConstants.MODE_ADD;
+import static org.amc.servlet.ControllerConstants.MODE_DELETE;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.USER;
+import static org.amc.servlet.ControllerConstants.USERS;
+import static org.amc.servlet.ControllerConstants.USER_EDIT_VIEW;
+import static org.amc.servlet.ControllerConstants.USER_INFO_VIEW;
+import static org.amc.servlet.ControllerConstants.USER_SEARCH;
+import static org.amc.servlet.ControllerConstants.USER_SEARCH_VIEW;
+
+import org.amc.Constants.Roles;
+import org.amc.DAOException;
+import org.amc.dao.DAO;
+import org.amc.dao.UserRolesDAO;
+import org.amc.model.User;
+import org.amc.model.UserRoles;
+import org.amc.servlet.validator.UserValidator;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,43 +46,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
-import org.amc.DAOException;
-import org.amc.dao.DAO;
-import org.amc.dao.UserRolesDAO;
-import org.amc.model.User;
-import org.amc.model.UserRoles;
-import org.amc.servlet.validator.UserValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.apache.log4j.Logger;
-
-import static org.amc.Constants.PASSWORD_DIGEST;
-import static org.amc.Constants.PASSWORD_DEFAULT;
-import static org.amc.Constants.Roles;
-import static org.amc.servlet.ControllerConstants.MESSAGE;
-import static org.amc.servlet.ControllerConstants.ERRORS;
-import static org.amc.servlet.ControllerConstants.USER;
-import static org.amc.servlet.ControllerConstants.USERS;
-import static org.amc.servlet.ControllerConstants.MODE;
-import static org.amc.servlet.ControllerConstants.MODE_EDIT;
-import static org.amc.servlet.ControllerConstants.MODE_ADD;
-import static org.amc.servlet.ControllerConstants.MODE_DELETE;
-import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
-import static org.amc.servlet.ControllerConstants.USER_EDIT_VIEW;
-import static org.amc.servlet.ControllerConstants.USER_INFO_VIEW;
-import static org.amc.servlet.ControllerConstants.USER_SEARCH_VIEW;
-import static org.amc.servlet.ControllerConstants.USER_SEARCH;
 
 /**
  * 

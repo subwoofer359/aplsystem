@@ -1,13 +1,19 @@
 package org.amc.servlet;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import static org.amc.servlet.ControllerConstants.DIMENSIONS;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
+import static org.amc.servlet.ControllerConstants.MESSAGE;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.PART;
+import static org.amc.servlet.ControllerConstants.PARTS;
+import static org.amc.servlet.ControllerConstants.PARTSEARCH;
+import static org.amc.servlet.ControllerConstants.SPCLISTPARTS;
+import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENT_VIEW;
+import static org.amc.servlet.ControllerConstants.SPC_PART;
+import static org.amc.servlet.ControllerConstants.SPC_PARTLIST_VIEW;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import org.amc.Constants.Roles;
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
@@ -25,19 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import static org.amc.Constants.Roles;
-import static org.amc.servlet.ControllerConstants.MESSAGE;
-import static org.amc.servlet.ControllerConstants.ERRORS;
-import static org.amc.servlet.ControllerConstants.MODE_EDIT;
-import static org.amc.servlet.ControllerConstants.PART;
-import static org.amc.servlet.ControllerConstants.PARTS;
-import static org.amc.servlet.ControllerConstants.SPC_PART;
-import static org.amc.servlet.ControllerConstants.DIMENSIONS;
-import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
-import static org.amc.servlet.ControllerConstants.PARTSEARCH;
-import static org.amc.servlet.ControllerConstants.SPC_PARTLIST_VIEW;
-import static org.amc.servlet.ControllerConstants.SPCLISTPARTS;
-import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENT_VIEW;;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 

@@ -1,17 +1,16 @@
 package org.amc.dao;
 
+import org.amc.DAOException;
+import org.amc.model.spc.SPCData;
+import org.amc.model.spc.SPCMeasurement;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-
-import org.amc.DAOException;
-import org.amc.model.spc.SPCData;
-import org.amc.model.spc.SPCMeasurement;
-import org.apache.log4j.Logger;
-import org.apache.xerces.impl.xs.opti.NodeImpl;
 
 /**
  * DAO for SPCData

@@ -1,17 +1,17 @@
 package org.amc.dao;
 
+import org.amc.DAOException;
+import org.amc.model.Part;
+import org.amc.model.WorkEntity;
+import org.amc.model.spc.SPCMeasurement;
+import org.apache.log4j.Logger;
+
 import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-
-import org.amc.DAOException;
-import org.amc.model.Part;
-import org.amc.model.WorkEntity;
-import org.amc.model.spc.SPCMeasurement;
-import org.apache.log4j.Logger;
 /**
  * DAO for SPCMeasurement entities as they need to use SQL directly
  * @author Adrian Mclaughlin

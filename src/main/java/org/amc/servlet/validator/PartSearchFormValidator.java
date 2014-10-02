@@ -1,10 +1,10 @@
 package org.amc.servlet.validator;
 
-import java.text.ParseException;
-import java.util.List;
-
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.PartSearchForm;
+
+import java.text.ParseException;
+import java.util.List;
 
 public class PartSearchFormValidator extends WebPageFormValidator
 {

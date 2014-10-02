@@ -1,5 +1,8 @@
 package org.amc.model.spc;
 
+import org.amc.model.Part;
+import org.amc.model.WorkEntity;
+
 import java.io.Serializable;
 
 import javax.persistence.CascadeType;
@@ -10,9 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.amc.model.Part;
-import org.amc.model.WorkEntity;
 
 /**
  * @author Adrian Mclaughlin

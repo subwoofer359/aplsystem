@@ -1,14 +1,14 @@
 package org.amc.servlet;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import static org.amc.servlet.ControllerConstants.CURRENT_SPC_MEASUREMENT;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
+import static org.amc.servlet.ControllerConstants.MESSAGE;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.PART;
+import static org.amc.servlet.ControllerConstants.SPCLISTPARTS;
+import static org.amc.servlet.ControllerConstants.SPC_ENTRYPAGE_VIEW;
+import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENTS;
 
 import org.amc.Constants;
 import org.amc.Constants.Roles;
@@ -32,15 +32,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import static org.amc.servlet.ControllerConstants.PART;
-import static org.amc.servlet.ControllerConstants.MESSAGE;
-import static org.amc.servlet.ControllerConstants.ERRORS;
-import static org.amc.servlet.ControllerConstants.MODE_EDIT;
-import static org.amc.servlet.ControllerConstants.SPC_MEASUREMENTS;
-import static org.amc.servlet.ControllerConstants.CURRENT_SPC_MEASUREMENT;
-import static org.amc.servlet.ControllerConstants.MAIN_VIEW;
-import static org.amc.servlet.ControllerConstants.SPCLISTPARTS;
-import static org.amc.servlet.ControllerConstants.SPC_ENTRYPAGE_VIEW;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 /**
  * 
  * The controller for SPCData creation

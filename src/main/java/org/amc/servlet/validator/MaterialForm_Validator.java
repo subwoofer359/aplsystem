@@ -1,8 +1,8 @@
 package org.amc.servlet.validator;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.amc.servlet.model.MaterialForm;
+
+import java.util.List;
 
 /**
  * 

@@ -1,12 +1,12 @@
 package org.amc.servlet.validator;
 
+import org.amc.servlet.action.search.MouldingProcessSearch;
+import org.amc.servlet.model.MouldingProcessSearchForm;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import org.amc.servlet.action.search.MouldingProcessSearch;
-import org.amc.servlet.model.MouldingProcessSearchForm;
 
 public final class MouldingProcessSearchFormValidator extends WebPageFormValidator
 {

@@ -1,5 +1,15 @@
 package org.amc.dao;
 
+import org.amc.DAOException;
+import org.amc.EntityManagerThreadLocal;
+import org.amc.dao.parsers.NoSuchWebFormParser;
+import org.amc.dao.parsers.WebFormSearchParserFactory;
+import org.amc.dao.parsers.WebFormSearchToJPQLParser;
+import org.amc.model.WorkEntity;
+import org.amc.servlet.action.search.SearchFields;
+import org.amc.servlet.action.search.WebFormSearch;
+import org.apache.log4j.Logger;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,16 +19,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-
-import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
-import org.amc.dao.parsers.NoSuchWebFormParser;
-import org.amc.dao.parsers.WebFormSearchParserFactory;
-import org.amc.dao.parsers.WebFormSearchToJPQLParser;
-import org.amc.model.WorkEntity;
-import org.amc.servlet.action.search.WebFormSearch;
-import org.amc.servlet.action.search.SearchFields;
-import org.apache.log4j.Logger;
 
 
 /**

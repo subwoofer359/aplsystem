@@ -1,8 +1,8 @@
 package org.amc.servlet.model;
 
-import javax.validation.ValidationException;
-
 import org.amc.model.Material;
+
+import javax.validation.ValidationException;
 
 /**
  * POJO containing Web form information to represent a material used for plastic injection moulding 

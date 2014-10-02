@@ -1,15 +1,15 @@
 package org.amc.dao;
 
+import org.amc.DAOException;
+import org.amc.model.User;
+import org.amc.model.UserRoles;
+import org.apache.log4j.Logger;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-
-import org.amc.DAOException;
-import org.amc.model.User;
-import org.amc.model.UserRoles;
-import org.apache.log4j.Logger;
 
 /**
  * DAO for UserRoles

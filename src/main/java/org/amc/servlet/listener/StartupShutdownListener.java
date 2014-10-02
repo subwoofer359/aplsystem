@@ -1,5 +1,10 @@
 package org.amc.servlet.listener;
 
+import org.amc.Constants.Roles;
+import org.apache.log4j.Logger;
+
+import com.mysql.jdbc.AbandonedConnectionCleanupThread;
+
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.util.Enumeration;
@@ -7,11 +12,6 @@ import java.util.Set;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-
-import org.apache.log4j.Logger;
-
-import com.mysql.jdbc.AbandonedConnectionCleanupThread;
-import org.amc.Constants.Roles;
 /**
  * 
  * @author Adrian Mclaughlin

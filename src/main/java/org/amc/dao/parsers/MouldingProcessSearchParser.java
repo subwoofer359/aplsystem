@@ -1,15 +1,14 @@
 package org.amc.dao.parsers;
 
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.amc.servlet.action.search.MouldingProcessSearch;
+import org.amc.servlet.action.search.MouldingProcessSearch.ProcessSearchFields;
 import org.amc.servlet.action.search.SearchFields;
 import org.amc.servlet.action.search.WebFormSearch;
 
-import static org.amc.servlet.action.search.MouldingProcessSearch.ProcessSearchFields;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
 /**
  * Parses a MouldingProcessSearchForm object
  * @author Adrian McLaughlin

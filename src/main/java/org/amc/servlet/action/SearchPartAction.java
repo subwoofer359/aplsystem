@@ -5,13 +5,12 @@ package org.amc.servlet.action;
  * @version 1
  */
 import org.amc.DAOException;
-
-import java.util.List;
-
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.servlet.action.search.PartSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class SearchPartAction 
 {

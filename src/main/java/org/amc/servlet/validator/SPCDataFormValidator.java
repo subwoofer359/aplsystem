@@ -4,16 +4,12 @@
  */
 package org.amc.servlet.validator;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.regex.Pattern;
-
-import org.amc.model.User;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.servlet.APLSpcDataController.SPCDataForm;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+
+import java.util.Date;
 
 /**
  * Validates SPCDataForm objects

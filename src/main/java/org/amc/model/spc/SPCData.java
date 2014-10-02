@@ -1,5 +1,8 @@
 package org.amc.model.spc;
 
+import org.amc.model.User;
+import org.amc.model.WorkEntity;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -14,9 +17,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
-
-import org.amc.model.User;
-import org.amc.model.WorkEntity;
 
 /**
  * @author Adrian McLaughlin

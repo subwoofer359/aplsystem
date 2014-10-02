@@ -1,12 +1,33 @@
 package org.amc.servlet;
 
-import java.io.IOException;
+import static org.amc.servlet.ControllerConstants.ERRORS;
+import static org.amc.servlet.ControllerConstants.FORM;
+import static org.amc.servlet.ControllerConstants.MATERIAL;
+import static org.amc.servlet.ControllerConstants.MATERIALS;
+import static org.amc.servlet.ControllerConstants.MODE;
+import static org.amc.servlet.ControllerConstants.MODE_ADD;
+import static org.amc.servlet.ControllerConstants.MODE_EDIT;
+import static org.amc.servlet.ControllerConstants.MODE_ENTER;
+import static org.amc.servlet.ControllerConstants.PROCESS;
+import static org.amc.servlet.ControllerConstants.SEARCH;
 
 import org.amc.Constants.Roles;
 import org.amc.DAOException;
+import org.amc.model.Material;
+import org.amc.servlet.action.MaterialActionFactory;
+import org.amc.servlet.action.SaveMaterialAction;
+import org.amc.servlet.action.SearchMaterialAction;
+import org.amc.servlet.action.search.MaterialSearch;
+import org.amc.servlet.model.MaterialForm;
+import org.amc.servlet.model.MaterialSearchForm;
+import org.amc.servlet.validator.MaterialForm_Validator;
+import org.amc.servlet.validator.MaterialSearchValidator;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.WebApplicationContext;
 
+import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,29 +39,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.amc.servlet.action.MaterialActionFactory;
-import org.amc.servlet.action.SaveMaterialAction;
-import org.amc.servlet.action.SearchMaterialAction;
-import org.amc.servlet.action.search.MaterialSearch;
-import org.amc.model.Material;
-import org.amc.servlet.model.MaterialForm;
-import org.amc.servlet.model.MaterialSearchForm;
-import org.amc.servlet.validator.MaterialForm_Validator;
-import org.amc.servlet.validator.MaterialSearchValidator;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.WebApplicationContext;
-
-import static org.amc.servlet.ControllerConstants.MODE;
-import static org.amc.servlet.ControllerConstants.ERRORS;
-import static org.amc.servlet.ControllerConstants.MODE_EDIT;
-import static org.amc.servlet.ControllerConstants.MODE_ADD;
-import static org.amc.servlet.ControllerConstants.MODE_ENTER;
-import static org.amc.servlet.ControllerConstants.MATERIAL;
-import static org.amc.servlet.ControllerConstants.MATERIALS;
-import static org.amc.servlet.ControllerConstants.PROCESS;
-import static org.amc.servlet.ControllerConstants.SEARCH;
-import static org.amc.servlet.ControllerConstants.FORM;
 /**
  * Servlet implementation class APLMaterialServlet
  * @author Adrian Mclaughlin
