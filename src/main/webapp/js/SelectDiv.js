@@ -1,12 +1,13 @@
-/**  
-*	@author Adrian Mclaughlin
-* 	@version 1
-*/
+/**
+ *  @file Controls how the browser displays HTML div elements  
+ *	@author Adrian Mclaughlin
+ * 	@version 1
+ */
 
 /**
- * Hide all HTML div except the div the user requested
- * @param element HTML Select element
- * @param tabs an array of div ids 
+ * Hide all HTML divs except the div the user requested
+ * @param {Object} element HTML Select element
+ * @param {Array} tabs an array of divs' ids 
  */ 
 function displayDiv(element,tabs)
 {
@@ -34,10 +35,14 @@ function displayDiv(element,tabs)
 /**
  * When the enter button is pressed change HTML div to the next one and focus on the first element
  * SELECT ELEMENT NAME="pageSelect"
- * @param tabs - HTML divs to  hide or display 
+ * @param {Array} tabs HTML divs to  hide or display 
  */
 function checkEnterNextPage(event,element,tabs)
 {
+	/**
+	 * @constant
+	 * @type {string}
+	 */
 	var SELECTELEMENTNAME="pageSelect";
 	var code = (event.keyCode ? event.keyCode : event.which);
  	if(code == 13) 

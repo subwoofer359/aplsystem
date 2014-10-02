@@ -1,16 +1,12 @@
 /**  
-*	@author Adrian Mclaughlin
-* 	@version 1
-*/
-/**
- * To move focus to the next input statement after the carriage return key is pressed
+ *  @file To control input focus in a HTML form
+ *	@author Adrian Mclaughlin
+ * 	@version 1
  */
-//Stop the enter button from submitting the form
-document.onkeypress=stopEnter;
 
-//Add listener to Input elements to control focus
-window.onload=addFocusListenerToTextInput;
-
+/**
+ * Moves focus to the next input statement after the carriage return key is pressed
+ */
 function addFocusListenerToTextInput()
 {
 	//Get all Input Elements
@@ -23,7 +19,8 @@ function addFocusListenerToTextInput()
 	}
 }
 /**
- * add Listener to change page on elements with the class="end"
+ * adds Listener to change page on elements with the class="end"
+ * @param {Array} of HTML divs' ids
  */
 function addChangePageListenerInput(tabs)
 {
@@ -35,8 +32,10 @@ function addChangePageListenerInput(tabs)
 	}
 }
 
-/*
- * Change focus to the next Input element
+/**
+ * Changes focus to the next Input element
+ * @param {Event} an event object
+ * @param {Object} a HTML DOM object
  */
 function nextInput(event,element)
 {
@@ -64,18 +63,22 @@ function nextInput(event,element)
 	}
 }
 
-
-
-/*
- * Stop the enter key from submitting
+/**
+ * function is executed when script is loaded
  */
-function stopEnter(event)
-{
-	var code = (event.keyCode ? event.keyCode : event.which);
- 	if(code == 13) 
+$(document).ready(function(){
+	//Stop the enter button from submitting the form
+	$(document).keypress(function stopEnter(event)
 	{
- 		event.stopPropagation();
-		return false; 
-	}
+		var code = (event.keyCode ? event.keyCode : event.which);
+	 	if(code == 13) 
+		{
+	 		event.stopPropagation();
+			return false; 
+		}
 
-}
+	});
+
+	//Add listener to Input elements to control focus
+	addFocusListenerToTextInput();
+});

@@ -1,13 +1,14 @@
 /**
- * file: general.js
- * Purpose: Groups together functions used by all the pages
+ * @file Groups together functions used by all the html pages
+ * @author Adrian McLaughlin
  */
 
 /**
  * Works on a bootstrap panel
- * @param message is added to the list of messages already in the Panel
- * @param elementId html element which contains a child element with class "panel-body"
- * which displays the message
+ * @public
+ * @param {string} message is added to the list of messages already in the Panel
+ * @param {Object} elementId html element which contains a child element with class "panel-body"
+ *                 which displays the message
  */
 function showPanelMessage(elementId, message)
 	{
@@ -33,8 +34,9 @@ function showPanelMessage(elementId, message)
 	}
 
 /**
- * @param elementId Element which displays the message
- * @param message The message which is displayed to the user
+ * If the parameter message has a value then the DOM elementId is made visible
+ * @param {string} elementId Element which displays the message
+ * @param {string} message The message which is displayed to the user
  */
 function showAlertMessage(elementId,message)
 {
@@ -50,10 +52,11 @@ function showAlertMessage(elementId,message)
 };
 
 /**
- * 
- * @param inputElementOne html form input whose value contains a password
- * @param inputElementTwo html form input whose value contains a password
- * @returns true if the passwords are the same
+ * Compares the two passwords from two form input elements
+ * @public 
+ * @param {string} inputElementOne html form input whose value contains a password
+ * @param {string} inputElementTwo html form input whose value contains a password
+ * @returns {boolean} true if the passwords are the same
  */
 function checkPassword(inputElementOne,inputElementTwo)
 {
@@ -73,8 +76,3 @@ function checkPassword(inputElementOne,inputElementTwo)
 		return true;
 	}
 }
-
-/* Hide Alert div if document is clicked */
-$(document).ready(function(){
-		
-});
