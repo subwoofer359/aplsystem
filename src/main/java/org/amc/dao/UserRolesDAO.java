@@ -38,20 +38,23 @@ public class UserRolesDAO extends DAO<UserRoles>
 	}
 	
 	/**
+	 * Fetch the list of roles for this user
 	 * 
-	 * @param user
+	 * @param user the User
 	 * @return List of UserRoles
 	 * @throws DAOException
+	 * @see User
 	 */
 	public List<UserRoles> getEntities(User user) throws DAOException
 	{
 		EntityManager em=getEntityManager();
-		List<UserRoles> roles=null;
 		try
 		{
 			Query q = em.createQuery("Select x from UserRoles x where x.userName='"
 				+ user.getUserName() + "'");
-			roles = q.getResultList();
+			@SuppressWarnings("unchecked")
+			List<UserRoles> roles= q.getResultList();
+			return roles;
 		}
 		catch(PersistenceException pe)
 		{
@@ -59,6 +62,6 @@ public class UserRolesDAO extends DAO<UserRoles>
 			LOG.error("DAO<"+getEntityClass().getSimpleName()+">:Error has occurred when trying to find entities");
 			throw new DAOException(pe);
 		}
-		return roles;
+		
 	}
 }
