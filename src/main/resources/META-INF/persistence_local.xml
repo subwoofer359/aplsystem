@@ -5,7 +5,8 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
-             version="2.0">
+             version="2.0">     
+         
 <persistence-unit name="myDatabase" transaction-type="RESOURCE_LOCAL">
 <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 <class>org.amc.model.Part</class>
@@ -13,15 +14,21 @@
 <class>org.amc.model.MouldingProcess</class>
 <class>org.amc.model.User</class>
 <class>org.amc.model.UserRoles</class>
+<class>org.amc.model.spc.SPCMeasurement</class>
+<class>org.amc.model.spc.SPCData</class>
+<class>org.amc.model.spc.SPCPartsList</class>
 <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:mysql://127.12.78.130:3306/myservlet"/>
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.5/aplsystem"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
-      <property name="openjpa.ConnectionUserName" value="adminYTspVIn"/>
-      <property name="openjpa.ConnectionPassword" value="iDwuSCz7GaUK"></property>
+      <property name="openjpa.ConnectionUserName" value="adrian"/>
+      <property name="openjpa.ConnectionPassword" value="cr2032ux"></property>
       <property name="openjpa.ConnectionProperties" value="validationQuery=select 1"/>
       <!-- Turn off OpenJPA bytecode Enhancer -->
       <!-- causing a lot of problems -->
-      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/> 
+      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+      <property name="jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+      <property name="openjpa.Log" value="Runtime=TRACE, SQL=TRACE"/> 
+      
  </properties>
 </persistence-unit>     
 </persistence>
