@@ -168,13 +168,15 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 	 * @param tableName
 	 * @return true if the table exists in the database
 	 */
-	public boolean doesTableExists(String tableName)
+	private boolean doesTableExists(String tableName)
 	{
 		EntityManager em=getEntityManager();
 		em.getTransaction().begin();
 		Query tableExists=em.createNativeQuery("SHOW TABLES");
 		
 		tableExists.executeUpdate();
+		
+		@SuppressWarnings("unchecked")
 		List<String> tables=tableExists.getResultList();
 		boolean result=false;
 		if(tables.contains(tableName))
@@ -185,14 +187,15 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement>
 		
 		return result;
 	}
-	
+
 	/**
+	 * 
 	 * @param tableName
 	 * @return true if the table has no entries
 	 */
-	public boolean isTableEmpty(String tableName)
+	private boolean isTableEmpty(String tableName)
 	{
-		//todo
+		//todo for the delete method
 		
 		return true;
 	}
