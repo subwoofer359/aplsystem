@@ -25,6 +25,7 @@ import org.amc.model.UserRoles;
 import org.amc.servlet.validator.UserValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,6 +42,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.annotation.Resource;
 import javax.persistence.NoResultException;
@@ -268,6 +271,17 @@ public class APLUserController
 		}
 		//Return to the search page
 		return "forward:"+USER_SEARCH;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST,value="/isUserNameAvailable")
+	@Async
+	public Callable<Boolean> isUserNameAvailable(@RequestParam final String username){
+		return new Callable<Boolean>(){
+			public Boolean call() throws Exception{
+				List<User> users=userDAO.findEntities("user_name",username);
+				return users.isEmpty();
+			}
+		};	
 	}
 	
 	/**

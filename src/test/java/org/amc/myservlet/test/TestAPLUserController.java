@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
@@ -365,4 +366,38 @@ public class TestAPLUserController
 		ModelAndViewAssert.assertModelAttributeAvailable(mav,"user");
 	}
 
+	@Test
+	public void testUserNotAvailable() throws DAOException,Exception{
+		final String existingUsername="adrian";
+		//Mock DAO object
+		DAO<User> dao=mock(DAO.class);
+		List<User> users=new ArrayList<User>();
+		users.add(new User());
+		this.userServlet.setUserDAO(dao);
+	
+		when(dao.findEntities(anyString(),anyString())).thenReturn(users);
+		
+		Callable<Boolean> result=this.userServlet.isUserNameAvailable(existingUsername);
+	
+		Boolean actual=result.call();
+		assertFalse(actual);
+		
+	}
+	
+	@Test
+	public void testUserIsAvailable() throws DAOException,Exception{
+		final String existingUsername="adrian";
+		//Mock DAO object
+		DAO<User> dao=mock(DAO.class);
+		List<User> users=new ArrayList<User>();
+		this.userServlet.setUserDAO(dao);
+	
+		when(dao.findEntities(anyString(),anyString())).thenReturn(users);
+		
+		Callable<Boolean> result=this.userServlet.isUserNameAvailable(existingUsername);
+	
+		Boolean actual=result.call();
+		assertTrue(actual);
+		
+	}
 }
