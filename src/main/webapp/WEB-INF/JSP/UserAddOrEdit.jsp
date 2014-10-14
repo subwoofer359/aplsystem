@@ -34,6 +34,7 @@
 <script src="${pageContext.request.contextPath}/js/General.js"></script>
 <script src="${pageContext.request.contextPath}/js/InputFocus.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
+<script src="${pageContext.request.contextPath}/js/User.js"></script>
 <script>
 $(document).ready(function(){
 	showPanelMessage("#alert","${message}");

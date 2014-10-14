@@ -48,6 +48,7 @@ import javax.annotation.Resource;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -274,14 +275,16 @@ public class APLUserController
 	}
 	
 	@RequestMapping(method=RequestMethod.POST,value="/isUserNameAvailable")
-	@Async
-	public Callable<Boolean> isUserNameAvailable(@RequestParam final String username){
-		return new Callable<Boolean>(){
-			public Boolean call() throws Exception{
-				List<User> users=userDAO.findEntities("user_name",username);
-				return users.isEmpty();
+	public void isUserNameAvailable(@RequestParam final String username,HttpServletResponse response)throws Exception{
+		Callable<String> action=new Callable<String>(){
+			public String call() throws Exception{
+				List<User> users=userDAO.findEntities("userName",username);
+				return String.valueOf(users.isEmpty());
 			}
 		};	
+		String result=action.call();
+		response.setContentType("plain/text");
+		response.getWriter().println(result);
 	}
 	
 	/**
