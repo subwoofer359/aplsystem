@@ -2,9 +2,12 @@ package org.amc.myservlet.test;
 
 import static org.junit.Assert.*;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.amc.dao.DAO;
 import org.amc.dao.UserRolesDAO;
@@ -14,6 +17,7 @@ import org.amc.servlet.APLUserController;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
 import static org.mockito.Mockito.*;
 
@@ -369,35 +373,46 @@ public class TestAPLUserController
 	@Test
 	public void testUserNotAvailable() throws DAOException,Exception{
 		final String existingUsername="adrian";
-		//Mock DAO object
+		HttpServletResponse response=mock(HttpServletResponse.class);
+		PrintWriter writer=mock(PrintWriter.class);
 		DAO<User> dao=mock(DAO.class);
 		List<User> users=new ArrayList<User>();
+		
 		users.add(new User());
 		this.userServlet.setUserDAO(dao);
 	
 		when(dao.findEntities(anyString(),anyString())).thenReturn(users);
+		when(response.getWriter()).thenReturn(writer);
 		
-		Callable<Boolean> result=this.userServlet.isUserNameAvailable(existingUsername);
+		this.userServlet.isUserNameAvailable(existingUsername,response);
 	
-		Boolean actual=result.call();
-		assertFalse(actual);
+		ArgumentCaptor<String> argument=ArgumentCaptor.forClass(String.class);
+		verify(writer).println(argument.capture());
+		
+		assertEquals(argument.getValue(),String.valueOf(Boolean.FALSE));
 		
 	}
 	
 	@Test
 	public void testUserIsAvailable() throws DAOException,Exception{
-		final String existingUsername="adrian";
-		//Mock DAO object
+		final String existingUsername="NonUserName";
+		HttpServletResponse response=mock(HttpServletResponse.class);
+		PrintWriter writer=mock(PrintWriter.class);
 		DAO<User> dao=mock(DAO.class);
 		List<User> users=new ArrayList<User>();
+		
 		this.userServlet.setUserDAO(dao);
 	
 		when(dao.findEntities(anyString(),anyString())).thenReturn(users);
+		when(response.getWriter()).thenReturn(writer);
 		
-		Callable<Boolean> result=this.userServlet.isUserNameAvailable(existingUsername);
+		this.userServlet.isUserNameAvailable(existingUsername,response);
 	
-		Boolean actual=result.call();
-		assertTrue(actual);
+		ArgumentCaptor<String> argument=ArgumentCaptor.forClass(String.class);
+		verify(writer).println(argument.capture());
+		
+		assertEquals(argument.getValue(),String.valueOf(Boolean.TRUE));
+
 		
 	}
 }
