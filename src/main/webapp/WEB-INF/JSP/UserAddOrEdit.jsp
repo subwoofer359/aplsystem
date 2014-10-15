@@ -73,7 +73,7 @@ $(document).ready(function(){
 
 <div class="container entry">
 <div class=" row">
-<form class="form-horizontal" method="post" action='${pageContext.request.contextPath}/app/user/User_Save' onsubmit="return checkPassword('passwordOne','passwordTwo')" autocomplete="off">
+<form id="userForm" class="form-horizontal" method="post" action='${pageContext.request.contextPath}/app/user/User_Save' autocomplete="off">
 
 <input type="hidden" name='id' <c:if test='${user ne null}'>value='${user.id}'</c:if>/>
 
@@ -86,7 +86,8 @@ $(document).ready(function(){
 <div class="form-group">
 	<label class="control-label col-sm-2 hidden-xs" for="userName">Username</label>
 	<div class="col-xs-12 col-sm-7">
-		<input id="userName" class="form-control" type='text'  name='userName'  placeholder="User Name" value="<c:if test='${user ne null}'> <c:out value='${user.userName}' /></c:if>" <c:if test="${mode eq 'edit'}">readonly='readonly'</c:if>  autocomplete='off'/>
+		<input id="userName" class="form-control" type='text'  name='userName'  placeholder="User Name" value="<c:if test='${user ne null}'> <c:out value='${user.userName}' /></c:if>" <c:if test="${mode eq 'edit'}">readonly='readonly'</c:if> required="required" pattern="[a-z]{1}[a-z0-9]{7,}" autocomplete='off'/>
+		<span id="userNameMsg" class="help-block"></span>
 	</div>
 </div>
 <div class="form-group">

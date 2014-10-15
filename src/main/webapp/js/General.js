@@ -10,10 +10,16 @@
  *            'panel-body' which displays the message
  * @param {string}
  *            message is added to the list of messages already in the Panel
+ * @param {boolean} 
+ *            clearPreviousMessages if false the message is appended to messages
+ *            already in the panel
  */
-function showPanelMessage(elementId, message) {
+function showPanelMessage(elementId, message,clearPreviousMessages) {
     if (message != null && message != '') {
-        var currentText = $(elementId + ' .panel-body').html();
+        var currentText='';
+        if(!clearPreviousMessages){
+            currentText = $(elementId + ' .panel-body').html();
+        }
         if (currentText != null || currentText != '') {
             currentText = currentText + '<p>' + message + '</p>';
             $(elementId + ' .panel-body').html(currentText);
