@@ -19,11 +19,13 @@
 <div class="form-group">
 	<label for="${name}" class="hidden-xs">${displayName}</label> 			
 	<div>
-		<c:if test="${not empty sessionScope[sessionVariable]}">
-		<input class="form-control" type="${type}" id="${name}" name="${name}" placeholder="${displayName}" <c:if test="${not empty sessionScope[sessionVariable] and not empty sessionScope[sessionVariable][name]}">value="${sessionScope[sessionVariable][name]}"</c:if>/>
-		</c:if>
-		<c:if test="${empty sessionScope[sessionVariable]}">
-		<input class="form-control" type="${type}" id="${name}" name="${name}" placeholder="${displayName}" />
-		</c:if>
+		<c:choose>
+			<c:when test="${not empty sessionScope[sessionVariable] and not empty sessionScope[sessionVariable][name]}">
+				<input class="form-control" type="${type}" id="${name}" name="${name}" placeholder="${displayName}" value="${sessionScope[sessionVariable][name]}"/>
+			</c:when>
+			<c:otherwise>
+				<input class="form-control" type="${type}" id="${name}" name="${name}" placeholder="${displayName}" />
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
