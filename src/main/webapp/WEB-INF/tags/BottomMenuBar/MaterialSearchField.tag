@@ -19,23 +19,19 @@
 <div class="form-group">
 	<label for="${name}" class="hidden-xs">${displayName}</label> 			
 	<div>
-		<c:if test="${not empty sessionScope[sessionVariable]}">
-			<select class="form-control" id="${name}" name="${name}">
-			<c:forEach items='${materials}' var='material'>
-				<option value='${material.key}'  <c:if test="${material.key eq sessionScope[sessionVariable][name]}"><c:out value="selected='selected'"></c:out></c:if>>
-					<c:out value="${myfunc:toString(material.value)}"/>
-				</option>
-			</c:forEach>
-		</select>
-		</c:if>
-		<c:if test="${empty sessionScope[sessionVariable]}">
 		<select class="form-control" id="${name}" name="${name}">
 			<c:forEach items='${materials}' var='material'>
-				<option value='${material.key}'>
-					<c:out value="${myfunc:toString(material.value)}"/>
+				<c:choose>
+				<c:when test="${not empty sessionScope[sessionVariable] && material.key eq sessionScope[sessionVariable][name]}">
+					<option value='${material.key}' selected='selected'>
+				</c:when>
+				<c:otherwise>
+					<option value='${material.key}'>
+				</c:otherwise>
+				</c:choose>
+				<c:out value="${myfunc:toString(material.value)}"/>
 				</option>
 			</c:forEach>
-		</select>
-		</c:if>
+		</select>	
 	</div>
 </div>
