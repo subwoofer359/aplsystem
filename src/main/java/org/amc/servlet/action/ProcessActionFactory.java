@@ -8,8 +8,8 @@ import java.io.Serializable;
  * @version 1
  */
 
-public interface ProcessActionFactory extends Serializable
-{
-	public  SaveProcessSheetAction getSaveProcessSheetAction();
-	public  SearchProcessSheetAction getSearchProcessSheetAction();
+public interface ProcessActionFactory extends Serializable {
+    public SaveProcessSheetAction getSaveProcessSheetAction();
+
+    public SearchProcessSheetAction getSearchProcessSheetAction();
 }

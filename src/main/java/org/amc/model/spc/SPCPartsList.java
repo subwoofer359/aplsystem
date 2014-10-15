@@ -21,39 +21,33 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="SPCPartsList")
-public class SPCPartsList implements WorkEntity,Serializable 
-{
+@Table(name = "SPCPartsList")
+public class SPCPartsList implements WorkEntity, Serializable {
 
-	private static final long serialVersionUID = -1921013244039524530L;
+    private static final long serialVersionUID = -1921013244039524530L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	@OneToOne(cascade=CascadeType.PERSIST)
-	@JoinColumn(name="part_id",unique=true)
-	private Part part;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	public int getId()
-	{
-		return id;
-	}
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "part_id", unique = true)
+    private Part part;
 
-	public Part getPart()
-	{
-		return part;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id)
-	{
-		this.id = id;
-	}
+    public Part getPart() {
+        return part;
+    }
 
-	public void setPart(Part part)
-	{
-		this.part = part;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	
+    public void setPart(Part part) {
+        this.part = part;
+    }
+
 }

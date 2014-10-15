@@ -10,7 +10,6 @@ import org.amc.servlet.action.search.WebFormSearch;
  * @author Adrian McLaughlin
  *
  */
-public interface WebFormSearchToJPQLParser
-{
-	public String parse(Class<?> entityClass,WebFormSearch webFormSearch);
+public interface WebFormSearchToJPQLParser {
+    public String parse(Class<?> entityClass, WebFormSearch webFormSearch);
 }

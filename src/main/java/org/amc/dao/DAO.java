@@ -178,7 +178,7 @@ public class DAO<T extends WorkEntity> implements Serializable {
         List<T> resultList = query.getResultList();
         return resultList;
     }
-    
+
     private String parseWebFormSearch(WebFormSearch search) throws NoSuchWebFormParserException {
         WebFormSearchToJPQLParser parser = WebFormSearchParserFactory
                         .getWebFormSearchParser(search);
