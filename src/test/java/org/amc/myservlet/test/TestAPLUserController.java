@@ -395,7 +395,7 @@ public class TestAPLUserController
 	
 	@Test
 	public void testUserIsAvailable() throws DAOException,Exception{
-		final String existingUsername="NonUserName";
+		final String username="nonusername";
 		HttpServletResponse response=mock(HttpServletResponse.class);
 		PrintWriter writer=mock(PrintWriter.class);
 		DAO<User> dao=mock(DAO.class);
@@ -406,12 +406,35 @@ public class TestAPLUserController
 		when(dao.findEntities(anyString(),anyString())).thenReturn(users);
 		when(response.getWriter()).thenReturn(writer);
 		
-		this.userServlet.isUserNameAvailable(existingUsername,response);
+		this.userServlet.isUserNameAvailable(username,response);
 	
 		ArgumentCaptor<String> argument=ArgumentCaptor.forClass(String.class);
 		verify(writer).println(argument.capture());
 		
 		assertEquals(argument.getValue(),String.valueOf(Boolean.TRUE));
+
+		
+	}
+	
+	@Test
+	public void testUserIsAvailable_emptyStringReturnsFalse()throws DAOException,Exception{
+		final String username="";
+		HttpServletResponse response=mock(HttpServletResponse.class);
+		PrintWriter writer=mock(PrintWriter.class);
+		DAO<User> dao=mock(DAO.class);
+		List<User> users=new ArrayList<User>();
+		
+		this.userServlet.setUserDAO(dao);
+	
+		when(dao.findEntities(anyString(),anyString())).thenReturn(users);
+		when(response.getWriter()).thenReturn(writer);
+		
+		this.userServlet.isUserNameAvailable(username,response);
+	
+		ArgumentCaptor<String> argument=ArgumentCaptor.forClass(String.class);
+		verify(writer).println(argument.capture());
+		
+		assertEquals(argument.getValue(),String.valueOf(Boolean.FALSE));
 
 		
 	}

@@ -43,6 +43,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 import javax.persistence.NoResultException;
@@ -62,7 +63,7 @@ public class APLUserController
 	private  UserRolesDAO userRolesDAO;
 	private  DAO<User> userDAO;
 	private static Logger logger=Logger.getLogger(APLUserController.class);
-	
+	private static final Pattern pattern=Pattern.compile("[a-z]{1}[a-z0-9]{7,}");
 	
 	
 //	@InitBinder(USER)
@@ -278,8 +279,12 @@ public class APLUserController
 	public void isUserNameAvailable(@RequestParam final String username,HttpServletResponse response)throws Exception{
 		Callable<String> action=new Callable<String>(){
 			public String call() throws Exception{
-				List<User> users=userDAO.findEntities("userName",username);
-				return String.valueOf(users.isEmpty());
+				if(pattern.matcher(username).matches()){
+					List<User> users=userDAO.findEntities("userName",username);
+					return String.valueOf(users.isEmpty());
+				} else {
+					return String.valueOf(Boolean.FALSE);
+				}
 			}
 		};	
 		String result=action.call();
