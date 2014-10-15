@@ -95,7 +95,8 @@ $(document).ready(function()
 		<button class="btn btn-block" id="edit" type="submit" name="mode" value="edit" ><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
 		<button class="btn btn-block" id="display" type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"><span class="glyphicon glyphicon-info-sign pull-left"></span>Display Process</button>
 	</tags:ButtonsMenu>
-	<tags:MenuSearchItem sessionVariable="PROCESSSEARCH" partId="Part Name" machineNo="Machine No." material="Material" masterBatchNo="Masterbatch No." signedOffBy="Signed Off By">
+	<tags:MenuSearchItem sessionVariable="PROCESSSEARCH" partId="Part Name" machineNo="Machine No." masterBatchNo="Masterbatch No." signedOffBy="Signed Off By">
+		<tags:MaterialSearchField displayName="Mataerial" name="material"/>
 		<tags:MenuSearchField name="startDate" displayName="Date from" type="date"/> 
 		<tags:MenuSearchField name="endDate" displayName="Date to" type="date"/>
 	</tags:MenuSearchItem>
