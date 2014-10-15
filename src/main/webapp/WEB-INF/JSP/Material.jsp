@@ -128,7 +128,7 @@ $(document).ready(function(){
 	<button id="enter" class="btn btn-block" type='submit'  name="mode" value='Enter'><span class="glyphicon glyphicon-plus pull-left"></span>Enter</button>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<button id="edit"  class="btn btn-block" type='submit'  name="mode" value='edit'><span class="glyphicon glyphicon-pencil pull-left"></span>edit</button>
+	<button id="edit"  class="btn btn-block" type='submit'  name="mode" value='edit'><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
 </c:if>
 </tags:ButtonsMenu>
 	<tags:UserListItem/>
