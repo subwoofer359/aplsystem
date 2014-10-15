@@ -5,19 +5,19 @@ package org.amc.dao.parsers;
  * @author Adrian McLaughlin
  *
  */
-public class NoSuchWebFormParser extends Exception
+public class NoSuchWebFormParserException extends Exception
 {
-	public NoSuchWebFormParser()
+	public NoSuchWebFormParserException()
 	{
 		super();
 	}
 	
-	public NoSuchWebFormParser(Throwable throwable)
+	public NoSuchWebFormParserException(Throwable throwable)
 	{
 		super(throwable);
 	}
 	
-	public NoSuchWebFormParser(String message)
+	public NoSuchWebFormParserException(String message)
 	{
 		super(message);
 	}

@@ -14,7 +14,7 @@ public class WebFormSearchParserFactory
 	{
 	}
 	
-	public static final WebFormSearchToJPQLParser getWebFormSearchParser(WebFormSearch webFormSearch) throws NoSuchWebFormParser
+	public static final WebFormSearchToJPQLParser getWebFormSearchParser(WebFormSearch webFormSearch) throws NoSuchWebFormParserException
 	{
 		//System.out.println("Class="+webFormSearch.getClass());
 		if(webFormSearch.getClass().equals(PartSearch.class))
@@ -31,7 +31,7 @@ public class WebFormSearchParserFactory
 		}
 		else
 		{
-			throw new NoSuchWebFormParser("No Parser for class:"+webFormSearch.getClass());
+			throw new NoSuchWebFormParserException("No Parser for class:"+webFormSearch.getClass());
 		}
 	}
 }
