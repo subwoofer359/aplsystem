@@ -58,6 +58,7 @@ public class ProcessForm_Validator extends WebPageFormValidator
 			{
 				field=MouldingProcess.FIELDS.get(i);
 				Field refField=MouldingProcessForm.class.getDeclaredField(field);
+				refField.setAccessible(true);
 				Float.parseFloat((String)refField.get(form));
 				
 			}
@@ -85,6 +86,7 @@ public class ProcessForm_Validator extends WebPageFormValidator
 			{
 				field=MouldingProcess.FIELDS.get(i);
 				Field refField=MouldingProcessForm.class.getDeclaredField(field);
+				refField.setAccessible(true);
 				Float.parseFloat((String)refField.get(form));
 				
 			}
