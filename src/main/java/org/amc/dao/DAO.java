@@ -25,8 +25,7 @@ import javax.persistence.Query;
  * 
  * @author Adrian Mclaughlin
  * @version 1
- * @param <T>
- *            WorkEntity
+ * @param <T>  WorkEntity
  */
 public class DAO<T extends WorkEntity> implements Serializable {
     /**
@@ -49,7 +48,9 @@ public class DAO<T extends WorkEntity> implements Serializable {
     }
 
     /**
-     * @param entity
+     * Adds the Entity to be added to the Persistence context
+     * 
+     * @param entity to be added to the Persistence context
      * @throws DAOException
      */
     public void addEntity(T entity) throws DAOException {
@@ -68,6 +69,8 @@ public class DAO<T extends WorkEntity> implements Serializable {
     }
 
     /**
+     * Deletes the entity from the Persistence context
+     * 
      * @param entity
      * @throws DAOException
      */
@@ -87,6 +90,7 @@ public class DAO<T extends WorkEntity> implements Serializable {
     }
 
     /**
+     * 
      * @return List of WorkEntities
      * @throws DAOException
      */
@@ -141,7 +145,7 @@ public class DAO<T extends WorkEntity> implements Serializable {
      */
     public List<T> findEntities(WebFormSearch search) throws DAOException {
         try {
-            return queryWithWebSearchForm(search);
+            return getResultListUsingWebSearchForm(search);
         } catch (PersistenceException pe) {
             LOG.error("DAO<" + entityClass.getSimpleName()
                             + ">:Error has occurred when trying to find entities");
@@ -152,34 +156,52 @@ public class DAO<T extends WorkEntity> implements Serializable {
         }
     }
 
-    private List<T> queryWithWebSearchForm(WebFormSearch search)
+    private List<T> getResultListUsingWebSearchForm(WebFormSearch search)
                     throws NoSuchWebFormParserException, PersistenceException {
         String textQuery = parseWebFormSearch(search);
-
         if (textQuery.length() == 0) {
             return new ArrayList<T>();
         }
+        
         LOG.debug("FindEntities(Search) query is :" + textQuery);
 
-        Query query = getEntityManager().createQuery(textQuery);
-
-        for (Iterator<SearchFields> i = search.getFields().iterator(); i.hasNext();) {
-            SearchFields currentField = i.next();
-            Object value = search.getField(currentField);
-            query.setParameter(currentField.name(), value);
-            LOG.debug("Setting field:" + currentField.name() + " to " + value.toString());
-        }
+        Query query = generateQueryFromWebForm(search, textQuery);
         @SuppressWarnings("unchecked")
         List<T> resultList = query.getResultList();
         return resultList;
     }
 
+    /**
+     * Creates a Query in String form
+     * 
+     * @param search WebSearchForm to be parsed
+     * @return String query
+     * @throws NoSuchWebFormParserException if an appropriate WebFormParser is not found
+     * @see {@link org.amc.servlet.action.search.WebFormSearch.WebFormSearchToJPQLParser WebFormSearchToJPQLParser}
+     */
     private String parseWebFormSearch(WebFormSearch search) throws NoSuchWebFormParserException {
         WebFormSearchToJPQLParser parser = WebFormSearchParserFactory
                         .getWebFormSearchParser(search);
         return parser.parse(this.entityClass, search);
     }
 
+    /**
+     * Generates a JPA Query from a WebFormSearch Object and Query String
+     * 
+     * @param search a WebFormSearch containing the fields required to generate the fields
+     * @param textQuery A String query to be passed to the Query object
+     * @return A JPA Query
+     */
+    private Query generateQueryFromWebForm(WebFormSearch search,String textQuery){
+        Query query = getEntityManager().createQuery(textQuery);
+        for (Iterator<SearchFields> i = search.getFields().iterator(); i.hasNext();) {
+            SearchFields currentField = i.next();
+            Object value = search.getField(currentField);
+            query.setParameter(currentField.name(), value);
+            LOG.debug("Setting field:" + currentField.name() + " to " + value.toString());
+        }
+        return query;
+    }
     /**
      * @param workEntityId
      * @return MouldingProcess or null if not found
