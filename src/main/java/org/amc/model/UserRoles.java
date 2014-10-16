@@ -17,67 +17,58 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="user_roles")
-public class UserRoles implements Serializable,WorkEntity
-{
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	@Column(name="user_name")
-	private String userName;
-	
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	private User user;
-	
-	@Column(name="role_name")
-	private String roleName;
-	
-	public int getId()
-	{
-		return id;
-	}
+@Table(name = "user_roles")
+public class UserRoles implements Serializable, WorkEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	public User getUser()
-	{
-		return user;
-	}
+    @Column(name = "user_name")
+    private String userName;
 
-	public String getRoleName()
-	{
-		return roleName;
-	}
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-	public void setId(int id)
-	{
-		this.id = id;
-	}
+    @Column(name = "role_name")
+    private String roleName;
 
-	public void setUser(User user)
-	{
-		this.user = user;
-		setUserName(user.getUserName());
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setRoleName(String roleName)
-	{
-		this.roleName = roleName;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public String getUserName()
-	{
-		return userName;
-	}
+    public String getRoleName() {
+        return roleName;
+    }
 
-	private void setUserName(String userName)
-	{
-		this.userName = userName;
-	}
-	public String toString()
-	{
-		StringBuffer sb=new StringBuffer();
-		sb.append("Role name:"+this.getRoleName());
-		return sb.toString();
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        setUserName(user.getUserName());
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    private void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("Role name:" + this.getRoleName());
+        return sb.toString();
+    }
 }

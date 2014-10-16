@@ -1,11 +1,16 @@
-/**  
-*	@author Adrian Mclaughlin
-* 	@version 1
-*	
-*	To sort HTML tables
-*/
+/** 
+ *  @file To sort HTML tables 
+ *	@author Adrian Mclaughlin
+ * 	@version 1	
+ */
 
-function tableSort(/*html table dom element */table,/* integer or string*/ columnToSortBy)
+/**
+ * To sort a HTML table
+ * @access public
+ * @param {Object} table HTML table element
+ * @param {string||number} columnToSortBy the column of the table to be sorted 
+ */
+function tableSort(table,columnToSortBy)
 {
 	//Presuming the table header element in a thead element
 	if(table.tagName.toLowerCase()!='table')

@@ -14,31 +14,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css"/>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css"/>
 <style>
-#spcmeasurements
-{
-	position: absolute;
-	top: 10%;
-	left: 2%;
-	border-style: double;
-}
-#measurements 
-{
-	position: absolute;
-	left: 2%;
-	bottom: 10%;
-}
-#submitButton
-{
-	position:fixed;
-	right:2%;
-	bottom:2%;
-}
-#message
-{
-	position:absolute;
-	top:40%;
-	right:0;
-}
 </style>
 </head>
 
@@ -47,9 +22,6 @@
 <div class="title">
 <h1>SPC:${part.name}&nbsp;${part.version }&nbsp;${part.colour}&nbsp;(${part.part_id })</h1>
 </div>
-
-<%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCListParts" value="Search Page" position="220px"></tags:Navbox>
 
 <table id="spcmeasurements">
 <thead>

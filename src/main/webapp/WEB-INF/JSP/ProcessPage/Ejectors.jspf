@@ -1,0 +1,69 @@
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+
+<fieldset>
+<legend>Ejectors</legend>
+<div class="row">
+<div class="form-group">
+	<label class="control-label col-xs-3">Ejector Mode</label>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectMode" placeholder="Ejector Mode" value="<c:out value='${form.ejectMode}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-3">Ejector Pulse</label>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectPulse" value="<c:out value='${form.ejectPulse}' />"/>
+	</div>
+	<label class="col-xs-3">count</label>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-3">Ejector Delay</label>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectDelay" value="<c:out value='${form.ejectDelay}' />"/>
+	</div>
+	<label class="col-xs-3">secs</label>
+</div>
+	
+<div class="form-group">
+	<label class="control-label col-xs-3">FWD</label>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsFwdPos" value="<c:out value='${form.ejectorsFwdPos}' />"/>
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsFwdSpeed" value="<c:out value='${form.ejectorsFwdSpeed}' />"/>
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsFwdTime" value="<c:out value='${form.ejectorsFwdTime}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-3">STOP</label>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsStopPos" value="<c:out value='${form.ejectorsStopPos}' />"/>
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsStopSpeed" value="<c:out value='${form.ejectorsStopSpeed}' />"/>
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsStopTime" value="<c:out value='${form.ejectorsStopTime}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-3">REV</label>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsRevPos" value="<c:out value='${form.ejectorsRevPos}' />"/>
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control" type="text" name="ejectorsRevSpeed" value="<c:out value='${form.ejectorsRevSpeed}' />"/>
+	</div>
+	<div class="col-xs-3">
+		<input class="form-control end" type="text" name="ejectorsRevTime" value="<c:out value='${form.ejectorsRevTime}' />"/>
+	</div>
+</div>
+</div><!-- row -->
+</fieldset>

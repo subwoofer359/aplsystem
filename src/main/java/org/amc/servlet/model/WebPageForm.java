@@ -1,6 +1,5 @@
 package org.amc.servlet.model;
 
-public interface WebPageForm
-{
-	public boolean isEmpty();
+public interface WebPageForm {
+    public boolean isEmpty();
 }

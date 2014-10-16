@@ -1,0 +1,69 @@
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+<fieldset>
+<legend>Extrusion</legend>
+<div class="row">
+	<div class="col-xs-12">
+	<label class="col-xs-4">Back Pressure(BAR)</label><label class="col-xs-4">Screw Speed(RPM)</label><label class="col-xs-4">Position(MM)</label>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="backPressure_1" value="<c:out value='${form.backPressure_1}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="screwExtSpeed_1" value="<c:out value='${form.screwExtSpeed_1}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="extProfilePos_1" value="<c:out value='${form.extProfilePos_1}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="backPressure_2" value="<c:out value='${form.backPressure_2}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="screwExtSpeed_2" value="<c:out value='${form.screwExtSpeed_2}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="extProfilePos_2" value="<c:out value='${form.extProfilePos_2}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="backPressure_3" value="<c:out value='${form.backPressure_3}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="screwExtSpeed_3" value="<c:out value='${form.screwExtSpeed_3}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="extProfilePos_3" value="<c:out value='${form.extProfilePos_3}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="backPressure_4" value="<c:out value='${form.backPressure_4}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="screwExtSpeed_4" value="<c:out value='${form.screwExtSpeed_4}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="extProfilePos_4" value="<c:out value='${form.extProfilePos_4}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="backPressure_5" value="<c:out value='${form.backPressure_5}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="screwExtSpeed_5" value="<c:out value='${form.screwExtSpeed_5}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="extProfilePos_5" value="<c:out value='${form.extProfilePos_5}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="backPressure_6" value="<c:out value='${form.backPressure_6}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="form-control" type="text" name="screwExtSpeed_6" value="<c:out value='${form.screwExtSpeed_6}' />"/>
+	</div>
+	<div class="col-xs-4">
+	<input class="end form-control" type="text" name="extProfilePos_6" value="<c:out value='${form.extProfilePos_6}' />"/>
+	</div>
+
+</div> <!-- row -->
+</fieldset>

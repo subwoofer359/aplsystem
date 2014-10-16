@@ -12,10 +12,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>Statistical Process Control:Parts list</title>
-<STYLE>
-
-
-</STYLE>
+<style>
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
@@ -26,7 +24,7 @@
 <DIV class="title">
 <H1>Statistical Process Control:Parts list</H1>
 </DIV>
-<%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
+
 
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <DIV class="results">

@@ -1,0 +1,43 @@
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+ <fieldset>
+<legend>Barrel Temperatures</legend>
+<div class="row">
+	<label  class="col-xs-4">Nozzel</label>
+	<label  class="col-xs-4">T1</label>
+	<label  class="col-xs-4">T2</label>
+</div>
+
+<div class="row form-group">
+	<div class="col-xs-4">
+		<input class="form-control" type="text" name="nozzelTemperature" value="<c:out value='${form.nozzelTemperature}' />"/>
+	</div>
+	<div class="col-xs-4">
+		<input class="form-control" type="text" name="barrelTemperature_1" value="<c:out value='${form.barrelTemperature_1}' />"/>
+	</div>
+	<div class="col-xs-4">
+		<input class="form-control" type="text" name="barrelTemperature_2" value="<c:out value='${form.barrelTemperature_2}' />"/>
+	</div>
+</div>
+
+<div class="row">
+	<label  class="col-xs-4">T3</label>
+	<label  class="col-xs-4">T4</label>
+	<label  class="col-xs-4">Throat</label>
+</div>
+<div class="row form-group">
+	<div class="col-xs-4">
+		<input class="form-control" type="text" name="barrelTemperature_3" value="<c:out value='${form.barrelTemperature_3}' />"/>
+	</div>
+	<div class="col-xs-4">
+		<input class="form-control" type="text" name="barrelTemperature_4" value="<c:out value='${form.barrelTemperature_4}' />"/>
+	</div>
+	<div class="col-xs-4">
+		<input class="form-control end" type="text" name="throatTemperature" value="<c:out value='${form.throatTemperature}' />"/>
+	</div>
+</div>
+</fieldset>

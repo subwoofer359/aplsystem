@@ -1,20 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page session="false" %>
 <!DOCTYPE html>
-<%--  
+<%@page session="false"  %>
+<%-- 
 	@author Adrian Mclaughlin
- 	@version 1
+ 	@version 1.1
 --%>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
-<title>Login Error</title>
-</head>
-<body>
-<DIV class="title"><h1>Login Page</h1></DIV>
-<DIV class="error_message">
-Login not successful
-</DIV>
+<%@ include file="LoginTemplate.jsp"%>
+<!-- Change the labels and inputs to red -->
+<!-- Make the Error box visible -->
+<script type="text/javascript">
+$(".form-group").addClass("has-error");
+$(".error").css("display","block");
+</script>
 </body>
 </html>

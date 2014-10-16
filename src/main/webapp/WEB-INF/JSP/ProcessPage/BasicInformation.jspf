@@ -1,0 +1,71 @@
+<%@taglib prefix="myfunc" uri="http://adrianmclaughlin.ie/myfunctions"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+
+<fieldset >
+<legend>Basic Information</legend>
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="partId">Part ID</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="partId" class="form-control" type="text" name="partId" value="<c:out value='${form.partId}' />" autofocus="autofocus" placeholder="Part Identification"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="machineSize">Machine Size</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="machineSize" class="form-control" type="text" name="machineSize"  placeholder="Machine size (Tons)" value="<c:out value='${form.machineSize}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="machineNo">Machine No.</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="machineNo" class="form-control" type="text" name="machineNo" placeholder="Machine Number" value="<c:out value='${form.machineNo}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="material">Material:</label>
+	<div class="col-xs-12 col-sm-8">
+		<select id="material" name="material">
+			<c:forEach items='${materials}' var='material'>
+				<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
+					<c:out value="${myfunc:toString(material.value)}"/>
+				</option>
+			</c:forEach>
+		</select>
+	</div>
+</div>
+
+
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="masterbatchNo">MasterBatch</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="masterbatchNo" class="form-control" type="text" name="masterbatchNo" placeholder="Masterbatch" value="<c:out value='${form.masterbatchNo}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="dateOfIssue">Date of Issue</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="dateOfIssue" class="form-control" type="date" name="dateOfIssue" placeholder="Date of Issue" value="<c:out value='${form.dateOfIssue}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="signOffBy">Signed Off by</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="signOffBy" class="form-control" type="text" name="signOffBy" placeholder="Signed Off By" value="<c:out value='${form.signOffBy}' />"/>
+	</div>
+</div>
+
+<div class="form-group">
+	<label class="control-label col-xs-4 " for="processNotes">Notes</label>
+	<div class="col-xs-12 col-sm-8">
+		<input id="processNotes" class="end form-control" type="text" name="processNotes" placeholder="Notes" value="<c:out value='${form.processNotes}'/>" />
+	</div>
+</div>
+</fieldset>
+
+

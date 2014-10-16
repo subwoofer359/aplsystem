@@ -16,22 +16,6 @@
 <title>ACME Plastics: User Information</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <style>
-.info
-{
-	position:relative;
-	top:100px;
-	font-size:xx-large;
-}
-.buttons
-{
-	position:fixed;
-	right:4px;
-	bottom:4px;
-}
-.buttons input,button
-{
-	font-size:xx-large;
-}
 </style>
 </head>
 <SCRIPT>
@@ -42,7 +26,7 @@ function goHome(button)
 </SCRIPT>
 <body>
 <DIV class="title"><H1>User Information</H1></DIV>
-<%@ include file="NavigationDiv.jspf" %>
+
 
 <DIV class="info">
 <fieldset>

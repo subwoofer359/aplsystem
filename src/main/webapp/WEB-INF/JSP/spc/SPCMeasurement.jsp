@@ -11,49 +11,8 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/General.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/SearchPage.css">
 <title>Statistical Process Control:Part's Dimensions list</title>
-<STYLE>
-#dimensionEntry 
-{
-	position: absolute;
-	z-index: 100;
-	background-color: red;
-	height: 312px;
-	width: 545px;
-	top: 30%;
-	
-	left: 29%;
-	font-size: xx-large;
-	padding: 5px;
-	display:none;
-}
-
-#dimensionEntry table 
-{
-	width: 100%;
-}
-
-#dimensionEntry input[type="text"] 
-{
-	font-size: x-large;
-}
-
-#dimensionEntry .buttons
-{
-	position: absolute;
-	right: 10px;
-	bottom: 10px;
-}
-
-#dimensionEntry input[type="submit"] 
-{
-	font-size: xx-large;
-}
-
-.hiddenColumn
-{
-	display:none;
-}
-</STYLE>
+<style>
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script src="${pageContext.request.contextPath}/js/TablesSort.js"></script>
@@ -136,8 +95,6 @@ function populateForm(divName)
 <DIV class="title">
 <H1>SPC:${part.name}&nbsp;${part.version }&nbsp;${part.colour}&nbsp;(${part.part_id })</H1>
 </DIV>
-<%@ include file="/WEB-INF/JSP/NavigationDiv.jspf" %>
-<tags:Navbox href="${pageContext.request.contextPath}/app/spc/SPCListParts" value="Search Page" position="220px"></tags:Navbox>
 
 <FORM method="post" onsubmit="return isChecked(this,'part')">
 <input type="hidden" name="spcPart" value="${spcPart.id}"/>

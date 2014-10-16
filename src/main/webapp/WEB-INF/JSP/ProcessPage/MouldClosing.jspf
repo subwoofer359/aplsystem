@@ -1,0 +1,48 @@
+<%--
+	Form Fragment for ProcessPage.jsp
+	requires BootStrap
+	@author Adrian McLaughlin
+
+ --%>
+<fieldset>
+<legend>Mould Closing</legend>
+<div class="row">
+<label  class="col-xs-offset-4 col-xs-4">Position(MM)</label><label class="col-xs-4">Speed(MM/S)</label>
+<div class="form-group">
+	<label class="control-label col-xs-4">Open Limit</label>
+	<div class=" col-xs-4">
+		<input id="mouldClosingOpenLimitPos" class="form-control" type="text" name="mouldClosingOpenLimitPos" value="<c:out value='${form.mouldClosingOpenLimitPos}' />"/>
+	</div>
+	<div class=" col-xs-4">
+		<input id="mouldClosingOpenLimitSpeed" class="form-control" type="text" name="mouldClosingOpenLimitSpeed" value="<c:out value='${form.mouldClosingOpenLimitSpeed}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">Closed Limit</label>
+	<div class=" col-xs-4">
+		<input id="mouldClosedLimitPos" class="form-control" type="text" name="mouldClosedLimitPos" value="<c:out value='${form.mouldClosedLimitPos}' />"/>
+	</div>
+	<div class=" col-xs-4">
+		<input id="mouldClosedLimitSpeed" class="form-control" type="text" name="mouldClosedLimitSpeed" value="<c:out value='${form.mouldClosedLimitSpeed}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">CLS Slow</label>
+	<div class=" col-xs-4">
+		<input id="clsSlowPos" class="form-control" type="text" name="clsSlowPos" value="<c:out value='${form.clsSlowPos}' />"/>
+	</div>
+	<div class=" col-xs-4">
+		<input id="clsSlowSpeed" class="form-control" type="text" name="clsSlowSpeed" value="<c:out value='${form.clsSlowSpeed}' />"/>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-xs-4">Close SP</label>
+	<div class=" col-xs-4">
+		<input id="clsSPPos" class="form-control" type="text" name="clsSPPos" value="<c:out value='${form.clsSPPos}' />"/>
+	</div>
+	<div class=" col-xs-4">	
+		<input id="clsSPSpeed" class="form-control end" type="text" name="clsSPSpeed" value="<c:out value='${form.clsSPSpeed}' />"/>
+	</div>
+</div>
+</div><!-- row -->
+</fieldset>

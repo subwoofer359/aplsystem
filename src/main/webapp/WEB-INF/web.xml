@@ -7,11 +7,6 @@
   <display-name>myservlet</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
    <!-- Error page definitions -->
@@ -21,7 +16,7 @@
     <location>/WEB-INF/JSP/ErrorPage.jsp</location>
   </error-page>
   <error-page>
-    <exception-type>java.lang.Throwable</exception-type>
+    <exception-type>java.lang.Exception</exception-type>
     <location>/WEB-INF/JSP/ErrorPage.jsp</location>
   </error-page>
   
@@ -142,6 +137,7 @@
     <servlet-name>User</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
   </servlet>
   <servlet-mapping>
     <servlet-name>User</servlet-name>
@@ -154,21 +150,34 @@
   <filter>
     <filter-name>UserFilter</filter-name>
     <filter-class>org.amc.servlet.filter.UserFilter</filter-class>
+    <async-supported>true</async-supported>
   </filter>
-  <filter>
-    <description>Adds a new EntityManager to each request and closes it when the response is sent</description>
-    <filter-name>EntityManagerFilter</filter-name>
-    <filter-class>org.amc.servlet.filter.EntityManagerFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>EntityManagerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
   <filter-mapping>
     <filter-name>UserFilter</filter-name>
     <url-pattern>/APLSystemServlet</url-pattern>
     <url-pattern>/app/*</url-pattern>
   </filter-mapping>
-
+  
+  <filter>
+    <description>Adds a new EntityManager to each request and closes it when the response is sent</description>
+    <filter-name>EntityManagerFilter</filter-name>
+    <filter-class>org.amc.servlet.filter.EntityManagerFilter</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
+  <filter-mapping>
+    <filter-name>EntityManagerFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  <filter>
+    <filter-name>NoCacheFilter</filter-name>
+    <filter-class>org.amc.servlet.filter.NoCacheFilter</filter-class>
+    <async-supported>true</async-supported>
+  </filter>
+  <filter-mapping>
+  	<filter-name>NoCacheFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>

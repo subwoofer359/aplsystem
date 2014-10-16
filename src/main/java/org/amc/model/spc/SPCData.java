@@ -1,5 +1,8 @@
 package org.amc.model.spc;
 
+import org.amc.model.User;
+import org.amc.model.WorkEntity;
+
 import java.io.Serializable;
 import java.sql.Date;
 
@@ -15,156 +18,135 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 
-import org.amc.model.User;
-import org.amc.model.WorkEntity;
-
 /**
  * @author Adrian McLaughlin
- * @version 1
- * Represents saved SPC data
+ * @version 1 Represents saved SPC data
  */
 @Entity
-@Table //not sure what to put for this value
-public class SPCData implements Serializable, WorkEntity
-{
-	private static final long serialVersionUID = 5840756393419920613L;
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	/**
-	 * Required by JPA for concurrency
-	 */
-	@Version
-	private long version;
-	
-	/**
-	 * The date the measurement was taken
-	 */
-	@NotNull
-	@Column
-	private Date date;
-	
-	/**
-	 * The user that took the measurement
-	 */
-	@NotNull
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="user_id",nullable=false)
-	private User user;
-	
-	/**
-	 * The number of this measurement e.g. 3 of 5
-	 */
-	@NotNull
-	@Column
-	private int measurementNumber;
-	
-	/**
-	 * The actual measurement
-	 */
-	@NotNull
-	@Column
-	private float measurement;
-	
-	/**
-	 * The SPCMeasure object this SPCData is reference by
-	 */
-	@NotNull
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="measurement_id",nullable=false)
-	private SPCMeasurement spcMeasurement;
-	
-	public int getId()
-	{
-		return id;
-	}
+@Table
+// not sure what to put for this value
+public class SPCData implements Serializable, WorkEntity {
+    private static final long serialVersionUID = 5840756393419920613L;
 
-	public long getVersion()
-	{
-		return version;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-	public Date getDate()
-	{
-		return date;
-	}
+    /**
+     * Required by JPA for concurrency
+     */
+    @Version
+    private long version;
 
-	public User getUser()
-	{
-		return user;
-	}
+    /**
+     * The date the measurement was taken
+     */
+    @NotNull
+    @Column
+    private Date date;
 
-	public int getMeasurementNumber()
-	{
-		return measurementNumber;
-	}
+    /**
+     * The user that took the measurement
+     */
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-	public float getMeasurement()
-	{
-		return measurement;
-	}
+    /**
+     * The number of this measurement e.g. 3 of 5
+     */
+    @NotNull
+    @Column
+    private int measurementNumber;
 
-	public SPCMeasurement getSpcMeasurement()
-	{
-		return spcMeasurement;
-	}
+    /**
+     * The actual measurement
+     */
+    @NotNull
+    @Column
+    private float measurement;
 
-	public void setId(int id)
-	{
-		this.id = id;
-	}
+    /**
+     * The SPCMeasure object this SPCData is reference by
+     */
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "measurement_id", nullable = false)
+    private SPCMeasurement spcMeasurement;
 
-	public void setDate(Date date)
-	{
-		this.date = date;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setUser(User user)
-	{
-		this.user = user;
-	}
+    public long getVersion() {
+        return version;
+    }
 
-	public void setMeasurementNumber(int measurementNumber)
-	{
-		this.measurementNumber = measurementNumber;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public void setMeasurement(float measurement)
-	{
-		this.measurement = measurement;
-	}
+    public User getUser() {
+        return user;
+    }
 
-	public void setSpcMeasurement(SPCMeasurement spcMeasurement)
-	{
-		this.spcMeasurement = spcMeasurement;
-	}
-	
-	@Override
-	public String toString()
-	{
-		StringBuilder sb=new StringBuilder();
-		sb.append(id);
-		sb.append(':');
-		sb.append(measurement);
-		sb.append(':');
-		sb.append(measurementNumber);
-		sb.append(':');
-		sb.append(date);
-		sb.append(':');
-		if(user!=null)
-		{
-			sb.append(user.getId());
-		}
-		sb.append(':');
-		if(spcMeasurement!=null)
-		{
-			sb.append(spcMeasurement.getId());
-		}
-		
-		return sb.toString();
-	}
-	
+    public int getMeasurementNumber() {
+        return measurementNumber;
+    }
+
+    public float getMeasurement() {
+        return measurement;
+    }
+
+    public SPCMeasurement getSpcMeasurement() {
+        return spcMeasurement;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setMeasurementNumber(int measurementNumber) {
+        this.measurementNumber = measurementNumber;
+    }
+
+    public void setMeasurement(float measurement) {
+        this.measurement = measurement;
+    }
+
+    public void setSpcMeasurement(SPCMeasurement spcMeasurement) {
+        this.spcMeasurement = spcMeasurement;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(id);
+        sb.append(':');
+        sb.append(measurement);
+        sb.append(':');
+        sb.append(measurementNumber);
+        sb.append(':');
+        sb.append(date);
+        sb.append(':');
+        if (user != null) {
+            sb.append(user.getId());
+        }
+        sb.append(':');
+        if (spcMeasurement != null) {
+            sb.append(spcMeasurement.getId());
+        }
+
+        return sb.toString();
+    }
 
 }
