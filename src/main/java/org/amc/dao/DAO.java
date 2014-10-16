@@ -44,11 +44,6 @@ public class DAO<T extends WorkEntity> implements Serializable {
      */
     private final Class<? extends WorkEntity> entityClass;
 
-    /**
-     * Constructor
-     * 
-     * @param entityClass
-     */
     public DAO(Class<? extends WorkEntity> entityClass) {
         this.entityClass = entityClass;
     }
