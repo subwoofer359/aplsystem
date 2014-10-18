@@ -31,7 +31,7 @@
 	
 	<tags:NavLink name="Process Sheets" link="${pageContext.request.contextPath}/app/ProcessSheet_search"/>		
 	 
-	<tags:NavLink name="Material list" link="${pageContext.request.contextPath}/app/Material_search"/>	
+	<tags:NavLink name="Material list" link="${pageContext.request.contextPath}/app/material/Material_search"/>	
 	<c:if test="${my:isUserInRole(pageContext.request,'manager')}">
 		<tags:NavLink name="Users" link="${pageContext.request.contextPath}/app/user/Users"/>
 	</c:if>
