@@ -15,6 +15,7 @@ import org.amc.Constants.Roles;
 import org.amc.DAOException;
 import org.amc.model.Material;
 import org.amc.servlet.action.MaterialActionFactory;
+import org.amc.servlet.action.MaterialActionFactoryImpl;
 import org.amc.servlet.action.SaveMaterialAction;
 import org.amc.servlet.action.SearchMaterialAction;
 import org.amc.servlet.action.search.MaterialSearch;
@@ -22,6 +23,7 @@ import org.amc.servlet.model.MaterialForm;
 import org.amc.servlet.model.MaterialSearchForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
 import org.amc.servlet.validator.MaterialSearchValidator;
+import org.amc.servlet.validator.MaterialSearchBinder;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,8 +37,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 /**
@@ -52,11 +54,13 @@ public class APLMaterialController {
     private static final Logger LOG = Logger.getLogger(APLMaterialController.class);
 
     private MaterialActionFactory materialActionFactory;
+    
+    private static MaterialSearchBinder materialSearchBinder;
 
     static final String SESSION_MATERIALSEARCH = "MATERIALSEARCH";
 
     // Views
-    private static final String MATERIAL_ADD_EDIT_VIEW = "/WEB-INF/JSP/Material.jsp";
+    static final String MATERIAL_ADD_EDIT_VIEW = "/WEB-INF/JSP/Material.jsp";
     private static final String MATERIAL_SEARCH_VIEW = "/app/material/Material_search";
     private static final String MAIN_VIEW = "/WEB-INF/JSP/Main.jsp";
     static final String MATERIAL_SEARCH_PAGE = "MaterialSearchPage";
@@ -200,7 +204,7 @@ public class APLMaterialController {
     }
     
     private MaterialSearch createMaterialSearch(MaterialSearchForm materialForm) throws ParseException{
-        return MaterialSearchValidator.MaterialSearchBinder.getMaterialSearch(materialForm);
+        return this.materialSearchBinder.getMaterialSearch(materialForm);
     }
     
     private Map<Integer, Material> searchDatabaseWithMaterialSearch(MaterialSearch materialSearch)
@@ -210,16 +214,28 @@ public class APLMaterialController {
     }
    
     @RequestMapping("/AddMaterial")
-    public ModelAndView addMaterial(){
+    public ModelAndView addMaterial(HttpServletRequest request){
         ModelAndView mav=new ModelAndView();
+        mav.setViewName(MATERIAL_ADD_EDIT_VIEW);
+        Material material=new Material();
+        mav.getModel().put(ControllerConstants.FORM, material);
         
         return mav;
     }
     
     @RequestMapping("/EditMaterial")
-    public ModelAndView editMaterial(){
+    public ModelAndView editMaterial(HttpServletRequest request,@RequestParam("edit") String id)throws ServletException{
         ModelAndView mav=new ModelAndView();
-        
+        mav.setViewName(MATERIAL_ADD_EDIT_VIEW);
+        try{
+            SearchMaterialAction spt=this.materialActionFactory.getSearchMaterialAction();
+            Material material=spt.getMaterial(id);
+            mav.getModel().put(ControllerConstants.FORM, material);
+        }catch(DAOException de){
+            de.printStackTrace();
+            throw (ServletException) new ServletException("Database not available:"
+                            + de.getMessage()).initCause(de);
+        }
         return mav;
     }
     
@@ -227,5 +243,10 @@ public class APLMaterialController {
     @Resource(name = "myMaterialActionFactory")
     public void setMaterialActionFactory(MaterialActionFactory materialActionFactory) {
         this.materialActionFactory = materialActionFactory;
+    }
+    
+    @Resource(name="myMaterialSearchbinder")
+    public void setMaterialSearchBinder(MaterialSearchBinder materialSearchBinder) {
+        this.materialSearchBinder=materialSearchBinder;
     }
 }

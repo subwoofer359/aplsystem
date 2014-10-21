@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -111,6 +112,7 @@ public class TestAPLMaterialController {
         MaterialDAO dao=mock(MaterialDAO.class);
         MaterialSearchForm materialForm=new MaterialSearchForm();
         MaterialActionFactory actionFactory=new MaterialActionFactoryImpl(dao);
+        
         APLMaterialController controller=new APLMaterialController();
         HttpServletRequest request=mock(HttpServletRequest.class);
         HttpSession session=mock(HttpSession.class);
@@ -136,6 +138,56 @@ public class TestAPLMaterialController {
         
         HashMap<?,?> list=(HashMap<?,?>)mav.getModel().get(MATERIALS);
         assertTrue(list.isEmpty());
+    }
+    
+    @Test
+    public void testAddMaterial(){
+        MaterialDAO dao=mock(MaterialDAO.class);
+        MaterialActionFactory actionFactory=new MaterialActionFactoryImpl(dao);
+        MaterialSearchBinder materialBinder=mock(MaterialSearchBinder.class);
+        HttpServletRequest request=mock(HttpServletRequest.class);
+        APLMaterialController controller=new APLMaterialController();
+        controller.setMaterialActionFactory(actionFactory);
+   
+        ModelAndView mav=controller.addMaterial(request);
+    
+        ModelAndViewAssert.assertViewName(mav, APLMaterialController.MATERIAL_ADD_EDIT_VIEW);
+        ModelAndViewAssert.assertModelAttributeAvailable(mav,ControllerConstants.FORM);
+    }
+    
+    @Test
+    public void testEditMaterial(){
+        MaterialDAO dao=mock(MaterialDAO.class);
+        MaterialActionFactory actionFactory=new MaterialActionFactoryImpl(dao);
+        MaterialSearchBinder materialBinder=mock(MaterialSearchBinder.class);
+        HttpServletRequest request=mock(HttpServletRequest.class);
+        APLMaterialController controller=new APLMaterialController();
+        controller.setMaterialActionFactory(actionFactory);
+        String id="1";//Database ID of Material
+        
+        try{
+            ModelAndView mav=controller.editMaterial(request,id);
+            ModelAndViewAssert.assertViewName(mav, APLMaterialController.MATERIAL_ADD_EDIT_VIEW);
+            ModelAndViewAssert.assertModelAttributeAvailable(mav,ControllerConstants.FORM);
+        }catch(ServletException se){
+            fail("Exception not expected");
+        }
+    }
+    
+    @Test(expected=ServletException.class)
+    public void testEditMaterialthrowsDAOException() throws DAOException, ServletException{
+        String id="1";//Database ID of Material
+        MaterialDAO dao=mock(MaterialDAO.class);
+        MaterialActionFactory actionFactory=new MaterialActionFactoryImpl(dao);
+        MaterialSearchBinder materialBinder=mock(MaterialSearchBinder.class);
+        HttpServletRequest request=mock(HttpServletRequest.class);
+        APLMaterialController controller=new APLMaterialController();
+        
+        controller.setMaterialActionFactory(actionFactory);
+        when(dao.getEntity(eq(id))).thenThrow(DAOException.class);
+        
+        controller.editMaterial(request,id);
+        
     }
 
 
