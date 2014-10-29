@@ -49,7 +49,7 @@ public final class MouldingProcessSearchFormValidator extends WebPageFormValidat
      * @throws ParseException
      *             if the date spring doesn't macth the defined date format
      */
-    private final java.util.Date parseDate(String dateString) throws ParseException {
+    private static final java.util.Date parseDate(String dateString) throws ParseException {
         Date result = null;
         try {
             DATE_FORMAT.applyPattern(DATE_PATTERN1);
@@ -87,12 +87,12 @@ public final class MouldingProcessSearchFormValidator extends WebPageFormValidat
             }
 
             if (form.getStartDate() != null && !"".trim().equals(form.getStartDate())) {
-                mpSearch.setStartDate(new java.sql.Date(DATE_FORMAT.parse(form.getStartDate())
+                mpSearch.setStartDate(new java.sql.Date(parseDate(form.getStartDate())
                                 .getTime()));
             }
 
             if (form.getEndDate() != null && !"".trim().equals(form.getEndDate())) {
-                mpSearch.setEndDate(new java.sql.Date(DATE_FORMAT.parse(form.getEndDate())
+                mpSearch.setEndDate(new java.sql.Date(parseDate(form.getEndDate())
                                 .getTime()));
             }
 
