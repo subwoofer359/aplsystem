@@ -15,14 +15,17 @@
 <class>org.amc.model.spc.SPCData</class>
 <class>org.amc.model.spc.SPCPartsList</class>
 <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:mysql://127.12.78.130:3306/myservlet"/>
+      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.5/aplsystem"/>
       <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
-      <property name="openjpa.ConnectionUserName" value="adminYTspVIn"/>
-      <property name="openjpa.ConnectionPassword" value="iDwuSCz7GaUK"></property>
+      <property name="openjpa.ConnectionUserName" value="adrian"/>
+      <property name="openjpa.ConnectionPassword" value="cr2032ux"></property>
       <property name="openjpa.ConnectionProperties" value="validationQuery=select 1"/>
-      
+      <!-- Turn off OpenJPA bytecode Enhancer -->
+      <!-- causing a lot of problems -->
+      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
       <property name="jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-      <property name="openjpa.Log" value="Runtime=INFO"/> 
+      <!-- <property name="openjpa.Log" value="Runtime=TRACE, SQL=TRACE"/>  --> 
+      
  </properties>
 </persistence-unit>     
 </persistence>
