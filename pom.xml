@@ -5,11 +5,11 @@
  		@version 1
  	-->
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>myservlet</groupId>
-	<artifactId>myservlet</artifactId>
+	<groupId>org.amc</groupId>
+	<artifactId>aplsystem</artifactId>
 	<packaging>war</packaging>
 	<version>0.8</version>
-	<name>myservlet</name>
+	<name>aplsystem</name>
 	<repositories>
 		<repository>
 			<id>eap</id>
@@ -192,7 +192,7 @@
 			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
-				<finalName>myservlet</finalName>
+				<finalName>aplsystem</finalName>
 				<plugins>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>
