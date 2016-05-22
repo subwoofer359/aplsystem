@@ -19,7 +19,7 @@ class DatabaseFixture {
     EntityManagerFactory factory;
 
     public void setUpEntitiyManagerFactory() {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
+        factory = Persistence.createEntityManagerFactory("myDatabaseTest");
         EntityManagerThreadLocal.setEntityManagerFactory(factory);
     }
 
