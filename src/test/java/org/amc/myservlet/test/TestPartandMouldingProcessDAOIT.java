@@ -27,14 +27,14 @@ import org.junit.Test;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class TestPartandMouldingProcessDAO {
+public class TestPartandMouldingProcessDAOIT {
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     // Material Constants
     private final String NAME = "Moplen550";
     private final String COMPANY = "TOSARA";
     private final String TYPE = "ABS";
 
-    private static Logger logger = Logger.getLogger(TestPartandMouldingProcessDAO.class);
+    private static Logger logger = Logger.getLogger(TestPartandMouldingProcessDAOIT.class);
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -95,7 +95,7 @@ public class TestPartandMouldingProcessDAO {
     public void testConcurrency() throws DAOException {
         int NO_OF_THREADS = 12;
         CountDownLatch latch = new CountDownLatch(NO_OF_THREADS);
-        List<UpdateThread> threads = new ArrayList<TestPartandMouldingProcessDAO.UpdateThread>();
+        List<UpdateThread> threads = new ArrayList<TestPartandMouldingProcessDAOIT.UpdateThread>();
         DAO<Part> pd = new DAO<Part>(Part.class);
         // Add Parts to database
         for (int i = 0; i < NO_OF_THREADS; i++) {

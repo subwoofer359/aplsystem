@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.web.servlet.ModelAndView;
 
-public class TestAPLSpcControllerIntegration {
+public class TestAPLSpcControllerIT {
     private TestSPCFixture fixture;
     private DAO<SPCPartsList> partsListDao;
     private DAO<Part> partsDAO;

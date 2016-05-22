@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestSPCData {
+public class TestSPCDataIT {
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
 

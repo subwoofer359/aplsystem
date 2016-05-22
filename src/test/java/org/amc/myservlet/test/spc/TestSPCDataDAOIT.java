@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestSPCDataDAO {
+public class TestSPCDataDAOIT {
     private TestSPCFixture fixture;
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
 

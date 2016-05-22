@@ -14,7 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class TestSPCMeasurment {
+public class TestSPCMeasurmentIT {
     private TestSPCFixture fixture;
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private DAO<Part> partDAO;

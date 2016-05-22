@@ -20,7 +20,7 @@ import org.junit.Test;
  * @author Adrian Mclaughlin
  * @version 1
  */
-public class TestMaterialDAO {
+public class TestMaterialDAOIT {
 
     private final String NAME = "Moplen550";
     private final String COMPANY = "TOSARA";

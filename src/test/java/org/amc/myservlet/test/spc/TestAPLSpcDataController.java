@@ -20,7 +20,7 @@ import org.amc.model.User;
 import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
-import org.amc.myservlet.test.TestPartandMouldingProcessDAO;
+import org.amc.myservlet.test.TestPartandMouldingProcessDAOIT;
 import org.amc.servlet.APLSpcController;
 import org.amc.servlet.APLSpcDataController;
 import org.amc.servlet.APLSpcDataController.SPCDataForm;
@@ -112,7 +112,7 @@ public class TestAPLSpcDataController {
         measurement.setUpperLimit(0.3f);
         measurement.setNominal(152f);
         measurement.setNoOfMeasurements(5);
-        Part part = TestPartandMouldingProcessDAO.getPart("new Part");
+        Part part = TestPartandMouldingProcessDAOIT.getPart("new Part");
         SPCPartsList spcPartsList = new SPCPartsList();
         spcPartsList.setPart(part);
 
@@ -149,7 +149,7 @@ public class TestAPLSpcDataController {
         SPCDataForm form = new SPCDataForm();
 
         List<SPCMeasurement> measurements = getMeasurements();
-        Part part = TestPartandMouldingProcessDAO.getPart("new Part");
+        Part part = TestPartandMouldingProcessDAOIT.getPart("new Part");
 
         session.setAttribute(CURRENT_SPC_MEASUREMENT, measurements.get(0));
         session.setAttribute(SPC_MEASUREMENTS, measurements);
@@ -188,7 +188,7 @@ public class TestAPLSpcDataController {
         form.setMeasurementNumber(measurementNumbers);
 
         List<SPCMeasurement> measurements = getMeasurements();
-        Part part = TestPartandMouldingProcessDAO.getPart("new Part");
+        Part part = TestPartandMouldingProcessDAOIT.getPart("new Part");
 
         session.setAttribute(CURRENT_SPC_MEASUREMENT, measurements.get(measurements.size() - 1));
         session.setAttribute(SPC_MEASUREMENTS, measurements);
@@ -221,7 +221,7 @@ public class TestAPLSpcDataController {
         form.setMeasurementNumber(measurementNumbers);
 
         List<SPCMeasurement> measurements = getMeasurements();
-        Part part = TestPartandMouldingProcessDAO.getPart("new Part");
+        Part part = TestPartandMouldingProcessDAOIT.getPart("new Part");
 
         session.setAttribute(CURRENT_SPC_MEASUREMENT, measurements.get(0));
         session.setAttribute(SPC_MEASUREMENTS, measurements);
