@@ -220,7 +220,7 @@
 				<version>2.19.1</version>
 				<configuration>
 					<excludes>
-						<exclude>*IT.*</exclude>
+						<exclude>*IT*</exclude>
 					</excludes>
 					<argLine>${surefireArgLine}</argLine>
 					<skipTests>${skip.unit.tests}</skipTests>
