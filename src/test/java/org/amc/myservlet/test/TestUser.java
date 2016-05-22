@@ -5,45 +5,35 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.User;
 import org.amc.model.UserRoles;
-import org.junit.After;
+import org.amc.myservlet.test.spc.DatabaseFixture;
+
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestUser {
 
-    private EntityManager em;
-    private EntityManagerFactory factory;
+    private static final DatabaseFixture dbFixture = new DatabaseFixture();
 
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        dbFixture.setUp();
+    }
+    
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+        dbFixture.tearDown();
+    }
+    
     @Before
     public void setUp() throws Exception {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        em = EntityManagerThreadLocal.getEntityManager();
-
-        // Clear the table
-        Query q = em.createNativeQuery("DELETE FROM users");
-        Query q1 = em.createNativeQuery("DELETE FROM user_roles");
-        em.getTransaction().begin();
-        q.executeUpdate();
-        q1.executeUpdate();
-        em.getTransaction().commit();
-    }
-
-    @After
-    public void tearDown() {
-        EntityManagerThreadLocal.closeEntityManager();
-        factory.close();
+        dbFixture.clearTables();
     }
 
     /**

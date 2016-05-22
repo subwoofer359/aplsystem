@@ -6,12 +6,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCDataDAO;
 import org.amc.dao.SPCMeasurementDAO;
@@ -19,28 +14,34 @@ import org.amc.model.User;
 import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestSPCDataDAO {
-    private EntityManager em;
-    private EntityManagerFactory factory;
     private TestSPCFixture fixture;
+    private static final DatabaseFixture dbFixture = new DatabaseFixture();
 
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        dbFixture.setUp();
+    }
+    
     @Before
     public void setUp() throws Exception {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        em = EntityManagerThreadLocal.getEntityManager();
+        dbFixture.clearTables();
         fixture = new TestSPCFixture();
-        fixture.setUp();
     }
 
     @After
     public void tearDown() throws Exception {
-        EntityManagerThreadLocal.closeEntityManager();
         fixture = null;
-        factory.close();
+    }
+    
+    @AfterClass
+    public static void tearDownAfterClass() {
+        dbFixture.tearDown();
     }
 
     @Test

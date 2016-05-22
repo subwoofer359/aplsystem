@@ -17,28 +17,22 @@ import org.amc.model.User;
 import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class TestSPCData {
-
-    private EntityManager em;
-    private EntityManagerFactory factory;
+    private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
 
+    
     @BeforeClass
-    public static void setTables() throws DAOException {
-        // Deletes SPCMeasusrements table
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        EntityManager em = EntityManagerThreadLocal.getEntityManager();
-
-        Query q = em.createNativeQuery("delete from SPCMeasurements");
-        em.getTransaction().begin();
-        q.executeUpdate();
-        em.getTransaction().commit();
-
+    public static void setUpBeforeClass() throws Exception {
+        dbFixture.setUp();
+    }
+    
+    public void setTables() throws DAOException {
         // Create part in table to use in test
         // TestSPCMeasurment.createPartFromDataBase(factory);
 
@@ -58,34 +52,30 @@ public class TestSPCData {
         Part part = null;
         if (parts.size() > 0) {
             part = parts.get(0);
+            measurement.setPart(part);
+            measurementDao.addEntity(measurement);
+        } else {
+            throw new DAOException();
         }
-        em = measurementDao.getEntityManager();
-        em.getTransaction().begin();
-        part = em.merge(part);
-        em.getTransaction().commit();
-        measurement.setPart(part);
-        measurementDao.addEntity(measurement);
-        EntityManagerThreadLocal.closeEntityManager();
-        factory.close();
-
     }
 
     @Before
     public void setUp() throws Exception {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        em = EntityManagerThreadLocal.getEntityManager();
+        dbFixture.clearTables();
         fixture = new TestSPCFixture();
-        fixture.setUp();
         fixture.setupPartTable();
         fixture.setUpUserTable();
+        setTables();
     }
 
     @After
     public void tearDown() throws Exception {
         fixture = null;
-        EntityManagerThreadLocal.closeEntityManager();
-        factory.close();
+    }
+    
+    @AfterClass
+    public static void tearDownAfterClass() {
+        dbFixture.tearDown();
     }
 
     @Test
@@ -96,14 +86,6 @@ public class TestSPCData {
         SPCMeasurement measurement = measurementDao.findEntities().get(0);
         User user = userDao.findEntities().get(0);
 
-        // Force SPCMeasurement and User object into the same persistence
-        // context
-        em = spcdataDao.getEntityManager();
-        em.getTransaction().begin();
-        measurement = em.merge(measurement);
-        user = em.merge(user);
-        em.getTransaction().commit();
-
         SPCData d1 = new SPCData();
         d1.setDate(new java.sql.Date(System.currentTimeMillis()));
         d1.setMeasurement(123f);
@@ -111,6 +93,7 @@ public class TestSPCData {
         d1.setUser(user);
 
         spcdataDao.addEntity(d1);
+        assertTrue(d1.getId() != 0);
     }
 
 }

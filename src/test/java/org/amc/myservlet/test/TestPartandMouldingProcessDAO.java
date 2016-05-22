@@ -7,23 +7,19 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.sql.Date;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+
 
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.dao.MaterialDAO;
-import org.amc.dao.UserRolesDAO;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
+import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.apache.log4j.Logger;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -32,10 +28,7 @@ import org.junit.Test;
  * @version 1
  */
 public class TestPartandMouldingProcessDAO {
-
-    private EntityManager em;
-    private EntityManagerFactory factory;
-
+    private static final DatabaseFixture dbFixture = new DatabaseFixture();
     // Material Constants
     private final String NAME = "Moplen550";
     private final String COMPANY = "TOSARA";
@@ -43,29 +36,19 @@ public class TestPartandMouldingProcessDAO {
 
     private static Logger logger = Logger.getLogger(TestPartandMouldingProcessDAO.class);
 
-    @Before
-    public void setUp() {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        em = EntityManagerThreadLocal.getEntityManager();
-
-        // Clear the table
-        Query q = em.createNativeQuery("DELETE FROM processSheets");
-        Query q1 = em.createNativeQuery("DELETE FROM material");
-        Query q2 = em.createNativeQuery("DELETE FROM jobtemplate");
-        em.getTransaction().begin();
-        q.executeUpdate();
-        q1.executeUpdate();
-        q2.executeUpdate();
-        em.getTransaction().commit();
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        dbFixture.setUp();
     }
-
-    @After
-    public void tearDown() {
-        EntityManagerThreadLocal.closeEntityManager();
-        if (factory.isOpen()) {
-            factory.close();
-        }
+    
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+        dbFixture.tearDown();
+    }
+    
+    @Before
+    public void setUp() throws Exception {
+        dbFixture.clearTables();
     }
 
     @Test

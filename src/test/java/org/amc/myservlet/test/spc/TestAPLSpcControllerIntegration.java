@@ -3,17 +3,14 @@ package org.amc.myservlet.test.spc;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
+
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCPartsList;
 import org.amc.servlet.APLSpcController;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,34 +18,21 @@ import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.web.servlet.ModelAndView;
 
 public class TestAPLSpcControllerIntegration {
-    private EntityManager em;
-    private EntityManagerFactory factory;
     private TestSPCFixture fixture;
     private DAO<SPCPartsList> partsListDao;
     private DAO<Part> partsDAO;
     private APLSpcController controller;
+    private static DatabaseFixture dbFixture = new DatabaseFixture();
 
     @BeforeClass
     public static void setupBeforeClass() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManager em = factory.createEntityManager();
-
-        // Clear SPCPartsList table
-        Query q = em.createNativeQuery("delete from SPCPartsList");
-        em.getTransaction().begin();
-        q.executeUpdate();
-        em.getTransaction().commit();
-        em.close();
+        dbFixture.setUp();
     }
 
     @Before
-    public void setUp() {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        em = EntityManagerThreadLocal.getEntityManager();
-
+    public void setUp() throws Exception {
+        dbFixture.clearTables();
         fixture = new TestSPCFixture();
-        fixture.setUp();
 
         partsListDao = new DAO<SPCPartsList>(SPCPartsList.class);
         partsDAO = new DAO<Part>(Part.class);
@@ -56,11 +40,9 @@ public class TestAPLSpcControllerIntegration {
         controller.setSPCListPartDAO(partsListDao);
     }
 
-    @After
-    public void tearDown() throws Exception {
-        fixture = null;
-        EntityManagerThreadLocal.closeEntityManager();
-        factory.close();
+    @AfterClass
+    public static void tearDown() throws Exception {
+        dbFixture.tearDown();
     }
 
     @Test

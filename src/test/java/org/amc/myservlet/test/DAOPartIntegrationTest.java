@@ -4,19 +4,16 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
+import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.amc.myservlet.test.spc.TestSPCFixture;
 import org.amc.servlet.action.SearchPartAction;
 import org.amc.servlet.action.search.PartSearch;
-import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -26,26 +23,26 @@ import org.junit.Test;
  *
  */
 public class DAOPartIntegrationTest {
-
-    private EntityManager em;
-    private EntityManagerFactory factory;
+    
+    private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
-
+    
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        dbFixture.setUp();
+    }
+    
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+        dbFixture.tearDown();
+    }
+    
     @Before
     public void setUp() throws Exception {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
-        em = EntityManagerThreadLocal.getEntityManager();
+        dbFixture.clearTables();
         fixture = new TestSPCFixture();
-        fixture.setUp();
         fixture.setupPartTable();
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        fixture = null;
-        EntityManagerThreadLocal.closeEntityManager();
-        factory.close();
+        fixture.setUpMouldingProcessTable();
     }
 
     /**

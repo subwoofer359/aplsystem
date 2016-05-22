@@ -3,18 +3,18 @@ package org.amc.myservlet.test;
 import static org.junit.Assert.*;
 
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.DAO;
 import org.amc.model.MouldingProcess;
+import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.amc.myservlet.test.spc.TestSPCFixture;
 import org.amc.servlet.action.SearchProcessSheetAction;
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -25,25 +25,27 @@ import org.junit.Test;
  */
 public class DAOMouldingProcessIntegrationTest {
 
-    private EntityManagerFactory factory;
+    private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
-
+    
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        dbFixture.setUp();
+    }
+    
+    @AfterClass
+    public static void tearDownAfterClass() throws Exception {
+        dbFixture.tearDown();
+    }
+    
     @Before
     public void setUp() throws Exception {
-        factory = Persistence.createEntityManagerFactory("myDataSource");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
+        dbFixture.clearTables();
         fixture = new TestSPCFixture();
-        fixture.setUp();
         fixture.setupPartTable();
         fixture.setUpMouldingProcessTable();
     }
-
-    @After
-    public void tearDown() throws Exception {
-        fixture = null;
-        EntityManagerThreadLocal.closeEntityManager();
-        factory.close();
-    }
+ 
 
     /**
      * To check that given a PartSearch Object the correct Parts are returned
