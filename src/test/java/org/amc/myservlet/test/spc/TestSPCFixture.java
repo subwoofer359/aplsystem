@@ -1,10 +1,8 @@
 package org.amc.myservlet.test.spc;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.amc.DAOException;
@@ -27,25 +25,19 @@ import org.amc.model.spc.SPCMeasurement;
  */
 public class TestSPCFixture {
     private EntityManager em;
-    private EntityManagerFactory factory;
-
+    
     public TestSPCFixture() {
-
-    }
-
-    public void setUp() {
-        // factory=Persistence.createEntityManagerFactory("myDataSource");
         em = EntityManagerThreadLocal.getEntityManager();
     }
-
+    
     public void setupPartTable() throws DAOException {
         // Clear table users
-        if (tableExists("jobtemplate")) {
-            Query q1 = em.createNativeQuery("delete from jobtemplate");
-            em.getTransaction().begin();
-            q1.executeUpdate();
-            em.getTransaction().commit();
-        }
+
+        Query q1 = em.createNativeQuery("delete from jobtemplate");
+        em.getTransaction().begin();
+        q1.executeUpdate();
+        em.getTransaction().commit();
+
         // Get DAO object
         DAO<Part> partDAO = new DAO<Part>(Part.class);
         String[] colours = { "red", "blue", "green", "yellow" };
@@ -73,12 +65,12 @@ public class TestSPCFixture {
 
     public void setUpMaterialTable() throws DAOException {
         // Delete moulding process table
-        if (tableExists("material")) {
-            Query q1 = em.createNativeQuery("delete from material");
-            em.getTransaction().begin();
-            q1.executeUpdate();
-            em.getTransaction().commit();
-        }
+
+        Query q1 = em.createNativeQuery("delete from material");
+        em.getTransaction().begin();
+        q1.executeUpdate();
+        em.getTransaction().commit();
+
         DAO<Material> materialDAO = new DAO<Material>(Material.class);
         String[] company = { "Exxon Mobil" };
         String[] type = { "PC" };
@@ -101,12 +93,11 @@ public class TestSPCFixture {
      */
     public void setUpMouldingProcessTable() throws DAOException {
         // Delete moulding process table
-        if (tableExists("processSheets")) {
-            Query q1 = em.createNativeQuery("delete from processSheets");
-            em.getTransaction().begin();
-            q1.executeUpdate();
-            em.getTransaction().commit();
-        }
+
+        Query q1 = em.createNativeQuery("delete from processSheets");
+        em.getTransaction().begin();
+        q1.executeUpdate();
+        em.getTransaction().commit();
 
         setUpMaterialTable();
         DAO<Material> materialDAO = new DAO<Material>(Material.class);
@@ -141,12 +132,12 @@ public class TestSPCFixture {
 
     public void setUpUserTable() throws DAOException {
         // Clear table users
-        if (tableExists("users")) {
-            Query q1 = em.createNativeQuery("delete from users");
-            em.getTransaction().begin();
-            q1.executeUpdate();
-            em.getTransaction().commit();
-        }
+
+        Query q1 = em.createNativeQuery("delete from users");
+        em.getTransaction().begin();
+        q1.executeUpdate();
+        em.getTransaction().commit();
+
         // Get DAO object
         DAO<User> userDAO = new DAO<User>(User.class);
 
@@ -172,12 +163,11 @@ public class TestSPCFixture {
 
     public void setUpSPCMeasurementTable() throws DAOException {
         // Clear SPCDimension Table
-        if (tableExists("SPCMeasurements")) {
-            Query q1 = em.createNativeQuery("delete from SPCMeasurements");
-            em.getTransaction().begin();
-            q1.executeUpdate();
-            em.getTransaction().commit();
-        }
+
+        Query q1 = em.createNativeQuery("delete from SPCMeasurements");
+        em.getTransaction().begin();
+        q1.executeUpdate();
+        em.getTransaction().commit();
 
         DAO<Part> partDAO = new DAO<Part>(Part.class);
         SPCMeasurementDAO measurementDAO = new SPCMeasurementDAO();
@@ -207,20 +197,4 @@ public class TestSPCFixture {
         }
 
     }
-
-    public boolean tableExists(String tableName) {
-        Query tableExists = em.createNativeQuery("SHOW TABLES");
-        em.getTransaction().begin();
-        tableExists.executeUpdate();
-        List<String> tables = tableExists.getResultList();
-        boolean result = false;
-        if (tables.contains(tableName)) {
-            result = true;
-        }
-        em.getTransaction().commit();
-
-        return result;
-    }
-
-    // Todo Create method setUpSPCMeasurementTable
 }

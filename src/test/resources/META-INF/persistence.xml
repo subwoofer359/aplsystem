@@ -18,15 +18,10 @@
 <class>org.amc.model.spc.SPCData</class>
 <class>org.amc.model.spc.SPCPartsList</class>
 <properties>
-      <property name="openjpa.ConnectionURL" value="jdbc:mysql://192.168.1.5/test"/>
-      <property name="openjpa.ConnectionDriverName" value="com.mysql.jdbc.Driver"/>
-      <property name="openjpa.ConnectionUserName" value="adrian"/>
-      <property name="openjpa.ConnectionPassword" value="cr2032ux"></property>
-      <!-- Turn off OpenJPA bytecode Enhancer -->
-      <!-- causing a lot of problems -->
-      <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>
+      <property name="openjpa.ConnectionDriverName" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+	  <property name="openjpa.ConnectionURL" value="jdbc:derby:memory:amcchessgametest;create=true"/>
       <property name="jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
-      <property name="openjpa.Log" value="log4j"/>
+      <property name="openjpa.Log" value="DefaultLevel=Error"/>
  </properties>
 </persistence-unit>
 </persistence>
