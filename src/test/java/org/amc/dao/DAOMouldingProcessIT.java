@@ -1,4 +1,4 @@
-package org.amc.myservlet.test;
+package org.amc.dao;
 
 import static org.junit.Assert.*;
 
@@ -11,7 +11,6 @@ import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.amc.myservlet.test.spc.TestSPCFixture;
 import org.amc.servlet.action.SearchProcessSheetAction;
 import org.amc.servlet.action.search.MouldingProcessSearch;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
