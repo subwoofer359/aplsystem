@@ -1,11 +1,17 @@
 package org.amc.servlet
 
+import org.amc.DAOException;
+import org.amc.model.Part;
+import org.amc.servlet.action.SavePartAction;
 import org.amc.servlet.action.SearchPartAction;
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.PartSearchForm;
 import org.amc.servlet.validator.PartSearchFormValidator;
 import org.amc.servlet.validator.PartSearchFormValidator.PartSearchBinder;
+import org.amc.servlet.validator.Part_Validator;
+import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,12 +20,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 import org.apache.openjpa.jdbc.kernel.exps.Param;
+import org.junit.runner.Request;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 
 /**
  * Spring Controller for handling Part operations and returning a view
@@ -31,12 +41,14 @@ import javax.servlet.http.HttpSession;
 class PartsController {
     
     static final String SEARCH = 'search';
+    static final String ERRORS = 'errors';
     static final String SESSION_PARTSEARCH = 'PARTSEARCH';
     static final String COMPANY = 'company';
     static final String PARTNAME = 'partName';
     static final String QSS_NUMBER = 'qssNumber';
     static final String MODEL_ATTR_PARTS = 'parts';
-    static final String VIEW_SEARCH_PAGE = 'PartsSearchPage'
+    static final String VIEW_SEARCH_PAGE = 'PartsSearchPage';
+    static final String VIEW_PART_PAGE = 'Part';
     static final String SEARCH_PARSE_ERROR_MSG = 'Search Parameters couldn\'t be parsed';
 
     @Resource(name = 'partActionFactory')
@@ -64,7 +76,7 @@ class PartsController {
     
     @RequestMapping(method = RequestMethod.GET, value = "Part_display")
     String displayPart() {
-        return 'Part';
+        return VIEW_PART_PAGE;
     }
     
     @RequestMapping(method = RequestMethod.GET, value = "/Part_search") 
@@ -105,6 +117,62 @@ class PartsController {
            
         }
         mav.getModel().put(MODEL_ATTR_PARTS, parts);
+        return mav;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = '/Part_search', params="mode=edit Part")
+    ModelAndView editPart(@NotNull @RequestParam('edit') String idValue) {
+        ModelAndView mav = new ModelAndView();
+        if(idValue == null || ''.equals(idValue)) {
+            return setErrorMsg(mav);
+        }
+        return storePartInModel(mav, idValue);
+    }
+    
+    private ModelAndView setErrorMsg(ModelAndView mav) {
+        mav.setViewName(VIEW_SEARCH_PAGE);
+        mav.model[ControllerConstants.MESSAGE] = 'Can\'t edit Part';
+        return mav;
+    }
+    
+    private ModelAndView storePartInModel(ModelAndView mav, String idValue) {
+        try {
+            SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
+            mav.model.form = spa.getPart(idValue);
+            mav.model.mode = 'edit Part';
+            mav.setViewName(VIEW_PART_PAGE);
+        } catch(DAOException de) {
+            setErrorMsg(mav);
+        } finally {
+            return mav;
+        }
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = '/Part_search', params='mode=add')
+    String addPart(Part part) {
+        return VIEW_PART_PAGE;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Enter')
+    ModelAndView savePart(@ModelAttribute Part part, BindingResult errors) {
+        ModelAndView mav = new ModelAndView();
+        mav.viewName = VIEW_PART_PAGE;
+        SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
+        if(errors.hasErrors()) {
+            mav.model.form = part;
+            mav.model[ERRORS] = errors;
+        } else {
+            try {
+                spa.save(part);
+                mav.model.form = part;
+                mav.model.result = "${part} saved";
+                mav.model.remove(ERRORS);
+            } catch(DAOException de) {
+                throw (ServletException) new ServletException("Database not available: ${de.message}").initCause(de);
+            } catch(NumberFormatException ne) {
+                throw new ServletException(ne);
+            }
+        }
         return mav;
     }
 }
