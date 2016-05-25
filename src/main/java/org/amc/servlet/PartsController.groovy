@@ -76,7 +76,7 @@ class PartsController {
         return "redirect:/";
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "Part_display")
+    @RequestMapping(method = RequestMethod.GET, value = "/Part_display")
     String displayPart() {
         return VIEW_PART_PAGE;
     }
@@ -150,7 +150,7 @@ class PartsController {
         }
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = '/Part_search', params='mode=add')
+    @RequestMapping(method = RequestMethod.POST, value = '/Part_search', params='mode=add Part')
     String addPart(Part part) {
         return VIEW_PART_PAGE;
     }
@@ -176,6 +176,26 @@ class PartsController {
             } catch(NumberFormatException ne) {
                 throw new ServletException(ne);
             }
+        }
+        return mav;
+    }
+    
+    @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Edit')
+    ModelAndView updatePart(@ModelAttribute Part part, BindingResult errors) {
+        ModelAndView mav = new ModelAndView();
+        mav.viewName = VIEW_SEARCH_PAGE;
+        Validator validator = new PartValidator();
+        validator.validate(part, errors);
+        if(errors.hasErrors()) {
+            mav.model.form = part;
+            mav.model[ERRORS] = errors;
+        } else {
+            try {
+                SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
+                spa.edit(part);
+            } catch(DAOException de) {
+                throw (ServletException) new ServletException("Database not available: ${de.message}").initCause(de);
+            }   
         }
         return mav;
     }
