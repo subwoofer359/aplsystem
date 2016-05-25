@@ -17,6 +17,7 @@ import org.apache.openjpa.jdbc.kernel.exps.Param;
 
 import java.text.ParseException;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -38,8 +39,10 @@ class PartsController {
     static final String VIEW_SEARCH_PAGE = 'PartsSearchPage'
     static final String SEARCH_PARSE_ERROR_MSG = 'Search Parameters couldn\'t be parsed';
 
+    @Resource(name = 'partActionFactory')
     def partActionFactory;
     
+    @Resource(name = 'partSearchFormValidator')
     PartSearchFormValidator searchFormValidator;
     
     def partFormParser = PartSearchBinder.&getPartSearch;
@@ -62,6 +65,11 @@ class PartsController {
     @RequestMapping(method = RequestMethod.GET, value = "Part_display")
     String displayPart() {
         return 'Part';
+    }
+    
+    @RequestMapping(method = RequestMethod.GET, value = "/Part_search") 
+    String displaySearch() {
+        return VIEW_SEARCH_PAGE;
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/Part_search", params="mode=search")

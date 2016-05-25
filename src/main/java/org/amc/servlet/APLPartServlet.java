@@ -33,13 +33,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 /**
  * Servlet implementation class APLSystemServlet
  * 
  * @author Adrian Mclaughlin
  * @version 1
  */
+/*
 @WebServlet(description = "Dispatching Servlet for the Problem Database", urlPatterns = {
         "/app/APLSystemServlet", "/app/Part_display", "/app/Part_search", "/app/Part_save",
         // "/Problem_save",
@@ -48,6 +48,7 @@ import javax.servlet.http.HttpSession;
         // "/ProblemDescription_display",
         // "/SearchProblemDatabase",
         "/app/logout" }, loadOnStartup = 1)
+*/
 public class APLPartServlet extends HttpServlet {
     private static final long serialVersionUID = 334034039L;
 
