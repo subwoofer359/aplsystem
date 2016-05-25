@@ -8,10 +8,12 @@ import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.PartSearchForm;
 import org.amc.servlet.validator.PartSearchFormValidator;
 import org.amc.servlet.validator.PartSearchFormValidator.PartSearchBinder;
+import org.amc.servlet.validator.PartValidator;
 import org.amc.servlet.validator.Part_Validator;
 import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -158,6 +160,8 @@ class PartsController {
         ModelAndView mav = new ModelAndView();
         mav.viewName = VIEW_PART_PAGE;
         SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
+        Validator validator = new PartValidator();
+        validator.validate(part, errors);
         if(errors.hasErrors()) {
             mav.model.form = part;
             mav.model[ERRORS] = errors;

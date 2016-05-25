@@ -38,6 +38,7 @@ class PartsControllerIT {
     static DatabaseFixture fixture = new DatabaseFixture();
     static final def COMPANY = 'ALPS';
     static final def PARTSEARCH_URL = '/Part_search';
+    static final def PARTSAVE_URL = '/Part_save';
     static final def LOGOUT_URL = '/logout';
     static final def MAINAPP_PAGE = '/APLSystemServlet';
     
@@ -150,5 +151,48 @@ class PartsControllerIT {
     @Test
     public void testInvalidPartSearch() {
         
+    }
+    
+    @Test
+    public void testSaveNewPart() {
+        def name = 'BMW case';
+        MvcResult result = mockMvc.perform(post(PARTSAVE_URL)
+            .param('mode', 'Enter')
+            .param('name', name)
+            .param('part_id', 'partID234')
+            .param('company', COMPANY)
+            .param('version', 'right hand')
+            .param('revision', '2')
+            .param('colour', 'beige')
+            .param('qss_no', 'qss123'))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name(PartsController.VIEW_PART_PAGE))
+            .andExpect(model().attributeExists('result'))
+            .andExpect(model().attributeExists('form'))
+            .andReturn();
+            
+            Part p = result.modelAndView.model.form;
+            assert p != null;
+            assert p.name == name;
+    }
+    
+    @Test
+    public void testSaveInValidNewPart() {
+        def name = 'BMW case';
+        MvcResult result = mockMvc.perform(post(PARTSAVE_URL)
+            .param('mode', 'Enter')
+            .param('name', name)
+            .param('part_id', 'partID234')
+            .param('version', 'right hand')
+            .param('revision', '2')
+            .param('colour', 'beige')
+            .param('qss_no', 'qss123'))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andExpect(view().name(PartsController.VIEW_PART_PAGE))
+            .andExpect(model().attributeExists('errors'))
+            .andExpect(model().attributeExists('form'))
+            .andReturn();     
     }
 }

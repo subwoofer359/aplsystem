@@ -24,7 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-class PartsControllerSavePart {
+class PartsControllerSavePartTest {
     PartsController controller;
     def part = new Part(
         'BMW Case',
