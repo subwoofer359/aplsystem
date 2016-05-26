@@ -86,7 +86,7 @@ class PartsController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/Part_search", params="mode=search")
-    ModelAndView searchForPart(HttpSession session, HttpServletRequest request, 
+    ModelAndView searchForPart(HttpSession session, 
         @ModelAttribute PartSearch partSearch, BindingResult errors) {
         
         PartSearch lastPartSearch = session.getAttribute(SESSION_PARTSEARCH);

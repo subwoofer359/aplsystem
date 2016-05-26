@@ -107,7 +107,7 @@ class PartsControllerTest {
         partSearch.company = company;
         when(searchPartAction.search(any())).thenReturn(parts);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
+        ModelAndView mav = controller.searchForPart(session, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
@@ -122,7 +122,7 @@ class PartsControllerTest {
         reset(httpRequest);
         
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
+        ModelAndView mav = controller.searchForPart(session, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", []);  
@@ -141,7 +141,7 @@ class PartsControllerTest {
         
         when(session.getAttribute(PartsController.SESSION_PARTSEARCH)).thenReturn(lastSearch);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
+        ModelAndView mav = controller.searchForPart(session, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
@@ -155,7 +155,7 @@ class PartsControllerTest {
         when(errors.hasErrors()).thenReturn(true);
         when(errors.getAllErrors()).thenReturn([]);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
+        ModelAndView mav = controller.searchForPart(session, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
