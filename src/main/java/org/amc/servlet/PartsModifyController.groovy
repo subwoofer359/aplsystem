@@ -8,6 +8,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import javax.validation.Valid;
 
 @Controller
 class PartsModifyController extends PartsController {
@@ -23,12 +27,15 @@ class PartsModifyController extends PartsController {
     @Resource(name = 'partActionFactory')
     def partActionFactory;
     
+    @InitBinder("part")
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(new PartValidator());
+    }
+    
     @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Edit')
-    ModelAndView updatePart(@ModelAttribute Part part, BindingResult errors) {
+    ModelAndView updatePart(@Valid @ModelAttribute Part part, BindingResult errors) {
         ModelAndView mav = new ModelAndView();
         mav.viewName = VIEW_SEARCH_PAGE;
-        Validator validator = new PartValidator();
-        validator.validate(part, errors);
         if(errors.hasErrors()) {
             mav.model.form = part;
             mav.model[ERRORS] = errors;
@@ -46,12 +53,10 @@ class PartsModifyController extends PartsController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Enter')
-    ModelAndView savePart(@ModelAttribute Part part, BindingResult errors) {
+    ModelAndView savePart(@Valid @ModelAttribute Part part, BindingResult errors) {
         ModelAndView mav = new ModelAndView();
         mav.viewName = VIEW_PART_PAGE;
         SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
-        Validator validator = new PartValidator();
-        validator.validate(part, errors);
         if(errors.hasErrors()) {
             mav.model.form = part;
             mav.model[ERRORS] = errors;

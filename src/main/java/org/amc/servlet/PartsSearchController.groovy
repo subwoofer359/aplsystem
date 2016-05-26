@@ -13,6 +13,8 @@ import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +30,7 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -45,6 +48,11 @@ class PartsSearchController extends PartsController {
     PartSearchFormValidator searchFormValidator;
     
     private static final Logger logger = Logger.getLogger(PartsSearchController);
+    
+    @InitBinder('partSearch') 
+    void initBinder(WebDataBinder binder) {
+        binder.addValidators(new PartSearchFormValidator());
+    }
     
     @RequestMapping(method = RequestMethod.GET, value = "/APLSystemServlet")
     String getAPLSystemServlet() {
@@ -71,7 +79,7 @@ class PartsSearchController extends PartsController {
     
     @RequestMapping(method = RequestMethod.POST, value = "/Part_search", params="mode=search")
     ModelAndView searchForPart(HttpSession session, 
-        @ModelAttribute PartSearch partSearch, BindingResult errors) {
+        @Valid @ModelAttribute PartSearch partSearch, BindingResult errors) {
         
         ModelAndView mav = new ModelAndView();
         
