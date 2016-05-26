@@ -1,6 +1,5 @@
 import org.amc.dao.DAO;
 import org.amc.model.Part;
-import org.amc.servlet.APLPartServlet;
 import org.amc.servlet.PartsController;
 import org.amc.servlet.action.PartActionFactoryImpl;
 import org.amc.servlet.validator.PartSearchFormValidator;
