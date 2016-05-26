@@ -8,7 +8,6 @@ import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

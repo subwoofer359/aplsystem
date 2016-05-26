@@ -1,13 +1,10 @@
 package org.amc.myservlet.test.spc;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.amc.Constants;
@@ -21,7 +18,6 @@ import org.amc.model.spc.SPCData;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
 import org.amc.myservlet.test.TestPartandMouldingProcessDAOIT;
-import org.amc.servlet.APLSpcController;
 import org.amc.servlet.APLSpcDataController;
 import org.amc.servlet.APLSpcDataController.SPCDataForm;
 import org.junit.After;
@@ -29,7 +25,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.verification.VerificationMode;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.ModelAndViewAssert;
@@ -40,13 +37,23 @@ import static org.mockito.Mockito.*;
 
 public class TestAPLSpcDataController {
 
+    @Mock
     private DAO<SPCPartsList> partsListDao;
+    
+    @Mock
     private DAO<Part> partsDAO;
+    
+    @Mock
     private SPCDataDAO spcDataDAO;
-    private APLSpcDataController controller;
+    
+    @Mock
     private SPCMeasurementDAO spcMeasurementDAO;
-    private MockHttpServletRequest request;
+    
+    @Mock
     private BindingResult result;
+    
+    private MockHttpServletRequest request;
+    private APLSpcDataController controller;
     private HttpSession session;
     private int spcPartid = 1;
 
@@ -54,7 +61,6 @@ public class TestAPLSpcDataController {
     private static final String SPC_MEASUREMENTS = "spcmeasurements";
     private static final String MESSAGE = "message";
     private static final String ERRORS = "errors";
-    private static final String SPC_PART = "spcPart";
     private static final String PART = "part";
 
     @BeforeClass
@@ -67,14 +73,9 @@ public class TestAPLSpcDataController {
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         request = new MockHttpServletRequest();
         session = new MockHttpSession();
-        result = mock(BindingResult.class);
-        spcMeasurementDAO = mock(SPCMeasurementDAO.class);
-
-        partsDAO = mock(DAO.class);
-        partsListDao = mock(DAO.class);
-        spcDataDAO = mock(SPCDataDAO.class);
 
         controller = new APLSpcDataController();
         controller.setSPCDimensionDAO(spcMeasurementDAO);
@@ -100,6 +101,7 @@ public class TestAPLSpcDataController {
      * 
      * @throws DAOException
      */
+    @SuppressWarnings("unchecked")
     @Test
     public void testOpenSPCDataEntry() throws DAOException {
         ModelAndView mav = new ModelAndView();
@@ -130,6 +132,7 @@ public class TestAPLSpcDataController {
         assertEquals(measurement, session.getAttribute(CURRENT_SPC_MEASUREMENT));
 
         assertNotNull(session.getAttribute(SPC_MEASUREMENTS));
+        
         assertTrue(((List<SPCMeasurement>) session.getAttribute(SPC_MEASUREMENTS)).size() > 0);
 
         assertNotNull(session.getAttribute(PART));

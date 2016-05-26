@@ -7,6 +7,9 @@ package org.amc.dao.parsers;
  *
  */
 public class NoSuchWebFormParserException extends Exception {
+ 
+    private static final long serialVersionUID = -4345071277175885239L;
+
     public NoSuchWebFormParserException() {
         super();
     }

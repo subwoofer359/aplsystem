@@ -15,9 +15,7 @@ import org.amc.model.Part;
 import org.amc.model.spc.SPCMeasurement;
 import org.amc.model.spc.SPCPartsList;
 import org.amc.servlet.APLSpcController;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.ModelAndViewAssert;
@@ -244,8 +242,6 @@ public class TestAPLSpcController {
         ModelAndView mav = new ModelAndView();
 
         request.addUserRole(Constants.Roles.QC.toString());
-
-        SPCMeasurement spcMeasurement = getSPCMeasurement();
 
         int id = 1;
 

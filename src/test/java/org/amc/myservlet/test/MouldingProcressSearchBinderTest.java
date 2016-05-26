@@ -2,14 +2,12 @@ package org.amc.myservlet.test;
 
 import static org.junit.Assert.*;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.servlet.model.MouldingProcessSearchForm;
-import org.amc.servlet.validator.MouldingProcessSearchFormValidator;
 import org.amc.servlet.validator.MouldingProcessSearchFormValidator.MouldingProcessSearchBinder;
 import org.junit.Test;
 
@@ -20,7 +18,7 @@ public class MouldingProcressSearchBinderTest {
     private static final String MASTERBATCH_NO = "3939939";
     private static final String SIGNED_OFF_BY = "John Tobin";
 
-    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Test
     public void testBinderParsesDatesCorrectly() throws ParseException {
@@ -32,11 +30,8 @@ public class MouldingProcressSearchBinderTest {
         form.setSignedOffBy(SIGNED_OFF_BY);
         form.setStartDate("2014-01-01");
         form.setEndDate("2014-01-02");
-
-        System.out.println(form);
-
-        MouldingProcessSearchBinder binder = new MouldingProcessSearchBinder();
-        MouldingProcessSearch search = binder.getMouldingProcessSearch(form);
+        
+        MouldingProcessSearch search = MouldingProcessSearchBinder.getMouldingProcessSearch(form);
 
         assertEquals(form.getPartId(), search.getPartId());
         assertEquals(form.getMachineNo(), search.getMachineNo());
@@ -46,8 +41,6 @@ public class MouldingProcressSearchBinderTest {
         assertEquals(new java.sql.Date(sdf.parse(form.getStartDate()).getTime()),
                         search.getStartDate());
         assertEquals(new java.sql.Date(sdf.parse(form.getEndDate()).getTime()), search.getEndDate());
-
-        System.out.println(search);
     }
 
 }

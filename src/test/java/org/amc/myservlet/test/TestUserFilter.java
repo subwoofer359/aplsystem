@@ -16,7 +16,10 @@ import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.model.User;
 import org.amc.servlet.filter.UserFilter;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.mock.web.MockFilterChain;
@@ -26,7 +29,7 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.mock.web.MockServletContext;
 
-public final class TestUserFilter {
+public class TestUserFilter {
     private final static String SPRING_WEBAPPCONTEXT = "org.springframework.web.context.WebApplicationContext.ROOT";
     private final static String FULLNAME = "Adrian McLaughlin";
     private final static String USERNAME = "adrian";
@@ -38,9 +41,17 @@ public final class TestUserFilter {
     private final static String REMOTEADDRESS = "192.168.1.1";
     private final static String SESSIONVAR_USER = "USER";
     private final static String SESSIONVAR_REMOTE_ADDRESS = "REMOTE_ADDRESS";
+    
+    @Mock
+    private DAO<User> userDAO;
 
     @Autowired
     private ApplicationContext applicationContext;
+    
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     /**
      * After doFilter call, Session variables USER and REMOTE_ADDRESS should be
@@ -66,7 +77,6 @@ public final class TestUserFilter {
         user.setEmailAddress(EMAILADDRESS);
         user.setPassword(PASSWORD);
 
-        DAO<User> userDAO = mock(DAO.class);
         List<User> userList = new ArrayList<User>();
         userList.add(user);
         when(userDAO.findEntities(USER_USERNAME, USERNAME)).thenReturn(userList);
@@ -118,7 +128,6 @@ public final class TestUserFilter {
         user.setPassword(PASSWORD);
         user.setActive(false);
 
-        DAO<User> userDAO = mock(DAO.class);
         List<User> userList = new ArrayList<User>();
         userList.add(user);
         when(userDAO.findEntities(USER_USERNAME, USERNAME)).thenReturn(userList);
