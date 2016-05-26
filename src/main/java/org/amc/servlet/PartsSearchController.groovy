@@ -73,29 +73,38 @@ class PartsSearchController extends PartsController {
     ModelAndView searchForPart(HttpSession session, 
         @ModelAttribute PartSearch partSearch, BindingResult errors) {
         
-        PartSearch lastPartSearch = session.getAttribute(SESSION_PARTSEARCH);
-        
         ModelAndView mav = new ModelAndView();
+        
         mav.setViewName(VIEW_SEARCH_PAGE);
         
-        SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
         List parts = Collections.EMPTY_LIST;
         
         if (errors.hasErrors()) {
             mav.getModel().put(ControllerConstants.MESSAGE, errors);
         } else if (partSearch.isEmpty()) {
-            parts = lastPartSearch ? spa.search(lastPartSearch) : Collections.EMPTY_LIST;
+            parts = useLastSearchParameters(session);
         } else {
-           try {
-               parts = spa.search(partSearch);
-               mav.getModel().put(SESSION_PARTSEARCH, partSearch);
-           } catch(ParseException pe) {
-               mav.getModel().put(ControllerConstants.MESSAGE, SEARCH_PARSE_ERROR_MSG);
-           }
-           
+            parts = doSearchForPart(mav, partSearch);
         }
         mav.getModel().put(MODEL_ATTR_PARTS, parts);
         return mav;
+    }
+        
+    private List useLastSearchParameters(HttpSession session) {
+        PartSearch lastPartSearch = session.getAttribute(SESSION_PARTSEARCH);
+        SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
+        return lastPartSearch ? spa.search(lastPartSearch) : Collections.EMPTY_LIST;
+    }
+    
+    private List doSearchForPart(ModelAndView mav, PartSearch partSearch) {
+        try {
+            SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
+            def parts = spa.search(partSearch);
+            mav.getModel().put(SESSION_PARTSEARCH, partSearch);
+            return parts;
+        } catch(ParseException pe) {
+            mav.getModel().put(ControllerConstants.MESSAGE, SEARCH_PARSE_ERROR_MSG);
+        }
     }
     
     @RequestMapping(method = RequestMethod.POST, value = '/Part_search', params="mode=edit Part")
