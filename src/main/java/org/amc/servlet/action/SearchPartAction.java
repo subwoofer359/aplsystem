@@ -32,7 +32,7 @@ public class SearchPartAction {
     }
 
     public Part getPart(String id) throws DAOException {
-        return partDAO.getEntity(id);
+        return partDAO.getEntity(Integer.parseInt(id));
     }
 
     public List<Part> search(PartSearch partSearch) throws DAOException {

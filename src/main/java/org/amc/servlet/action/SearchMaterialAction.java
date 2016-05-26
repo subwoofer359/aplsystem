@@ -38,7 +38,7 @@ public class SearchMaterialAction {
     }
 
     public Material getMaterial(String id) throws DAOException {
-        return materialDAO.getEntity(id);
+        return materialDAO.getEntity(Integer.parseInt(id));
     }
 
 }

@@ -59,7 +59,7 @@ public class TestMaterialDAOIT {
         MaterialDAO d = new MaterialDAO();
         d.addEntity(testMaterial);
 
-        Material actual = d.getEntity(String.valueOf(testMaterial.getId()));
+        Material actual = d.getEntity(testMaterial.getId());
         assertEquals(testMaterial, actual);
     }
 

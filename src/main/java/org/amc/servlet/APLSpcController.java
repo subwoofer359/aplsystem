@@ -98,7 +98,7 @@ public class APLSpcController {
         }
         Part part = null;
         try {
-            part = this.partDAO.getEntity(String.valueOf(id));
+            part = this.partDAO.getEntity(id);
         } catch (DAOException de) {
             mav.getModelMap().put(MESSAGE, de.getMessage());
         }
@@ -127,7 +127,7 @@ public class APLSpcController {
                         || request.isUserInRole(Roles.MANAGER.toString())) {
             SPCPartsList spcPart = null;
             try {
-                spcPart = spcPartsListDAO.getEntity(String.valueOf(id));
+                spcPart = spcPartsListDAO.getEntity(id);
                 lOG.debug(spcPart + " being deleted");
                 spcPartsListDAO.deleteEntity(spcPart);
             } catch (DAOException de) {
@@ -155,7 +155,7 @@ public class APLSpcController {
         SPCPartsList spcPart = null;
         List<SPCMeasurement> dimensions = null;
         try {
-            spcPart = spcPartsListDAO.getEntity(String.valueOf(id));
+            spcPart = spcPartsListDAO.getEntity(id);
             dimensions = spcMeasurementDAO.findEntities("part.id", spcPart.getPart().getId());
         } catch (DAOException de) {
             mav.getModelMap().put(MESSAGE, de.getMessage());
@@ -179,7 +179,7 @@ public class APLSpcController {
             return getDimensionList(mav, request, spcPartid);
         }
         try {
-            SPCMeasurement dimension = spcMeasurementDAO.getEntity(String.valueOf(id));
+            SPCMeasurement dimension = spcMeasurementDAO.getEntity(id);
 
             if (dimension != null) {
                 boolean active = dimension.isActive();
@@ -216,7 +216,7 @@ public class APLSpcController {
             // call to getDimensionList is required
         } else {
             try {
-                SPCPartsList spclist = spcPartsListDAO.getEntity(String.valueOf(spcPartid));
+                SPCPartsList spclist = spcPartsListDAO.getEntity(spcPartid);
                 if (spclist != null) {
 
                     Part p = spclist.getPart();
@@ -256,7 +256,7 @@ public class APLSpcController {
             return getDimensionList(mav, request, spcPartid);
         } else {
             try {
-                SPCPartsList spclist = spcPartsListDAO.getEntity(String.valueOf(spcPartid));
+                SPCPartsList spclist = spcPartsListDAO.getEntity(spcPartid);
                 if (spclist != null) {
                     Part p = spclist.getPart();
                     spcMeasurement.setPart(p);
@@ -284,7 +284,7 @@ public class APLSpcController {
         }
 
         try {
-            SPCMeasurement measurement = spcMeasurementDAO.getEntity(String.valueOf(id));
+            SPCMeasurement measurement = spcMeasurementDAO.getEntity(id);
             spcMeasurementDAO.deleteEntity(measurement);
         } catch (DAOException de) {
             mav.getModelMap().put(MESSAGE, "SPC Measurement was not deleted." + de.getMessage());

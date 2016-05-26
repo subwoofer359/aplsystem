@@ -134,7 +134,7 @@ public class APLUserController {
         User tempUser = null;
         try {
             try {
-                tempUser = userDAO.getEntity(String.valueOf(user.getId()));
+                tempUser = userDAO.getEntity(user.getId());
             } catch (DAOException de) {
                 // Expecting a NoResultException as the User doesn't exist in
                 // the database
@@ -282,13 +282,13 @@ public class APLUserController {
         model.getModel().put(MODE, mode);
         try {
             if (MODE_EDIT.equals(mode)) {
-                u = userDAO.getEntity(String.valueOf(id));
+                u = userDAO.getEntity(id);
                 logger.debug("Users_edit: User retrieved" + u);
 
             } else if (MODE_ADD.equals(mode)) {
                 u = new User();
             } else if (MODE_DELETE.equals(mode)) {
-                u = userDAO.getEntity(String.valueOf(id));
+                u = userDAO.getEntity(id);
                 logger.debug("User about to be deleted " + u);
                 userDAO.deleteEntity(u);
                 return getUsersPage(new ModelAndView(), request);

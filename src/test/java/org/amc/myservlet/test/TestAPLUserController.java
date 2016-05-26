@@ -113,7 +113,7 @@ public class TestAPLUserController {
         DAO<User> dao = mock(DAO.class);
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
-        when(dao.getEntity(anyString())).thenReturn(u1);
+        when(dao.getEntity(anyInt())).thenReturn(u1);
         // Inject DAOs
         userServlet.setUserDAO(dao);
         userServlet.setUserRolesDAO(roleDao);
@@ -224,7 +224,7 @@ public class TestAPLUserController {
         DAO dao = mock(DAO.class);
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
-        when(dao.getEntity(anyString())).thenReturn(getTestUser("adrian", "Adrian McLaughlin"));
+        when(dao.getEntity(anyInt())).thenReturn(getTestUser("adrian", "Adrian McLaughlin"));
         // Inject DAOs
         userServlet.setUserDAO(dao);
         userServlet.setUserRolesDAO(roleDao);
@@ -266,7 +266,7 @@ public class TestAPLUserController {
         DAO<User> dao = mock(DAO.class);
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
-        when(dao.getEntity(anyString())).thenReturn(u1);
+        when(dao.getEntity(anyInt())).thenReturn(u1);
         // Inject DAOs
         userServlet.setUserDAO(dao);
         userServlet.setUserRolesDAO(roleDao);
@@ -301,7 +301,7 @@ public class TestAPLUserController {
 
         // Create DAO objects
         DAO<User> dao = mock(DAO.class);
-        when(dao.getEntity(anyString())).thenReturn(u1);
+        when(dao.getEntity(anyInt())).thenReturn(u1);
         // Inject DAOs
         userServlet.setUserDAO(dao);
 
@@ -330,7 +330,7 @@ public class TestAPLUserController {
 
         // Create DAO objects
         DAO<User> dao = mock(DAO.class);
-        when(dao.getEntity(anyString())).thenReturn(u1);
+        when(dao.getEntity(anyInt())).thenReturn(u1);
         // Inject DAOs
         userServlet.setUserDAO(dao);
 
@@ -342,7 +342,7 @@ public class TestAPLUserController {
         ModelAndView mav = userServlet.editUsers(mode, id, modelView, request);
 
         // verify UserDAO method getUser was called
-        verify(dao).getEntity(anyString());
+        verify(dao).getEntity(anyInt());
         // Verify the correct view String was returned and Model attribute
         // "user" was set.
         ModelAndViewAssert.assertViewName(mav, "UserAddOrEdit");

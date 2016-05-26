@@ -31,7 +31,7 @@ public class SearchProcessSheetAction {
     }
 
     public MouldingProcess getMouldingProcess(String id) throws DAOException {
-        return mouldingProcessDAO.getEntity(id);
+        return mouldingProcessDAO.getEntity(Integer.parseInt(id));
     }
 
     public List<MouldingProcess> search(MouldingProcessSearch mouldingProcessSearch)

@@ -121,7 +121,7 @@ public class TestAPLSpcDataController {
 
         when(this.spcMeasurementDAO.findEntities(eq("part.id"), anyObject())).thenReturn(
                         spcDimensions);
-        when(this.partsListDao.getEntity(String.valueOf(spcPartid))).thenReturn(spcPartsList);
+        when(this.partsListDao.getEntity(spcPartid)).thenReturn(spcPartsList);
 
         controller.openSPCDataEntry(request, spcPartid, mav, session);
 

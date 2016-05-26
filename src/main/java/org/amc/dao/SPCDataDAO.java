@@ -95,7 +95,7 @@ public class SPCDataDAO extends DAO<SPCData> {
 
     // Behaviour has not yet been defined
     @Override
-    public void updateEntity(SPCData entity) throws DAOException {
+    public SPCData updateEntity(SPCData entity) throws DAOException {
         throw new NoSuchMethodError();
     }
 
@@ -107,7 +107,7 @@ public class SPCDataDAO extends DAO<SPCData> {
 
     // Behaviour has not yet been defined
     @Override
-    public SPCData getEntity(String workEntityId) throws DAOException {
+    public SPCData getEntity(int workEntityId) throws DAOException {
         throw new NoSuchMethodError();
     }
 

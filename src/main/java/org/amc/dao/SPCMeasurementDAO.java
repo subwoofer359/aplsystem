@@ -100,9 +100,11 @@ public class SPCMeasurementDAO extends DAO<SPCMeasurement> {
      * @throws DAOException
      */
     @Override
-    public void updateEntity(SPCMeasurement entity) throws DAOException {
+    public SPCMeasurement updateEntity(SPCMeasurement entity) throws DAOException {
         if (!(entity.getTableId() == null || entity.getTableId().trim().equals(""))) {
-            super.updateEntity(entity);
+            return super.updateEntity(entity);
+        } else {
+            return null;
         }
 
     }

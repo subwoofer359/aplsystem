@@ -71,7 +71,7 @@ public class TestUserIT {
         DAO<User> ud = new DAO<User>(User.class);
         ud.addEntity(u);
 
-        User tu = ud.getEntity(String.valueOf(u.getId()));
+        User tu = ud.getEntity(u.getId());
 
         assertTrue(tu.equals(u));
     }
@@ -125,7 +125,7 @@ public class TestUserIT {
 
         ud.updateEntity(u);
 
-        User tu = ud.getEntity(String.valueOf(u.getId()));
+        User tu = ud.getEntity(u.getId());
 
         assertEquals(tu.getEmailAddress(), emailAddress);
     }
@@ -166,12 +166,12 @@ public class TestUserIT {
         ud.addEntity(u1);
         ud.addEntity(u2);
 
-        User t1 = ud.getEntity(String.valueOf(u1.getId()));
+        User t1 = ud.getEntity(u1.getId());
         assertTrue(t1 != null);
 
         ud.deleteEntity(u1);
         try {
-            t1 = ud.getEntity(String.valueOf(u1.getId()));
+            t1 = ud.getEntity(u1.getId());
         } catch (DAOException de) {
             // Catch throw exception but for testing purposes carry on
             t1 = null;
@@ -200,7 +200,7 @@ public class TestUserIT {
         ud.addEntity(u1);
 
         // Test user had persisted
-        User ru1 = ud.getEntity(String.valueOf(u1.getId()));
+        User ru1 = ud.getEntity(u1.getId());
         assertTrue(ru1.equals(u1));
 
         // Delete user
@@ -208,7 +208,7 @@ public class TestUserIT {
 
         // Test user has been deleted
         try {
-            ru1 = ud.getEntity(String.valueOf(u1.getId()));
+            ru1 = ud.getEntity(u1.getId());
         } catch (DAOException de) {
             // Catch throw exception but for testing purposes carry on
             ru1 = null;

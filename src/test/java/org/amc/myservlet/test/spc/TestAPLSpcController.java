@@ -49,7 +49,7 @@ public class TestAPLSpcController {
         partsDAO = mock(DAO.class);
         partsListDao = mock(DAO.class);
 
-        // when(spcListPartDAO.getEntity(anyString())).thenReturn(spcPartsList);
+        // when(spcListPartDAO.getEntity(anyInt())).thenReturn(spcPartsList);
 
         controller = new APLSpcController();
         controller.setSPCDimensionDAO(spcMeasurementDAO);
@@ -57,7 +57,7 @@ public class TestAPLSpcController {
         controller.setSPCListPartDAO(partsListDao);
 
         try {
-            when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+            when(this.partsListDao.getEntity(anyInt())).thenReturn(this.getSPCPartsList());
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -126,7 +126,7 @@ public class TestAPLSpcController {
 
         request.addUserRole(Constants.Roles.QC.toString());
 
-        when(this.partsListDao.getEntity(anyString())).thenReturn(this.getSPCPartsList());
+        when(this.partsListDao.getEntity(anyInt())).thenReturn(this.getSPCPartsList());
 
         // Binding Results returns true. Errors mapping the form values to the
         // Model attribute found

@@ -97,7 +97,7 @@ public class APLSpcDataController {
             return mav;
         }
         try {
-            SPCPartsList spcPartList = spcListPartDAO.getEntity(String.valueOf(spcPartid));
+            SPCPartsList spcPartList = spcListPartDAO.getEntity(spcPartid);
             Part part = spcPartList.getPart();
             LOG.debug("Part" + part + " retrieved");
             LOG.debug("Part ID:" + part.getId());
