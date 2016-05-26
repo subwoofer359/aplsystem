@@ -51,8 +51,11 @@ class PartsController {
     static final String MODEL_ATTR_PARTS = 'parts';
     static final String VIEW_SEARCH_PAGE = 'PartsSearchPage';
     static final String VIEW_PART_PAGE = 'Part';
+    static final String VIEW_MAIN_PAGE = 'Main';
     static final String SEARCH_PARSE_ERROR_MSG = 'Search Parameters couldn\'t be parsed';
     static final String EDIT_MODE = 'edit Part';
+    static final String ERROR_PAGE_EDIT = 'Can\'t edit Part';
+    static final String ERROR_DAO = 'Database not available: ${de.message}';
 
     @Resource(name = 'partActionFactory')
     def partActionFactory;
@@ -66,7 +69,7 @@ class PartsController {
     
     @RequestMapping(method = RequestMethod.GET, value = "/APLSystemServlet")
     String getAPLSystemServlet() {
-        return "Main";
+        return VIEW_MAIN_PAGE;
     }
     
     @RequestMapping(value = "/logout")
@@ -134,7 +137,7 @@ class PartsController {
     
     private ModelAndView setErrorMsg(ModelAndView mav) {
         mav.setViewName(VIEW_SEARCH_PAGE);
-        mav.model[ControllerConstants.MESSAGE] = 'Can\'t edit Part';
+        mav.model[ControllerConstants.MESSAGE] = ERROR_PAGE_EDIT;
         return mav;
     }
     
@@ -173,7 +176,7 @@ class PartsController {
                 mav.model.result = "${part} saved";
                 mav.model.remove(ERRORS);
             } catch(DAOException de) {
-                throw (ServletException) new ServletException("Database not available: ${de.message}").initCause(de);
+                throw (ServletException) new ServletException(ERROR_DAO).initCause(de);
             } catch(NumberFormatException ne) {
                 throw new ServletException(ne);
             }
@@ -197,7 +200,7 @@ class PartsController {
                 SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
                 spa.edit(part);
             } catch(DAOException de) {
-                throw (ServletException) new ServletException("Database not available: ${de.message}").initCause(de);
+                throw (ServletException) new ServletException(ERROR_DAO).initCause(de);
             }   
         }
         return mav;
