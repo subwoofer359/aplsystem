@@ -61,8 +61,6 @@ class PartsControllerIT {
         partDAO.addEntity(part);
         
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        def t  = wac.getBean('appEntityManager');
-        println(t);
     }
     
     @AfterClass
