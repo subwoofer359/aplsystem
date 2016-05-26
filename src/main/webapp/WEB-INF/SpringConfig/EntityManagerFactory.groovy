@@ -19,6 +19,7 @@ beans {
         bean.factoryBean = 'applicationEntityManagerFactory';
         bean.factoryMethod = 'createEntityManager';
         bean.scope = 'request';
+        bean.destroyMethod = 'close';
         aop.'scoped-proxy'();
     };
 }
