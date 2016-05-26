@@ -20,5 +20,7 @@ beans {
 
     partActionFactory(PartActionFactoryImpl, ref('partDAO'));
 
-    partDAO(DAO, Part);
+    partDAO(DAO, Part) {
+        entityManager = ref('appEntityManager');    
+    };
 }
