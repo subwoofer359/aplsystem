@@ -65,12 +65,12 @@
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>	
-    				/WEB-INF/SpringConfig/EntityManagerFactory.xml
-    				/WEB-INF/SpringConfig/ProcessContext.xml
+    				/WEB-INF/SpringConfig/EntityManagerFactory.groovy
+    				/WEB-INF/SpringConfig/ProcessContext.groovy
     				/WEB-INF/SpringConfig/PartsContext.groovy  
-    				/WEB-INF/SpringConfig/MaterialContext.xml
-    				/WEB-INF/SpringConfig/UserContext.xml
-    				/WEB-INF/SpringConfig/SPCContext.xml
+    				/WEB-INF/SpringConfig/MaterialContext.groovy
+    				/WEB-INF/SpringConfig/UserContext.groovy
+    				/WEB-INF/SpringConfig/SPCContext.groovy
   </param-value>
   </context-param>
   <context-param>
@@ -82,10 +82,14 @@
   
    <!--  My listener Classes -->
   <listener>
-    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
   <listener>
     <listener-class>org.amc.servlet.listener.StartupShutdownListener</listener-class>
+  </listener>
+  <!-- Required for Request scope Spring beans -->
+  <listener>
+    <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
   </listener>
   
   <!-- Global HttpSession settings -->
@@ -166,19 +170,6 @@
     <filter-name>UserFilter</filter-name>
     <url-pattern>/APLSystemServlet</url-pattern>
     <url-pattern>/app/*</url-pattern>
-  </filter-mapping>
-  
-  <filter>
-    <description>Adds a new EntityManager to each request and closes it when the response is sent</description>
-    <filter-name>EntityManagerFilter</filter-name>
-    <filter-class>org.amc.servlet.filter.EntityManagerFilter</filter-class>
-    <async-supported>true</async-supported>
-  </filter>
-  <filter-mapping>
-    <filter-name>EntityManagerFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
   
   <filter>

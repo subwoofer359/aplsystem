@@ -1,7 +1,6 @@
 package org.amc.dao;
 
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.parsers.NoSuchWebFormParserException;
 import org.amc.dao.parsers.WebFormSearchParserFactory;
 import org.amc.dao.parsers.WebFormSearchToJPQLParser;

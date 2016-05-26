@@ -1,6 +1,5 @@
 package org.amc.myservlet.test.spc
 
-import org.amc.EntityManagerThreadLocal;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
