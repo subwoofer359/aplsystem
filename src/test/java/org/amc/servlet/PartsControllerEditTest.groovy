@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 class PartsControllerEditTest {
-    PartsController controller;
+    PartsSearchController controller;
     def mode = 'search';
     def edit = '3';
     def company = 'ALPS';
@@ -50,7 +50,7 @@ class PartsControllerEditTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSearchJobTemplateAction()).thenReturn(searchPartAction);
-        controller = new PartsController();
+        controller = new PartsSearchController();
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;
     }

@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 class PartsControllerAddTest {
-    PartsController controller;
+    PartsSearchController controller;
     def part = new Part(
         'BMW Case',
         'bmw10202',
@@ -52,7 +52,7 @@ class PartsControllerAddTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSearchJobTemplateAction()).thenReturn(searchPartAction);
-        controller = new PartsController();
+        controller = new PartsSearchController();
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;
     }
@@ -60,7 +60,7 @@ class PartsControllerAddTest {
     @Test
     void testAddPart() {
         def view = controller.addPart(part);
-        assert view == PartsController.VIEW_PART_PAGE;
+        assert view == PartsSearchController.VIEW_PART_PAGE;
     }
     
 }

@@ -14,6 +14,10 @@ beans {
         searchFormValidator = ref('partSearchFormValidator');
     };
 
+    partsModifyController(PartsModifyController) {
+        partActionFactory = ref('partActionFactory');
+    }
+
     partActionFactory(PartActionFactoryImpl, ref('partDAO'));
 
     partDAO(DAO, Part);

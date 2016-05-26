@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 class PartsControllerSavePartTest {
-    PartsController controller;
+    PartsModifyController controller;
     def part = new Part(
         'BMW Case',
         'bmw10202',
@@ -52,25 +52,21 @@ class PartsControllerSavePartTest {
     SavePartAction savePartAction;
     
     @Mock
-    PartSearchFormValidator searchFormValidator;
-    
-    @Mock
     BindingResult errors;
     
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSaveJobTemplateAction()).thenReturn(savePartAction);
-        controller = new PartsController();
+        controller = new PartsModifyController();
         controller.partActionFactory = partActionFactory;
-        controller.searchFormValidator = searchFormValidator;
     }
     
     @Test
     void testSavePartEnterMode() { 
         ModelAndView mav = controller.savePart(part, errors);
         verify(savePartAction, times(1)).save(part);
-        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_PART_PAGE);
+        ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_PART_PAGE);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, ControllerConstants.FORM);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, 'result');
         assert mav.model[ControllerConstants.ERRORS] == null;
@@ -93,8 +89,8 @@ class PartsControllerSavePartTest {
     void testSavePartEnterModeNotValid() {
         when(errors.hasErrors()).thenReturn(true);
         ModelAndView mav = controller.savePart(part, errors);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, PartsController.ERRORS);
+        ModelAndViewAssert.assertModelAttributeAvailable(mav, PartsSearchController.ERRORS);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, ControllerConstants.FORM);
-        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_PART_PAGE);
+        ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_PART_PAGE);
     }
 }

@@ -1,6 +1,6 @@
 package org.amc.servlet
 
-import static org.amc.servlet.PartsController.MODEL_ATTR_PARTS;
+import static org.amc.servlet.PartsSearchController.MODEL_ATTR_PARTS;
 
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -98,7 +98,7 @@ class PartsControllerIT {
             .param('company', COMPANY))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(view().name(PartsController.VIEW_SEARCH_PAGE))
+        .andExpect(view().name(PartsSearchController.VIEW_SEARCH_PAGE))
         .andExpect(model().attributeExists(MODEL_ATTR_PARTS))
         .andReturn();
     
@@ -114,12 +114,12 @@ class PartsControllerIT {
         oldPartsSearch.company = COMPANY;
         
         MockHttpSession session = new MockHttpSession();
-        session.setAttribute(PartsController.SESSION_PARTSEARCH, oldPartsSearch);
+        session.setAttribute(PartsSearchController.SESSION_PARTSEARCH, oldPartsSearch);
         
         MvcResult result = mockMvc.perform(post(PARTSEARCH_URL).session(session).param('mode', 'search'))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(view().name(PartsController.VIEW_SEARCH_PAGE))
+        .andExpect(view().name(PartsSearchController.VIEW_SEARCH_PAGE))
         .andExpect(model().attributeExists(MODEL_ATTR_PARTS))
         .andReturn();
     
@@ -134,7 +134,7 @@ class PartsControllerIT {
         MvcResult result = mockMvc.perform(post(PARTSEARCH_URL).param('mode', 'search'))
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(view().name(PartsController.VIEW_SEARCH_PAGE))
+        .andExpect(view().name(PartsSearchController.VIEW_SEARCH_PAGE))
         .andExpect(model().attributeExists(MODEL_ATTR_PARTS))
         .andReturn();
     
@@ -167,7 +167,7 @@ class PartsControllerIT {
             .param('qss_no', 'qss123'))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(view().name(PartsController.VIEW_PART_PAGE))
+            .andExpect(view().name(PartsSearchController.VIEW_PART_PAGE))
             .andExpect(model().attributeExists('result'))
             .andExpect(model().attributeExists('form'))
             .andReturn();
@@ -190,7 +190,7 @@ class PartsControllerIT {
             .param('qss_no', 'qss123'))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(view().name(PartsController.VIEW_PART_PAGE))
+            .andExpect(view().name(PartsSearchController.VIEW_PART_PAGE))
             .andExpect(model().attributeExists('errors'))
             .andExpect(model().attributeExists('form'))
             .andReturn();     

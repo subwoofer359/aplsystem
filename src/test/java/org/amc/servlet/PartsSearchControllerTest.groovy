@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-class PartsControllerTest {
-    PartsController controller;
+class PartsSearchControllerTest {
+    PartsSearchController controller;
     def mode = 'search';
     def edit = '3';
     def company = 'ALPS';
@@ -58,7 +58,7 @@ class PartsControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSearchJobTemplateAction()).thenReturn(searchPartAction);
-        controller = new PartsController();
+        controller = new PartsSearchController();
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;
         
@@ -139,7 +139,7 @@ class PartsControllerTest {
         lastSearch.partName = partName;
         lastSearch.QSSNumber = qssNumber;
         
-        when(session.getAttribute(PartsController.SESSION_PARTSEARCH)).thenReturn(lastSearch);
+        when(session.getAttribute(PartsSearchController.SESSION_PARTSEARCH)).thenReturn(lastSearch);
         
         ModelAndView mav = controller.searchForPart(session, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");

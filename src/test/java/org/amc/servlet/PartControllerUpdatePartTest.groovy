@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 class PartControllerUpdatePartTest {
-    PartsController controller;
+    PartsModifyController controller;
     def part = new Part(
         'BMW Case',
         'bmw10202',
@@ -49,9 +49,6 @@ class PartControllerUpdatePartTest {
     @Mock
     SavePartAction savePartAction;
     
-    @Mock
-    PartSearchFormValidator searchFormValidator;
-    
     
     @Mock
     BindingResult errors;
@@ -62,16 +59,15 @@ class PartControllerUpdatePartTest {
         
         when(partActionFactory.getSaveJobTemplateAction()).thenReturn(savePartAction);
         
-        controller = new PartsController();
+        controller = new PartsModifyController();
         controller.partActionFactory = partActionFactory;
-        controller.searchFormValidator = searchFormValidator;
     }
     
     @Test
     void partUpdateTest() {
         ModelAndView mav = controller.updatePart(part, errors);
         verify(savePartAction, times(1)).edit(part);
-        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_SEARCH_PAGE);
+        ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_SEARCH_PAGE);
     }
     
     @Test
@@ -82,10 +78,10 @@ class PartControllerUpdatePartTest {
         
         
         verify(savePartAction, never()).edit(part);
-        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_PART_PAGE);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, PartsController.ERRORS);
+        ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_PART_PAGE);
+        ModelAndViewAssert.assertModelAttributeAvailable(mav, PartsSearchController.ERRORS);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, 'form');
-        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', PartsController.EDIT_MODE);
+        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', PartsSearchController.EDIT_MODE);
     }
     
     @Test(expected = ServletException)
@@ -96,6 +92,6 @@ class PartControllerUpdatePartTest {
         ModelAndView mav = controller.updatePart(part, errors);
         
         verify(savePartAction, times(1)).edit(part);
-        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_SEARCH_PAGE);
+        ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_SEARCH_PAGE);
     }
 }
