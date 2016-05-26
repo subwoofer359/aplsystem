@@ -20,11 +20,6 @@ import javax.persistence.Query;
 public class UserRolesDAO extends DAO<UserRoles> {
 
     /**
-     * Serializable UID
-     */
-    private static final long serialVersionUID = 3284453615590490609L;
-
-    /**
      * logging service
      */
     private static Logger LOG = Logger.getLogger(UserRolesDAO.class);

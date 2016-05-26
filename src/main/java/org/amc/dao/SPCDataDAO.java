@@ -20,11 +20,6 @@ import javax.persistence.EntityManager;
  */
 public class SPCDataDAO extends DAO<SPCData> {
     /**
-     * Serializable
-     */
-    private static final long serialVersionUID = 3406544673929777389L;
-
-    /**
      * Logger used by the object
      */
     private static Logger LOG = Logger.getLogger(SPCDataDAO.class);

@@ -21,10 +21,6 @@ import javax.persistence.Query;
  */
 
 public class SPCMeasurementDAO extends DAO<SPCMeasurement> {
-    /**
-     * Serializable UID
-     */
-    private static final long serialVersionUID = 8865055871857791936L;
 
     /**
      * logging service
