@@ -2,6 +2,8 @@ package org.amc.myservlet.test.spc;
 
 import java.sql.Date;
 
+import javax.persistence.EntityManager;
+
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.dao.SPCMeasurementDAO;
@@ -20,13 +22,15 @@ import org.amc.model.spc.SPCMeasurement;
  *
  */
 public class TestSPCFixture {
-    
-    public TestSPCFixture() {
+    private EntityManager entityManager;
+    public TestSPCFixture(EntityManager entityManger) {
+        this.entityManager = entityManger;
     }
     
     public void setupPartTable() throws DAOException {
         // Get DAO object
         DAO<Part> partDAO = new DAO<Part>(Part.class);
+        partDAO.setEntityManager(entityManager);
         String[] colours = { "red", "blue", "green", "yellow" };
         String[] companies = { "HMV", "Granada", "Apple", "Apple" };
         String[] names = { "CD", "Car", "IPOD", "IPHONE" };
@@ -52,6 +56,7 @@ public class TestSPCFixture {
 
     public void setUpMaterialTable() throws DAOException {
         DAO<Material> materialDAO = new DAO<Material>(Material.class);
+        materialDAO.setEntityManager(entityManager);
         String[] company = { "Exxon Mobil" };
         String[] type = { "PC" };
         String[] name = { "Moplen 540P" };
@@ -74,9 +79,11 @@ public class TestSPCFixture {
     public void setUpMouldingProcessTable() throws DAOException {
         setUpMaterialTable();
         DAO<Material> materialDAO = new DAO<Material>(Material.class);
+        materialDAO.setEntityManager(entityManager);
         Material material = materialDAO.findEntities().get(0);
 
         DAO<MouldingProcess> mpDAO = new DAO<MouldingProcess>(MouldingProcess.class);
+        mpDAO.setEntityManager(entityManager);
 
         String[] partId = { "1", "2", "3", "4" };
         int[] machineSize = { 150, 100, 125, 75 };
@@ -106,6 +113,7 @@ public class TestSPCFixture {
     public void setUpUserTable() throws DAOException {
         // Get DAO object
         DAO<User> userDAO = new DAO<User>(User.class);
+        userDAO.setEntityManager(entityManager);
 
         // Create User Entities and add them to the database
         String[] fullnames = { "Adrian McLaughlin", "Stephen Nolan", "Chris Dalton" };
@@ -129,7 +137,9 @@ public class TestSPCFixture {
 
     public void setUpSPCMeasurementTable() throws DAOException {
         DAO<Part> partDAO = new DAO<Part>(Part.class);
+        partDAO.setEntityManager(entityManager);
         SPCMeasurementDAO measurementDAO = new SPCMeasurementDAO();
+        measurementDAO.setEntityManager(entityManager);
 
         // Presuming there are entries in the part database table;
         Part p = partDAO.findEntities().get(0);

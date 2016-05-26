@@ -31,7 +31,7 @@ public class TestSPCDataDAOIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
-        fixture = new TestSPCFixture();
+        fixture = new TestSPCFixture(dbFixture.getNewEntityManager());
     }
 
     @After
@@ -51,8 +51,11 @@ public class TestSPCDataDAOIT {
         fixture.setUpUserTable();
         fixture.setUpSPCMeasurementTable();
         SPCDataDAO dao = new SPCDataDAO();
+        dao.setEntityManager(dbFixture.getNewEntityManager());
         SPCMeasurementDAO measurementDAO = new SPCMeasurementDAO();
+        measurementDAO.setEntityManager(dbFixture.getNewEntityManager());
         DAO<User> userDAO = new DAO<User>(User.class);
+        userDAO.setEntityManager(dbFixture.getNewEntityManager());
 
         SPCMeasurement measurement = measurementDAO.findEntities().get(0);
         User user = userDAO.findEntities().get(0);

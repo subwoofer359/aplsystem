@@ -41,6 +41,8 @@ public class DAO<T extends WorkEntity> {
      * The class this DAO is handling
      */
     private final Class<? extends WorkEntity> entityClass;
+    
+    private EntityManager entityManager;
 
     public DAO(Class<? extends WorkEntity> entityClass) {
         this.entityClass = entityClass;
@@ -210,7 +212,11 @@ public class DAO<T extends WorkEntity> {
      * @see EntityManagerThreadLocal
      */
     public EntityManager getEntityManager() {
-        return EntityManagerThreadLocal.getEntityManager();
+        return entityManager;
+    }
+    
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
     }
 
     /**

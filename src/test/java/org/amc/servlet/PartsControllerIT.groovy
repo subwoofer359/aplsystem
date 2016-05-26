@@ -57,9 +57,12 @@ class PartsControllerIT {
         fixture.clearTables();
         def part = new Part('Test Part', 'id 2334', 'ALPS', 'version 1', 'revision 1', 'Red', true, 'alps 01');
         DAO<Part> partDAO = new DAO<Part>(Part.class);
+        partDAO.setEntityManager(fixture.newEntityManager);
         partDAO.addEntity(part);
         
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        def t  = wac.getBean('appEntityManager');
+        println(t);
     }
     
     @AfterClass

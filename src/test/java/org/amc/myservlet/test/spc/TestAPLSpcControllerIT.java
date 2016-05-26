@@ -32,10 +32,12 @@ public class TestAPLSpcControllerIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
-        fixture = new TestSPCFixture();
+        fixture = new TestSPCFixture(dbFixture.getNewEntityManager());
 
         partsListDao = new DAO<SPCPartsList>(SPCPartsList.class);
+        partsListDao.setEntityManager(dbFixture.getNewEntityManager());
         partsDAO = new DAO<Part>(Part.class);
+        partsDAO.setEntityManager(dbFixture.getNewEntityManager());
         controller = new APLSpcController();
         controller.setSPCListPartDAO(partsListDao);
     }

@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.amc.DAOException;
-import org.amc.EntityManagerThreadLocal;
 import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
 import org.amc.myservlet.test.spc.DatabaseFixture;
@@ -27,6 +26,8 @@ public class TestMaterialDAOIT {
     private final String TYPE = "ABS";
 
     private Material testMaterial;
+    
+    private MaterialDAO materialDAO;
     
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
 
@@ -49,6 +50,9 @@ public class TestMaterialDAOIT {
         testMaterial.setCompany(COMPANY);
         testMaterial.setName(NAME);
         testMaterial.setType(TYPE);
+        
+        materialDAO = new MaterialDAO();
+        materialDAO.setEntityManager(dbFixture.getNewEntityManager());
     }
 
     /**
@@ -56,29 +60,26 @@ public class TestMaterialDAOIT {
      */
     @Test
     public void testAddMaterial() throws DAOException {
-        MaterialDAO d = new MaterialDAO();
-        d.addEntity(testMaterial);
+        
+        materialDAO.addEntity(testMaterial);
 
-        Material actual = d.getEntity(testMaterial.getId());
+        Material actual = materialDAO.getEntity(testMaterial.getId());
         assertEquals(testMaterial, actual);
     }
 
     @Test
     public void testUpdateMaterial() throws DAOException {
-        // Create Material DAO
-        MaterialDAO d = new MaterialDAO();
         // Add Material Database
-        d.addEntity(testMaterial);
+        materialDAO.addEntity(testMaterial);
 
-        closeEntityManager();
         // Check Material has been added and retrived
-        Map<Integer, Material> list = d.findMaterials("name", NAME);
+        Map<Integer, Material> list = materialDAO.findMaterials("name", NAME);
         Collection<Material> c = list.values();
         for (Material tm : c) {
             System.out.println(tm);
             if (tm.getName().equals(NAME)) {
                 tm.setType(("TEST"));
-                d.updateEntity(tm);
+                materialDAO.updateEntity(tm);
             }
         }
         assertNotSame(c.size(), 0);
@@ -87,23 +88,15 @@ public class TestMaterialDAOIT {
 
     @Test
     public void testFindMaterialsStringString() throws DAOException {
-        MaterialDAO d = new MaterialDAO();
-        d.addEntity(testMaterial);
-        closeEntityManager();
-        Map<Integer, Material> mp = d.findMaterials("name", NAME);
+        materialDAO.addEntity(testMaterial);
+        Map<Integer, Material> mp = materialDAO.findMaterials("name", NAME);
         assertEquals(mp.size(), 1);
     }
 
     @Test
     public void testFindMaterials() throws DAOException {
-        MaterialDAO d = new MaterialDAO();
-        d.addEntity(testMaterial);
-        closeEntityManager();
-        Map<Integer, Material> mp = d.findMaterials();
+        materialDAO.addEntity(testMaterial);
+        Map<Integer, Material> mp = materialDAO.findMaterials();
         assertEquals(mp.size(), 1);
-    }
-
-    private void closeEntityManager() {
-        EntityManagerThreadLocal.closeEntityManager();
     }
 }

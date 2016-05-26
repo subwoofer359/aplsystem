@@ -11,16 +11,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 class DatabaseFixture {
     private static final Logger logger = Logger.getLogger(DatabaseFixture);
     EntityManagerFactory factory;
+    EntityManager entityManager;
+    def entityManagerList;
 
     public void setUpEntitiyManagerFactory() {
         factory = Persistence.createEntityManagerFactory("myDatabase");
-        EntityManagerThreadLocal.setEntityManagerFactory(factory);
+        entityManager = factory.createEntityManager();
     }
 
     public EntityManagerFactory getEntityManagerFactory() {
@@ -29,19 +32,34 @@ class DatabaseFixture {
 
     public void setUp() {
         setUpEntitiyManagerFactory();
+        entityManagerList = [];
     }
 
     public void tearDown() {
-        EntityManagerThreadLocal.closeEntityManager();
+        closeEntityManagers();
         try {
             DriverManager.getConnection("jdbc:derby:memory:amcchessgametest;drop=true");
         } catch(SQLException sqle) {
             logger.info(sqle);
         }
     }
+    
+    private void closeEntityManagers() {
+        entityManagerList.each {
+            if(it?.isOpen()) {
+                it.close();
+            }
+        };
+    }
+    
+    public EntityManager getNewEntityManager() {
+        def em  = factory.createEntityManager();
+        entityManagerList.add(em);
+        return em;
+    }
 
     public void clearTables() throws SQLException {
-        Connection c = EntityManagerThreadLocal.getEntityManager().unwrap(Connection.class);
+        Connection c = entityManager.unwrap(Connection.class);
         List<String> tables = new ArrayList<>();
         try {
             Statement s = c.createStatement();

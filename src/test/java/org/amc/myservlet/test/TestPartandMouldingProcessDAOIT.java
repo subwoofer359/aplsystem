@@ -33,7 +33,10 @@ public class TestPartandMouldingProcessDAOIT {
     private final String NAME = "Moplen550";
     private final String COMPANY = "TOSARA";
     private final String TYPE = "ABS";
-
+    private MaterialDAO daoMaterial;
+    private DAO<MouldingProcess> d;
+    private DAO<Part> pd;
+    
     private static Logger logger = Logger.getLogger(TestPartandMouldingProcessDAOIT.class);
 
     @BeforeClass
@@ -49,6 +52,15 @@ public class TestPartandMouldingProcessDAOIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
+        
+        daoMaterial = new MaterialDAO();
+        daoMaterial.setEntityManager(dbFixture.getNewEntityManager());
+        
+        d = new DAO<MouldingProcess>(MouldingProcess.class);
+        d.setEntityManager(dbFixture.getNewEntityManager());
+        
+        pd = new DAO<Part>(Part.class);
+        pd.setEntityManager(dbFixture.getNewEntityManager());
     }
 
     @Test
@@ -57,7 +69,7 @@ public class TestPartandMouldingProcessDAOIT {
         m.setCompany(COMPANY);
         m.setName(NAME);
         m.setType(TYPE);
-        MaterialDAO daoMaterial = new MaterialDAO();
+        
         // daoMaterial.setEm(em);
         daoMaterial.addEntity(m);
 
@@ -72,13 +84,11 @@ public class TestPartandMouldingProcessDAOIT {
         mp.setMachineSize(320);
         mp.setMaterial(m.getId());
 
-        DAO<MouldingProcess> d = new DAO<MouldingProcess>(MouldingProcess.class);
         // d.setEm(em);
         d.addEntity(mp);
 
         Part p = getPart(testPartName);
-
-        DAO<Part> pd = new DAO<Part>(Part.class);
+        
         // pd.setEm(em);
         pd.addEntity(p);
 
@@ -96,11 +106,13 @@ public class TestPartandMouldingProcessDAOIT {
         int NO_OF_THREADS = 12;
         CountDownLatch latch = new CountDownLatch(NO_OF_THREADS);
         List<UpdateThread> threads = new ArrayList<TestPartandMouldingProcessDAOIT.UpdateThread>();
-        DAO<Part> pd = new DAO<Part>(Part.class);
+        
         // Add Parts to database
         for (int i = 0; i < NO_OF_THREADS; i++) {
             pd.addEntity(getPart("Part:" + i));
-            threads.add(new UpdateThread(latch, new DAO<Part>(Part.class)));
+            DAO<Part> threadEntityManager = new DAO<Part>(Part.class);
+            threadEntityManager.setEntityManager(dbFixture.getNewEntityManager());
+            threads.add(new UpdateThread(latch, threadEntityManager));
         }
 
         for (UpdateThread thread : threads) {

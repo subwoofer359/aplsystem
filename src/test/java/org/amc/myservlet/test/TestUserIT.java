@@ -20,6 +20,7 @@ import org.junit.Test;
 public class TestUserIT {
 
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
+    private DAO<User> ud;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -34,6 +35,9 @@ public class TestUserIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
+        
+        ud = new DAO<User>(User.class);
+        ud.setEntityManager(dbFixture.getNewEntityManager());
     }
 
     /**
@@ -68,7 +72,7 @@ public class TestUserIT {
         // listOfRoles.add(roles);
         // listOfRoles.add(roles2);
         // u.setRoles(listOfRoles);
-        DAO<User> ud = new DAO<User>(User.class);
+        
         ud.addEntity(u);
 
         User tu = ud.getEntity(u.getId());
@@ -78,7 +82,6 @@ public class TestUserIT {
 
     @Test
     public void testFindUsers() throws DAOException {
-        DAO<User> ud = new DAO<User>(User.class);
         User[] users = { getTestUser(), getTestUser(), getTestUser(), getTestUser() };
 
         for (User u : users) {
@@ -93,9 +96,7 @@ public class TestUserIT {
     @Test
     public void testFindUsersByValue() throws DAOException {
         String userName = "Bunny";
-
-        DAO<User> ud = new DAO<User>(User.class);
-
+        
         User u1 = getTestUser();
         User u2 = getTestUser();
         u2.setUserName(userName);
@@ -116,7 +117,6 @@ public class TestUserIT {
     @Test
     public void testUpdateUser() throws DAOException {
         String emailAddress = "chris@eircom.net";
-        DAO<User> ud = new DAO<User>(User.class);
         User u = getTestUser();
 
         ud.addEntity(u);
@@ -134,8 +134,6 @@ public class TestUserIT {
     public void testRoles() throws DAOException {
         String userName = "Bunny";
         String[] roles = { "QC", "MANAGER" };
-
-        DAO<User> ud = new DAO<User>(User.class);
 
         User u1 = getTestUser();
         User u2 = getTestUser();
@@ -195,7 +193,6 @@ public class TestUserIT {
         rolesList.add(role1);
         rolesList.add(role2);
         u1.setRoles(rolesList);
-        DAO<User> ud = new DAO<User>(User.class);
 
         ud.addEntity(u1);
 

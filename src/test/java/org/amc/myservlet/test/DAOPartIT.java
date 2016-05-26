@@ -26,6 +26,7 @@ public class DAOPartIT {
     
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
+    private DAO<Part> partDAO;
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -40,9 +41,12 @@ public class DAOPartIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
-        fixture = new TestSPCFixture();
+        fixture = new TestSPCFixture(dbFixture.getNewEntityManager());
         fixture.setupPartTable();
         fixture.setUpMouldingProcessTable();
+        
+        partDAO = new DAO<Part>(Part.class);
+        partDAO.setEntityManager(dbFixture.getNewEntityManager());
     }
 
     /**
@@ -53,7 +57,6 @@ public class DAOPartIT {
     public void testFindEntitiesSearch() {
         PartSearch search = new PartSearch();
         search.setCompany("Apple");
-        DAO<Part> partDAO = new DAO<Part>(Part.class);
 
         SearchPartAction action = new SearchPartAction(partDAO);
 
@@ -92,7 +95,6 @@ public class DAOPartIT {
     @Test
     public void testFindEntitiesSearch_EmptyPartSearch() {
         PartSearch search = new PartSearch();
-        DAO<Part> partDAO = new DAO<Part>(Part.class);
 
         SearchPartAction action = new SearchPartAction(partDAO);
 

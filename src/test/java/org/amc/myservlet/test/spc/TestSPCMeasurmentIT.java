@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.amc.DAOException;
 import org.amc.dao.DAO;
 import org.amc.model.Part;
@@ -17,11 +19,13 @@ public class TestSPCMeasurmentIT {
     private TestSPCFixture fixture;
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private DAO<Part> partDAO;
+    private DAO<SPCMeasurement> dao;
 
     @Test
     public void testSPCMeasurement() throws DAOException {
-        DAO<SPCMeasurement> dao = new DAO<SPCMeasurement>(SPCMeasurement.class);
-
+        
+        
+        
         SPCMeasurement measurement = new SPCMeasurement();
         measurement.setActive(true);
         measurement.setDimension("length");
@@ -31,7 +35,7 @@ public class TestSPCMeasurmentIT {
         measurement.setNoOfMeasurements(5);
 
         // Retrieve Part entity from the database
-        partDAO = new DAO<Part>(Part.class);
+
         List<Part> parts = partDAO.findEntities();
         Part part = null;
         if (parts.size() > 0) {
@@ -64,7 +68,15 @@ public class TestSPCMeasurmentIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
-        fixture = new TestSPCFixture();
+        fixture = new TestSPCFixture(dbFixture.getNewEntityManager());
         fixture.setupPartTable();
+        
+        EntityManager enManager = dbFixture.getNewEntityManager(); 
+        dao = new DAO<SPCMeasurement>(SPCMeasurement.class);
+        dao.setEntityManager(enManager);
+        
+        partDAO = new DAO<Part>(Part.class);
+        partDAO.setEntityManager(enManager);
+                       
     }
 }

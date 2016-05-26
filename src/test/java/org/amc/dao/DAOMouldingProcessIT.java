@@ -24,6 +24,7 @@ import org.junit.Test;
  */
 public class DAOMouldingProcessIT {
 
+    private DAO<MouldingProcess> mpDAO;
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
     
@@ -40,9 +41,12 @@ public class DAOMouldingProcessIT {
     @Before
     public void setUp() throws Exception {
         dbFixture.clearTables();
-        fixture = new TestSPCFixture();
+        fixture = new TestSPCFixture(dbFixture.getNewEntityManager());
         fixture.setupPartTable();
         fixture.setUpMouldingProcessTable();
+        
+        mpDAO = new DAO<MouldingProcess>(MouldingProcess.class);
+        mpDAO.setEntityManager(dbFixture.getNewEntityManager());
     }
  
 
@@ -54,7 +58,6 @@ public class DAOMouldingProcessIT {
     public void testFindEntitiesSearch() {
         MouldingProcessSearch search = new MouldingProcessSearch();
         search.setSignedOffBy("John Malone");
-        DAO<MouldingProcess> mpDAO = new DAO<MouldingProcess>(MouldingProcess.class);
 
         SearchProcessSheetAction action = new SearchProcessSheetAction(mpDAO);
 
@@ -116,9 +119,7 @@ public class DAOMouldingProcessIT {
     @Test
     public void testFindEntitiesSearch_EmptyPartSearch() {
         MouldingProcessSearch search = new MouldingProcessSearch();
-        ;
-        DAO<MouldingProcess> mpDAO = new DAO<MouldingProcess>(MouldingProcess.class);
-
+        
         SearchProcessSheetAction action = new SearchProcessSheetAction(mpDAO);
 
         try {

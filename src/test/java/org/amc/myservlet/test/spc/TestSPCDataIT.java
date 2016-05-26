@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
 
 import org.amc.DAOException;
 import org.amc.dao.DAO;
@@ -20,7 +21,10 @@ import org.junit.Test;
 public class TestSPCDataIT {
     private static final DatabaseFixture dbFixture = new DatabaseFixture();
     private TestSPCFixture fixture;
-
+    private DAO<SPCMeasurement> measurementDao;
+    private DAO<SPCData> spcdataDao;
+    private DAO<User> userDao;
+    private DAO<Part> partDAO;
     
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
@@ -32,7 +36,6 @@ public class TestSPCDataIT {
         // TestSPCMeasurment.createPartFromDataBase(factory);
 
         // Create SPCMeasurement in table to use in test
-        DAO<SPCMeasurement> measurementDao = new DAO<SPCMeasurement>(SPCMeasurement.class);
         SPCMeasurement measurement = new SPCMeasurement();
         measurement.setActive(true);
         measurement.setDimension("length");
@@ -42,7 +45,7 @@ public class TestSPCDataIT {
         measurement.setNoOfMeasurements(5);
 
         // Retrieve Part entity from the database
-        DAO<Part> partDAO = new DAO<Part>(Part.class);
+        
         List<Part> parts = partDAO.findEntities();
         Part part = null;
         if (parts.size() > 0) {
@@ -56,10 +59,21 @@ public class TestSPCDataIT {
 
     @Before
     public void setUp() throws Exception {
+        EntityManager emManager = dbFixture.getNewEntityManager();
         dbFixture.clearTables();
-        fixture = new TestSPCFixture();
+        fixture = new TestSPCFixture(dbFixture.getNewEntityManager());
         fixture.setupPartTable();
         fixture.setUpUserTable();
+        
+        partDAO = new DAO<Part>(Part.class);
+        partDAO.setEntityManager(emManager);
+        userDao = new DAO<User>(User.class);
+        userDao.setEntityManager(emManager);
+        spcdataDao = new DAO<SPCData>(SPCData.class);
+        spcdataDao.setEntityManager(emManager);
+        measurementDao = new DAO<SPCMeasurement>(SPCMeasurement.class);
+        measurementDao.setEntityManager(emManager);
+        
         setTables();
     }
 
@@ -75,9 +89,7 @@ public class TestSPCDataIT {
 
     @Test
     public void test() throws DAOException {
-        DAO<SPCMeasurement> measurementDao = new DAO<SPCMeasurement>(SPCMeasurement.class);
-        DAO<SPCData> spcdataDao = new DAO<SPCData>(SPCData.class);
-        DAO<User> userDao = new DAO<User>(User.class);
+        
         SPCMeasurement measurement = measurementDao.findEntities().get(0);
         User user = userDao.findEntities().get(0);
 
