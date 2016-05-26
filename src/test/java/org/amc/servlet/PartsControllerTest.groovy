@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
 import org.springframework.test.web.ModelAndViewAssert;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -47,6 +48,11 @@ class PartsControllerTest {
     
     @Mock
     PartSearchFormValidator searchFormValidator;
+    
+    @Mock
+    BindingResult errors;
+    
+    PartSearch partSearch;
 
     @Before
     public void setUp() throws Exception {
@@ -56,12 +62,11 @@ class PartsControllerTest {
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;
         
+        partSearch = new PartSearch();
+        
         when(httpRequest.getParameter('company')).thenReturn(company);
         when(httpRequest.getParameter('partName')).thenReturn(partName);
-        when(httpRequest.getParameter('QSSNumber')).thenReturn(qssNumber);
-        
-        when(searchFormValidator.hasErrors()).thenReturn(false);
-        
+        when(httpRequest.getParameter('QSSNumber')).thenReturn(qssNumber);  
     }
 
     @After
@@ -99,9 +104,10 @@ class PartsControllerTest {
     @Test
     public void testSearchForPartSearchMode() {       
         def parts = [new Part(partName, '3432', company, '3', '2', 'BLACK', true, qssNumber)];
+        partSearch.company = company;
         when(searchPartAction.search(any())).thenReturn(parts);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest);
+        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
@@ -115,7 +121,8 @@ class PartsControllerTest {
         when(searchPartAction.search(any())).thenReturn(parts);
         reset(httpRequest);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest);
+        
+        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", []);  
@@ -134,7 +141,7 @@ class PartsControllerTest {
         
         when(session.getAttribute(PartsController.SESSION_PARTSEARCH)).thenReturn(lastSearch);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest);
+        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
@@ -145,28 +152,13 @@ class PartsControllerTest {
         def parts = [];
         when(searchPartAction.search(any())).thenReturn(parts);
         reset(searchFormValidator);
-        when(searchFormValidator.hasErrors()).thenReturn(true);
-        when(searchFormValidator.getErrors()).thenReturn([]);
+        when(errors.hasErrors()).thenReturn(true);
+        when(errors.getAllErrors()).thenReturn([]);
         
-        ModelAndView mav = controller.searchForPart(session, httpRequest);
+        ModelAndView mav = controller.searchForPart(session, httpRequest, partSearch, errors);
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
-        ModelAndViewAssert.assertAndReturnModelAttributeOfType(mav, ControllerConstants.MESSAGE, List); 
+        ModelAndViewAssert.assertAndReturnModelAttributeOfType(mav, ControllerConstants.MESSAGE, BindingResult); 
     }
-    
-    @Test
-    public void testSearchParseException() {
-        def parts = [];
-        when(searchPartAction.search(any())).thenReturn(parts);
-        def newParser = { throw new ParseException('Test Parse Error', 1)};
-        controller.partFormParser = newParser;
-        
-        ModelAndView mav = controller.searchForPart(session, httpRequest);
-        ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
-        ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
-        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MESSAGE, PartsController.SEARCH_PARSE_ERROR_MSG);
-    }
-
 }

@@ -7,7 +7,6 @@ import org.amc.servlet.action.SearchPartAction;
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.PartSearchForm;
 import org.amc.servlet.validator.PartSearchFormValidator;
-import org.amc.servlet.validator.PartSearchFormValidator.PartSearchBinder;
 import org.amc.servlet.validator.PartValidator;
 import org.amc.servlet.validator.Part_Validator;
 import org.springframework.context.annotation.Role;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
-import org.apache.openjpa.jdbc.kernel.exps.Param;
-import org.junit.runner.Request;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -63,8 +60,6 @@ class PartsController {
     @Resource(name = 'partSearchFormValidator')
     PartSearchFormValidator searchFormValidator;
     
-    def partFormParser = PartSearchBinder.&getPartSearch;
-    
     private static final Logger logger = Logger.getLogger(PartsController);
     
     @RequestMapping(method = RequestMethod.GET, value = "/APLSystemServlet")
@@ -91,7 +86,8 @@ class PartsController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/Part_search", params="mode=search")
-    ModelAndView searchForPart(HttpSession session, HttpServletRequest request) {
+    ModelAndView searchForPart(HttpSession session, HttpServletRequest request, 
+        @ModelAttribute PartSearch partSearch, BindingResult errors) {
         
         PartSearch lastPartSearch = session.getAttribute(SESSION_PARTSEARCH);
         
@@ -101,20 +97,12 @@ class PartsController {
         SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
         List parts = Collections.EMPTY_LIST;
         
-        def partSearchForm = new PartSearchForm();
-        partSearchForm.setCompany(request.getParameter(COMPANY));
-        partSearchForm.setPartName(request.getParameter(PARTNAME));
-        partSearchForm.setQSSNumber(request.getParameter(QSS_NUMBER));
-        
-        searchFormValidator.validate(partSearchForm);
-        
-        if (searchFormValidator.hasErrors()) {
-            mav.getModel().put(ControllerConstants.MESSAGE, searchFormValidator.getErrors());
-        } else if (partSearchForm.isEmpty()) {
+        if (errors.hasErrors()) {
+            mav.getModel().put(ControllerConstants.MESSAGE, errors);
+        } else if (partSearch.isEmpty()) {
             parts = lastPartSearch ? spa.search(lastPartSearch) : Collections.EMPTY_LIST;
         } else {
            try {
-               def partSearch = partFormParser(partSearchForm);
                parts = spa.search(partSearch);
                mav.getModel().put(SESSION_PARTSEARCH, partSearch);
            } catch(ParseException pe) {

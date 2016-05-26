@@ -1,5 +1,7 @@
 package org.amc.servlet.action.search;
 
+import java.util.Map;
+
 /**
  * Class that store information of a User's search parameters for a
  * org.amc.model.Part
@@ -92,5 +94,10 @@ public class PartSearch extends WebFormSearch {
         text.append(getQSSNumber());
         text.append(')');
         return text.toString();
+    }
+    
+    public boolean isEmpty() {
+       Map<?,?> fields = getFieldMap();
+       return fields.isEmpty();
     }
 }
