@@ -4,7 +4,7 @@ import java.util.Map;
 
 /**
  * Class that store information of a User's search parameters for a
- * org.amc.model.Part
+ * {@link org.model.Part}
  * 
  * @author Adrian McLaughlin
  *
@@ -56,28 +56,37 @@ public class PartSearch extends WebFormSearch {
                         .valueOf(getFieldMap().get(PartSearchFields.COMPANY));
     }
 
+    private boolean isNotWhiteSpace(String value) {
+        return !"".equals(value);
+    }
     /**
-     * @param part
-     *            the part to set
+     * The empty string or null are ignored as values
+     * @param partName String String can't be an empty String or null
      */
     public void setPartName(String partName) {
-        getFieldMap().put(PartSearchFields.PART_NAME, partName);
+        if(isNotWhiteSpace(partName)) {
+            getFieldMap().put(PartSearchFields.PART_NAME, partName);
+        }
     }
 
     /**
-     * @param qSSNumber
-     *            the qSSNumber to set
+     * The empty string or null are ignored as values
+     * @param qSSNumber String String can't be an empty String or null
      */
     public void setQSSNumber(String qSSNumber) {
-        getFieldMap().put(PartSearchFields.QSS_NUMBER, qSSNumber);
+        if(isNotWhiteSpace(qSSNumber)) {
+            getFieldMap().put(PartSearchFields.QSS_NUMBER, qSSNumber);
+        }
     }
 
     /**
-     * @param company
-     *            the company to set
+     * The empty string or null are ignored as values
+     * @param company String String can't be an empty String or null
      */
     public void setCompany(String company) {
-        getFieldMap().put(PartSearchFields.COMPANY, company);
+        if(isNotWhiteSpace(company)) {
+            getFieldMap().put(PartSearchFields.COMPANY, company);
+        }
     }
 
     @Override
