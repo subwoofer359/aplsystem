@@ -4,6 +4,7 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="tags" tagdir="/WEB-INF/tags/BottomMenuBar" %>
 <!DOCTYPE html>
 
@@ -21,8 +22,16 @@
 <script src="${pageContext.request.contextPath}/js/SearchPage.js"></script>
 <script>
 	$(document).ready(function(){
+	    <c:set var="inputFields" value="${fn:split('name,colour,company', ',')}"/>
+	    
+	    <c:forEach var="inputField" items="${inputFields}">
+	    <c:if test='${not empty errors and not empty errors.getFieldError(inputField)}'>
+	    	var $field = $("#${inputField}");
+	    	$field.css('background-color', '#dc4040');
+	    	$field.after('<span class="signup-error"><c:out value="${errors.getFieldError(inputField).code}"/></span>');
+	    </c:if>
+	    </c:forEach>
 		showPanelMessage("#alert","${message}");
-		showPanelMessage("#alert","${errors}");
 		showPanelMessage("#result","${result}");
 	});
 	

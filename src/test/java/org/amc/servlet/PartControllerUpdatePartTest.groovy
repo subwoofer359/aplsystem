@@ -82,9 +82,10 @@ class PartControllerUpdatePartTest {
         
         
         verify(savePartAction, never()).edit(part);
-        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_SEARCH_PAGE);
+        ModelAndViewAssert.assertViewName(mav, PartsController.VIEW_PART_PAGE);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, PartsController.ERRORS);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, 'form');
+        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', PartsController.EDIT_MODE);
     }
     
     @Test(expected = ServletException)

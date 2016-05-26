@@ -52,6 +52,7 @@ class PartsController {
     static final String VIEW_SEARCH_PAGE = 'PartsSearchPage';
     static final String VIEW_PART_PAGE = 'Part';
     static final String SEARCH_PARSE_ERROR_MSG = 'Search Parameters couldn\'t be parsed';
+    static final String EDIT_MODE = 'edit Part';
 
     @Resource(name = 'partActionFactory')
     def partActionFactory;
@@ -68,7 +69,7 @@ class PartsController {
         return "Main";
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "logout")
+    @RequestMapping(value = "/logout")
     String logout(HttpSession session, HttpServletRequest httpServletRequest) {
         session?.invalidate();
         httpServletRequest.logout();
@@ -141,7 +142,7 @@ class PartsController {
         try {
             SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
             mav.model.form = spa.getPart(idValue);
-            mav.model.mode = 'edit Part';
+            mav.model.mode = EDIT_MODE;
             mav.setViewName(VIEW_PART_PAGE);
         } catch(DAOException de) {
             setErrorMsg(mav);
@@ -189,6 +190,8 @@ class PartsController {
         if(errors.hasErrors()) {
             mav.model.form = part;
             mav.model[ERRORS] = errors;
+            mav.model.mode = EDIT_MODE
+            mav.viewName = VIEW_PART_PAGE;
         } else {
             try {
                 SavePartAction spa = partActionFactory.getSaveJobTemplateAction();

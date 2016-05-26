@@ -11,7 +11,7 @@ import java.util.Map;
 
 class PartValidatorTest {
     PartValidator validator;
-    Part part = new Part(version:'ee');
+    Part part = new Part(company: '', colour: '', name: '');
     Errors errors;
     
     
