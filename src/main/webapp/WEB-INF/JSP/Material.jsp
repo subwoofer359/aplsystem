@@ -21,7 +21,7 @@
 <script>
 $(document).ready(function(){
 	showPanelMessage("#alert","${message}");
-	showPanelMessage("#alert","${errors}");
+	showPanelMessage("#alert", '<c:out value="${errors.fieldError}"/>');
 });
 	
 </script>
