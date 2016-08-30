@@ -75,7 +75,7 @@ class MaterialSaveControllerTest {
     void testSaveMaterial() {
         when(bindingResult.hasErrors()).thenReturn(false);
         ModelAndView mav = controller.saveMaterial(material, bindingResult);
-        assert MaterialController.MATERIAL_SEARCH_VIEW == mav.viewName;
+        assert MaterialController.REDIRECT_MATERIAL_SEARCH == mav.viewName;
         verify(saveMaterialAction, times(1)).save(material);
     }
     
@@ -100,7 +100,7 @@ class MaterialSaveControllerTest {
     void testEditMaterial() {
         when(bindingResult.hasErrors()).thenReturn(false);
         ModelAndView mav = controller.updateMaterial(material, bindingResult);
-        assert MaterialController.MATERIAL_SEARCH_VIEW == mav.viewName;
+        assert MaterialController.REDIRECT_MATERIAL_SEARCH == mav.viewName;
         verify(saveMaterialAction, times(1)).edit(material);
     }
     

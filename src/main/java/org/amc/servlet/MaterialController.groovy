@@ -13,6 +13,7 @@ class MaterialController {
      static final String MATERIAL_ADD_EDIT_VIEW = "Material";
      static final String MAIN_VIEW = "Main";
      static final String MATERIAL_SEARCH_PAGE = "MaterialSearchPage";
+     static final String REDIRECT_MATERIAL_SEARCH = 'redirect:Material_search';
      static final String ERRORS = 'errors';
      static final String MODE = 'mode';
      static final String MODE_EDIT = 'edit';

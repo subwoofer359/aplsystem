@@ -61,7 +61,7 @@ class MaterialSaveController extends MaterialController {
             try {
                 SaveMaterialAction saveMaterialAction = materialActionFactory.getSaveMaterialAction();
                 saveMaterialAction.save(material);
-                mav.setViewName(MATERIAL_SEARCH_PAGE);
+                mav.setViewName(REDIRECT_MATERIAL_SEARCH);
             } catch(DAOException de) {
                 throw new ServletException(ERROR_DAO).initCause(de);
             }
@@ -81,7 +81,7 @@ class MaterialSaveController extends MaterialController {
             try {
                 SaveMaterialAction saveMaterialAction = materialActionFactory.getSaveMaterialAction();
                 saveMaterialAction.edit(material);
-                mav.setViewName(MATERIAL_SEARCH_PAGE);
+                mav.setViewName(REDIRECT_MATERIAL_SEARCH);
             } catch(DAOException de) {
                 throw new ServletException(ERROR_DAO).initCause(de);
             }

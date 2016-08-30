@@ -5,6 +5,7 @@ import org.amc.model.Material;
 import org.amc.servlet.action.MaterialActionFactory;
 import org.amc.servlet.action.SearchMaterialAction;
 import org.amc.servlet.action.search.MaterialSearch
+import org.amc.servlet.action.search.SearchFields;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.remote.UselessFileDetector;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,7 @@ import javax.validation.Valid
 import javax.validation.constraints.NotNull;
 
 @Controller
-@SessionAttributes("MATERIALSEARCH")
+@SessionAttributes('MATERIALSEARCH')
 class MaterialSearchController extends MaterialController {
     
     private static final Logger logger = Logger.getLogger(MaterialSearchController.class);
@@ -34,8 +35,14 @@ class MaterialSearchController extends MaterialController {
     MaterialActionFactory materialActionFactory;
     
     @RequestMapping(value = ['/MaterialServlet', '/Material_search'], method = RequestMethod.GET)
-    String getMaterialServlet() {
-        return MATERIAL_SEARCH_PAGE;
+    ModelAndView getMaterialServlet(HttpSession session) {
+        if(session.getAttribute(SESSION_MATERIALSEARCH) != null) {
+            return searchForMaterial(session, new MaterialSearch(), [hasErrors: {return false}] as BindingResult)
+        } else {
+            ModelAndView mav = new ModelAndView();
+            mav.viewName = MATERIAL_SEARCH_PAGE;
+            return mav;
+        }
     }
         
     @RequestMapping(value = '/Material_search', method = RequestMethod.POST, params = 'mode=search')
