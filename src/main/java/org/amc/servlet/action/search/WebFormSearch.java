@@ -28,4 +28,9 @@ public abstract class WebFormSearch {
     protected Map<SearchFields, Object> getFieldMap() {
         return values;
     }
+    
+    public boolean isEmpty() {
+        Map<?,?> fields = getFieldMap();
+        return fields.isEmpty();
+    }
 }

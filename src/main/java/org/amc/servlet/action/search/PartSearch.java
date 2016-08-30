@@ -104,9 +104,4 @@ public class PartSearch extends WebFormSearch {
         text.append(')');
         return text.toString();
     }
-    
-    public boolean isEmpty() {
-       Map<?,?> fields = getFieldMap();
-       return fields.isEmpty();
-    }
 }

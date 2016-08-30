@@ -54,10 +54,6 @@ class PartsControllerEditTest {
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;
     }
-
-    @After
-    public void tearDown() throws Exception {
-    }
     
     @Test
     void testEdit() {

@@ -78,7 +78,7 @@
         <param-value>
 			org.springframework.web.context.support.GroovyWebApplicationContext
         </param-value>
-    </context-param>
+  </context-param>
   
    <!--  My listener Classes -->
   <listener>
@@ -114,14 +114,6 @@
   <servlet-mapping>
     <servlet-name>UserPage</servlet-name>
     <url-pattern>/app/UserInfo</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>MaterialBean</servlet-name>
-    <jsp-file>/WEB-INF/JSP/MaterialBean.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MaterialBean</servlet-name>
-    <url-pattern>/app/Processing/MaterialBean</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>ProcessSheetBean</servlet-name>

@@ -40,7 +40,7 @@ $(document).ready(function(){
 
 <div class="container entry">
 <div class="row">
-<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/app/Processing/MaterialBean"> 
+<form class="form-horizontal" method="post" action="./Material_save"> 
 <%-- To be used in edit mode to store the id of the object being edited --%>
 <input type="hidden" name='id' <c:if test='${form ne null}'>value='${form.id}'</c:if>/>
 
@@ -128,7 +128,7 @@ $(document).ready(function(){
 	<button id="enter" class="btn btn-block" type='submit'  name="mode" value='Enter'><span class="glyphicon glyphicon-plus pull-left"></span>Enter</button>
 </c:if>
 <c:if test="${mode eq 'edit' }">
-	<button id="edit"  class="btn btn-block" type='submit'  name="mode" value='edit'><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
+	<button id="edit"  class="btn btn-block" type='submit'  name="mode" value='Edit'><span class="glyphicon glyphicon-pencil pull-left"></span>Edit</button>
 </c:if>
 </tags:ButtonsMenu>
 	<tags:UserListItem/>
