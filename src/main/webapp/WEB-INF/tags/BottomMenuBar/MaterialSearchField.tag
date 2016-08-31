@@ -22,14 +22,14 @@
 		<select class="form-control" id="${name}" name="${name}">
 			<c:forEach items='${materials}' var='material'>
 				<c:choose>
-				<c:when test="${not empty sessionScope[sessionVariable] && material.key eq sessionScope[sessionVariable][name]}">
-					<option value='${material.key}' selected='selected'>
+				<c:when test="${not empty sessionScope[sessionVariable] && material.id eq sessionScope[sessionVariable][name]}">
+					<option value='${material.id}' selected='selected'>
 				</c:when>
 				<c:otherwise>
-					<option value='${material.key}'>
+					<option value='${material.id}'>
 				</c:otherwise>
 				</c:choose>
-				<c:out value="${myfunc:toString(material.value)}"/>
+				<c:out value="${myfunc:toString(material)}"/>
 				</option>
 			</c:forEach>
 		</select>	

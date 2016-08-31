@@ -80,7 +80,7 @@ $(document).ready(function()
 </thead>
 <tbody>
 <c:forEach items="${processSheets}" var="part">
-<TR onclick="selected(this)"><TD><c:out value="${part.dateOfIssue}"/></TD><TD><c:out value="${part.partId}"/></TD><TD><c:out value="${part.machineSize}"/></TD><TD><c:out value="${part.machineNo}"/></TD><TD><c:out value='${myfunc:toString(materials[part.material])}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
+<TR onclick="selected(this)"><TD><c:out value="${part.dateOfIssue}"/></TD><TD><c:out value="${part.partId}"/></TD><TD><c:out value="${part.machineSize}"/></TD><TD><c:out value="${part.machineNo}"/></TD><TD><c:out value='${myfunc:toString(materials[part.material-1])}'></c:out></TD><TD class="checkbox"><input type="checkbox" name="edit" value="${part.id}"/></TD></TR>
 </c:forEach>
 <tbody>
 </TABLE>
@@ -96,7 +96,7 @@ $(document).ready(function()
 		<button class="btn btn-block" id="display" type="submit" name="mode" value="display" formaction="${pageContext.request.contextPath}/app/ProcessSheet_display"><span class="glyphicon glyphicon-info-sign pull-left"></span>Display Process</button>
 	</tags:ButtonsMenu>
 	<tags:MenuSearchItem sessionVariable="PROCESSSEARCH" partId="Part Name" machineNo="Machine No." masterBatchNo="Masterbatch No." signedOffBy="Signed Off By">
-		<tags:MaterialSearchField displayName="Mataerial" name="material"/>
+		<tags:MaterialSearchField displayName="Material" name="material"/>
 		<tags:MenuSearchField name="startDate" displayName="Date from" type="date"/> 
 		<tags:MenuSearchField name="endDate" displayName="Date to" type="date"/>
 	</tags:MenuSearchItem>

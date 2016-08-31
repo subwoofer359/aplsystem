@@ -32,8 +32,8 @@
 	<div class="col-xs-12 col-sm-8">
 		<select id="material" name="material">
 			<c:forEach items='${materials}' var='material'>
-				<option value='${material.key}' <c:if test="${material.key eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
-					<c:out value="${myfunc:toString(material.value)}"/>
+				<option value='${material.id}' <c:if test="${material.id eq form.material}"><c:out value="selected='selected'"></c:out></c:if>>
+					<c:out value="${myfunc:toString(material)}"/>
 				</option>
 			</c:forEach>
 		</select>

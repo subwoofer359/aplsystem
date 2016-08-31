@@ -48,7 +48,7 @@ $(document).ready(function()
 </thead>
 <tbody>
 <c:forEach items="${materials}" var="material">
-<TR  onclick="selected(this)"><TD><c:out value="${material.value.company}"/></TD><TD><c:out value="${material.value.name}"/></TD><TD><c:out value="${material.value.type}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.value.id}"/></TD></TR>
+<TR  onclick="selected(this)"><TD><c:out value="${material.company}"/></TD><TD><c:out value="${material.name}"/></TD><TD><c:out value="${material.type}"/></TD><TD  class="checkbox"><input type="checkbox" name="edit" value="${material.id}"/></TD></TR>
 </c:forEach>
 </tbody>
 </TABLE>

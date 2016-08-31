@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Map
-
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -55,7 +53,7 @@ class MaterialSearchController extends MaterialController {
         
         mav.setViewName(MATERIAL_SEARCH_PAGE);
         
-        Map<Integer, Material> materials = Collections.EMPTY_MAP;
+        List<Material> materials = Collections.EMPTY_LIST;
        
         if(errors.hasErrors()) {
             mav.model[ControllerConstants.MESSAGE] = errors;  
@@ -70,13 +68,13 @@ class MaterialSearchController extends MaterialController {
         return mav;
     }
             
-    private Map useLastSearchParameters(HttpSession session) {
+    private List useLastSearchParameters(HttpSession session) {
         MaterialSearch saveSearch = session.getAttribute(SESSION_MATERIALSEARCH);
         SearchAction<Material, MaterialSearch> searchMAction = materialActionFactory.getSearchAction();
-        return saveSearch ? searchMAction.search(saveSearch) : Collections.EMPTY_MAP;
+        return saveSearch ? searchMAction.search(saveSearch) : Collections.EMPTY_LIST;
     }
     
-    private Map doSearchForMaterial(ModelAndView mav, MaterialSearch materialSearch) {
+    private List doSearchForMaterial(ModelAndView mav, MaterialSearch materialSearch) {
         try {
             SearchAction<Material, MaterialSearch> searchMAction = materialActionFactory.getSearchAction();
             def materials = searchMAction.search(materialSearch);

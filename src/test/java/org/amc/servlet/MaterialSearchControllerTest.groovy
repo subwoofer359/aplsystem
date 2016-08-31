@@ -64,7 +64,7 @@ class MaterialSearchControllerTest {
         material.name = name;
         material.type = type;
         
-        resultsList = [ materialId: material ];
+        resultsList = [ material ];
         
         
         
@@ -100,17 +100,17 @@ class MaterialSearchControllerTest {
         
         ModelAndViewAssert.assertViewName(mav, MaterialController.MATERIAL_SEARCH_PAGE);
         ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MESSAGE, errors);
-        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MATERIALS, Collections.EMPTY_MAP);
+        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MATERIALS, Collections.EMPTY_LIST);
     }
     
     @Test
     public void EmptyMaterialSearchTest() {
-        when(searchMaterialAction.search(any(MaterialSearch))).thenReturn(Collections.EMPTY_MAP);
+        when(searchMaterialAction.search(any(MaterialSearch))).thenReturn(Collections.EMPTY_LIST);
         
         ModelAndView mav = controller.searchForMaterial(session, matSearch, errors);
         
         ModelAndViewAssert.assertViewName(mav, MaterialController.MATERIAL_SEARCH_PAGE);
-        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MATERIALS, Collections.EMPTY_MAP);
+        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MATERIALS, Collections.EMPTY_LIST);
     }
     
     @Test
@@ -129,7 +129,7 @@ class MaterialSearchControllerTest {
     public void NotEmptyMaterialSearchSavedMaterialTest() {
         MaterialSearch newMaterialSearch = [company:'ALPS'] as MaterialSearch;
         when(searchMaterialAction.search(eq(newMaterialSearch))).thenReturn(resultsList);
-        when(searchMaterialAction.search(eq(matSearch))).thenReturn(Collections.EMPTY_MAP);
+        when(searchMaterialAction.search(eq(matSearch))).thenReturn(Collections.EMPTY_LIST);
         session.setAttribute(MaterialController.SESSION_MATERIALSEARCH, matSearch);
         
         ModelAndView mav = controller.searchForMaterial(session, newMaterialSearch, errors);
@@ -146,7 +146,7 @@ class MaterialSearchControllerTest {
         ModelAndView mav = controller.searchForMaterial(session, newMaterialSearch, errors);
         
         ModelAndViewAssert.assertViewName(mav, MaterialController.MATERIAL_SEARCH_PAGE);
-        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MATERIALS, Collections.EMPTY_MAP);
+        ModelAndViewAssert.assertModelAttributeValue(mav, ControllerConstants.MATERIALS, Collections.EMPTY_LIST);
     }
     
     @Test

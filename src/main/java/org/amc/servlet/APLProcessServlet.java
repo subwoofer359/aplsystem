@@ -9,7 +9,6 @@ import org.amc.DAOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -185,7 +184,7 @@ public class APLProcessServlet extends HttpServlet {
                     request.setAttribute(MODE, mode);
                 }
                 // Get List of Material
-                Map<Integer, Material> materials = materialActionFactory.getSearchAction()
+                List<Material> materials = materialActionFactory.getSearchAction()
                                 .search();
 
                 request.setAttribute(MATERIALS, materials);
@@ -216,7 +215,7 @@ public class APLProcessServlet extends HttpServlet {
 
                 // Get List of Material and add to the request for
                 // DisplayProcess.jsp to use.
-                Map<Integer, Material> materials = materialActionFactory.getSearchAction()
+                List<Material> materials = materialActionFactory.getSearchAction()
                                 .search();
                 request.setAttribute(MATERIALS, materials);
 
@@ -326,7 +325,7 @@ public class APLProcessServlet extends HttpServlet {
                 }
             }
             // Get List of Material
-            Map<Integer, Material> materials = materialActionFactory.getSearchAction()
+            List<Material> materials = materialActionFactory.getSearchAction()
                             .search();
 
             request.setAttribute(MATERIALS, materials);
@@ -350,7 +349,7 @@ public class APLProcessServlet extends HttpServlet {
         this.processActionFactory = processActionFactory;
     }
 
-    public void setActionFactory(ActionFactory<Material, MaterialSearch> materialActionFactory) {
+    public void setMaterialActionFactory(ActionFactory<Material, MaterialSearch> materialActionFactory) {
         this.materialActionFactory = materialActionFactory;
     }
 
@@ -360,6 +359,6 @@ public class APLProcessServlet extends HttpServlet {
         WebApplicationContext context2 = (WebApplicationContext) getServletContext().getAttribute(
                         Constants.SPRING_WEBAPPCONTEXT);
         setProcessActionFactory((ProcessActionFactory) context2.getBean("processActionFactory"));
-        setActionFactory((ActionFactory<Material, MaterialSearch>) context2.getBean("materialActionFactory"));
+        setMaterialActionFactory((ActionFactory<Material, MaterialSearch>) context2.getBean("materialActionFactory"));
     }
 }
