@@ -1,18 +1,19 @@
 package org.amc.servlet
 
 import org.amc.DAOException;
-import org.amc.model.Material;
-import org.amc.servlet.action.MaterialActionFactory
-import org.amc.servlet.action.SaveMaterialAction
-import org.apache.log4j.Logger
-import org.springframework.stereotype.Controller
-import org.springframework.validation.BindingResult
-import org.springframework.web.bind.WebDataBinder
+import org.amc.model.Material
+import org.amc.servlet.action.ActionFactory
+import org.amc.servlet.action.SaveAction;
+import org.amc.servlet.action.search.MaterialSearch;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestMethod
-import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.util.Locale;
@@ -28,7 +29,7 @@ class MaterialSaveController extends MaterialController {
     private static final Logger logger = Logger.getLogger(MaterialSaveController);
 
     @Resource(name = 'materialActionFactory')
-    MaterialActionFactory materialActionFactory;
+    ActionFactory<Material, MaterialSearch> materialActionFactory;
     
     @InitBinder("material")
     public void initBinder(WebDataBinder binder) {
@@ -59,7 +60,7 @@ class MaterialSaveController extends MaterialController {
             mav.setViewName(MATERIAL_ADD_EDIT_VIEW);
         } else {
             try {
-                SaveMaterialAction saveMaterialAction = materialActionFactory.getSaveMaterialAction();
+                SaveAction<Material> saveMaterialAction = materialActionFactory.getSaveAction();
                 saveMaterialAction.save(material);
                 mav.setViewName(REDIRECT_MATERIAL_SEARCH);
             } catch(DAOException de) {
@@ -79,7 +80,7 @@ class MaterialSaveController extends MaterialController {
             mav.setViewName(MATERIAL_ADD_EDIT_VIEW);
         } else {
             try {
-                SaveMaterialAction saveMaterialAction = materialActionFactory.getSaveMaterialAction();
+                SaveAction<Material> saveMaterialAction = materialActionFactory.getSaveAction();
                 saveMaterialAction.edit(material);
                 mav.setViewName(REDIRECT_MATERIAL_SEARCH);
             } catch(DAOException de) {

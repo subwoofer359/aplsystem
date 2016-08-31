@@ -4,26 +4,29 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.amc.DAOException;
-import org.amc.model.Material
-import org.amc.servlet.action.MaterialActionFactory
-import org.amc.servlet.action.SearchMaterialAction;
+import org.amc.model.Material;
+import org.amc.servlet.action.ActionFactory;
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.MaterialSearch;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.web.ModelAndViewAssert
+import org.springframework.test.web.ModelAndViewAssert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.ModelAndView
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 
 class MaterialSearchControllerTest {
     MaterialSearchController controller;
+    
     MaterialSearch matSearch;
+    
     Material material;
+    
     def resultsList;
     def company = 'Tosara';
     def name = 'pot';
@@ -34,10 +37,10 @@ class MaterialSearchControllerTest {
     BindingResult errors;
     
     @Mock
-    MaterialActionFactory materialActionFactory;
+    ActionFactory<Material, MaterialSearch> materialActionFactory;
     
     @Mock
-    SearchMaterialAction searchMaterialAction;
+    SearchAction<Material, MaterialSearch> searchMaterialAction;
     
     MockHttpSession session;
 
@@ -45,7 +48,7 @@ class MaterialSearchControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         controller = new MaterialSearchController();
-        when(materialActionFactory.getSearchMaterialAction()).thenReturn(searchMaterialAction);
+        when(materialActionFactory.getSearchAction()).thenReturn(searchMaterialAction);
         controller.materialActionFactory = materialActionFactory;
         
         session = new MockHttpSession();

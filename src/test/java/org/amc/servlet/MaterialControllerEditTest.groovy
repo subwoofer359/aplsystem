@@ -6,8 +6,9 @@ import static org.junit.Assert.*;
 
 import org.amc.DAOException;
 import org.amc.model.Material
-import org.amc.servlet.action.MaterialActionFactory
-import org.amc.servlet.action.SearchMaterialAction;
+import org.amc.servlet.action.ActionFactory
+import org.amc.servlet.action.SearchAction;
+import org.amc.servlet.action.search.MaterialSearch;
 import org.junit.Before;
 import org.junit.Test
 import org.mockito.Mock
@@ -21,10 +22,10 @@ class MaterialControllerEditTest {
     Material material;
     
     @Mock
-    MaterialActionFactory materialActionFactory;
+    ActionFactory<Material, MaterialSearch> materialActionFactory;
     
     @Mock
-    SearchMaterialAction searchMaterialAction;
+    SearchAction<Material, MaterialSearch> searchMaterialAction;
     
     @Before
     void setup() {
@@ -35,12 +36,12 @@ class MaterialControllerEditTest {
         
         material = new Material();
         
-        when(materialActionFactory.getSearchMaterialAction()).thenReturn(searchMaterialAction);
+        when(materialActionFactory.getSearchAction()).thenReturn(searchMaterialAction);
     }
     
     @Test
     void editMaterialTest() {
-        when(searchMaterialAction.getMaterial(anyString())).thenReturn(material);
+        when(searchMaterialAction.get(anyString())).thenReturn(material);
         ModelAndView mav = controller.editMaterial(materialIdStr);
         assert mav.viewName == MaterialController.MATERIAL_ADD_EDIT_VIEW;
         ModelAndViewAssert.assertModelAttributeValue(mav, FORM, material);
@@ -65,7 +66,7 @@ class MaterialControllerEditTest {
     
     @Test
     void editSearchTestDAOException() {
-        when(searchMaterialAction.getMaterial(anyString())).thenThrow(new DAOException("Test Exception"));
+        when(searchMaterialAction.get(anyString())).thenThrow(new DAOException("Test Exception"));
         String idValue = '2';
         try {
             ModelAndView mav = controller.editMaterial(idValue);

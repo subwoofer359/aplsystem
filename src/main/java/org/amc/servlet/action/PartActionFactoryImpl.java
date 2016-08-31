@@ -12,7 +12,6 @@ import org.amc.servlet.action.search.PartSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class PartActionFactoryImpl implements ActionFactory<Part, PartSearch> {
-    private static final long serialVersionUID = -2782238430222426152L;
     private DAO<Part> dao;
     
     @Autowired

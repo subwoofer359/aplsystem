@@ -18,10 +18,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.amc.servlet.action.MaterialActionFactory;
+import org.amc.servlet.action.ActionFactory;
 import org.amc.servlet.action.ProcessActionFactory;
 import org.amc.servlet.action.SaveProcessSheetAction;
 import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
@@ -61,7 +62,7 @@ public class APLProcessServlet extends HttpServlet {
 
     private ProcessActionFactory processActionFactory;
 
-    private MaterialActionFactory materialActionFactory;
+    private ActionFactory<Material, MaterialSearch> materialActionFactory;
 
     // Views
     private static final String MAIN_JSP = "/WEB-INF/JSP/Main.jsp";
@@ -184,7 +185,7 @@ public class APLProcessServlet extends HttpServlet {
                     request.setAttribute(MODE, mode);
                 }
                 // Get List of Material
-                Map<Integer, Material> materials = materialActionFactory.getSearchMaterialAction()
+                Map<Integer, Material> materials = materialActionFactory.getSearchAction()
                                 .search();
 
                 request.setAttribute(MATERIALS, materials);
@@ -215,7 +216,7 @@ public class APLProcessServlet extends HttpServlet {
 
                 // Get List of Material and add to the request for
                 // DisplayProcess.jsp to use.
-                Map<Integer, Material> materials = materialActionFactory.getSearchMaterialAction()
+                Map<Integer, Material> materials = materialActionFactory.getSearchAction()
                                 .search();
                 request.setAttribute(MATERIALS, materials);
 
@@ -325,7 +326,7 @@ public class APLProcessServlet extends HttpServlet {
                 }
             }
             // Get List of Material
-            Map<Integer, Material> materials = materialActionFactory.getSearchMaterialAction()
+            Map<Integer, Material> materials = materialActionFactory.getSearchAction()
                             .search();
 
             request.setAttribute(MATERIALS, materials);
@@ -349,7 +350,7 @@ public class APLProcessServlet extends HttpServlet {
         this.processActionFactory = processActionFactory;
     }
 
-    public void setMaterialActionFactory(MaterialActionFactory materialActionFactory) {
+    public void setActionFactory(ActionFactory<Material, MaterialSearch> materialActionFactory) {
         this.materialActionFactory = materialActionFactory;
     }
 
@@ -359,6 +360,6 @@ public class APLProcessServlet extends HttpServlet {
         WebApplicationContext context2 = (WebApplicationContext) getServletContext().getAttribute(
                         Constants.SPRING_WEBAPPCONTEXT);
         setProcessActionFactory((ProcessActionFactory) context2.getBean("processActionFactory"));
-        setMaterialActionFactory((MaterialActionFactory) context2.getBean("materialActionFactory"));
+        setActionFactory((ActionFactory<Material, MaterialSearch>) context2.getBean("materialActionFactory"));
     }
 }

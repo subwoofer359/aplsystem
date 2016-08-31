@@ -5,28 +5,29 @@ import static org.amc.servlet.ControllerConstants.*;
 
 import org.amc.DAOException;
 import org.amc.model.Material;
-import org.amc.servlet.action.MaterialActionFactory;
-import org.amc.servlet.action.SaveMaterialAction
+import org.amc.servlet.action.ActionFactory;
+import org.amc.servlet.action.SaveAction;
+import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.servlet.model.MaterialForm;
 import org.amc.servlet.validator.MaterialForm_Validator;
-import org.junit.Before
-import org.junit.Test
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Mock
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.mock.web.MockHttpServletResponse
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.ModelAndViewAssert;
-import org.springframework.validation.BindingResult
-import org.springframework.web.servlet.ModelAndView
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;;
+import javax.servlet.ServletException;
 
 class MaterialSaveControllerTest {  
     @Mock
-    SaveMaterialAction saveMaterialAction;
+    SaveAction<Material> saveMaterialAction;
     
     @Mock
-    MaterialActionFactory materialActionFactory;
+    ActionFactory<Material, MaterialSearch> materialActionFactory;
     
     @Mock
     BindingResult bindingResult;
@@ -68,7 +69,7 @@ class MaterialSaveControllerTest {
         material.mould_temp_upper = mould_temp_upper;
         material.water_absorption = water_absorption;
         
-        when(materialActionFactory.getSaveMaterialAction()).thenReturn(saveMaterialAction);
+        when(materialActionFactory.getSaveAction()).thenReturn(saveMaterialAction);
     }
     
     @Test
