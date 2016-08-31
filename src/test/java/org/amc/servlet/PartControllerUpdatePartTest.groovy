@@ -60,6 +60,7 @@ class PartControllerUpdatePartTest {
         when(partActionFactory.getSaveAction()).thenReturn(savePartAction);
         
         controller = new PartsModifyController();
+        controller.init();
         controller.partActionFactory = partActionFactory;
     }
     
@@ -81,7 +82,7 @@ class PartControllerUpdatePartTest {
         ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_PART_PAGE);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, PartsSearchController.ERRORS);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, 'form');
-        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', PartsSearchController.EDIT_MODE);
+        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', GenericSaveController.MODE_EDIT);
     }
     
     @Test(expected = ServletException)

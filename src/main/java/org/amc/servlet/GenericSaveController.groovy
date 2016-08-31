@@ -7,9 +7,14 @@ import org.amc.servlet.action.ActionFactory;
 import org.amc.servlet.action.SaveAction
 import org.amc.servlet.action.search.WebFormSearch;
 import org.apache.log4j.Logger;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.validation.BindingResult
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ModelAttribute
+import org.springframework.web.bind.support.WebBindingInitializer;
+import org.springframework.web.servlet.ModelAndView
+
+import java.text.ParseException;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.validation.Valid;
@@ -32,6 +37,10 @@ abstract class GenericSaveController<T extends WorkEntity,S extends WebFormSearc
     ActionFactory<T, S> actionFactory;
     
     private Map<View, String> views = new HashMap<View, String>();
+    
+    void initBinder(WebDataBinder binder) {
+        binder.addCustomFormatter(new MyIdFormatter(), 'id');
+    }
     
     ModelAndView save(@Valid @ModelAttribute T item, BindingResult errors) {
         ModelAndView mav = new ModelAndView();
@@ -77,5 +86,23 @@ abstract class GenericSaveController<T extends WorkEntity,S extends WebFormSearc
     
     void setView(View view, String viewName) {
         this.views.put(view, viewName);
+    }
+    
+    static class MyIdFormatter implements org.springframework.format.Formatter<Integer> {
+        
+                @Override
+                public Integer parse(String text, Locale locale) throws ParseException {
+                    if('' == text) {
+                        return 0;
+                    } else {
+                        return Integer.parseInt(text);
+                    }
+                }
+        
+                @Override
+                public String print(Integer object, Locale locale) {
+                    return String.valueOf(object);
+                }
+                
     }
 }

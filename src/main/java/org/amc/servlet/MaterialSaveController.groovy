@@ -16,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
-import java.util.Locale;
+import java.util.Locale
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource
 import javax.persistence.Column;
 import javax.servlet.ServletException;
@@ -31,6 +32,7 @@ class MaterialSaveController extends GenericSaveController<Material, MaterialSea
     static final String ITEM_VIEW = 'Material';
     static final String REDIRECT_SEARCH = 'redirect:Material_search';
     
+    @PostConstruct
     public void init() {
         setView(GenericSaveController.View.ITEM_VIEW, ITEM_VIEW);
         setView(GenericSaveController.View.REDIRECT_SEARCH, REDIRECT_SEARCH)
@@ -50,7 +52,7 @@ class MaterialSaveController extends GenericSaveController<Material, MaterialSea
              'mould_temp_upper'
              );
          
-         binder.addCustomFormatter(new MyIdFormatter(), 'id');
+         super.initBinder(binder);
     }
 
     @RequestMapping(method=RequestMethod.POST, value='/Material_save', params='mode=Enter')
@@ -63,6 +65,7 @@ class MaterialSaveController extends GenericSaveController<Material, MaterialSea
         return super.update(material, errors);
     }
     
+    @Resource(name = 'materialActionFactory')
     public void setMaterialActionFactory(ActionFactory<Material, MaterialSearch> materialActionFactory) {
         this.actionFactory = materialActionFactory;
     }
@@ -83,23 +86,5 @@ class MaterialSaveController extends GenericSaveController<Material, MaterialSea
             return String.valueOf(object);
         }
         
-    } 
-    
-    static class MyIdFormatter implements org.springframework.format.Formatter<Integer> {
-        
-                @Override
-                public Integer parse(String text, Locale locale) throws ParseException {
-                    if('' == text) {
-                        return 0;
-                    } else {
-                        return Integer.parseInt(text);
-                    }
-                }
-        
-                @Override
-                public String print(Integer object, Locale locale) {
-                    return String.valueOf(object);
-                }
-                
     }
 }

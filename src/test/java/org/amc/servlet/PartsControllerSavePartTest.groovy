@@ -59,6 +59,7 @@ class PartsControllerSavePartTest {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSaveAction()).thenReturn(savePartAction);
         controller = new PartsModifyController();
+        controller.init();
         controller.partActionFactory = partActionFactory;
     }
     
@@ -66,9 +67,7 @@ class PartsControllerSavePartTest {
     void testSavePartEnterMode() { 
         ModelAndView mav = controller.savePart(part, errors);
         verify(savePartAction, times(1)).save(part);
-        ModelAndViewAssert.assertViewName(mav, PartsSearchController.VIEW_PART_PAGE);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, ControllerConstants.FORM);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, 'result');
+        ModelAndViewAssert.assertViewName(mav, PartsModifyController.REDIRECT_SEARCH);
         assert mav.model[ControllerConstants.ERRORS] == null;
         
     }
@@ -81,7 +80,7 @@ class PartsControllerSavePartTest {
     
     @Test(expected=ServletException)
     void testSavePartEnterModeThrowsNumberFormatException() {
-        when(savePartAction.save(any(Part))).thenThrow(new NumberFormatException('Test Exception'));
+        when(savePartAction.save(any(Part))).thenThrow(new DAOException('Test Exception'));
         ModelAndView mav = controller.savePart(part, errors);
     }
     

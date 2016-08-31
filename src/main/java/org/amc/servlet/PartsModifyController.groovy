@@ -2,9 +2,12 @@ package org.amc.servlet
 
 import org.amc.DAOException;
 import org.amc.model.Part
-import org.amc.servlet.action.SaveAction;
+import org.amc.servlet.action.ActionFactory;
+import org.amc.servlet.action.SaveAction
+import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.validator.PartValidator;
-import org.apache.log4j.Logger;
+import org.apache.log4j.Logger
+import org.apache.openjpa.kernel.exps.This;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
@@ -14,64 +17,45 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndView
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.validation.Valid;
 
 @Controller
-class PartsModifyController extends PartsController {
+class PartsModifyController extends GenericSaveController<Part, PartSearch> {
     private static final Logger logger = Logger.getLogger(PartsModifyController);
     
-    @Resource(name = 'partActionFactory')
-    def partActionFactory;
-    
+    static final String ITEM_VIEW  = 'Part';
+    static final String REDIRECT_SEARCH = 'PartsSearchPage';
+     
     @InitBinder("part")
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(new PartValidator());
+        super.initBinder(binder);
+    }
+    
+    @PostConstruct
+    void init() {
+        logger.debug("PartsModifyController init method called");
+        setView(GenericSaveController.View.ITEM_VIEW, ITEM_VIEW);
+        setView(GenericSaveController.View.REDIRECT_SEARCH, REDIRECT_SEARCH);
     }
     
     @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Edit')
     ModelAndView updatePart(@Valid @ModelAttribute Part part, BindingResult errors) {
-        ModelAndView mav = new ModelAndView();
-        mav.viewName = VIEW_SEARCH_PAGE;
-        if(errors.hasErrors()) {
-            mav.model.form = part;
-            mav.model[ERRORS] = errors;
-            mav.model.mode = EDIT_MODE
-            mav.viewName = VIEW_PART_PAGE;
-        } else {
-            try {
-                SaveAction<Part> spa = partActionFactory.getSaveAction();
-                spa.edit(part);
-            } catch(DAOException de) {
-                throw (ServletException) new ServletException(ERROR_DAO).initCause(de);
-            }
-        }
-        return mav;
+        return super.update(part ,errors);
     }
     
     @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Enter')
     ModelAndView savePart(@Valid @ModelAttribute Part part, BindingResult errors) {
-        ModelAndView mav = new ModelAndView();
-        mav.viewName = VIEW_PART_PAGE;
-        SaveAction<Part> spa = partActionFactory.getSaveAction();
-        if(errors.hasErrors()) {
-            mav.model.form = part;
-            mav.model[ERRORS] = errors;
-        } else {
-            try {
-                spa.save(part);
-                mav.model.form = part;
-                mav.model.result = "${part} saved";
-                mav.model.remove(ERRORS);
-            } catch(DAOException de) {
-                throw (ServletException) new ServletException(ERROR_DAO).initCause(de);
-            } catch(NumberFormatException ne) {
-                throw new ServletException(ne);
-            }
-        }
-        return mav;
+        return super.save(part, errors);
+    }
+    
+    @Resource(name = 'partActionFactory')
+    void setPartActionFactory(ActionFactory<Part, PartSearch> partActionFactory) {
+        this.actionFactory = partActionFactory;
     }
 }

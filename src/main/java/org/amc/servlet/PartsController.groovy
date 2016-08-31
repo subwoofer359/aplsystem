@@ -12,7 +12,7 @@ abstract class PartsController {
     static final String VIEW_PART_PAGE = 'Part';
     static final String VIEW_MAIN_PAGE = 'Main';
     static final String SEARCH_PARSE_ERROR_MSG = 'Search Parameters couldn\'t be parsed';
-    static final String EDIT_MODE = 'edit Part';
+    static final String EDIT_MODE = 'edit';
     static final String ERROR_PAGE_EDIT = 'Can\'t edit Part';
     static final String ERROR_DAO = 'Database not available: ${de.message}';
 }
