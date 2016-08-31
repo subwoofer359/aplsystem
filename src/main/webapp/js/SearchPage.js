@@ -21,7 +21,6 @@ function selected(element) {
         element = $(element);
         element.addClass('checked');
         element.find('input[type=\'checkbox\']').prop('checked', true);
-        console.log(element);
     }
 
 }
@@ -53,12 +52,12 @@ function addClicked(button) {
  */
 function isChecked(form, itemName, alertDiv) {
     var list = document.getElementsByName('edit');
-    console.log(list.length + '\n');
     var checked = false;
     for (var t in list) {
-        console.log(list[t] + ' ' + list[t].checked + '\n');
-        if (list[t].checked) {
-            checked = true;
+        if(list.hasOwnProperty(t)) {
+            if (list[t].checked) {
+                checked = true;
+            }
         }
     }
     if (!checked) {
@@ -102,7 +101,7 @@ $(document).ready(function() {
     /* The user's enter keypress on the search element should submit a search */
     $('.navbar-form').keypress(function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
-        if (code == 13) {
+        if (code === 13) {
             $('#search-btn').click();
             e.stopPropagation();
             return false;
