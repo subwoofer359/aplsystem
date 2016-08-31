@@ -48,6 +48,7 @@ class MaterialSearchControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         controller = new MaterialSearchController();
+        controller.init();
         when(materialActionFactory.getSearchAction()).thenReturn(searchMaterialAction);
         controller.materialActionFactory = materialActionFactory;
         

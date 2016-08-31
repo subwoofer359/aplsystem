@@ -8,7 +8,8 @@ class MaterialControllerAddTest {
     
     @Before
     void setup() {
-        controller = new MaterialSearchController();    
+        controller = new MaterialSearchController();
+        controller.init();
     }
     
     @Test

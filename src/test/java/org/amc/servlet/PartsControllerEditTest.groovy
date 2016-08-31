@@ -62,7 +62,7 @@ class PartsControllerEditTest {
         ModelAndView mav = controller.editPart(idValue);
         ModelAndViewAssert.assertViewName(mav, 'Part');
         ModelAndViewAssert.assertModelAttributeAvailable(mav, 'form');
-        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', 'edit Part');
+        ModelAndViewAssert.assertModelAttributeValue(mav, 'mode', 'edit');
     }
     
     @Test

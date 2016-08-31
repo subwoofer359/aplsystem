@@ -32,6 +32,7 @@ class MaterialControllerEditTest {
         MockitoAnnotations.initMocks(this);
         
         controller = new MaterialSearchController();
+        controller.init();
         controller.materialActionFactory = materialActionFactory;
         
         material = new Material();
