@@ -1,8 +1,8 @@
 package org.amc.servlet
 
 import org.amc.DAOException;
-import org.amc.model.Part;
-import org.amc.servlet.action.SavePartAction;
+import org.amc.model.Part
+import org.amc.servlet.action.SaveAction;
 import org.amc.servlet.validator.PartValidator;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -43,7 +43,7 @@ class PartsModifyController extends PartsController {
             mav.viewName = VIEW_PART_PAGE;
         } else {
             try {
-                SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
+                SaveAction<Part> spa = partActionFactory.getSaveAction();
                 spa.edit(part);
             } catch(DAOException de) {
                 throw (ServletException) new ServletException(ERROR_DAO).initCause(de);
@@ -56,7 +56,7 @@ class PartsModifyController extends PartsController {
     ModelAndView savePart(@Valid @ModelAttribute Part part, BindingResult errors) {
         ModelAndView mav = new ModelAndView();
         mav.viewName = VIEW_PART_PAGE;
-        SavePartAction spa = partActionFactory.getSaveJobTemplateAction();
+        SaveAction<Part> spa = partActionFactory.getSaveAction();
         if(errors.hasErrors()) {
             mav.model.form = part;
             mav.model[ERRORS] = errors;

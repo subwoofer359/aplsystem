@@ -5,10 +5,10 @@ import static org.mockito.Mockito.*;
 
 import org.amc.DAOException;
 import org.amc.dao.DAO;
-import org.amc.model.Part;
-import org.amc.servlet.action.PartActionFactory;
-import org.amc.servlet.action.SavePartAction;
-import org.amc.servlet.action.SearchPartAction;
+import org.amc.model.Part
+import org.amc.servlet.action.ActionFactory;
+import org.amc.servlet.action.SaveAction
+import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.validator.PartSearchFormValidator;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,13 +43,13 @@ class PartsControllerSavePartTest {
     HttpServletRequest httpRequest;
     
     @Mock
-    PartActionFactory partActionFactory;
+    ActionFactory<Part, PartSearch> partActionFactory;
     
     @Mock
     DAO<Part> jobDAO;
     
     @Mock
-    SavePartAction savePartAction;
+    SaveAction<Part> savePartAction;
     
     @Mock
     BindingResult errors;
@@ -57,7 +57,7 @@ class PartsControllerSavePartTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        when(partActionFactory.getSaveJobTemplateAction()).thenReturn(savePartAction);
+        when(partActionFactory.getSaveAction()).thenReturn(savePartAction);
         controller = new PartsModifyController();
         controller.partActionFactory = partActionFactory;
     }

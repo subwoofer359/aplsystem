@@ -8,28 +8,25 @@ package org.amc.servlet.action;
 
 import org.amc.dao.DAO;
 import org.amc.model.Part;
+import org.amc.servlet.action.search.PartSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class PartActionFactoryImpl implements PartActionFactory {
+public class PartActionFactoryImpl implements ActionFactory<Part, PartSearch> {
     private static final long serialVersionUID = -2782238430222426152L;
-    private final DAO<Part> jobDAO;
-
+    private DAO<Part> dao;
+    
     @Autowired
-    public PartActionFactoryImpl(DAO<Part> jobDAO) {
-        this.jobDAO = jobDAO;
+    public PartActionFactoryImpl(DAO<Part> dao) {
+        this.dao = dao;
     }
-
-    // public SaveJobTemplateAction getSaveJobTemplateAction()
-    // {
-    // return new SaveJobTemplateAction(jobDAO);
-    // }
     @Override
-    public SavePartAction getSaveJobTemplateAction() {
-        return new SavePartAction(this.jobDAO);
+    public SearchAction<Part, PartSearch> getSearchAction() {
+        return new SearchAction<Part, PartSearch>(dao);
     }
 
     @Override
-    public SearchPartAction getSearchJobTemplateAction() {
-        return new SearchPartAction(this.jobDAO);
+    public SaveAction<Part> getSaveAction() {
+        return new SaveAction<Part>(dao);
     }
+    
 }

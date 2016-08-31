@@ -5,9 +5,10 @@ import static org.mockito.Mockito.*;
 
 import org.amc.DAOException;
 import org.amc.dao.DAO;
-import org.amc.model.Part;
-import org.amc.servlet.action.PartActionFactory;
-import org.amc.servlet.action.SearchPartAction;
+import org.amc.model.Part
+import org.amc.servlet.action.ActionFactory;
+import org.amc.servlet.action.SearchAction;
+import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.validator.PartSearchFormValidator;
 import org.junit.After;
 import org.junit.Before;
@@ -35,13 +36,13 @@ class PartsControllerEditTest {
     HttpServletRequest httpRequest;
     
     @Mock
-    PartActionFactory partActionFactory;
+    ActionFactory<Part, PartSearch> partActionFactory;
     
     @Mock
     DAO<Part> jobDAO;
     
     @Mock
-    SearchPartAction searchPartAction;
+    SearchAction<Part, PartSearch> searchPartAction;
     
     @Mock
     PartSearchFormValidator searchFormValidator;
@@ -49,7 +50,7 @@ class PartsControllerEditTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        when(partActionFactory.getSearchJobTemplateAction()).thenReturn(searchPartAction);
+        when(partActionFactory.getSearchAction()).thenReturn(searchPartAction);
         controller = new PartsSearchController();
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;
@@ -82,7 +83,7 @@ class PartsControllerEditTest {
     
     @Test
     void testEditSearchDAOException() {
-        when(searchPartAction.getPart(anyString())).thenThrow(new DAOException("Test Exception"));
+        when(searchPartAction.get(anyString())).thenThrow(new DAOException("Test Exception"));
         String idValue = '2';
         try {
             ModelAndView mav = controller.editPart(idValue);

@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.amc.dao.DAO;
-import org.amc.model.Part;
-import org.amc.servlet.action.PartActionFactory;
-import org.amc.servlet.action.SearchPartAction;
+import org.amc.model.Part
+import org.amc.servlet.action.ActionFactory
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.validator.PartSearchFormValidator;
 import org.junit.After;
@@ -38,13 +38,13 @@ class PartsSearchControllerTest {
     HttpServletRequest httpRequest;
     
     @Mock
-    PartActionFactory partActionFactory;
+    ActionFactory<Part, PartSearch> partActionFactory;
     
     @Mock
     DAO<Part> jobDAO;
     
     @Mock
-    SearchPartAction searchPartAction;
+    SearchAction<Part, PartSearch> searchPartAction;
     
     @Mock
     PartSearchFormValidator searchFormValidator;
@@ -57,7 +57,7 @@ class PartsSearchControllerTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        when(partActionFactory.getSearchJobTemplateAction()).thenReturn(searchPartAction);
+        when(partActionFactory.getSearchAction()).thenReturn(searchPartAction);
         controller = new PartsSearchController();
         controller.partActionFactory = partActionFactory;
         controller.searchFormValidator = searchFormValidator;

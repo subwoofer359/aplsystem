@@ -9,7 +9,7 @@ import org.amc.dao.DAO;
 import org.amc.model.Part;
 import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.amc.myservlet.test.spc.TestSPCFixture;
-import org.amc.servlet.action.SearchPartAction;
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.PartSearch;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -58,8 +58,8 @@ public class DAOPartIT {
         PartSearch search = new PartSearch();
         search.setCompany("Apple");
 
-        SearchPartAction action = new SearchPartAction(partDAO);
-
+        SearchAction<Part, PartSearch> action = new SearchAction<Part, PartSearch>(partDAO);
+        
         try {
             List<Part> result = action.search(search);
             assertNotNull(result);
@@ -96,7 +96,7 @@ public class DAOPartIT {
     public void testFindEntitiesSearch_EmptyPartSearch() {
         PartSearch search = new PartSearch();
 
-        SearchPartAction action = new SearchPartAction(partDAO);
+        SearchAction<Part, PartSearch> action = new SearchAction<Part, PartSearch>(partDAO);
 
         try {
             List<Part> result = action.search(search);

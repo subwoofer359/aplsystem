@@ -1,7 +1,5 @@
 package org.amc.servlet.action.search;
 
-import java.util.Map;
-
 /**
  * Class that store information of a User's search parameters for a
  * {@link org.model.Part}

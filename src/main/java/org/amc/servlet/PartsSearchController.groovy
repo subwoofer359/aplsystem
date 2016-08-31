@@ -1,9 +1,8 @@
 package org.amc.servlet
 
 import org.amc.DAOException;
-import org.amc.model.Part;
-import org.amc.servlet.action.SavePartAction;
-import org.amc.servlet.action.SearchPartAction;
+import org.amc.model.Part
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.PartSearchForm;
 import org.amc.servlet.validator.PartSearchFormValidator;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 
-import java.text.NumberFormat;
 import java.text.ParseException;
 
 import javax.annotation.Resource;
@@ -100,13 +98,13 @@ class PartsSearchController extends PartsController {
         
     private List useLastSearchParameters(HttpSession session) {
         PartSearch lastPartSearch = session.getAttribute(SESSION_PARTSEARCH);
-        SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
+        SearchAction<Part, PartSearch> spa = partActionFactory.getSearchAction();
         return lastPartSearch ? spa.search(lastPartSearch) : Collections.EMPTY_LIST;
     }
     
     private List doSearchForPart(ModelAndView mav, PartSearch partSearch) {
         try {
-            SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
+            SearchAction<Part, PartSearch> spa = partActionFactory.getSearchAction();
             def parts = spa.search(partSearch);
             mav.getModel().put(SESSION_PARTSEARCH, partSearch);
             return parts;
@@ -132,8 +130,8 @@ class PartsSearchController extends PartsController {
     
     private ModelAndView storePartInModel(ModelAndView mav, String idValue) {
         try {
-            SearchPartAction spa = partActionFactory.getSearchJobTemplateAction();
-            mav.model.form = spa.getPart(idValue);
+            SearchAction<Part, PartSearch> spa = partActionFactory.getSearchAction();
+            mav.model.form = spa.get(idValue);
             mav.model.mode = EDIT_MODE;
             mav.setViewName(VIEW_PART_PAGE);
         } catch(DAOException de) {
