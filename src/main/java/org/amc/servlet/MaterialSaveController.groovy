@@ -24,17 +24,22 @@ import javax.servlet.ServletException;
 import javax.validation.Valid;
 
 @Controller
-class MaterialSaveController extends MaterialController {
+class MaterialSaveController extends GenericSaveController<Material, MaterialSearch> {
     
     private static final Logger logger = Logger.getLogger(MaterialSaveController);
-
-    @Resource(name = 'materialActionFactory')
-    ActionFactory<Material, MaterialSearch> materialActionFactory;
+    
+    static final String ITEM_VIEW = 'Material';
+    static final String REDIRECT_SEARCH = 'redirect:Material_search';
+    
+    public void init() {
+        setView(GenericSaveController.View.ITEM_VIEW, ITEM_VIEW);
+        setView(GenericSaveController.View.REDIRECT_SEARCH, REDIRECT_SEARCH)
+    }
     
     @InitBinder("material")
     public void initBinder(WebDataBinder binder) {
         binder.addCustomFormatter(new MyFloatFormatter(),
-            'density',
+             'density',
              'linear_expansion',
              'water_absorption',
              'material_drying',
@@ -50,45 +55,16 @@ class MaterialSaveController extends MaterialController {
 
     @RequestMapping(method=RequestMethod.POST, value='/Material_save', params='mode=Enter')
     ModelAndView saveMaterial(@Valid @ModelAttribute Material material, BindingResult errors) {
-        ModelAndView mav = new ModelAndView();
-        
-        logger.debug("Errors: ${errors}");
-        
-        if(errors.hasErrors()) {
-            mav.model.form = material;
-            mav.model[ERRORS] = errors;
-            mav.setViewName(MATERIAL_ADD_EDIT_VIEW);
-        } else {
-            try {
-                SaveAction<Material> saveMaterialAction = materialActionFactory.getSaveAction();
-                saveMaterialAction.save(material);
-                mav.setViewName(REDIRECT_MATERIAL_SEARCH);
-            } catch(DAOException de) {
-                throw new ServletException(ERROR_DAO).initCause(de);
-            }
-        }
-        return mav;
+       return super.save(material, errors);
     }
 
     @RequestMapping(method=RequestMethod.POST, value='/Material_save', params='mode=Edit')
     ModelAndView updateMaterial(@Valid @ModelAttribute Material material, BindingResult errors) {
-        ModelAndView mav = new ModelAndView();
-        if(errors.hasErrors()) {
-            mav.model.form = material;
-            mav.model[ERRORS] = errors;
-            mav.model[MODE] = MODE_EDIT;
-            mav.setViewName(MATERIAL_ADD_EDIT_VIEW);
-        } else {
-            try {
-                SaveAction<Material> saveMaterialAction = materialActionFactory.getSaveAction();
-                saveMaterialAction.edit(material);
-                mav.setViewName(REDIRECT_MATERIAL_SEARCH);
-            } catch(DAOException de) {
-                throw new ServletException(ERROR_DAO).initCause(de);
-            }
-        }
-
-        return mav;
+        return super.update(material, errors);
+    }
+    
+    public void setMaterialActionFactory(ActionFactory<Material, MaterialSearch> materialActionFactory) {
+        this.actionFactory = materialActionFactory;
     }
     
     static class MyFloatFormatter implements org.springframework.format.Formatter<Float> {

@@ -54,6 +54,7 @@ class MaterialSaveControllerTest {
     void setup() {
         MockitoAnnotations.initMocks(this);
         controller = new MaterialSaveController();
+        controller.init();
         controller.setMaterialActionFactory(materialActionFactory);
         
         material = new Material();
@@ -76,7 +77,7 @@ class MaterialSaveControllerTest {
     void testSaveMaterial() {
         when(bindingResult.hasErrors()).thenReturn(false);
         ModelAndView mav = controller.saveMaterial(material, bindingResult);
-        assert MaterialController.REDIRECT_MATERIAL_SEARCH == mav.viewName;
+        assert MaterialSaveController.REDIRECT_SEARCH == mav.viewName;
         verify(saveMaterialAction, times(1)).save(material);
     }
     
@@ -91,17 +92,17 @@ class MaterialSaveControllerTest {
     void testSaveMaterialHasErrors() {
         when(bindingResult.hasErrors()).thenReturn(true);
         ModelAndView mav = controller.saveMaterial(material, bindingResult);
-        assert MaterialController.MATERIAL_ADD_EDIT_VIEW == mav.viewName;
+        assert MaterialSaveController.ITEM_VIEW == mav.viewName;
         verify(saveMaterialAction, never()).save(material);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, FORM);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, MaterialController.ERRORS);
+        ModelAndViewAssert.assertModelAttributeAvailable(mav, GenericSaveController.ERRORS);
     }
     
     @Test
     void testEditMaterial() {
         when(bindingResult.hasErrors()).thenReturn(false);
         ModelAndView mav = controller.updateMaterial(material, bindingResult);
-        assert MaterialController.REDIRECT_MATERIAL_SEARCH == mav.viewName;
+        assert MaterialSaveController.REDIRECT_SEARCH == mav.viewName;
         verify(saveMaterialAction, times(1)).edit(material);
     }
     
@@ -116,10 +117,10 @@ class MaterialSaveControllerTest {
     void testEditMaterialHasErrors() {
         when(bindingResult.hasErrors()).thenReturn(true);
         ModelAndView mav = controller.updateMaterial(material, bindingResult);
-        assert MaterialController.MATERIAL_ADD_EDIT_VIEW == mav.viewName;
+        assert MaterialSaveController.ITEM_VIEW == mav.viewName;
         verify(saveMaterialAction, never()).edit(material);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, FORM);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, MaterialController.ERRORS);
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, MaterialController.MODE);
+        ModelAndViewAssert.assertModelAttributeAvailable(mav, GenericSaveController.ERRORS);
+        ModelAndViewAssert.assertModelAttributeAvailable(mav, GenericSaveController.MODE);
     }
 }
