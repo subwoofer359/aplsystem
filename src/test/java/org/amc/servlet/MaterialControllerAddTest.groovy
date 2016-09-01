@@ -15,6 +15,6 @@ class MaterialControllerAddTest {
     @Test
     void addMaterialTest() {
         String view = controller.addMaterial();
-        assert view == MaterialController.MATERIAL_ADD_EDIT_VIEW;
+        assert view == MaterialSearchController.ITEM_VIEW;
     }
 }

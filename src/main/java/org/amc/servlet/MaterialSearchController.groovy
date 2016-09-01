@@ -30,13 +30,20 @@ class MaterialSearchController extends GenericSearchController<Material, Materia
     
     private static final Logger logger = Logger.getLogger(MaterialSearchController.class);
     
+    static String SEARCH_PAGE = 'MaterialSearchPage';
+    static String ITEMS_NAME = 'materials';
+    static String SESSION_SEARCH_NAME = 'MATERIALSEARCH';
+    static String ITEM_VIEW = 'Material';
+    static String ERROR_EDIT_FAIL = 'Can\'t edit material'
+    
+    
     @PostConstruct
     void init() {
-        this.searchPage = 'MaterialSearchPage';
-        this.itemsName = 'materials';
-        this.sessionSearchName = 'MATERIALSEARCH';
-        this.itemView = 'Material';
-        this.errorEditFailMessage = 'Can\'t edit material';
+        this.searchPage = SEARCH_PAGE;
+        this.itemsName = ITEMS_NAME;
+        this.sessionSearchName = SESSION_SEARCH_NAME;
+        this.itemView = ITEM_VIEW;
+        this.errorEditFailMessage = ERROR_EDIT_FAIL;
     }
     
     @RequestMapping(value = ['/MaterialServlet', '/Material_search'], method = RequestMethod.GET)
