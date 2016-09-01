@@ -21,10 +21,15 @@ import javax.validation.Valid;
 
 abstract class GenericSaveController<T extends WorkEntity,S extends WebFormSearch> {
 
-    public enum View {
-        ITEM_VIEW,
-        REDIRECT_SEARCH
-    };
+    /**
+     * Page for the Item to be displayed for edit and addition
+     */
+    String itemView;
+    
+    /**
+     * Redirect to Item Search page
+     */
+    String redirectSearch;
 
     static final String FORM = 'form';
     static final String ERRORS = 'errors';
@@ -36,7 +41,6 @@ abstract class GenericSaveController<T extends WorkEntity,S extends WebFormSearc
     
     ActionFactory<T, S> actionFactory;
     
-    private Map<View, String> views = new HashMap<View, String>();
     
     void initBinder(WebDataBinder binder) {
         binder.addCustomFormatter(new MyIdFormatter(), 'id');
@@ -50,12 +54,12 @@ abstract class GenericSaveController<T extends WorkEntity,S extends WebFormSearc
         if(errors.hasErrors()) {
             mav.model[FORM] = item;
             mav.model[ERRORS] = errors;
-            mav.setViewName(views[View.ITEM_VIEW]);
+            mav.setViewName(itemView);
         } else {
             try {
                 SaveAction<T> saveAction = actionFactory.getSaveAction();
                 saveAction.save(item);
-                mav.setViewName(views[View.REDIRECT_SEARCH]);
+                mav.setViewName(redirectSearch);
             } catch(DAOException de) {
                 throw new ServletException(ERROR_DAO).initCause(de);
             }
@@ -70,22 +74,18 @@ abstract class GenericSaveController<T extends WorkEntity,S extends WebFormSearc
             mav.model[FORM] = item;
             mav.model[ERRORS] = errors;
             mav.model[MODE] = MODE_EDIT;
-            mav.setViewName(views[View.ITEM_VIEW]);
+            mav.setViewName(itemView);
         } else {
             try {
                 SaveAction<T> saveAction = actionFactory.getSaveAction();
                 saveAction.edit(item);
-                mav.setViewName(views[View.REDIRECT_SEARCH]);
+                mav.setViewName(redirectSearch);
             } catch(DAOException de) {
                 throw new ServletException(ERROR_DAO).initCause(de);
             }
         }
 
         return mav;
-    }
-    
-    void setView(View view, String viewName) {
-        this.views.put(view, viewName);
     }
     
     static class MyIdFormatter implements org.springframework.format.Formatter<Integer> {
