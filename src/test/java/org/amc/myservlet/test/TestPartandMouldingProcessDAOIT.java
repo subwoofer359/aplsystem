@@ -11,7 +11,6 @@ import java.sql.Date;
 
 import org.amc.DAOException;
 import org.amc.dao.DAO;
-import org.amc.dao.MaterialDAO;
 import org.amc.model.Material;
 import org.amc.model.MouldingProcess;
 import org.amc.model.Part;
@@ -33,7 +32,7 @@ public class TestPartandMouldingProcessDAOIT {
     private final String NAME = "Moplen550";
     private final String COMPANY = "TOSARA";
     private final String TYPE = "ABS";
-    private MaterialDAO daoMaterial;
+    private DAO<Material> daoMaterial;
     private DAO<MouldingProcess> d;
     private DAO<Part> pd;
     
@@ -53,7 +52,7 @@ public class TestPartandMouldingProcessDAOIT {
     public void setUp() throws Exception {
         dbFixture.clearTables();
         
-        daoMaterial = new MaterialDAO();
+        daoMaterial = new DAO<Material>(Material.class);
         daoMaterial.setEntityManager(dbFixture.getNewEntityManager());
         
         d = new DAO<MouldingProcess>(MouldingProcess.class);

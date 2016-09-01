@@ -1,3 +1,5 @@
+import org.amc.dao.DAO
+import org.amc.model.Material;
 import org.amc.servlet.APLProcessServlet
 import org.amc.servlet.MaterialSaveController
 import org.amc.servlet.MaterialSearchController;
@@ -20,7 +22,7 @@ beans {
     materialActionFactory(MaterialActionFactoryImpl, ref('MaterialDAO')) {
     }
     
-    MaterialDAO(org.amc.dao.MaterialDAO) {
+    MaterialDAO(DAO, Material) {
         entityManager = ref('appEntityManager');
     }
 }
