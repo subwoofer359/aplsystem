@@ -47,7 +47,6 @@ class GenericSearchController<T extends WorkEntity, S extends WebFormSearch> {
         
         ModelAndView mav = new ModelAndView();
     
-        logger.debug('search:' + search.name);
         logger.debug("Errors: ${errors}");
     
         mav.setViewName(searchPage);
@@ -107,7 +106,7 @@ class GenericSearchController<T extends WorkEntity, S extends WebFormSearch> {
     }
     
     private ModelAndView setErrorMsg(ModelAndView mav) {
-        mav.setViewName(itemView);
+        mav.setViewName(searchPage);
         mav.model[ControllerConstants.MESSAGE] = errorEditFailMessage;
         return mav;
     }

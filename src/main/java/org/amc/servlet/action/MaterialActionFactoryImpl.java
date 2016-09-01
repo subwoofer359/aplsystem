@@ -1,6 +1,6 @@
 package org.amc.servlet.action;
 
-import org.amc.dao.MaterialDAO;
+import org.amc.dao.DAO;
 import org.amc.model.Material;
 import org.amc.servlet.action.search.MaterialSearch;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @version 1
  */
 public class MaterialActionFactoryImpl implements ActionFactory<Material, MaterialSearch> {
-    private final MaterialDAO materialDAO;
+    private final DAO<Material> materialDAO;
 
     @Autowired
-    public MaterialActionFactoryImpl(MaterialDAO materialDAO) {
+    public MaterialActionFactoryImpl(DAO<Material> materialDAO) {
         this.materialDAO = materialDAO;
     }
 

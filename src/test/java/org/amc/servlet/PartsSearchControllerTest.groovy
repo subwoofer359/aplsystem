@@ -45,9 +45,7 @@ class PartsSearchControllerTest {
     
     @Mock
     SearchAction<Part, PartSearch> searchPartAction;
-    
-    @Mock
-    PartSearchFormValidator searchFormValidator;
+ 
     
     @Mock
     BindingResult errors;
@@ -59,8 +57,8 @@ class PartsSearchControllerTest {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSearchAction()).thenReturn(searchPartAction);
         controller = new PartsSearchController();
+        controller.init();
         controller.partActionFactory = partActionFactory;
-        controller.searchFormValidator = searchFormValidator;
         
         partSearch = new PartSearch();
         
@@ -68,33 +66,7 @@ class PartsSearchControllerTest {
         when(httpRequest.getParameter('partName')).thenReturn(partName);
         when(httpRequest.getParameter('QSSNumber')).thenReturn(qssNumber);  
     }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void testGetAPLSystemServlet() {
-        String view = controller.getAPLSystemServlet();
-        assert view == "Main";
-    }
-    
-    @Test
-    public void testLogOut() {
-        def redirect = controller.logout(session, httpRequest);
-        verify(session, times(1)).invalidate();
-        verify(httpRequest, times(1)).logout();
-        
-        assert redirect == "redirect:/";
-        
-    }
-    
-    @Test
-    public void testLogOutNoSession() {
-        controller.logout(null, httpRequest);
-        verify(session, times(0)).invalidate();
-    }
-    
+ 
     @Test
     public void testDisplayPart() {
         String view = controller.displayPart();
@@ -145,20 +117,5 @@ class PartsSearchControllerTest {
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
-    }
-    
-    @Test
-    public void testNotValidSubmission() {
-        def parts = [];
-        when(searchPartAction.search(any())).thenReturn(parts);
-        reset(searchFormValidator);
-        when(errors.hasErrors()).thenReturn(true);
-        when(errors.getAllErrors()).thenReturn([]);
-        
-        ModelAndView mav = controller.searchForPart(session, partSearch, errors);
-        ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
-        ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
-        ModelAndViewAssert.assertAndReturnModelAttributeOfType(mav, ControllerConstants.MESSAGE, BindingResult); 
     }
 }

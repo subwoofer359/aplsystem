@@ -44,7 +44,7 @@ class MaterialControllerEditTest {
     void editMaterialTest() {
         when(searchMaterialAction.get(anyString())).thenReturn(material);
         ModelAndView mav = controller.editMaterial(materialIdStr);
-        assert mav.viewName == MaterialController.MATERIAL_ADD_EDIT_VIEW;
+        assert mav.viewName == MaterialSearchController.ITEM_VIEW;
         ModelAndViewAssert.assertModelAttributeValue(mav, FORM, material);
         ModelAndViewAssert.assertModelAttributeValue(mav, MODE, MODE_EDIT);
     }
@@ -53,7 +53,7 @@ class MaterialControllerEditTest {
     void editIDNullTest() {
         String idValue = null;
         ModelAndView mav = controller.editMaterial(idValue);
-        ModelAndViewAssert.assertViewName(mav, MaterialController.MATERIAL_ADD_EDIT_VIEW);
+        ModelAndViewAssert.assertViewName(mav, MaterialSearchController.SEARCH_PAGE);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, ControllerConstants.MESSAGE);
     }
     
@@ -61,7 +61,7 @@ class MaterialControllerEditTest {
     void editIDEmptyStringTest() {
         String idValue = '';
         ModelAndView mav = controller.editMaterial(idValue);
-        ModelAndViewAssert.assertViewName(mav, MaterialController.MATERIAL_ADD_EDIT_VIEW);
+        ModelAndViewAssert.assertViewName(mav, MaterialSearchController.SEARCH_PAGE);
         ModelAndViewAssert.assertModelAttributeAvailable(mav, ControllerConstants.MESSAGE);
     }
     
@@ -71,7 +71,7 @@ class MaterialControllerEditTest {
         String idValue = '2';
         try {
             ModelAndView mav = controller.editMaterial(idValue);
-            ModelAndViewAssert.assertViewName(mav, MaterialController.MATERIAL_ADD_EDIT_VIEW);
+            ModelAndViewAssert.assertViewName(mav, MaterialSearchController.SEARCH_PAGE);
             ModelAndViewAssert.assertModelAttributeAvailable(mav, ControllerConstants.MESSAGE);
         } catch(DAOException de) {
             fail("No exception should be thrown to top level");

@@ -34,8 +34,8 @@ class MaterialSaveController extends GenericSaveController<Material, MaterialSea
     
     @PostConstruct
     public void init() {
-        setView(GenericSaveController.View.ITEM_VIEW, ITEM_VIEW);
-        setView(GenericSaveController.View.REDIRECT_SEARCH, REDIRECT_SEARCH)
+        this.itemView = ITEM_VIEW;
+        this.redirectSearch = REDIRECT_SEARCH;
     }
     
     @InitBinder("material")

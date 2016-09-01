@@ -168,14 +168,8 @@ class PartsControllerIT {
             .param('qss_no', 'qss123'))
             .andDo(print())
             .andExpect(status().isOk())
-            .andExpect(view().name(PartsSearchController.VIEW_PART_PAGE))
-            .andExpect(model().attributeExists('result'))
-            .andExpect(model().attributeExists('form'))
+            .andExpect(view().name(PartsSearchController.VIEW_SEARCH_PAGE))
             .andReturn();
-            
-            Part p = result.modelAndView.model.form;
-            assert p != null;
-            assert p.name == name;
     }
     
     @Test

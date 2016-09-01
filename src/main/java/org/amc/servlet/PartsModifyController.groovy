@@ -40,8 +40,8 @@ class PartsModifyController extends GenericSaveController<Part, PartSearch> {
     @PostConstruct
     void init() {
         logger.debug("PartsModifyController init method called");
-        setView(GenericSaveController.View.ITEM_VIEW, ITEM_VIEW);
-        setView(GenericSaveController.View.REDIRECT_SEARCH, REDIRECT_SEARCH);
+        this.itemView = ITEM_VIEW;
+        this.redirectSearch = REDIRECT_SEARCH;
     }
     
     @RequestMapping(method = RequestMethod.POST, value = '/Part_save', params='mode=Edit')
