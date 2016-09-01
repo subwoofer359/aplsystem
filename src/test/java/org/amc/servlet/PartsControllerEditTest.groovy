@@ -43,17 +43,15 @@ class PartsControllerEditTest {
     
     @Mock
     SearchAction<Part, PartSearch> searchPartAction;
-    
-    @Mock
-    PartSearchFormValidator searchFormValidator;
+
     
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSearchAction()).thenReturn(searchPartAction);
         controller = new PartsSearchController();
+        controller.init();
         controller.partActionFactory = partActionFactory;
-        controller.searchFormValidator = searchFormValidator;
     }
     
     @Test

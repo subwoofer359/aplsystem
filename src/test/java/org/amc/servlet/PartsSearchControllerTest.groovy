@@ -45,9 +45,7 @@ class PartsSearchControllerTest {
     
     @Mock
     SearchAction<Part, PartSearch> searchPartAction;
-    
-    @Mock
-    PartSearchFormValidator searchFormValidator;
+ 
     
     @Mock
     BindingResult errors;
@@ -59,18 +57,14 @@ class PartsSearchControllerTest {
         MockitoAnnotations.initMocks(this);
         when(partActionFactory.getSearchAction()).thenReturn(searchPartAction);
         controller = new PartsSearchController();
+        controller.init();
         controller.partActionFactory = partActionFactory;
-        controller.searchFormValidator = searchFormValidator;
         
         partSearch = new PartSearch();
         
         when(httpRequest.getParameter('company')).thenReturn(company);
         when(httpRequest.getParameter('partName')).thenReturn(partName);
         when(httpRequest.getParameter('QSSNumber')).thenReturn(qssNumber);  
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
@@ -145,20 +139,5 @@ class PartsSearchControllerTest {
         ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
         ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
         ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
-    }
-    
-    @Test
-    public void testNotValidSubmission() {
-        def parts = [];
-        when(searchPartAction.search(any())).thenReturn(parts);
-        reset(searchFormValidator);
-        when(errors.hasErrors()).thenReturn(true);
-        when(errors.getAllErrors()).thenReturn([]);
-        
-        ModelAndView mav = controller.searchForPart(session, partSearch, errors);
-        ModelAndViewAssert.assertViewName(mav, "PartsSearchPage");
-        ModelAndViewAssert.assertModelAttributeAvailable(mav, "parts");
-        ModelAndViewAssert.assertModelAttributeValue(mav, "parts", parts);
-        ModelAndViewAssert.assertAndReturnModelAttributeOfType(mav, ControllerConstants.MESSAGE, BindingResult); 
     }
 }

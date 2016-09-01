@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.ModelAndView
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
@@ -29,6 +30,7 @@ class MaterialSearchController extends GenericSearchController<Material, Materia
     
     private static final Logger logger = Logger.getLogger(MaterialSearchController.class);
     
+    @PostConstruct
     void init() {
         this.searchPage = 'MaterialSearchPage';
         this.itemsName = 'materials';

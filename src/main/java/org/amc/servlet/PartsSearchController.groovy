@@ -2,6 +2,8 @@ package org.amc.servlet
 
 import org.amc.DAOException;
 import org.amc.model.Part
+import org.amc.servlet.action.ActionFactory
+import org.amc.servlet.action.PartActionFactoryImpl;
 import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.model.PartSearchForm;
@@ -22,8 +24,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.apache.log4j.Logger;
 
-import java.text.ParseException;
+import java.text.ParseException
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -38,14 +41,23 @@ import javax.validation.constraints.NotNull;
  */
 @SessionAttributes("PARTSEARCH")
 @Controller
-class PartsSearchController extends PartsController {
-    @Resource(name = 'partActionFactory')
-    def partActionFactory;
-    
-    @Resource(name = 'partSearchFormValidator')
-    PartSearchFormValidator searchFormValidator;
-    
+class PartsSearchController extends GenericSearchController<Part, PartSearch> {
+ 
     private static final Logger logger = Logger.getLogger(PartsSearchController);
+    static final String SESSION_PARTSEARCH = 'PARTSEARCH';
+    static final String MODEL_ATTR_PARTS = 'parts';
+    static final String VIEW_PART_PAGE = 'Part';
+    static final String VIEW_SEARCH_PAGE = 'PartsSearchPage';
+    static final String ERROR_PAGE_EDIT = 'Can\'t edit Part';
+    
+    @PostConstruct
+    void init() {
+        this.sessionSearchName = SESSION_PARTSEARCH;
+        this.itemsName = MODEL_ATTR_PARTS;
+        this.searchPage = VIEW_SEARCH_PAGE;
+        this.itemView = VIEW_PART_PAGE;
+        this.errorEditFailMessage = ERROR_PAGE_EDIT;
+    }
     
     @InitBinder('partSearch') 
     void initBinder(WebDataBinder binder) {
@@ -54,7 +66,7 @@ class PartsSearchController extends PartsController {
     
     @RequestMapping(method = RequestMethod.GET, value = "/APLSystemServlet")
     String getAPLSystemServlet() {
-        return VIEW_MAIN_PAGE;
+        return PartsController.VIEW_MAIN_PAGE;
     }
     
     @RequestMapping(value = "/logout")
@@ -76,73 +88,22 @@ class PartsSearchController extends PartsController {
     }
     
     @RequestMapping(method = RequestMethod.POST, value = "/Part_search", params="mode=search")
-    ModelAndView searchForPart(HttpSession session, 
-        @Valid @ModelAttribute PartSearch partSearch, BindingResult errors) {
-        
-        ModelAndView mav = new ModelAndView();
-        
-        mav.setViewName(VIEW_SEARCH_PAGE);
-        
-        List parts = Collections.EMPTY_LIST;
-        
-        if (errors.hasErrors()) {
-            mav.getModel().put(ControllerConstants.MESSAGE, errors);
-        } else if (partSearch.isEmpty()) {
-            parts = useLastSearchParameters(session);
-        } else {
-            parts = doSearchForPart(mav, partSearch);
-        }
-        mav.getModel().put(MODEL_ATTR_PARTS, parts);
-        return mav;
-    }
-        
-    private List useLastSearchParameters(HttpSession session) {
-        PartSearch lastPartSearch = session.getAttribute(SESSION_PARTSEARCH);
-        SearchAction<Part, PartSearch> spa = partActionFactory.getSearchAction();
-        return lastPartSearch ? spa.search(lastPartSearch) : Collections.EMPTY_LIST;
-    }
-    
-    private List doSearchForPart(ModelAndView mav, PartSearch partSearch) {
-        try {
-            SearchAction<Part, PartSearch> spa = partActionFactory.getSearchAction();
-            def parts = spa.search(partSearch);
-            mav.getModel().put(SESSION_PARTSEARCH, partSearch);
-            return parts;
-        } catch(ParseException pe) {
-            mav.getModel().put(ControllerConstants.MESSAGE, SEARCH_PARSE_ERROR_MSG);
-        }
+    ModelAndView searchForPart(HttpSession session, @Valid @ModelAttribute PartSearch partSearch, BindingResult errors) {
+        return super.searchForItem(session, partSearch, errors);
     }
     
     @RequestMapping(method = RequestMethod.POST, value = '/Part_search', params="mode=edit Part")
     ModelAndView editPart(@NotNull @RequestParam('edit') String idValue) {
-        ModelAndView mav = new ModelAndView();
-        if(idValue == null || ''.equals(idValue)) {
-            return setErrorMsg(mav);
-        }
-        return storePartInModel(mav, idValue);
+        return super.editPage(idValue);
     }
-    
-    private ModelAndView setErrorMsg(ModelAndView mav) {
-        mav.setViewName(VIEW_SEARCH_PAGE);
-        mav.model[ControllerConstants.MESSAGE] = ERROR_PAGE_EDIT;
-        return mav;
-    }
-    
-    private ModelAndView storePartInModel(ModelAndView mav, String idValue) {
-        try {
-            SearchAction<Part, PartSearch> spa = partActionFactory.getSearchAction();
-            mav.model.form = spa.get(idValue);
-            mav.model.mode = EDIT_MODE;
-            mav.setViewName(VIEW_PART_PAGE);
-        } catch(DAOException de) {
-            setErrorMsg(mav);
-        } finally {
-            return mav;
-        }
-    }
-    
+        
     @RequestMapping(method = RequestMethod.POST, value = '/Part_search', params='mode=add Part')
     String addPart(Part part) {
         return VIEW_PART_PAGE;
+    }
+    
+    @Resource(name = 'partActionFactory')
+    void setPartActionFactory(ActionFactory<Part, PartSearch> partActionFactory) {
+        this.actionFactory = partActionFactory;
     }
 }
