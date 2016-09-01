@@ -64,19 +64,6 @@ class PartsSearchController extends GenericSearchController<Part, PartSearch> {
         binder.addValidators(new PartSearchFormValidator());
     }
     
-    @RequestMapping(method = RequestMethod.GET, value = "/APLSystemServlet")
-    String getAPLSystemServlet() {
-        return PartsController.VIEW_MAIN_PAGE;
-    }
-    
-    @RequestMapping(value = "/logout")
-    String logout(HttpSession session, HttpServletRequest httpServletRequest) {
-        session?.invalidate();
-        httpServletRequest.logout();
-        
-        return "redirect:/";
-    }
-    
     @RequestMapping(method = RequestMethod.GET, value = "/Part_display")
     String displayPart() {
         return VIEW_PART_PAGE;

@@ -66,29 +66,7 @@ class PartsSearchControllerTest {
         when(httpRequest.getParameter('partName')).thenReturn(partName);
         when(httpRequest.getParameter('QSSNumber')).thenReturn(qssNumber);  
     }
-
-    @Test
-    public void testGetAPLSystemServlet() {
-        String view = controller.getAPLSystemServlet();
-        assert view == "Main";
-    }
-    
-    @Test
-    public void testLogOut() {
-        def redirect = controller.logout(session, httpRequest);
-        verify(session, times(1)).invalidate();
-        verify(httpRequest, times(1)).logout();
-        
-        assert redirect == "redirect:/";
-        
-    }
-    
-    @Test
-    public void testLogOutNoSession() {
-        controller.logout(null, httpRequest);
-        verify(session, times(0)).invalidate();
-    }
-    
+ 
     @Test
     public void testDisplayPart() {
         String view = controller.displayPart();

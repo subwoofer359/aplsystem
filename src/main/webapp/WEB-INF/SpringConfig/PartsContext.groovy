@@ -6,6 +6,8 @@ import org.amc.servlet.action.PartActionFactoryImpl;
 
 beans {
     
+    mainController(MainController);
+    
     partsController(PartsSearchController) {
         partActionFactory = ref('partActionFactory');
     };
