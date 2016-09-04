@@ -5,6 +5,6 @@ import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.springframework.stereotype.Controller;
 
 @Controller
-class MoudlingProcessSaveController extends GenericSaveController<MouldingProcess, MouldingProcessSearch> {
+class MouldingProcessSaveController extends GenericSaveController<MouldingProcess, MouldingProcessSearch> {
 
 }
