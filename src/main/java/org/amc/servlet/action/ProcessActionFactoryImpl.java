@@ -7,11 +7,10 @@ package org.amc.servlet.action;
  */
 import org.amc.dao.DAO;
 import org.amc.model.MouldingProcess;
+import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ProcessActionFactoryImpl implements ProcessActionFactory {
-
-    private static final long serialVersionUID = 4706570566006585224L;
+public class ProcessActionFactoryImpl implements ActionFactory<MouldingProcess, MouldingProcessSearch> {
 
     private final DAO<MouldingProcess> mouldingProcessDAO;
 
@@ -21,13 +20,13 @@ public class ProcessActionFactoryImpl implements ProcessActionFactory {
     }
 
     @Override
-    public SaveProcessSheetAction getSaveProcessSheetAction() {
-        return new SaveProcessSheetAction(this.mouldingProcessDAO);
+    public SaveAction<MouldingProcess> getSaveAction() {
+        return new SaveAction<MouldingProcess>(this.mouldingProcessDAO);
     }
 
     @Override
-    public SearchProcessSheetAction getSearchProcessSheetAction() {
-        return new SearchProcessSheetAction(this.mouldingProcessDAO);
+    public SearchAction<MouldingProcess, MouldingProcessSearch> getSearchAction() {
+        return new SearchAction<MouldingProcess, MouldingProcessSearch>(this.mouldingProcessDAO);
     }
 
 }

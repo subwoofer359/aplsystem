@@ -18,9 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.amc.servlet.action.ActionFactory;
-import org.amc.servlet.action.ProcessActionFactory;
-import org.amc.servlet.action.SaveProcessSheetAction;
-import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.action.SaveAction;
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.model.Material;
@@ -59,7 +58,7 @@ public class APLProcessServlet extends HttpServlet {
 
     private static final String SESSION_PROCESS_SHEET_SEARCH = "PROCESSSEARCH";
 
-    private ProcessActionFactory processActionFactory;
+    private ActionFactory<MouldingProcess, MouldingProcessSearch> processActionFactory;
 
     private ActionFactory<Material, MaterialSearch> materialActionFactory;
 
@@ -140,7 +139,7 @@ public class APLProcessServlet extends HttpServlet {
             // Default dispatch URL
             // String dispatcherURL="/ProcessSheet_search";
 
-            SaveProcessSheetAction action = processActionFactory.getSaveProcessSheetAction();
+            SaveAction<MouldingProcess> action = processActionFactory.getSaveAction();
             try {
                 processSheet = MouldingProcessForm.getMouldingProcess(jForm);
                 // New JobTemplate to Database
@@ -208,8 +207,8 @@ public class APLProcessServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + PROCESS_SEARCH);
         } else {
             try {
-                SearchProcessSheetAction spt = processActionFactory.getSearchProcessSheetAction();
-                MouldingProcess process = spt.getMouldingProcess(idValue);
+                SearchAction<MouldingProcess, MouldingProcessSearch> spt = processActionFactory.getSearchAction();
+                MouldingProcess process = spt.get(idValue);
                 request.setAttribute("process", process);
                 RequestDispatcher rd = request.getRequestDispatcher(DISPLAY_PAGE_JSP);
 
@@ -240,7 +239,7 @@ public class APLProcessServlet extends HttpServlet {
         LOG.debug(String.format("searchProcessSheets:mode:[%s] ID:[%s]%n", mode, idValue));
 
         // create an action
-        SearchProcessSheetAction spt = processActionFactory.getSearchProcessSheetAction();
+        SearchAction<MouldingProcess, MouldingProcessSearch> spt = processActionFactory.getSearchAction();
         String dispatchURL = null;
         try {
             List<MouldingProcess> list = null;
@@ -318,7 +317,7 @@ public class APLProcessServlet extends HttpServlet {
                 } else if (MODE_EDIT.equals(mode) && idValue != null) {
                     // open the JobTemplate JSPage in edit mode
                     LOG.debug(String.format("searchProcessSheets:Opening ProcessPage.jsp in edit mode"));
-                    MouldingProcess process = spt.getMouldingProcess(idValue);
+                    MouldingProcess process = spt.get(idValue);
                     dispatchURL = PROCESS_PAGE_JSP;
                     request.setAttribute(FORM, process);
                     request.setAttribute(MODE, MODE_EDIT);
@@ -345,7 +344,7 @@ public class APLProcessServlet extends HttpServlet {
      * Required by Spring
      */
 
-    public void setProcessActionFactory(ProcessActionFactory processActionFactory) {
+    public void setProcessActionFactory(ActionFactory<MouldingProcess, MouldingProcessSearch> processActionFactory) {
         this.processActionFactory = processActionFactory;
     }
 
@@ -358,7 +357,8 @@ public class APLProcessServlet extends HttpServlet {
         super.init();
         WebApplicationContext context2 = (WebApplicationContext) getServletContext().getAttribute(
                         Constants.SPRING_WEBAPPCONTEXT);
-        setProcessActionFactory((ProcessActionFactory) context2.getBean("processActionFactory"));
+        setProcessActionFactory((ActionFactory<MouldingProcess, MouldingProcessSearch>) context2
+                        .getBean("processActionFactory"));
         setMaterialActionFactory((ActionFactory<Material, MaterialSearch>) context2.getBean("materialActionFactory"));
     }
 }

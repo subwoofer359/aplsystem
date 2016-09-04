@@ -9,7 +9,7 @@ import org.amc.dao.DAO;
 import org.amc.model.MouldingProcess;
 import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.amc.myservlet.test.spc.TestSPCFixture;
-import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,7 +59,8 @@ public class DAOMouldingProcessIT {
         MouldingProcessSearch search = new MouldingProcessSearch();
         search.setSignedOffBy("John Malone");
 
-        SearchProcessSheetAction action = new SearchProcessSheetAction(mpDAO);
+        SearchAction<MouldingProcess, MouldingProcessSearch> action = 
+                        new SearchAction<MouldingProcess, MouldingProcessSearch>(mpDAO);
 
         try {
             List<MouldingProcess> result = action.search(search);
@@ -120,7 +121,8 @@ public class DAOMouldingProcessIT {
     public void testFindEntitiesSearch_EmptyPartSearch() {
         MouldingProcessSearch search = new MouldingProcessSearch();
         
-        SearchProcessSheetAction action = new SearchProcessSheetAction(mpDAO);
+        SearchAction<MouldingProcess, MouldingProcessSearch> action = 
+                        new SearchAction<MouldingProcess, MouldingProcessSearch>(mpDAO);
 
         try {
             List<MouldingProcess> result = action.search(search);
