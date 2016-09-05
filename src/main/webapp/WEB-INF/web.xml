@@ -114,16 +114,7 @@
   <servlet-mapping>
     <servlet-name>UserPage</servlet-name>
     <url-pattern>/app/UserInfo</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>ProcessSheetBean</servlet-name>
-    <jsp-file>/WEB-INF/JSP/ProcessSheetBean.jsp</jsp-file>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ProcessSheetBean</servlet-name>
-    <url-pattern>/app/Processing/ProcessSheetBean</url-pattern>
-  </servlet-mapping>
-  
+  </servlet-mapping>  
   
   <!-- Spring controllers -->
   

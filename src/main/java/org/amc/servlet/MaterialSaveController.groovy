@@ -33,13 +33,13 @@ class MaterialSaveController extends GenericSaveController<Material, MaterialSea
     static final String REDIRECT_SEARCH = 'redirect:Material_search';
     
     @PostConstruct
-    public void init() {
+    void init() {
         this.itemView = ITEM_VIEW;
         this.redirectSearch = REDIRECT_SEARCH;
     }
     
     @InitBinder("material")
-    public void initBinder(WebDataBinder binder) {
+    void initBinder(WebDataBinder binder) {
         binder.addCustomFormatter(new MyFloatFormatter(),
              'density',
              'linear_expansion',

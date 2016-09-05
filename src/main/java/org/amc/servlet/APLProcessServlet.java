@@ -48,9 +48,9 @@ import static org.amc.servlet.ControllerConstants.PROCESS_SHEETS;
  * @author Adrian Mclaughlin
  * @version 1
  */
-@WebServlet(description = "To serve up Process Sheet Data", urlPatterns = {
-        "/app/APLProcessServlet", "/app/ProcessSheet_display", "/app/ProcessSheet_search",
-        "/app/ProcessSheet_save", "/app/ProcessSheet_analysis" }, loadOnStartup = 2)
+//@WebServlet(description = "To serve up Process Sheet Data", urlPatterns = {
+//        "/app/APLProcessServlet", "/app/ProcessSheet_display", "/app/ProcessSheet_search",
+//        "/app/ProcessSheet_save", "/app/ProcessSheet_analysis" }, loadOnStartup = 2)
 public class APLProcessServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
