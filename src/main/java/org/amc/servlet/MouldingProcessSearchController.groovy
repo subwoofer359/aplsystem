@@ -39,7 +39,7 @@ class MouldingProcessSearchController extends GenericSearchController<MouldingPr
     static final String ERROR_PAGE_EDIT = 'Can\'t edit Process Sheet';
     
     
-    @InitBinder("mouldingProcessSearch")
+    @InitBinder(['mouldingProcessSearch', 'PROCESSSEARCH'])
     void initBinder(WebDataBinder binder) {
         binder.addCustomFormatter(new MyDateFormatter());
     }

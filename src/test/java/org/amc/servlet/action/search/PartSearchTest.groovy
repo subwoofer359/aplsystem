@@ -9,14 +9,6 @@ import org.junit.Test;
 
 class PartSearchTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void testIsEmpty() {
         def partSearch = new PartSearch();

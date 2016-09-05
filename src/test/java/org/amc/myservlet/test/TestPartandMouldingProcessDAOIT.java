@@ -76,12 +76,12 @@ public class TestPartandMouldingProcessDAOIT {
         String testSheetName = "Test Product 123";
         String testPartName = "Blocks";
         MouldingProcess mp = new MouldingProcess();
-        mp.setPartId(testSheetName);
-        mp.setDateOfIssue(new Date(System.currentTimeMillis()));
-        mp.setSignOffBy("John");
-        mp.setMachineNo("San 2");
-        mp.setMachineSize(320);
-        mp.setMaterial(m.getId());
+        mp.getBasicInfo().setPartId(testSheetName);
+        mp.getBasicInfo().setDateOfIssue(new Date(System.currentTimeMillis()));
+        mp.getBasicInfo().setSignOffBy("John");
+        mp.getBasicInfo().setMachineNo("San 2");
+        mp.getBasicInfo().setMachineSize(320);
+        mp.getBasicInfo().setMaterial(m);
 
         // d.setEm(em);
         d.addEntity(mp);

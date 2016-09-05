@@ -50,7 +50,7 @@ class MouldProcessSearchCtrIT {
             .param('partId', '%')
             .param('startDate', '2016-01-01')
             .param('endDate', '')
-            .param('material', '1')
+            //.param('material', '1')
         )
             .andExpect(model().hasNoErrors())
             .andDo(print())
