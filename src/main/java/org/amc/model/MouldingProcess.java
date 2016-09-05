@@ -2,7 +2,7 @@ package org.amc.model;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -459,7 +459,7 @@ public class MouldingProcess implements Serializable, WorkEntity {
      * @param field
      * @param s
      */
-    public void setField(String field, java.sql.Date s) {
+    public void setField(String field, java.util.Date s) {
         try {
             Field refField = this.getClass().getDeclaredField(field);
             refField.set(this, s);
@@ -586,7 +586,7 @@ public class MouldingProcess implements Serializable, WorkEntity {
         return this.masterbatchNo;
     }
 
-    public java.sql.Date getDateOfIssue() {
+    public java.util.Date getDateOfIssue() {
         return this.dateOfIssue;
     }
 
@@ -990,7 +990,7 @@ public class MouldingProcess implements Serializable, WorkEntity {
         this.masterbatchNo = masterbatchNo;
     }
 
-    public void setDateOfIssue(java.sql.Date dateOfIssue) {
+    public void setDateOfIssue(java.util.Date dateOfIssue) {
         this.dateOfIssue = dateOfIssue;
     }
 

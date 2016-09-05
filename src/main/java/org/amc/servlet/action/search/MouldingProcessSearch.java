@@ -1,6 +1,6 @@
 package org.amc.servlet.action.search;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MouldingProcessSearch extends WebFormSearch {
     public enum ProcessSearchFields implements SearchFields {
