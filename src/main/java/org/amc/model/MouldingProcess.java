@@ -145,5 +145,13 @@ public class MouldingProcess implements Serializable, WorkEntity {
         return waterOptions;
     }
     
+    @Override
+    public String toString() {
+        if(basicInfo != null) {
+            return this.basicInfo.toString();
+        } else {
+            return super.toString();
+        }
+    }
     
 }
