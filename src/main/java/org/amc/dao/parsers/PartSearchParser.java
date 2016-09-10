@@ -1,11 +1,15 @@
 package org.amc.dao.parsers;
 
+import org.amc.model.Part;
 import org.amc.servlet.action.search.SearchFields;
 import org.amc.servlet.action.search.WebFormSearch;
 
 import java.util.Iterator;
 
-public class PartSearchParser implements WebFormSearchToJPQLParser {
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
+
+public class PartSearchParser implements WebFormSearchToJPQLParser<Part> {
 
     @Override
     public String parse(Class<?> entityClass, WebFormSearch webFormSearch) {
@@ -27,4 +31,11 @@ public class PartSearchParser implements WebFormSearchToJPQLParser {
         return textQuery.toString();
     }
 
+    @Override
+    public CriteriaQuery<Part> createCriteriaQuery(EntityManager enManager,
+                    WebFormSearch webFormSearch) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
 }
