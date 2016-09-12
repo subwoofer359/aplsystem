@@ -16,9 +16,9 @@ public class WebFormSearchParserFactory {
                     throws NoSuchWebFormParserException {
         // System.out.println("Class="+webFormSearch.getClass());
         if (webFormSearch.getClass().equals(PartSearch.class)) {
-            return new PartSearchParser();
+            return null;//new PartSearchParser();
         } else if (webFormSearch.getClass().equals(MaterialSearch.class)) {
-            return new MaterialSearchParser();
+            return null;//new MaterialSearchParser();
         } else if (webFormSearch.getClass().equals(MouldingProcessSearch.class)) {
             return new MouldingProcessSearchParser();
         } else {

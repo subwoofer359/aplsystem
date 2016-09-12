@@ -63,7 +63,7 @@ public class DAOMouldingProcessIT {
                         new SearchAction<MouldingProcess, MouldingProcessSearch>(mpDAO);
 
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 4);
         } catch (DAOException de) {
@@ -74,7 +74,7 @@ public class DAOMouldingProcessIT {
         search.setMachineNo("Fanuc 1");
 
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 1);
         } catch (DAOException de) {
@@ -86,7 +86,7 @@ public class DAOMouldingProcessIT {
         search = new MouldingProcessSearch();
         search.setStartDate(java.sql.Date.valueOf("2013-05-11"));
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 1);
         } catch (DAOException de) {
@@ -97,7 +97,7 @@ public class DAOMouldingProcessIT {
         search.setStartDate(java.sql.Date.valueOf("2000-01-01"));
         search.setEndDate(java.sql.Date.valueOf("2014-01-01"));
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 3);
         } catch (DAOException de) {
@@ -107,7 +107,7 @@ public class DAOMouldingProcessIT {
 
         search.setSignedOffBy("John Malone");
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             // assertNotNull(result);
             // assertEquals(result.size(), 3);
         } catch (DAOException de) {
@@ -125,9 +125,9 @@ public class DAOMouldingProcessIT {
                         new SearchAction<MouldingProcess, MouldingProcessSearch>(mpDAO);
 
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
-            assertEquals(result.size(), 0);
+            assertEquals(0, result.size());
         } catch (DAOException de) {
             de.printStackTrace();
             fail("DAOException thrown");

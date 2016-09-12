@@ -1,6 +1,8 @@
 package org.amc.myservlet.test.spc;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -23,6 +25,8 @@ import org.amc.model.spc.SPCMeasurement;
  */
 public class TestSPCFixture {
     private EntityManager entityManager;
+    private List<Part> parts = new ArrayList<Part>();
+    
     public TestSPCFixture(EntityManager entityManger) {
         this.entityManager = entityManger;
     }
@@ -49,6 +53,7 @@ public class TestSPCFixture {
             part.setRevision("0.2" + i);
             part.setVersion(String.valueOf(i));
             partDAO.addEntity(part);
+            parts.add(part);
         }
         // Set it to be garbage collected
         partDAO = null;
@@ -96,7 +101,7 @@ public class TestSPCFixture {
 
         for (int i = 0; i < partId.length; i++) {
             MouldingProcess mp = new MouldingProcess();
-            mp.getBasicInfo().setPartId(partId[i]);
+            mp.getBasicInfo().setPartId(parts.get(i));
             mp.getBasicInfo().setMachineSize(machineSize[i]);
             mp.getBasicInfo().setMachineNo(machineNo[i]);
             mp.getBasicInfo().setMaterial(materials[i]);

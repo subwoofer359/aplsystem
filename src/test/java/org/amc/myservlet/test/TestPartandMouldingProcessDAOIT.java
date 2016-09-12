@@ -69,27 +69,26 @@ public class TestPartandMouldingProcessDAOIT {
         m.setName(NAME);
         m.setType(TYPE);
         
+        String testSheetName = "Test Product 123";
+        String testPartName = "Blocks";
+        
+        Part p = getPart(testPartName);
+        pd.addEntity(p);
+        
         // daoMaterial.setEm(em);
         daoMaterial.addEntity(m);
 
         // Create a process sheet and part and add them to the database
-        String testSheetName = "Test Product 123";
-        String testPartName = "Blocks";
+        
         MouldingProcess mp = new MouldingProcess();
-        mp.getBasicInfo().setPartId(testSheetName);
+        mp.getBasicInfo().setPartId(p);
         mp.getBasicInfo().setDateOfIssue(new Date(System.currentTimeMillis()));
         mp.getBasicInfo().setSignOffBy("John");
         mp.getBasicInfo().setMachineNo("San 2");
         mp.getBasicInfo().setMachineSize(320);
         mp.getBasicInfo().setMaterial(m);
 
-        // d.setEm(em);
         d.addEntity(mp);
-
-        Part p = getPart(testPartName);
-        
-        // pd.setEm(em);
-        pd.addEntity(p);
 
         // Check to see if they are in the database
 

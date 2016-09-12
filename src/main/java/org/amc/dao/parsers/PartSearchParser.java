@@ -9,9 +9,8 @@ import java.util.Iterator;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
-public class PartSearchParser implements WebFormSearchToJPQLParser<Part> {
+public class PartSearchParser implements WebFormSearchToJPQLParser {
 
-    @Override
     public String parse(Class<?> entityClass, WebFormSearch webFormSearch) {
         StringBuilder textQuery = new StringBuilder();
 
