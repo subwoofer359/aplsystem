@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test;
     
-class PartSearchParserTest {
+class PartSearchParserIT {
     static DatabaseFixture fixture = new DatabaseFixture();
     static SearchParserFixture mouldFixture;
     DAO<Part> partDAO;

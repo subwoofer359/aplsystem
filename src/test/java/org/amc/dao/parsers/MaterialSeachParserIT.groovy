@@ -10,7 +10,7 @@ import org.junit.BeforeClass
 import org.junit.Test;
 
 
-class MaterialSeachParserTest {
+class MaterialSeachParserIT {
     static DatabaseFixture fixture = new DatabaseFixture();
     static SearchParserFixture mouldFixture;
     

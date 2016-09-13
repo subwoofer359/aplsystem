@@ -17,7 +17,7 @@ import org.junit.Test
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;;
 
-class MouldingProcessSearchParserTest {
+class MouldingProcessSearchParserIT {
     static DatabaseFixture fixture = new DatabaseFixture();
     static SearchParserFixture mouldFixture;
     static Calendar calendar = Calendar.getInstance();
