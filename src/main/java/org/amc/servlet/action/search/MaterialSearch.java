@@ -5,47 +5,34 @@ package org.amc.servlet.action.search;
  * @author Adrian McLaughlin
  *
  */
-public class MaterialSearch extends WebFormSearch {
-    public enum MaterialSearchFields implements SearchFields {
-        COMPANY("company"), NAME("name"), TYPE("type");
-        /**
-         * Database column name
-         */
-        private String name;
-
-        private MaterialSearchFields(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
+public class MaterialSearch implements WebFormSearch {
+  
+    private String company;
+    private String name;
+    private String type;
 
     /**
      * @return the company
      */
+    /**
+     * @return the company
+     */
     public String getCompany() {
-
-        return (getFieldMap().get(MaterialSearchFields.COMPANY) == null) ? null : String
-                        .valueOf(getFieldMap().get(MaterialSearchFields.COMPANY));
+        return company;
     }
 
     /**
      * @return the name
      */
     public String getName() {
-        return (getFieldMap().get(MaterialSearchFields.NAME) == null) ? null : String
-                        .valueOf(getFieldMap().get(MaterialSearchFields.NAME));
+        return name;
     }
 
     /**
      * @return the type
      */
     public String getType() {
-        return (getFieldMap().get(MaterialSearchFields.TYPE) == null) ? null : String
-                        .valueOf(getFieldMap().get(MaterialSearchFields.TYPE));
+        return type;
     }
 
     /**
@@ -53,7 +40,9 @@ public class MaterialSearch extends WebFormSearch {
      *            the company to set
      */
     public void setCompany(String company) {
-        getFieldMap().put(MaterialSearchFields.COMPANY, company);
+        if(isNotWhiteSpace(company)) {
+            this.company = company;
+        }
     }
 
     /**
@@ -61,7 +50,9 @@ public class MaterialSearch extends WebFormSearch {
      *            the name to set
      */
     public void setName(String name) {
-        getFieldMap().put(MaterialSearchFields.NAME, name);
+        if(isNotWhiteSpace(name)) {
+            this.name = name;
+        }
     }
 
     /**
@@ -69,7 +60,18 @@ public class MaterialSearch extends WebFormSearch {
      *            the type to set
      */
     public void setType(String type) {
-        getFieldMap().put(MaterialSearchFields.TYPE, type);
+        if(isNotWhiteSpace(type)) {
+            this.type = type;
+        }
+    }
+    
+    private boolean isNotWhiteSpace(String value) {
+        return !"".equals(value);
+    }
+    
+    @Override
+    public boolean isEmpty() {
+        return name == null && type == null && company == null;
     }
 
 }

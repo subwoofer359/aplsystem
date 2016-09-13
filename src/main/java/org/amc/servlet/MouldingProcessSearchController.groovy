@@ -7,7 +7,8 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller
 import org.springframework.validation.BindingResult
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.InitBinder
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes
@@ -22,6 +23,8 @@ import java.util.Locale;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource
 import javax.servlet.http.HttpSession
+import javax.validation.Valid;
+
 import org.amc.servlet.action.ActionFactory;
 
 @Controller
@@ -42,6 +45,8 @@ class MouldingProcessSearchController extends GenericSearchController<MouldingPr
     @InitBinder(['mouldingProcessSearch', 'PROCESSSEARCH'])
     void initBinder(WebDataBinder binder) {
         binder.addCustomFormatter(new MyDateFormatter());
+        binder.
+        
     }
     
     
@@ -60,7 +65,7 @@ class MouldingProcessSearchController extends GenericSearchController<MouldingPr
     }
    
     @RequestMapping(method = RequestMethod.POST, value = '/ProcessSheet_search', params = 'mode=search')
-    public ModelAndView searchForProcessSheet(HttpSession session, MouldingProcessSearch search,
+    public ModelAndView searchForProcessSheet(HttpSession session, @Valid @ModelAttribute MouldingProcessSearch search,
                     BindingResult errors) {
         return super.searchForItem(session, search, errors);
     }

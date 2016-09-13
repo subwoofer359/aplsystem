@@ -7,51 +7,29 @@ package org.amc.servlet.action.search;
  * @author Adrian McLaughlin
  *
  */
-public class PartSearch extends WebFormSearch {
-    public enum PartSearchFields implements SearchFields {
-        PART_NAME("name"), QSS_NUMBER("qss_no"), COMPANY("company");
+public class PartSearch implements WebFormSearch {
+    
+    private String partName;
+    private String company;
+    private String qssNumber;
 
-        /**
-         * Database column name
-         */
-        private String name;
-
-        private PartSearchFields(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
-    public PartSearch() {
-        super();
-    }
-
-    /**
-     * @return the part
-     */
+    
     public String getPartName() {
-        return (getFieldMap().get(PartSearchFields.PART_NAME) == null) ? null : String
-                        .valueOf(getFieldMap().get(PartSearchFields.PART_NAME));
+        return partName;
     }
-
+    
     /**
      * @return the qSSNumber
      */
     public String getQSSNumber() {
-        return (getFieldMap().get(PartSearchFields.QSS_NUMBER) == null) ? null : String
-                        .valueOf(getFieldMap().get(PartSearchFields.QSS_NUMBER));
+        return qssNumber;
     }
 
     /**
      * @return the company
      */
     public String getCompany() {
-        return (getFieldMap().get(PartSearchFields.COMPANY) == null) ? null : String
-                        .valueOf(getFieldMap().get(PartSearchFields.COMPANY));
+        return company;
     }
 
     private boolean isNotWhiteSpace(String value) {
@@ -63,7 +41,7 @@ public class PartSearch extends WebFormSearch {
      */
     public void setPartName(String partName) {
         if(isNotWhiteSpace(partName)) {
-            getFieldMap().put(PartSearchFields.PART_NAME, partName);
+            this.partName = partName;
         }
     }
 
@@ -73,7 +51,7 @@ public class PartSearch extends WebFormSearch {
      */
     public void setQSSNumber(String qSSNumber) {
         if(isNotWhiteSpace(qSSNumber)) {
-            getFieldMap().put(PartSearchFields.QSS_NUMBER, qSSNumber);
+            this.qssNumber = qSSNumber;
         }
     }
 
@@ -83,9 +61,11 @@ public class PartSearch extends WebFormSearch {
      */
     public void setCompany(String company) {
         if(isNotWhiteSpace(company)) {
-            getFieldMap().put(PartSearchFields.COMPANY, company);
+            this.company = company;
         }
     }
+    
+    
 
     @Override
     public String toString() {
@@ -101,5 +81,10 @@ public class PartSearch extends WebFormSearch {
         text.append(getQSSNumber());
         text.append(')');
         return text.toString();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return partName == null && qssNumber == null && company == null;
     }
 }

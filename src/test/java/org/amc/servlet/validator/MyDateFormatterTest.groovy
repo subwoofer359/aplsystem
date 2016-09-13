@@ -30,4 +30,9 @@ class MyDateFormatterTest {
         def format = /\d\d\d\d-\d\d-\d\d/;
         assert dateStr ==~ format;
     }
+    
+    @Test
+    void getEmptyStringTest() {
+        assert formatter.parse('', Locale.default) == null;
+    }
 }

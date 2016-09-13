@@ -6,7 +6,7 @@ import org.amc.model.spc.SPCMeasurement;
 import java.util.Date;
 import java.util.Set;
 
-public class SPCDataSearch extends WebFormSearch {
+public class SPCDataSearch implements WebFormSearch {
     private Date startDate;
     private Date endDate;
     private User user;
@@ -111,4 +111,16 @@ public class SPCDataSearch extends WebFormSearch {
     public Object getField(SearchFields field) {
         return null;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return startDate == null
+                        && endDate == null
+                        && user == null
+                        && SpcMeasurement== null
+                        && lowerBoundMeasuremenet == 0.0f
+                        && upperBoundMeasurement == 0.0f;
+    }
+    
+    
 }

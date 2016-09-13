@@ -2,90 +2,92 @@ package org.amc.servlet.action.search;
 
 import java.util.Date;
 
-public class MouldingProcessSearch extends WebFormSearch {
-    public enum ProcessSearchFields implements SearchFields {
-        PART_NAME("partId.name"), MACHINE_NO("machineNo"), MATERIAL("material"), MASTERBATCH(
-                        "masterbatchNo"), START_DATE("dateOfIssue"), END_DATE("dateOfIssue"), SIGNED_OFF_BY(
-                        "signOffBy");
+public class MouldingProcessSearch implements WebFormSearch {
+    private String partName;
+    private String machineNo;
+    private Integer material;
+    private String masterbatchNo;
+    private Date startDate;
+    private Date endDate;
+    private String signedOffBy;
 
-        private final String name;
-
-        private ProcessSearchFields(String name) {
-            this.name = name;
+    public void setPartId(String partName) {
+        if(isNotWhiteSpace(partName)) {
+            this.partName = partName;
         }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-
-    }
-
-    public MouldingProcessSearch() {
-        super();
-    }
-
-    public void setPartId(String partId) {
-        getFieldMap().put(ProcessSearchFields.PART_NAME, partId);
     }
 
     public void setMachineNo(String machineNo) {
-        getFieldMap().put(ProcessSearchFields.MACHINE_NO, machineNo);
+        if(isNotWhiteSpace(machineNo)) {
+            this.machineNo = machineNo;
+        }
     }
 
-    public void setMaterial(int materialId) {
-        getFieldMap().put(ProcessSearchFields.MATERIAL, materialId);
+    public void setMaterial(Integer materialId) {
+        this.material = materialId;
     }
 
     public void setMasterBatchNo(String masterbatchNo) {
-        getFieldMap().put(ProcessSearchFields.MASTERBATCH, masterbatchNo);
+        if(isNotWhiteSpace(masterbatchNo)) {
+            this.masterbatchNo = masterbatchNo;
+        }
     }
 
     public void setSignedOffBy(String signee) {
-        getFieldMap().put(ProcessSearchFields.SIGNED_OFF_BY, signee);
+        if(isNotWhiteSpace(signee)) {
+            this.signedOffBy = signee;
+        }
     }
 
     public void setStartDate(Date startDate) {
-        getFieldMap().put(ProcessSearchFields.START_DATE, startDate);
+        this.startDate = startDate;
     }
 
     public void setEndDate(Date endDate) {
-        getFieldMap().put(ProcessSearchFields.END_DATE, endDate);
+        this.endDate = endDate;
     }
 
     public String getPartId() {
-        return (getFieldMap().get(ProcessSearchFields.PART_NAME) == null) ? null : String
-                        .valueOf(getFieldMap().get(ProcessSearchFields.PART_NAME));
+        return partName;
     }
 
     public String getMachineNo() {
-        return (getFieldMap().get(ProcessSearchFields.MACHINE_NO) == null) ? null : String
-                        .valueOf(getFieldMap().get(ProcessSearchFields.MACHINE_NO));
+        return machineNo;
     }
 
     public Integer getMaterial() {
-        return (getFieldMap().get(ProcessSearchFields.MATERIAL) == null) ? null
-                        : (Integer) getFieldMap().get(ProcessSearchFields.MATERIAL);
+        return material;
     }
 
     public String getMasterBatchNo() {
-        return (getFieldMap().get(ProcessSearchFields.MASTERBATCH) == null) ? null : String
-                        .valueOf(getFieldMap().get(ProcessSearchFields.MASTERBATCH));
+        return masterbatchNo;
     }
 
     public String getSignedOffBy() {
-        return (getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY) == null) ? null : String
-                        .valueOf(getFieldMap().get(ProcessSearchFields.SIGNED_OFF_BY));
+        return signedOffBy;
     }
 
     public Date getStartDate() {
-        return (getFieldMap().get(ProcessSearchFields.START_DATE) == null) ? null
-                        : (Date) getFieldMap().get(ProcessSearchFields.START_DATE);
+        return startDate;
     }
 
     public Date getEndDate() {
-        return (getFieldMap().get(ProcessSearchFields.END_DATE) == null) ? null
-                        : (Date) getFieldMap().get(ProcessSearchFields.END_DATE);
+        return endDate;
+    }
+    
+    private boolean isNotWhiteSpace(String value) {
+        return !"".equals(value);
+    }
+    
+    @Override
+    public boolean isEmpty() {
+        return partName == null
+                        && machineNo == null
+                        && (material == null || material == 0)
+                        && masterbatchNo == null
+                        && startDate == null
+                        && endDate == null
+                        && signedOffBy == null;
     }
 
     @Override
