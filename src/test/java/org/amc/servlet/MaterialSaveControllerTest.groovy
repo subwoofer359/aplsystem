@@ -8,8 +8,6 @@ import org.amc.model.Material;
 import org.amc.servlet.action.ActionFactory;
 import org.amc.servlet.action.SaveAction;
 import org.amc.servlet.action.search.MaterialSearch;
-import org.amc.servlet.model.MaterialForm;
-import org.amc.servlet.validator.MaterialForm_Validator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

@@ -8,8 +8,21 @@
 <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 <class>org.amc.model.Part</class>
 <class>org.amc.model.Material</class>
+
+<!-- MouldingProcess entities -->
 <class>org.amc.model.MouldingProcess</class>
-<class>org.amc.model.User</class>
+<class>org.amc.model.mouldingprocess.BarrelTemperature</class>
+<class>org.amc.model.mouldingprocess.BasicInfo</class>
+<class>org.amc.model.mouldingprocess.DMESettings</class>
+<class>org.amc.model.mouldingprocess.Ejectors</class>
+<class>org.amc.model.mouldingprocess.Extrusion</class>
+<class>org.amc.model.mouldingprocess.Holding</class>
+<class>org.amc.model.mouldingprocess.Injection</class>
+<class>org.amc.model.mouldingprocess.InjectionOptions</class>
+<class>org.amc.model.mouldingprocess.MouldClosing</class>
+<class>org.amc.model.mouldingprocess.MouldOpening</class>
+<class>org.amc.model.mouldingprocess.WaterOptions</class>
+
 <class>org.amc.model.UserRoles</class>
 <class>org.amc.model.spc.SPCMeasurement</class>
 <class>org.amc.model.spc.SPCData</class>

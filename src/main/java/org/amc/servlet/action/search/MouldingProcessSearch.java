@@ -1,10 +1,10 @@
 package org.amc.servlet.action.search;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class MouldingProcessSearch extends WebFormSearch {
     public enum ProcessSearchFields implements SearchFields {
-        PART_NAME("partId"), MACHINE_NO("machineNo"), MATERIAL("material"), MASTERBATCH(
+        PART_NAME("partId.name"), MACHINE_NO("machineNo"), MATERIAL("material"), MASTERBATCH(
                         "masterbatchNo"), START_DATE("dateOfIssue"), END_DATE("dateOfIssue"), SIGNED_OFF_BY(
                         "signOffBy");
 

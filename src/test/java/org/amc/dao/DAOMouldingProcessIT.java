@@ -9,7 +9,7 @@ import org.amc.dao.DAO;
 import org.amc.model.MouldingProcess;
 import org.amc.myservlet.test.spc.DatabaseFixture;
 import org.amc.myservlet.test.spc.TestSPCFixture;
-import org.amc.servlet.action.SearchProcessSheetAction;
+import org.amc.servlet.action.SearchAction;
 import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,10 +59,11 @@ public class DAOMouldingProcessIT {
         MouldingProcessSearch search = new MouldingProcessSearch();
         search.setSignedOffBy("John Malone");
 
-        SearchProcessSheetAction action = new SearchProcessSheetAction(mpDAO);
+        SearchAction<MouldingProcess, MouldingProcessSearch> action = 
+                        new SearchAction<MouldingProcess, MouldingProcessSearch>(mpDAO);
 
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 4);
         } catch (DAOException de) {
@@ -73,7 +74,7 @@ public class DAOMouldingProcessIT {
         search.setMachineNo("Fanuc 1");
 
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 1);
         } catch (DAOException de) {
@@ -85,7 +86,7 @@ public class DAOMouldingProcessIT {
         search = new MouldingProcessSearch();
         search.setStartDate(java.sql.Date.valueOf("2013-05-11"));
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 1);
         } catch (DAOException de) {
@@ -96,7 +97,7 @@ public class DAOMouldingProcessIT {
         search.setStartDate(java.sql.Date.valueOf("2000-01-01"));
         search.setEndDate(java.sql.Date.valueOf("2014-01-01"));
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 3);
         } catch (DAOException de) {
@@ -106,7 +107,7 @@ public class DAOMouldingProcessIT {
 
         search.setSignedOffBy("John Malone");
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             // assertNotNull(result);
             // assertEquals(result.size(), 3);
         } catch (DAOException de) {
@@ -120,12 +121,13 @@ public class DAOMouldingProcessIT {
     public void testFindEntitiesSearch_EmptyPartSearch() {
         MouldingProcessSearch search = new MouldingProcessSearch();
         
-        SearchProcessSheetAction action = new SearchProcessSheetAction(mpDAO);
+        SearchAction<MouldingProcess, MouldingProcessSearch> action = 
+                        new SearchAction<MouldingProcess, MouldingProcessSearch>(mpDAO);
 
         try {
-            List<MouldingProcess> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
-            assertEquals(result.size(), 0);
+            assertEquals(0, result.size());
         } catch (DAOException de) {
             de.printStackTrace();
             fail("DAOException thrown");

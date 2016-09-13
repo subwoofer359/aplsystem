@@ -61,7 +61,7 @@ public class DAOPartIT {
         SearchAction<Part, PartSearch> action = new SearchAction<Part, PartSearch>(partDAO);
         
         try {
-            List<Part> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 2);
         } catch (DAOException de) {
@@ -72,7 +72,7 @@ public class DAOPartIT {
         search.setQSSNumber("A 001");
 
         try {
-            List<Part> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 1);
         } catch (DAOException de) {
@@ -82,7 +82,7 @@ public class DAOPartIT {
 
         search.setPartName("Ted");
         try {
-            List<Part> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 0);
         } catch (DAOException de) {
@@ -99,7 +99,7 @@ public class DAOPartIT {
         SearchAction<Part, PartSearch> action = new SearchAction<Part, PartSearch>(partDAO);
 
         try {
-            List<Part> result = action.search(search);
+            List<?> result = action.search(search);
             assertNotNull(result);
             assertEquals(result.size(), 0);
         } catch (DAOException de) {

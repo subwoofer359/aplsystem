@@ -69,31 +69,25 @@ public class TestPartandMouldingProcessDAOIT {
         m.setName(NAME);
         m.setType(TYPE);
         
-        // daoMaterial.setEm(em);
-        daoMaterial.addEntity(m);
+        String testPartName = "Blocks";
+        
+        Part p = getPart(testPartName);
 
         // Create a process sheet and part and add them to the database
-        String testSheetName = "Test Product 123";
-        String testPartName = "Blocks";
-        MouldingProcess mp = new MouldingProcess();
-        mp.setPartId(testSheetName);
-        mp.setDateOfIssue(new Date(System.currentTimeMillis()));
-        mp.setSignOffBy("John");
-        mp.setMachineNo("San 2");
-        mp.setMachineSize(320);
-        mp.setMaterial(m.getId());
-
-        // d.setEm(em);
-        d.addEntity(mp);
-
-        Part p = getPart(testPartName);
         
-        // pd.setEm(em);
-        pd.addEntity(p);
+        MouldingProcess mp = new MouldingProcess();
+        mp.getBasicInfo().setPartId(p);
+        mp.getBasicInfo().setDateOfIssue(new Date(System.currentTimeMillis()));
+        mp.getBasicInfo().setSignOffBy("John");
+        mp.getBasicInfo().setMachineNo("San 2");
+        mp.getBasicInfo().setMachineSize(320);
+        mp.getBasicInfo().setMaterial(m);
+
+        d.addEntity(mp);
 
         // Check to see if they are in the database
 
-        List<MouldingProcess> mlist = d.findEntities("partId", testSheetName);
+        List<MouldingProcess> mlist = d.findEntities("basicInfo.partId", p);
         assertTrue(mlist.size() >= 1);
 
         List<Part> plist = pd.findEntities("name", testPartName);

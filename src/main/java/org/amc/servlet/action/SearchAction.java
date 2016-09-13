@@ -29,7 +29,7 @@ public class SearchAction<T extends WorkEntity, S extends WebFormSearch> {
         return dao.getEntity(Integer.parseInt(id));
     }
 
-    public List<T> search(S search) throws DAOException {
+    public List<? extends WorkEntity> search(S search) throws DAOException {
         return dao.findEntities(search);
     }
 }

@@ -1,6 +1,8 @@
 package org.amc.myservlet.test.spc;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 
@@ -23,6 +25,8 @@ import org.amc.model.spc.SPCMeasurement;
  */
 public class TestSPCFixture {
     private EntityManager entityManager;
+    private List<Part> parts = new ArrayList<Part>();
+    
     public TestSPCFixture(EntityManager entityManger) {
         this.entityManager = entityManger;
     }
@@ -49,6 +53,7 @@ public class TestSPCFixture {
             part.setRevision("0.2" + i);
             part.setVersion(String.valueOf(i));
             partDAO.addEntity(part);
+            parts.add(part);
         }
         // Set it to be garbage collected
         partDAO = null;
@@ -88,7 +93,7 @@ public class TestSPCFixture {
         String[] partId = { "1", "2", "3", "4" };
         int[] machineSize = { 150, 100, 125, 75 };
         String[] machineNo = { "Fanuc 1", "Fanuc 7", "Fanuc 5", "Boy 2" };
-        int[] materials = { material.getId(), material.getId(), material.getId(), material.getId() };
+        Material[] materials = { material, material, material, material };
         String[] masterbatchNo = { "20303", "030030", "303002", "30302123" };
         Date[] dateOfIssue = { Date.valueOf("2014-06-12"), Date.valueOf("2013-05-11"),
                 Date.valueOf("2010-02-12"), Date.valueOf("2004-01-02") };
@@ -96,13 +101,13 @@ public class TestSPCFixture {
 
         for (int i = 0; i < partId.length; i++) {
             MouldingProcess mp = new MouldingProcess();
-            mp.setPartId(partId[i]);
-            mp.setMachineSize(machineSize[i]);
-            mp.setMachineNo(machineNo[i]);
-            mp.setMaterial(materials[i]);
-            mp.setMasterbatchNo(masterbatchNo[i]);
-            mp.setDateOfIssue(dateOfIssue[i]);
-            mp.setSignOffBy(signOffBy);
+            mp.getBasicInfo().setPartId(parts.get(i));
+            mp.getBasicInfo().setMachineSize(machineSize[i]);
+            mp.getBasicInfo().setMachineNo(machineNo[i]);
+            mp.getBasicInfo().setMaterial(materials[i]);
+            mp.getBasicInfo().setMasterbatchNo(masterbatchNo[i]);
+            mp.getBasicInfo().setDateOfIssue(dateOfIssue[i]);
+            mp.getBasicInfo().setSignOffBy(signOffBy);
             mpDAO.addEntity(mp);
         }
 

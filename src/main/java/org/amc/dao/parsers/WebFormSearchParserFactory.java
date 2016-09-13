@@ -5,22 +5,25 @@ import org.amc.servlet.action.search.MouldingProcessSearch;
 import org.amc.servlet.action.search.PartSearch;
 import org.amc.servlet.action.search.WebFormSearch;
 
+import javax.persistence.EntityManager;
+
 public class WebFormSearchParserFactory {
     /**
      * Factory Class
      */
     private WebFormSearchParserFactory() {
+        throw new AssertionError(this.getClass().getName()+ " can't be instantiated");
     }
 
-    public static final WebFormSearchToJPQLParser getWebFormSearchParser(WebFormSearch webFormSearch)
+    public static final WebFormSearchToQuery getWebFormSearchParser(EntityManager entityManager, WebFormSearch webFormSearch)
                     throws NoSuchWebFormParserException {
         // System.out.println("Class="+webFormSearch.getClass());
         if (webFormSearch.getClass().equals(PartSearch.class)) {
-            return new PartSearchParser();
+            return new PartSearchParser(entityManager);
         } else if (webFormSearch.getClass().equals(MaterialSearch.class)) {
-            return new MaterialSearchParser();
+            return new MaterialSearchParser(entityManager);
         } else if (webFormSearch.getClass().equals(MouldingProcessSearch.class)) {
-            return new MouldingProcessSearchParser();
+            return new MouldingProcessSearchParser(entityManager);
         } else {
             throw new NoSuchWebFormParserException("No Parser for class:"
                             + webFormSearch.getClass());

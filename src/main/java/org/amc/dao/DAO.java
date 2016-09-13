@@ -3,14 +3,12 @@ package org.amc.dao;
 import org.amc.DAOException;
 import org.amc.dao.parsers.NoSuchWebFormParserException;
 import org.amc.dao.parsers.WebFormSearchParserFactory;
-import org.amc.dao.parsers.WebFormSearchToJPQLParser;
+import org.amc.dao.parsers.WebFormSearchToQuery;
 import org.amc.model.WorkEntity;
-import org.amc.servlet.action.search.SearchFields;
 import org.amc.servlet.action.search.WebFormSearch;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,6 +16,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.OptimisticLockException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  * 
@@ -284,9 +283,16 @@ public class DAO<T extends WorkEntity> {
      * @throws DAOException
      *             if a problem occurs in the underlying database
      */
-    public List<T> findEntities(WebFormSearch search) throws DAOException {
+    public List<? extends WorkEntity> findEntities(WebFormSearch search) throws DAOException {
         try {
-            return getResultListUsingWebSearchForm(search);
+            if(search.isEmpty()) {
+                return Collections.emptyList();
+            }
+            
+            WebFormSearchToQuery parser = 
+                            WebFormSearchParserFactory.getWebFormSearchParser(getEntityManager(), search);
+            CriteriaQuery<? extends WorkEntity> query = parser.createCriteriaQuery(search);
+            return getEntityManager().createQuery(query).getResultList();
         } catch (PersistenceException pe) {
             LOG.error("DAO<" + entityClass.getSimpleName()
                             + ">:Error has occurred when trying to find entities");
@@ -296,58 +302,4 @@ public class DAO<T extends WorkEntity> {
             throw new DAOException(nswe);
         }
     }
-
-    private List<T> getResultListUsingWebSearchForm(WebFormSearch search)
-                    throws NoSuchWebFormParserException, PersistenceException {
-        String textQuery = parseWebFormSearch(search);
-        if (textQuery.length() == 0) {
-            return new ArrayList<T>();
-        }
-
-        LOG.debug("FindEntities(Search) query is :" + textQuery);
-
-        Query query = generateQueryFromWebForm(search, textQuery);
-        @SuppressWarnings("unchecked")
-        List<T> resultList = query.getResultList();
-        return resultList;
-    }
-
-    /**
-     * Creates a Query in String form
-     * 
-     * @param search
-     *            WebSearchForm to be parsed
-     * @return String query
-     * @throws NoSuchWebFormParserException
-     *             if an appropriate WebFormParser is not found
-     * @see {@link org.amc.servlet.action.search.WebFormSearch.WebFormSearchToJPQLParser
-     *      WebFormSearchToJPQLParser}
-     */
-    private String parseWebFormSearch(WebFormSearch search) throws NoSuchWebFormParserException {
-        WebFormSearchToJPQLParser parser = WebFormSearchParserFactory
-                        .getWebFormSearchParser(search);
-        return parser.parse(this.entityClass, search);
-    }
-
-    /**
-     * Generates a JPA Query from a WebFormSearch Object and Query String
-     * 
-     * @param search
-     *            a WebFormSearch containing the fields required to generate the
-     *            fields
-     * @param textQuery
-     *            A String query to be passed to the Query object
-     * @return A JPA Query
-     */
-    private Query generateQueryFromWebForm(WebFormSearch search, String textQuery) {
-        Query query = getEntityManager().createQuery(textQuery);
-        for (Iterator<SearchFields> i = search.getFields().iterator(); i.hasNext();) {
-            SearchFields currentField = i.next();
-            Object value = search.getField(currentField);
-            query.setParameter(currentField.name(), value);
-            LOG.debug("Setting field:" + currentField.name() + " to " + value.toString());
-        }
-        return query;
-    }
-
 }

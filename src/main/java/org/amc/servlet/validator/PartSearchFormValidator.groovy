@@ -1,7 +1,6 @@
 package org.amc.servlet.validator;
 
 import org.amc.servlet.action.search.PartSearch;
-import org.amc.servlet.model.PartSearchForm;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

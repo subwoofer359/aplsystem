@@ -1,5 +1,6 @@
 import org.amc.dao.DAO;
-import org.amc.model.Part;
+import org.amc.model.Part
+import org.amc.servlet.MainController;
 import org.amc.servlet.PartsModifyController;
 import org.amc.servlet.PartsSearchController;
 import org.amc.servlet.action.PartActionFactoryImpl;

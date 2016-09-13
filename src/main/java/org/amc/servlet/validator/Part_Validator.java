@@ -1,6 +1,7 @@
 package org.amc.servlet.validator;
 
-import org.amc.servlet.model.PartForm;
+import org.amc.model.Part;
+import org.amc.servlet.action.search.PartSearch;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @version 1
  */
 public class Part_Validator extends WebPageFormValidator {
-    public List<String> validate(PartForm form) {
+    public List<String> validate(Part form) {
         List<String> errors = getErrors();
         String name = form.getName();
         String colour = form.getColour();
