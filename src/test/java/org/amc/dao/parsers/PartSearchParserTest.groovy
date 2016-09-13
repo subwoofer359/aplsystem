@@ -12,7 +12,7 @@ import org.junit.Test;
     
 class PartSearchParserTest {
     static DatabaseFixture fixture = new DatabaseFixture();
-    static MouldProcessFixture mouldFixture;
+    static SearchParserFixture mouldFixture;
     DAO<Part> partDAO;
     PartSearch search;
     
@@ -53,7 +53,7 @@ class PartSearchParserTest {
     @BeforeClass
     static void setUpBeforeClass() {
         fixture.setUp();
-        mouldFixture = new MouldProcessFixture(fixture.getNewEntityManager());
+        mouldFixture = new SearchParserFixture(fixture.getNewEntityManager());
         mouldFixture.setup();
     }
     

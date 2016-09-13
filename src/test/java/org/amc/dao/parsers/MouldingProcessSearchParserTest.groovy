@@ -19,7 +19,7 @@ import javax.persistence.criteria.CriteriaQuery;;
 
 class MouldingProcessSearchParserTest {
     static DatabaseFixture fixture = new DatabaseFixture();
-    static MouldProcessFixture mouldFixture;
+    static SearchParserFixture mouldFixture;
     static Calendar calendar = Calendar.getInstance();
     
     DAO<MouldingProcess> mouldingDAO;
@@ -30,7 +30,7 @@ class MouldingProcessSearchParserTest {
     @BeforeClass
     static void setUpClass() {
         fixture.setUp();
-        mouldFixture = new MouldProcessFixture(fixture.getNewEntityManager());
+        mouldFixture = new SearchParserFixture(fixture.getNewEntityManager());
         mouldFixture.setup();
     } 
 

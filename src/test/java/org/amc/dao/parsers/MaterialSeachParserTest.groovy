@@ -12,7 +12,7 @@ import org.junit.Test;
 
 class MaterialSeachParserTest {
     static DatabaseFixture fixture = new DatabaseFixture();
-    static MouldProcessFixture mouldFixture;
+    static SearchParserFixture mouldFixture;
     
     DAO<Material> materialDAO;
     
@@ -21,7 +21,7 @@ class MaterialSeachParserTest {
     @BeforeClass
     static void setUpBeforeClass() {
         fixture.setUp();
-        mouldFixture = new MouldProcessFixture(fixture.getNewEntityManager());
+        mouldFixture = new SearchParserFixture(fixture.getNewEntityManager());
         mouldFixture.setup();
     }
     

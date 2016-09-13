@@ -8,7 +8,7 @@ import org.amc.model.mouldingprocess.BasicInfo;
 
 import javax.persistence.EntityManager;
 
-class MouldProcessFixture {
+class SearchParserFixture {
     final int daysInPast = -1;
     
     Calendar calendar = Calendar.getInstance();
@@ -18,7 +18,7 @@ class MouldProcessFixture {
     DAO<Material> materialDAO = new DAO<Material>(Material);
     DAO<MouldingProcess> mouldingDAO = new DAO<MouldingProcess>(MouldingProcess);
     
-    MouldProcessFixture(EntityManager em) {
+    SearchParserFixture(EntityManager em) {
         this.em = em;
         
         partDAO.entityManager = em;
