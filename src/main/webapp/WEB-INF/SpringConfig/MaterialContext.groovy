@@ -6,11 +6,7 @@ import org.amc.servlet.MaterialSearchController;
 import org.amc.servlet.action.MaterialActionFactoryImpl;
 
 
-beans {
-    APLProcessServlet(APLProcessServlet) {
-        materialActionFactory =  ref('materialActionFactory');
-    }
-    
+beans {    
     MaterialSaveController(MaterialSaveController) {
         materialActionFactory = ref('materialActionFactory');
     }
