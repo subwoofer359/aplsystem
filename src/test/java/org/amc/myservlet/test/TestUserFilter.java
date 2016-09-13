@@ -153,8 +153,8 @@ public class TestUserFilter {
             assertTrue(session.isInvalid());
             return;
         }
-        // Exception not thrown which is not expected
-        assertFalse(true);
+        
+        fail("Exception not thrown which is not expected");
 
     }
 }

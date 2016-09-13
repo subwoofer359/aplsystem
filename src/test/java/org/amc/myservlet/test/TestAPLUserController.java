@@ -39,7 +39,7 @@ import org.amc.DAOException;
 public class TestAPLUserController {
     
     @Mock
-    DAO<User> dao;
+    private DAO<User> dao;
 
     // Availible roles
     private static String[] ROLES = { Roles.MANAGER.toString(), Roles.GUEST.toString(), "user",

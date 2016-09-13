@@ -173,13 +173,8 @@ public class Part implements Serializable, WorkEntity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((colour == null) ? 0 : colour.hashCode());
-        result = prime * result + ((company == null) ? 0 : company.hashCode());
-        result = prime * result + (external ? 1231 : 1237);
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((part_id == null) ? 0 : part_id.hashCode());
-        result = prime * result + ((qss_no == null) ? 0 : qss_no.hashCode());
-        result = prime * result + ((revision == null) ? 0 : revision.hashCode());
         result = prime * result + ((version == null) ? 0 : version.hashCode());
         return result;
     }
@@ -193,18 +188,6 @@ public class Part implements Serializable, WorkEntity {
         if (getClass() != obj.getClass())
             return false;
         Part other = (Part) obj;
-        if (colour == null) {
-            if (other.colour != null)
-                return false;
-        } else if (!colour.equals(other.colour))
-            return false;
-        if (company == null) {
-            if (other.company != null)
-                return false;
-        } else if (!company.equals(other.company))
-            return false;
-        if (external != other.external)
-            return false;
         if (name == null) {
             if (other.name != null)
                 return false;
@@ -214,16 +197,6 @@ public class Part implements Serializable, WorkEntity {
             if (other.part_id != null)
                 return false;
         } else if (!part_id.equals(other.part_id))
-            return false;
-        if (qss_no == null) {
-            if (other.qss_no != null)
-                return false;
-        } else if (!qss_no.equals(other.qss_no))
-            return false;
-        if (revision == null) {
-            if (other.revision != null)
-                return false;
-        } else if (!revision.equals(other.revision))
             return false;
         if (version == null) {
             if (other.version != null)

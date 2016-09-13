@@ -41,7 +41,7 @@ public class SPCDataDAO extends DAO<SPCData> {
      */
     public void addEntities(SPCMeasurement measurement, List<SPCData> entities) throws DAOException {
         EntityManager manager = getEntityManager();
-        Connection connection = manager.unwrap(java.sql.Connection.class);
+        Connection connection = manager.unwrap(Connection.class);
         PreparedStatement statement = null;
         try {
             connection.setAutoCommit(false);

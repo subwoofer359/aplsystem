@@ -2,7 +2,6 @@ package org.amc.dao;
 
 import org.amc.DAOException;
 import org.amc.model.Part;
-import org.amc.model.WorkEntity;
 import org.amc.model.spc.SPCMeasurement;
 import org.apache.log4j.Logger;
 
