@@ -45,7 +45,6 @@ class MouldingProcessSearchController extends GenericSearchController<MouldingPr
     @InitBinder(['mouldingProcessSearch', 'PROCESSSEARCH'])
     void initBinder(WebDataBinder binder) {
         binder.addCustomFormatter(new MyDateFormatter());
-        binder.
         
     }
     

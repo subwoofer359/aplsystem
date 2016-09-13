@@ -44,24 +44,28 @@ public class Material implements Serializable, WorkEntity {
     @Column
     private float density;
     @Column
-    private float linear_expansion;
+    private float linearExpansion;
     @Column
-    private float water_absorption;
+    private float waterAbsorption;
     @Column
-    private float material_drying;
+    private float materialDrying;
     @Column
-    private float melting_temp_lower;
+    private float meltingTempLower;
     @Column
-    private float melting_temp_upper;
+    private float meltingTempUpper;
     @Column
-    private float mould_shrinkage;
+    private float mouldShrinkage;
     @Column
-    private float mould_temp_low;
+    private float mouldTempLow;
     @Column
-    private float mould_temp_upper;
+    private float mouldTempUpper;
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCompany() {
@@ -80,40 +84,36 @@ public class Material implements Serializable, WorkEntity {
         return density;
     }
 
-    public float getLinear_expansion() {
-        return linear_expansion;
+    public float getLinearExpansion() {
+        return linearExpansion;
     }
 
-    public float getWater_absorption() {
-        return water_absorption;
+    public float getWaterAbsorption() {
+        return waterAbsorption;
     }
 
-    public float getMaterial_drying() {
-        return material_drying;
+    public float getMaterialDrying() {
+        return materialDrying;
     }
 
-    public float getMelting_temp_lower() {
-        return melting_temp_lower;
+    public float getMeltingTempLower() {
+        return meltingTempLower;
     }
 
-    public float getMelting_temp_upper() {
-        return melting_temp_upper;
+    public float getMeltingTempUpper() {
+        return meltingTempUpper;
     }
 
-    public float getMould_shrinkage() {
-        return mould_shrinkage;
+    public float getMouldShrinkage() {
+        return mouldShrinkage;
     }
 
-    public float getMould_temp_low() {
-        return mould_temp_low;
+    public float getMouldTempLow() {
+        return mouldTempLow;
     }
 
-    public float getMould_temp_upper() {
-        return mould_temp_upper;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public float getMouldTempUpper() {
+        return mouldTempUpper;
     }
 
     public void setCompany(String company) {
@@ -132,36 +132,36 @@ public class Material implements Serializable, WorkEntity {
         this.density = density;
     }
 
-    public void setLinear_expansion(float linear_expansion) {
-        this.linear_expansion = linear_expansion;
+    public void setLinearExpansion(float linearExpansion) {
+        this.linearExpansion = linearExpansion;
     }
 
-    public void setWater_absorption(float water_absorption) {
-        this.water_absorption = water_absorption;
+    public void setWaterAbsorption(float waterAbsorption) {
+        this.waterAbsorption = waterAbsorption;
     }
 
-    public void setMaterial_drying(float material_drying) {
-        this.material_drying = material_drying;
+    public void setMaterialDrying(float materialDrying) {
+        this.materialDrying = materialDrying;
     }
 
-    public void setMelting_temp_lower(float melting_temp_lower) {
-        this.melting_temp_lower = melting_temp_lower;
+    public void setMeltingTempLower(float meltingTempLower) {
+        this.meltingTempLower = meltingTempLower;
     }
 
-    public void setMelting_temp_upper(float melting_temp_upper) {
-        this.melting_temp_upper = melting_temp_upper;
+    public void setMeltingTempUpper(float meltingTempUpper) {
+        this.meltingTempUpper = meltingTempUpper;
     }
 
-    public void setMould_shrinkage(float mould_shrinkage) {
-        this.mould_shrinkage = mould_shrinkage;
+    public void setMouldShrinkage(float mouldShrinkage) {
+        this.mouldShrinkage = mouldShrinkage;
     }
 
-    public void setMould_temp_low(float mould_temp_low) {
-        this.mould_temp_low = mould_temp_low;
+    public void setMouldTempLow(float mouldTempLow) {
+        this.mouldTempLow = mouldTempLow;
     }
 
-    public void setMould_temp_upper(float mould_temp_upper) {
-        this.mould_temp_upper = mould_temp_upper;
+    public void setMouldTempUpper(float mouldTempUpper) {
+        this.mouldTempUpper = mouldTempUpper;
     }
 
     @Override
