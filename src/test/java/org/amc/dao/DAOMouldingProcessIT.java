@@ -108,8 +108,8 @@ public class DAOMouldingProcessIT {
         search.setSignedOffBy("John Malone");
         try {
             List<?> result = action.search(search);
-            // assertNotNull(result);
-            // assertEquals(result.size(), 3);
+            assertNotNull(result);
+            assertEquals(result.size(), 3);
         } catch (DAOException de) {
             de.printStackTrace();
             fail("DAOException thrown");

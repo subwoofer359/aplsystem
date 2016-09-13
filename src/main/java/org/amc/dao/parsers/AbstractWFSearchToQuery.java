@@ -22,7 +22,7 @@ public abstract class AbstractWFSearchToQuery implements WebFormSearchToQuery {
         cb = entityManager.getCriteriaBuilder();
     }
     
-    CriteriaBuilder getCriteriaBuilder() {
+    public CriteriaBuilder getCriteriaBuilder() {
         return cb;
     }
     
@@ -101,19 +101,19 @@ public abstract class AbstractWFSearchToQuery implements WebFormSearchToQuery {
             return predicates.toArray(new Predicate[predicates.size()]);
         }
         
-        Expression<String> getExprStr(Root<? extends WorkEntity> process, String... fields) {
+        private Expression<String> getExprStr(Root<? extends WorkEntity> process, String... fields) {
             return getPath(process, fields).as(String.class);
         }
         
-        Expression<Date> getExprDate(Root<? extends WorkEntity> process, String... fields) {
+        private Expression<Date> getExprDate(Root<? extends WorkEntity> process, String... fields) {
             return getPath(process, fields).as(Date.class);
         }
         
-        Expression<?> getExpr(Root<? extends WorkEntity> process, Class<?> clazz, String... fields) {
+        private Expression<?> getExpr(Root<? extends WorkEntity> process, Class<?> clazz, String... fields) {
             return getPath(process, fields).as(clazz);
         }
         
-        Path<Object> getPath(Root<? extends WorkEntity> process, String... fields) {
+        private Path<Object> getPath(Root<? extends WorkEntity> process, String... fields) {
             Path<Object> path = null;
             for(String field : fields) {
                 if(path == null) {

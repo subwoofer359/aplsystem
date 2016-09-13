@@ -145,7 +145,7 @@ public class APLSpcDataController {
 
         LOG.debug("SPCDATA:" + spcDataList);
         // Fill in the missing values for SPCData
-        spcDataList.setDate(new java.sql.Date(System.currentTimeMillis()));
+        spcDataList.setDate(new Date(System.currentTimeMillis()));
         spcDataList.setUser((User) session.getAttribute(Constants.SESSIONVAR_USER));
         spcDataList.setSPCMeasurement((SPCMeasurement) session
                         .getAttribute(CURRENT_SPC_MEASUREMENT));

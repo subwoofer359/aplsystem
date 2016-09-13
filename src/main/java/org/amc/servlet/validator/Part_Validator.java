@@ -1,7 +1,6 @@
 package org.amc.servlet.validator;
 
 import org.amc.model.Part;
-import org.amc.servlet.action.search.PartSearch;
 
 import java.util.List;
 

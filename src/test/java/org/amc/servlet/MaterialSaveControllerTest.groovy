@@ -59,14 +59,14 @@ class MaterialSaveControllerTest {
         material.company = company;
         material.density = density;
         material.id = id;
-        material.linear_expansion = linearExpansion;
-        material.material_drying = material_drying;
-        material.melting_temp_lower = melting_temp_lower;
-        material.melting_temp_upper = melting_temp_upper;
-        material.mould_shrinkage = mould_shrinkage;
-        material.mould_temp_low = mould_temp_low;
-        material.mould_temp_upper = mould_temp_upper;
-        material.water_absorption = water_absorption;
+        material.linearExpansion = linearExpansion;
+        material.materialDrying = material_drying;
+        material.meltingTempLower = melting_temp_lower;
+        material.meltingTempUpper = melting_temp_upper;
+        material.mouldShrinkage = mould_shrinkage;
+        material.mouldTempLow = mould_temp_low;
+        material.mouldTempUpper = mould_temp_upper;
+        material.waterAbsorption = water_absorption;
         
         when(materialActionFactory.getSaveAction()).thenReturn(saveMaterialAction);
     }

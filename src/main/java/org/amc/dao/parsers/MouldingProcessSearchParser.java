@@ -21,7 +21,7 @@ import javax.persistence.criteria.Root;
  */
 public final class MouldingProcessSearchParser extends AbstractWFSearchToQuery {
     
-    CriteriaBuilder cb;
+    private CriteriaBuilder cb;
     public MouldingProcessSearchParser(EntityManager entityManager) {
         super(entityManager);
         cb = getCriteriaBuilder();

@@ -19,6 +19,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_roles")
 public class UserRoles implements Serializable, WorkEntity {
+    
+    private static final long serialVersionUID = -2856046345476419556L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

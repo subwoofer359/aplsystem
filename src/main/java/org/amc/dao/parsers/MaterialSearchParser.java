@@ -4,13 +4,11 @@ import org.amc.model.Material;
 import org.amc.servlet.action.search.MaterialSearch;
 import org.amc.servlet.action.search.WebFormSearch;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
+
 import javax.persistence.criteria.Root;
 
 public class MaterialSearchParser extends AbstractWFSearchToQuery {
