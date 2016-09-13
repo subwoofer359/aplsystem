@@ -12,6 +12,7 @@ public class WebFormSearchParserFactory {
      * Factory Class
      */
     private WebFormSearchParserFactory() {
+        throw new AssertionError(this.getClass().getName()+ " can't be instantiated");
     }
 
     public static final WebFormSearchToQuery getWebFormSearchParser(EntityManager entityManager, WebFormSearch webFormSearch)
