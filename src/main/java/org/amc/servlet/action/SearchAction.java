@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 public class SearchAction<T extends WorkEntity, S extends WebFormSearch> {
-    DAO<T> dao;
+    
+    private DAO<T> dao;
+    
     @Autowired
     public SearchAction(DAO<T> dao) {
         this.dao = dao;

@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +17,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Mockito.*;
 
@@ -30,7 +31,15 @@ import org.amc.Constants;
 import org.amc.Constants.Roles;
 import org.amc.DAOException;
 
+/**
+ *
+ * @author Adrian Mclaughlin
+ *
+ */
 public class TestAPLUserController {
+    
+    @Mock
+    DAO<User> dao;
 
     // Availible roles
     private static String[] ROLES = { Roles.MANAGER.toString(), Roles.GUEST.toString(), "user",
@@ -40,6 +49,7 @@ public class TestAPLUserController {
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         userServlet = new APLUserController();
     }
 
@@ -68,9 +78,6 @@ public class TestAPLUserController {
      */
     @Test
     public void testGetUsersPage() throws DAOException {
-        // Mock DAO object
-        DAO<User> dao = mock(DAO.class);
-
         // A User
         User u1 = getTestUser("adrian", "Adrian McLaughlin");
 
@@ -109,8 +116,6 @@ public class TestAPLUserController {
         // Create User
         User u1 = getTestUser("adrian", "Adrian McLaughlin");
 
-        // Create DAO objects
-        DAO<User> dao = mock(DAO.class);
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
         when(dao.getEntity(anyInt())).thenReturn(u1);
@@ -161,8 +166,6 @@ public class TestAPLUserController {
         User u1 = getTestUser("adrian", "Adrian McLaughlin");
         u1.setPassword(Constants.PASSWORD_DEFAULT);
 
-        // Create DAO objects
-        DAO<User> dao = mock(DAO.class);
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
         // when(dao.getEntity(anyString())).thenReturn(u1);
@@ -175,8 +178,10 @@ public class TestAPLUserController {
         BindingResult result = mock(BindingResult.class);
         when(result.hasErrors()).thenReturn(false);
 
+        
         Model m = mock(Model.class);
 
+        
         String returnedResult = userServlet.saveUser(m, u1, result, mode, active, roles, request);
 
         // Verify add user was called on UserDao object
@@ -187,10 +192,11 @@ public class TestAPLUserController {
         // Verify 3 roles were create for the user
         List<UserRoles> finalRoles = u1.getRoles();
         assertEquals(finalRoles.size(), roles.length);
-
+        
+        reset(dao);
         // Case 2: User has current 2 Roles but has no roles selected in page
         roles = new String[] {};
-        dao = mock(DAO.class);
+
         // when(dao.getEntity(anyString())).thenReturn(u1);
         userServlet.setUserDAO(dao);
         returnedResult = userServlet.saveUser(m, u1, result, mode, active, roles, request);
@@ -221,7 +227,7 @@ public class TestAPLUserController {
         String oldPassword = u1.getPassword();
         u1.setPassword(PASSWORD_DEFAULT);
         // Create DAO objects
-        DAO dao = mock(DAO.class);
+        
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
         when(dao.getEntity(anyInt())).thenReturn(getTestUser("adrian", "Adrian McLaughlin"));
@@ -262,8 +268,7 @@ public class TestAPLUserController {
         // Create User
         User u1 = getTestUser("adrian", "Adrian McLaughlin");
 
-        // Create DAO objects
-        DAO<User> dao = mock(DAO.class);
+
         UserRolesDAO roleDao = mock(UserRolesDAO.class);
         when(roleDao.getEntities(u1)).thenReturn(getUserRoles(2, u1));
         when(dao.getEntity(anyInt())).thenReturn(u1);
@@ -299,8 +304,6 @@ public class TestAPLUserController {
         // Create User
         User u1 = getTestUser("adrian", "Adrian McLaughlin");
 
-        // Create DAO objects
-        DAO<User> dao = mock(DAO.class);
         when(dao.getEntity(anyInt())).thenReturn(u1);
         // Inject DAOs
         userServlet.setUserDAO(dao);
@@ -329,7 +332,6 @@ public class TestAPLUserController {
         User u1 = getTestUser("adrian", "Adrian McLaughlin");
 
         // Create DAO objects
-        DAO<User> dao = mock(DAO.class);
         when(dao.getEntity(anyInt())).thenReturn(u1);
         // Inject DAOs
         userServlet.setUserDAO(dao);
@@ -354,7 +356,6 @@ public class TestAPLUserController {
         final String existingUsername = "adrian";
         HttpServletResponse response = mock(HttpServletResponse.class);
         PrintWriter writer = mock(PrintWriter.class);
-        DAO<User> dao = mock(DAO.class);
         List<User> users = new ArrayList<User>();
 
         users.add(new User());
@@ -377,7 +378,6 @@ public class TestAPLUserController {
         final String username = "nonusername";
         HttpServletResponse response = mock(HttpServletResponse.class);
         PrintWriter writer = mock(PrintWriter.class);
-        DAO<User> dao = mock(DAO.class);
         List<User> users = new ArrayList<User>();
 
         this.userServlet.setUserDAO(dao);
@@ -399,7 +399,7 @@ public class TestAPLUserController {
         final String username = "";
         HttpServletResponse response = mock(HttpServletResponse.class);
         PrintWriter writer = mock(PrintWriter.class);
-        DAO<User> dao = mock(DAO.class);
+
         List<User> users = new ArrayList<User>();
 
         this.userServlet.setUserDAO(dao);
