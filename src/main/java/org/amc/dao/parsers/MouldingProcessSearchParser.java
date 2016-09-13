@@ -5,15 +5,11 @@ import org.amc.servlet.action.search.MouldingProcessSearch;
 
 import org.amc.servlet.action.search.WebFormSearch;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -23,72 +19,50 @@ import javax.persistence.criteria.Root;
  * @version 1
  *
  */
-public final class MouldingProcessSearchParser implements WebFormSearchToJPQLParser {
-
+public final class MouldingProcessSearchParser extends AbstractWFSearchToQuery {
+    
+    CriteriaBuilder cb;
+    public MouldingProcessSearchParser(EntityManager entityManager) {
+        super(entityManager);
+        cb = getCriteriaBuilder();
+    }
+    
     @Override
-    public CriteriaQuery<MouldingProcess> createCriteriaQuery(EntityManager enManager, WebFormSearch webFormSearch) {
+    public CriteriaQuery<MouldingProcess> createCriteriaQuery(WebFormSearch webFormSearch) {
         MouldingProcessSearch search = (MouldingProcessSearch) webFormSearch;
         
-        CriteriaBuilder cb = enManager.getCriteriaBuilder();
         CriteriaQuery<MouldingProcess> cQuery = cb.createQuery(MouldingProcess.class);
         Root<MouldingProcess> process = cQuery.from(MouldingProcess.class);
+        
+        QueryBuilder builder = new QueryBuilder(cb, process);
   
         if(!search.isEmpty()) {
+            
+            builder.equalStringField(search.getPartId(), "basicInfo", "partId", "name");
            
+            builder.equalStringField(search.getMachineNo(), "basicInfo", "machineNo");
             
-            List<Predicate> predicates = new ArrayList<Predicate>();
+            builder.likeStringField(search.getMasterBatchNo(), "basicInfo", "masterbatchNo");
             
-            if(search.getPartId() !=null ){
-                Predicate partQuery = cb.equal(process.get("basicInfo").get("partId").get("name").as(String.class),
-                            search.getPartId());
-                predicates.add(partQuery);
-            }
-            
-            if(search.getMachineNo() != null) {
-                Predicate machineNoQuery = cb.equal(process.get("basicInfo").get("machineNo").as(String.class), 
-                            search.getMachineNo());
-                predicates.add(machineNoQuery);
-            }
-            
-            if(search.getMasterBatchNo() != null) {
-                Predicate masterbatchQuery = cb.like(process.get("basicInfo").get("masterbatchNo").as(String.class), 
-                                search.getMasterBatchNo());
-                predicates.add(masterbatchQuery);
-            }
-            
-            if(search.getSignedOffBy() != null) {
-                Predicate signOffQuery = cb.like(process.get("basicInfo").get("signOffBy").as(String.class), 
-                                search.getSignedOffBy());
-                predicates.add(signOffQuery);
-            }
-            
-            if(search.getMaterial() != null) {
-                Predicate signOffQuery = cb.equal(process.get("basicInfo").get("material").get("id").as(Integer.class), 
-                                search.getMaterial());
-                predicates.add(signOffQuery);
-            }
-            
+            builder.likeStringField(search.getSignedOffBy(), "basicInfo", "signOffBy");
+                        
+            builder.equalField(search.getMaterial(), Integer.class, "basicInfo", "material", "id");
+             
             if(search.getStartDate() != null) {
-                Predicate dateQuery;
                 Date startDate = search.getStartDate();
                 Date endDate = search.getEndDate();
                 if(endDate == null) {
-                    dateQuery = cb.equal(process.get("basicInfo").get("dateOfIssue"), search.getStartDate());
+                    builder.equalField(search.getStartDate(), Date.class, "basicInfo", "dateOfIssue");
                     
                 } else {
-                    dateQuery = cb.between(process.get("basicInfo").get("dateOfIssue").as(Date.class), startDate, endDate);
+                    builder.betweenDates(startDate, endDate, "basicInfo", "dateOfIssue");
                 }
-                predicates.add(dateQuery);
-    
             }
             
-            cQuery.where(cb.and(predicates.toArray(new Predicate[predicates.size()])));
+            cQuery.where(cb.and(builder.getArrayOfPredicates()));
             cQuery.select(process);
         }
         
         return cQuery;
     }
-    
-    
-
 }

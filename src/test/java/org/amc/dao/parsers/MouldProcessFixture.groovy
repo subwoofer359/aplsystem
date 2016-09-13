@@ -64,14 +64,24 @@ class MouldProcessFixture {
     }
     
     void setupAndAddMaterialsToDB() {
-        Material m = new Material(
-              company: 'Exxon Mobil',
-              name: 'High Density PolyPropylene',
-              type: 'HDPP',
-              density: 2.0f,  
-        );
+        List materials = [
+                new Material(
+                    company: 'Exxon Mobil',
+                    name: 'High Density PolyPropylene',
+                    type: 'HDPP',
+                    density: 2.0f,  
+                ),
+                new Material(
+                    company: 'Sabic',
+                    name: 'Low Density PolyPropylene',
+                    type: 'LDPE',
+                    density: 1.2f,
+                )
+            ];
     
-        materialDAO.addEntity(m);
+        materials.each {
+            materialDAO.addEntity(it);
+        }
     }
     
     void setupAndMouldingProcessToDB() {

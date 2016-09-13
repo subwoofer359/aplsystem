@@ -3,7 +3,7 @@ package org.amc.dao;
 import org.amc.DAOException;
 import org.amc.dao.parsers.NoSuchWebFormParserException;
 import org.amc.dao.parsers.WebFormSearchParserFactory;
-import org.amc.dao.parsers.WebFormSearchToJPQLParser;
+import org.amc.dao.parsers.WebFormSearchToQuery;
 import org.amc.model.WorkEntity;
 import org.amc.servlet.action.search.WebFormSearch;
 import org.apache.log4j.Logger;
@@ -289,8 +289,9 @@ public class DAO<T extends WorkEntity> {
                 return Collections.emptyList();
             }
             
-            WebFormSearchToJPQLParser parser = WebFormSearchParserFactory.getWebFormSearchParser(search);
-            CriteriaQuery<? extends WorkEntity> query = parser.createCriteriaQuery(getEntityManager(), search);
+            WebFormSearchToQuery parser = 
+                            WebFormSearchParserFactory.getWebFormSearchParser(getEntityManager(), search);
+            CriteriaQuery<? extends WorkEntity> query = parser.createCriteriaQuery(search);
             return getEntityManager().createQuery(query).getResultList();
         } catch (PersistenceException pe) {
             LOG.error("DAO<" + entityClass.getSimpleName()

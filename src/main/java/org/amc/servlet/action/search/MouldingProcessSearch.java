@@ -1,7 +1,5 @@
 package org.amc.servlet.action.search;
 
-import org.amc.model.Material;
-
 import java.util.Date;
 
 public class MouldingProcessSearch extends WebFormSearch {
