@@ -16,7 +16,7 @@ class MyDateFormatter extends DateFormatter{
     @Override
     public Date parse(String text, Locale locale) throws ParseException {
         if(''.equals(text)) {
-            return new Date();
+            return null;
         } else {
             return super.parse(text, locale);
         }

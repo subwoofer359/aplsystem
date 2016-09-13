@@ -14,8 +14,12 @@ class WebFormSearchParserFactoryTest {
     }
     
     
-    static class NotImplementedWebForm extends WebFormSearch
+    static class NotImplementedWebForm implements WebFormSearch
     {
-         //No implementation needed 
+
+        @Override
+        public boolean isEmpty() {
+            return true;
+        }
     }
 }
